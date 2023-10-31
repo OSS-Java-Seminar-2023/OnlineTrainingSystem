@@ -75,9 +75,7 @@ The primary objective of this application is to facilitate the connection betwee
   - Clients have the ability to download their training programs in PDF format.
 
 ## Database⛓🔑
-![db](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/4a86771d-94e0-44e9-b18a-b663963f064e)
-
-
+![db](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/3e7c7429-862b-4661-b70b-9050c1a829df)
 
 
 ## Technologies🖥
@@ -89,7 +87,7 @@ The primary objective of this application is to facilitate the connection betwee
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original-wordmark.svg" height="70"/>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original-wordmark.svg" height="70" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="70" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg" height="70"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original-wordmark.svg" height="70" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original-wordmark.svg" height="70"/>
 
     
