@@ -5,22 +5,22 @@ CREATE TYPE difficulty_enum AS ENUM ('very easy', 'easy', 'moderate', 'hard', 'v
 
 CREATE TABLE Users (
     user_id serial PRIMARY KEY,
-    first_name varchar(30),
-    last_name varchar(30),
-    email varchar(30),
-    address text,
+    first_name varchar(30) NOT NULL,
+    last_name varchar(30) NOT NULL,
+    email varchar(30) NOT NULL,
+    address text NOT NULL,
     phone_number varchar(20),
     gender gender_enum,
-    age integer
+    age integer NOT NULL
 );
 
 
 CREATE TABLE Coach (
     coach_id serial PRIMARY KEY,
     user_id integer REFERENCES Users(user_id),
-    years_of_experience integer,
-    education text,
-    monthly_price numeric(10, 2)
+    years_of_experience integer NOT NULL,
+    education text NOT NULL,
+    monthly_price numeric(10, 2) NOT NULL
 );
 
 
@@ -34,12 +34,12 @@ CREATE TABLE Client (
 
 CREATE TABLE Measurement (
     measurement_id serial PRIMARY KEY,
-    body_weight numeric(6, 2),
-    body_fat numeric(5, 2),
-    waist_circumference numeric(5, 2),
-    chest_circumference numeric(5, 2),
-    arm_circumference numeric(5, 2),
-    leg_circumference numeric(5, 2)
+    body_weight numeric(6, 2) NOT NULL,
+    body_fat numeric(5, 2) NOT NULL,
+    waist_circumference numeric(5, 2) NOT NULL,
+    chest_circumference numeric(5, 2) NOT NULL,
+    arm_circumference numeric(5, 2) NOT NULL,
+    leg_circumference numeric(5, 2) NOT NULL
 );
 
 CREATE TABLE Contract (
@@ -48,26 +48,26 @@ CREATE TABLE Contract (
     client_id integer REFERENCES Client(client_id),
     starting_measurement_id integer REFERENCES Measurement(measurement_id),
     goal_measurement_id integer REFERENCES Measurement(measurement_id),
-    start_date date,
-    end_date date,
-    monthly_price numeric(10, 2)
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    monthly_price numeric(10, 2) NOT NULL
 );
 
 CREATE TABLE Workout (
     workout_id serial PRIMARY KEY,
     contract_id integer REFERENCES Contract(contract_id),
-    number_of_exercises integer,
-    warming_up_time_in_seconds integer,
-    number_of_sets integer,
-    pause_between_sets_in_seconds integer,
+    number_of_exercises integer NOT NULL,
+    warming_up_time_in_seconds integer NOT NULL,
+    number_of_sets integer NOT NULL,
+    pause_between_sets_in_seconds integer NOT NULL,
     self_rating integer
 );
 
 CREATE TABLE Exercise (
     exercise_id serial PRIMARY KEY,
-    name varchar(30),
-    description text,
-    equipment_needed text,
+    name varchar(30) NOT NULL,
+    description text NOT NULL,
+    equipment_needed text NOT NULL,
     difficulty_level difficulty_enum
 );
 
@@ -75,7 +75,7 @@ CREATE TABLE WorkoutSession (
     workout_session_id serial PRIMARY KEY,
     workout_id integer REFERENCES Workout(workout_id),
     exercise_id integer REFERENCES Exercise(exercise_id),
-    number_of_reps integer,
-    pause_after_exercise_in_seconds integer,
-    weight numeric(6, 2)
+    number_of_reps integer NOT NULL,
+    pause_after_exercise_in_seconds integer NOT NULL,
+    weight numeric(6, 2) NOT NULL
 );
