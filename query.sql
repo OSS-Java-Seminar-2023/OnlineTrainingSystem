@@ -10,7 +10,7 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Coach (
-    coach_id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     user_id UUID REFERENCES Users(id),
     years_of_experience INTEGER NOT NULL,
     education TEXT NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE Measurement (
 
 CREATE TABLE Contract (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    coach_id UUID REFERENCES Coach(coach_id),
+    coach_id UUID REFERENCES Coach(id),
     client_id UUID REFERENCES Client(id),
     starting_measurement_id UUID REFERENCES Measurement(id),
     goal_measurement_id UUID REFERENCES Measurement(id),
