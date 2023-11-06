@@ -1,81 +1,73 @@
-
-CREATE TYPE gender_enum AS ENUM ('male', 'female');
-CREATE TYPE difficulty_enum AS ENUM ('very easy', 'easy', 'moderate', 'hard', 'very hard');
-
-
 CREATE TABLE Users (
-    user_id serial PRIMARY KEY,
-    first_name varchar(30) NOT NULL,
-    last_name varchar(30) NOT NULL,
-    email varchar(30) NOT NULL,
-    address text NOT NULL,
-    phone_number varchar(20),
-    gender gender_enum,
-    age integer NOT NULL
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
+    email VARCHAR(30) NOT NULL,
+    address TEXT NOT NULL,
+    phone_number VARCHAR(20),
+    gender VARCHAR(10) NOT NULL,
+    age INTEGER NOT NULL
 );
-
 
 CREATE TABLE Coach (
-    coach_id serial PRIMARY KEY,
-    user_id integer REFERENCES Users(user_id),
-    years_of_experience integer NOT NULL,
-    education text NOT NULL,
-    monthly_price numeric(10, 2) NOT NULL
+    coach_id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    user_id UUID REFERENCES Users(id),
+    years_of_experience INTEGER NOT NULL,
+    education TEXT NOT NULL,
+    monthly_price NUMERIC(10, 2) NOT NULL
 );
-
 
 CREATE TABLE Client (
-    client_id serial PRIMARY KEY,
-    user_id integer REFERENCES Users(user_id),
-    medical_condition text,
-    injuries text
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    user_id UUID REFERENCES Users(id),
+    medical_condition TEXT,
+    injuries TEXT
 );
 
-
 CREATE TABLE Measurement (
-    measurement_id serial PRIMARY KEY,
-    body_weight numeric(6, 2) NOT NULL,
-    body_fat numeric(5, 2) NOT NULL,
-    waist_circumference numeric(5, 2) NOT NULL,
-    chest_circumference numeric(5, 2) NOT NULL,
-    arm_circumference numeric(5, 2) NOT NULL,
-    leg_circumference numeric(5, 2) NOT NULL
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    body_weight NUMERIC(6, 2) NOT NULL,
+    body_fat NUMERIC(5, 2) NOT NULL,
+    waist_circumference NUMERIC(5, 2) NOT NULL,
+    chest_circumference NUMERIC(5, 2) NOT NULL,
+    arm_circumference NUMERIC(5, 2) NOT NULL,
+    leg_circumference NUMERIC(5, 2) NOT NULL
 );
 
 CREATE TABLE Contract (
-    contract_id serial PRIMARY KEY,
-    coach_id integer REFERENCES Coach(coach_id),
-    client_id integer REFERENCES Client(client_id),
-    starting_measurement_id integer REFERENCES Measurement(measurement_id),
-    goal_measurement_id integer REFERENCES Measurement(measurement_id),
-    start_date date NOT NULL,
-    end_date date NOT NULL,
-    monthly_price numeric(10, 2) NOT NULL
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    coach_id UUID REFERENCES Coach(coach_id),
+    client_id UUID REFERENCES Client(id),
+    starting_measurement_id UUID REFERENCES Measurement(id),
+    goal_measurement_id UUID REFERENCES Measurement(id),
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    monthly_price NUMERIC(10, 2) NOT NULL
 );
 
 CREATE TABLE Workout (
-    workout_id serial PRIMARY KEY,
-    contract_id integer REFERENCES Contract(contract_id),
-    number_of_exercises integer NOT NULL,
-    warming_up_time_in_seconds integer NOT NULL,
-    number_of_sets integer NOT NULL,
-    pause_between_sets_in_seconds integer NOT NULL,
-    self_rating integer
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    contract_id UUID REFERENCES Contract(id),
+    number_of_exercises INTEGER NOT NULL,
+    warming_up_time_in_seconds INTEGER NOT NULL,
+    number_of_sets INTEGER NOT NULL,
+    pause_between_sets_in_seconds INTEGER NOT NULL,
+    self_rating INTEGER
 );
 
 CREATE TABLE Exercise (
-    exercise_id serial PRIMARY KEY,
-    name varchar(30) NOT NULL,
-    description text NOT NULL,
-    equipment_needed text NOT NULL,
-    difficulty_level difficulty_enum
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    description TEXT NOT NULL,
+    equipment_needed TEXT NOT NULL,
+    difficulty_level VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE WorkoutSession (
-    workout_session_id serial PRIMARY KEY,
-    workout_id integer REFERENCES Workout(workout_id),
-    exercise_id integer REFERENCES Exercise(exercise_id),
-    number_of_reps integer NOT NULL,
-    pause_after_exercise_in_seconds integer NOT NULL,
-    weight numeric(6, 2) NOT NULL
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    workout_id UUID REFERENCES Workout(id),
+    exercise_id UUID REFERENCES Exercise(id),
+    number_of_reps INTEGER NOT NULL,
+    pause_after_exercise_in_seconds INTEGER NOT NULL,
+    weight NUMERIC(6, 2) NOT NULL
 );
