@@ -1,34 +1,32 @@
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
-
-
-CREATE TABLE Users (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+CREATE TABLE "User" (
+    id VARCHAR(50) PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     email VARCHAR(30) NOT NULL,
     address TEXT NOT NULL,
-    phone_number VARCHAR(20),
+    phone_number VARCHAR(20) NOT NULL,
     gender VARCHAR(10) NOT NULL,
-    age INTEGER NOT NULL
+    age INTEGER NOT NULL,
+    password VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE Coach (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    user_id UUID REFERENCES Users(id),
+    id VARCHAR(50) PRIMARY KEY,
+    user_id VARCHAR(50) REFERENCES "User"(id),
     years_of_experience INTEGER NOT NULL,
     education TEXT NOT NULL,
     monthly_price NUMERIC(10, 2) NOT NULL
 );
 
 CREATE TABLE Client (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    user_id UUID REFERENCES Users(id),
+    id VARCHAR(50) PRIMARY KEY,
+    user_id VARCHAR(50) REFERENCES "User"(id),
     medical_condition TEXT,
     injuries TEXT
 );
 
 CREATE TABLE Measurement (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    id VARCHAR(50) PRIMARY KEY,
     body_weight NUMERIC(6, 2) NOT NULL,
     body_fat NUMERIC(5, 2) NOT NULL,
     waist_circumference NUMERIC(5, 2) NOT NULL,
@@ -38,19 +36,19 @@ CREATE TABLE Measurement (
 );
 
 CREATE TABLE Contract (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    coach_id UUID REFERENCES Coach(id),
-    client_id UUID REFERENCES Client(id),
-    starting_measurement_id UUID REFERENCES Measurement(id),
-    goal_measurement_id UUID REFERENCES Measurement(id),
+    id VARCHAR(50) PRIMARY KEY,
+    coach_id VARCHAR(50) REFERENCES Coach(id),
+    client_id VARCHAR(50) REFERENCES Client(id),
+    starting_measurement_id VARCHAR(50) REFERENCES Measurement(id),
+    goal_measurement_id VARCHAR(50) REFERENCES Measurement(id),
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     monthly_price NUMERIC(10, 2) NOT NULL
 );
 
 CREATE TABLE Workout (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    contract_id UUID REFERENCES Contract(id),
+    id VARCHAR(50) PRIMARY KEY,
+    contract_id VARCHAR(50) REFERENCES Contract(id),
     number_of_exercises INTEGER NOT NULL,
     warming_up_time_in_seconds INTEGER NOT NULL,
     number_of_sets INTEGER NOT NULL,
@@ -59,7 +57,7 @@ CREATE TABLE Workout (
 );
 
 CREATE TABLE Exercise (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    id VARCHAR(50) PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
     description TEXT NOT NULL,
     equipment_needed TEXT NOT NULL,
@@ -67,9 +65,9 @@ CREATE TABLE Exercise (
 );
 
 CREATE TABLE WorkoutSession (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    workout_id UUID REFERENCES Workout(id),
-    exercise_id UUID REFERENCES Exercise(id),
+    id VARCHAR(50) PRIMARY KEY,
+    workout_id VARCHAR(50) REFERENCES Workout(id),
+    exercise_id VARCHAR(50) REFERENCES Exercise(id),
     number_of_reps INTEGER NOT NULL,
     pause_after_exercise_in_seconds INTEGER NOT NULL,
     weight NUMERIC(6, 2) NOT NULL

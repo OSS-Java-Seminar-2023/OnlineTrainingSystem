@@ -1,25 +1,20 @@
-package com.training.OnlineTraining.models;
+package com.training.OnlineTraining.model;
 
 import javax.persistence.*;
 import lombok.*;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "Client")
+@Data
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, columnDefinition = "UUID")
-    private String id = UUID.randomUUID().toString();
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Users user;
+    private User user;
 
     @Column(name = "medical_condition", columnDefinition = "TEXT")
     private String medicalCondition;

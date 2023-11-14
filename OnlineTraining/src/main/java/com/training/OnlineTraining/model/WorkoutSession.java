@@ -1,22 +1,18 @@
-package com.training.OnlineTraining.models;
+package com.training.OnlineTraining.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@Table(name = "WorkoutSession")
+@Data
 public class WorkoutSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, columnDefinition = "UUID")
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "workout_id", referencedColumnName = "id", nullable = false)
@@ -26,12 +22,12 @@ public class WorkoutSession {
     @JoinColumn(name = "exercise_id", referencedColumnName = "id", nullable = false)
     private Exercise exercise;
 
-    @Column(name = "number_of_reps", nullable = false)
+    @Column(name = "number_of_reps")
     private Integer numberOfReps;
 
-    @Column(name = "pause_after_exercise_in_seconds", nullable = false)
+    @Column(name = "pause_after_exercise_in_seconds")
     private Integer pauseAfterExerciseInSeconds;
 
-    @Column(name = "weight", nullable = false, precision = 6, scale = 2)
+    @Column
     private BigDecimal weight;
 }

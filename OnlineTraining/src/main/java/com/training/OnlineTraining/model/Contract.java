@@ -1,7 +1,6 @@
-package com.training.OnlineTraining.models;
+package com.training.OnlineTraining.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -9,15 +8,12 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 @Entity
-@Getter
-@Setter
-@Table(name = "Contract")
+@Data
 public class Contract {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, columnDefinition = "UUID")
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "coach_id", referencedColumnName = "id")
@@ -35,12 +31,12 @@ public class Contract {
     @JoinColumn(name = "goal_measurement_id", referencedColumnName = "id")
     private Measurement goalMeasurement;
 
-    @Column(name = "start_date", nullable = false)
+    @Column(name = "start_date")
     private Date startDate;
 
-    @Column(name = "end_date", nullable = false)
+    @Column(name = "end_date")
     private Date endDate;
 
-    @Column(name = "monthly_price", nullable = false, precision = 10, scale = 2)
+    @Column(name = "monthly_price")
     private BigDecimal monthlyPrice;
 }
