@@ -75,7 +75,8 @@ The primary objective of this application is to facilitate the connection betwee
   - Clients have the ability to download their training programs in PDF format.
 
 ## Database⛓🔑
-![db](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/3e7c7429-862b-4661-b70b-9050c1a829df)
+![BAZA drawio](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/52af535a-d222-4398-804b-2781bc01365c)
+
 
 
 ## Technologies🖥
