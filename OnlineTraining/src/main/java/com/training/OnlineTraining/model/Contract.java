@@ -2,7 +2,7 @@ package com.training.OnlineTraining.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.UUID;
 import java.math.BigDecimal;
 import java.sql.Date;
