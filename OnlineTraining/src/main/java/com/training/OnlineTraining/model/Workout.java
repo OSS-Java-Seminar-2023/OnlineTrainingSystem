@@ -7,6 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Data
+@Table
 public class Workout {
 
     @Id

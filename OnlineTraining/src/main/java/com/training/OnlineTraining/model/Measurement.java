@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
+@Table
 public class Measurement {
 
     @Id

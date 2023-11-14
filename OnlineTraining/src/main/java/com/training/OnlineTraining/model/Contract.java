@@ -9,6 +9,7 @@ import java.sql.Date;
 
 @Entity
 @Data
+@Table
 public class Contract {
 
     @Id
