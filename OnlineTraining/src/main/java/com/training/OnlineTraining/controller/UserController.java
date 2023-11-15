@@ -1,21 +1,58 @@
 package com.training.OnlineTraining.controller;
 
+import com.training.OnlineTraining.model.*;
+import com.training.OnlineTraining.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
 @Controller
 public class UserController {
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/register")
-    public String getRegisterPage(){
+    public String getRegisterPage(Model model) {
+        model.addAttribute("registerRequest", new User());
         return "register_page";
     }
 
     @GetMapping("/login")
-    public String getLoginPage(){
+    public String getLoginPage(Model model) {
+        model.addAttribute("loginRequest", new User());
         return "login_page";
     }
+
+    @GetMapping("/user-page")
+    public String getUserPage() {
+        return "user_page";
+    }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute User user) {
+        User registeredUser = userService.registerUser(
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getAddress(),
+                user.getPhoneNumber(),
+                user.getGender(),
+                user.getAge(),
+                user.getPassword());
+        System.out.println("REGISTERED USER " + registeredUser);
+        return registeredUser == null ? "error_page" : "redirect:/login";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute User user) {
+        System.out.println("login request " + user);
+        User authenticated = userService.authenticate(user.getEmail(), user.getPassword());
+        return authenticated == null ? "error_page" : "redirect:/user-page";
+    }
+
 
 }
 

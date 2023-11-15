@@ -2,16 +2,19 @@ package com.training.OnlineTraining.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.UUID;
 
-@Table
 @Entity
+@Table(name = "user", schema = "public")
 @Data
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private UUID id;
+
 
     @Column(name = "first_name")
     private String firstName;
@@ -19,21 +22,21 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column
+    @Column(name = "email")
     private String email;
 
-    @Column
+    @Column(name = "address")
     private String address;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column
+    @Column(name = "gender")
     private String gender;
 
-    @Column
+    @Column(name = "age")
     private Integer age;
 
-    @Column
+    @Column(name = "password")
     private String password;
 }

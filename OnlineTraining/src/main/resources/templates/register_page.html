@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
 
 <h2>User Registration Form</h2>
 
-<form>
+<form action="/register" method="POST" th:object="${registerRequest}">
     <label for="firstName">First Name:</label>
     <input type="text" id="firstName" name="firstName" required><br>
 

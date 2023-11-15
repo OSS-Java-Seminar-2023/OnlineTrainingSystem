@@ -1,5 +1,5 @@
-CREATE TABLE "User" (
-    id VARCHAR(50) PRIMARY KEY,
+CREATE TABLE "user" (
+    id UUID PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     email VARCHAR(30) NOT NULL,
@@ -11,22 +11,22 @@ CREATE TABLE "User" (
 );
 
 CREATE TABLE Coach (
-    id VARCHAR(50) PRIMARY KEY,
-    user_id VARCHAR(50) REFERENCES "User"(id),
+    id UUID PRIMARY KEY,
+    user_id UUID REFERENCES "user"(id),
     years_of_experience INTEGER NOT NULL,
     education TEXT NOT NULL,
     monthly_price NUMERIC(10, 2) NOT NULL
 );
 
 CREATE TABLE Client (
-    id VARCHAR(50) PRIMARY KEY,
-    user_id VARCHAR(50) REFERENCES "User"(id),
+    id UUID PRIMARY KEY,
+    user_id UUID REFERENCES "user"(id),
     medical_condition TEXT,
     injuries TEXT
 );
 
 CREATE TABLE Measurement (
-    id VARCHAR(50) PRIMARY KEY,
+    id UUID PRIMARY KEY,
     body_weight NUMERIC(6, 2) NOT NULL,
     body_fat NUMERIC(5, 2) NOT NULL,
     waist_circumference NUMERIC(5, 2) NOT NULL,
@@ -36,19 +36,19 @@ CREATE TABLE Measurement (
 );
 
 CREATE TABLE Contract (
-    id VARCHAR(50) PRIMARY KEY,
-    coach_id VARCHAR(50) REFERENCES Coach(id),
-    client_id VARCHAR(50) REFERENCES Client(id),
-    starting_measurement_id VARCHAR(50) REFERENCES Measurement(id),
-    goal_measurement_id VARCHAR(50) REFERENCES Measurement(id),
+    id UUID PRIMARY KEY,
+    coach_id UUID REFERENCES Coach(id),
+    client_id UUID REFERENCES Client(id),
+    starting_measurement_id UUID REFERENCES Measurement(id),
+    goal_measurement_id UUID REFERENCES Measurement(id),
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     monthly_price NUMERIC(10, 2) NOT NULL
 );
 
 CREATE TABLE Workout (
-    id VARCHAR(50) PRIMARY KEY,
-    contract_id VARCHAR(50) REFERENCES Contract(id),
+    id UUID PRIMARY KEY,
+    contract_id UUID REFERENCES Contract(id),
     number_of_exercises INTEGER NOT NULL,
     warming_up_time_in_seconds INTEGER NOT NULL,
     number_of_sets INTEGER NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE Workout (
 );
 
 CREATE TABLE Exercise (
-    id VARCHAR(50) PRIMARY KEY,
+    id UUID PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
     description TEXT NOT NULL,
     equipment_needed TEXT NOT NULL,
@@ -65,9 +65,9 @@ CREATE TABLE Exercise (
 );
 
 CREATE TABLE WorkoutSession (
-    id VARCHAR(50) PRIMARY KEY,
-    workout_id VARCHAR(50) REFERENCES Workout(id),
-    exercise_id VARCHAR(50) REFERENCES Exercise(id),
+    id UUID PRIMARY KEY,
+    workout_id UUID REFERENCES Workout(id),
+    exercise_id UUID REFERENCES Exercise(id),
     number_of_reps INTEGER NOT NULL,
     pause_after_exercise_in_seconds INTEGER NOT NULL,
     weight NUMERIC(6, 2) NOT NULL

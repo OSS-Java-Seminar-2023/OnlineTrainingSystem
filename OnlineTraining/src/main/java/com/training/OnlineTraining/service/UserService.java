@@ -22,6 +22,9 @@ public class UserService {
 
         if (areInputsValid(firstName, lastName, email, address, phoneNumber, gender, age, password)) {
             return null;
+        } else if (userRepository.findByEmail(email).isPresent()) {
+            System.out.println("Duplicate email");
+            return null;
         }
 
         User user = new User();
@@ -37,7 +40,12 @@ public class UserService {
     }
 
     public User authenticate(String email, String password){
-        return userRepository.findByEmailAndPassword(email, password).orElse(null);
+        return userRepository.findByEmailAndPassword(email, password)
+                .map(user -> {
+                    user.setId(UUID.fromString(user.getId().toString()));
+                    return user;
+                })
+                .orElse(null);
     }
 
 }
