@@ -12,31 +12,37 @@
 
 <form action="/register" method="POST" th:object="${registerRequest}">
     <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" required><br>
+    <input type="text" id="firstName" name="firstName" th:value="${registerRequest.firstName}" required><br>
 
     <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" required><br>
+    <input type="text" id="lastName" name="lastName" th:value="${registerRequest.lastName}" required><br>
 
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
+    <input type="email" id="email" name="email" th:value="${registerRequest.email}" required><br>
 
     <label for="address">Address:</label>
-    <textarea id="address" name="address" rows="4" required></textarea><br>
+    <textarea id="address" name="address" rows="4" th:value="${registerRequest.address}" required></textarea><br>
 
     <label for="phoneNumber">Phone Number:</label>
-    <input type="tel" id="phoneNumber" name="phoneNumber" required><br>
+    <input type="tel" id="phoneNumber" name="phoneNumber" th:value="${registerRequest.phoneNumber}" required><br>
 
     <label for="gender">Gender:</label>
     <select id="gender" name="gender" required>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
+        <option value="male" th:selected="${registerRequest.gender == 'male'}">Male</option>
+        <option value="female" th:selected="${registerRequest.gender == 'female'}">Female</option>
     </select><br>
 
     <label for="age">Age:</label>
-    <input type="number" id="age" name="age" required min="1"><br>
+    <input type="number" id="age" name="age" th:value="${registerRequest.age}" required min="1"><br>
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required><br>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+    <div th:if="${error}" class="error">
+        <p th:text="${error}"></p>
+    </div>
 
     <input type="submit" name="sign-in" value="Register">
     <a href="/">Navigate to home page </a>

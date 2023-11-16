@@ -1,6 +1,7 @@
 package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.model.*;
+import com.training.OnlineTraining.repository.UserRepository;
 import com.training.OnlineTraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class UserController {
 
+    private final UserService userService;
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService){
+        this.userService = userService;
+    }
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
@@ -32,7 +36,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User user) {
+    public String register(@ModelAttribute User user, @RequestParam String confirmPassword, Model model) {
+        if (!user.getPassword().equals(confirmPassword)) {
+            model.addAttribute("error", "Passwords do not match");
+            model.addAttribute("registerRequest", user);
+            return "register_page";
+        }
         User registeredUser = userService.registerUser(
                 user.getFirstName(),
                 user.getLastName(),
@@ -45,6 +54,7 @@ public class UserController {
         System.out.println("REGISTERED USER " + registeredUser);
         return registeredUser == null ? "error_page" : "redirect:/login";
     }
+
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user) {

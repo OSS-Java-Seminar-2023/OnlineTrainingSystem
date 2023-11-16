@@ -31,9 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-# Ignore Maven related files and directories
-.mvn/
-mvnw
-mvnw.cmd
-target/

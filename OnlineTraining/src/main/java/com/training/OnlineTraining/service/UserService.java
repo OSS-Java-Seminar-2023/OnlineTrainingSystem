@@ -11,8 +11,12 @@ import java.util.UUID;
 
 @Service
 public class UserService {
+
+    private final UserRepository userRepository;
     @Autowired
-    private UserRepository userRepository;
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     private boolean areInputsValid(String firstName, String lastName, String email, String address, String phoneNumber, String gender, Integer age, String password) {
         return firstName == null || lastName == null || email == null || address == null || phoneNumber == null || gender == null || age == null || password == null || age <= 0;
