@@ -18,14 +18,30 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    private boolean areInputsInvalid(String firstName, String lastName, String email, String address, String phoneNumber, String gender, Integer age, String password) {
-        return firstName == null || lastName == null || email == null || address == null || phoneNumber == null || gender == null || age == null || password == null || age <= 0;
+    private boolean areInputsInvalid(String firstName, String lastName, String email, String street, String city, String country, String phoneNumber, String gender, Integer age, String password) {
+        return firstName == null ||
+                lastName == null ||
+                email == null ||
+                street == null ||
+                city == null  ||
+                country == null  ||
+                phoneNumber == null ||
+                gender == null ||
+                age == null ||
+                password == null
+                || age <= 0;
     }
-
     public User registerUser(User request) {
-        if (areInputsInvalid(request.getFirstName(), request.getLastName(), request.getEmail(),
-                request.getAddress(), request.getPhoneNumber(), request.getGender(),
-                request.getAge(), request.getPassword())) {
+        if (areInputsInvalid(request.getFirstName(),
+                request.getLastName(),
+                request.getEmail(),
+                request.getStreet(),
+                request.getCity(),
+                request.getCountry(),
+                request.getPhoneNumber(),
+                request.getGender(),
+                request.getAge(),
+                request.getPassword())) {
             return null;
         } else if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             System.out.println("Duplicate email");
@@ -36,7 +52,9 @@ public class UserService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
-        user.setAddress(request.getAddress());
+        user.setStreet(request.getStreet());
+        user.setCity(request.getCity());
+        user.setCountry(request.getCountry());
         user.setPhoneNumber(request.getPhoneNumber());
         user.setGender(request.getGender());
         user.setAge(request.getAge());

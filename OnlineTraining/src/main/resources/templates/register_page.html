@@ -23,8 +23,15 @@
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" th:value="${registerRequest.email}" required placeholder="Enter your email">
 
-        <label for="address">Address:</label>
-        <textarea id="address" name="address" rows="4" th:value="${registerRequest.address}" required placeholder="Enter your address"></textarea>
+        <label for="street">Street:</label>
+        <input type="text" id="street" name="street" th:value="${registerRequest.street}" required placeholder="Enter your street">
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" th:value="${registerRequest.city}" required placeholder="Enter your city">
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" th:value="${registerRequest.country}" required placeholder="Enter your country">
+
 
         <label for="phoneNumber">Phone Number:</label>
         <input type="tel" id="phoneNumber" name="phoneNumber" th:value="${registerRequest.phoneNumber}" required placeholder="Enter your phone number">
@@ -33,7 +40,7 @@
         <select id="gender" name="gender" required>
             <option value="male" th:selected="${registerRequest.gender == 'male'}">Male</option>
             <option value="female" th:selected="${registerRequest.gender == 'female'}">Female</option>
-        </select>
+        </select><br>
 
         <label for="age">Age:</label>
         <input type="number" id="age" name="age" th:value="${registerRequest.age}" required min="1" placeholder="Enter your age">

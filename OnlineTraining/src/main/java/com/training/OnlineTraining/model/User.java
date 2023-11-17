@@ -15,28 +15,33 @@ public class User {
     @Column(name = "id")
     private UUID id;
 
-
     @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
+    @Column
     private String email;
 
-    @Column(name = "address")
-    private String address;
+    @Column
+    private String street;
+
+    @Column
+    private String city;
+
+    @Column
+    private String country;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "gender")
+    @Column
     private String gender;
 
-    @Column(name = "age")
+    @Column
     private Integer age;
 
-    @Column(name = "password")
+    @Column
     private String password;
 }
