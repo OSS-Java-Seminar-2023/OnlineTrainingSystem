@@ -2,46 +2,33 @@ package com.training.OnlineTraining.service;
 
 import com.training.OnlineTraining.model.User;
 import com.training.OnlineTraining.repository.UserRepository;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.*;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-    @Autowired
-    public UserService(UserRepository userRepository){
-        this.userRepository = userRepository;
+
+    private boolean areInputsInvalid(User request) {
+        return request.getFirstName() == null ||
+                request.getLastName() == null ||
+                request.getEmail() == null ||
+                request.getStreet() == null ||
+                request.getCity() == null ||
+                request.getCountry() == null ||
+                request.getPhoneNumber() == null ||
+                request.getGender() == null ||
+                request.getAge() == null ||
+                request.getPassword() == null
+                || request.getAge() <= 0;
     }
 
-    private boolean areInputsInvalid(String firstName, String lastName, String email, String street, String city, String country, String phoneNumber, String gender, Integer age, String password) {
-        return firstName == null ||
-                lastName == null ||
-                email == null ||
-                street == null ||
-                city == null  ||
-                country == null  ||
-                phoneNumber == null ||
-                gender == null ||
-                age == null ||
-                password == null
-                || age <= 0;
-    }
     public User registerUser(User request) {
-        if (areInputsInvalid(request.getFirstName(),
-                request.getLastName(),
-                request.getEmail(),
-                request.getStreet(),
-                request.getCity(),
-                request.getCountry(),
-                request.getPhoneNumber(),
-                request.getGender(),
-                request.getAge(),
-                request.getPassword())) {
+        if (areInputsInvalid(request)) {
             return null;
         } else if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             System.out.println("Duplicate email");
@@ -63,7 +50,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User authenticate(String email, String password){
+    public User authenticate(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password)
                 .map(user -> {
                     user.setId(UUID.fromString(user.getId().toString()));
@@ -71,6 +58,5 @@ public class UserService {
                 })
                 .orElse(null);
     }
-
 }
 

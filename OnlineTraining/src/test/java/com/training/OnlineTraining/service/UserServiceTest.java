@@ -30,7 +30,9 @@ class UserServiceTest {
         request.setFirstName("John");
         request.setLastName("Doe");
         request.setEmail("john.doe@example.com");
-        request.setAddress("Address");
+        request.setStreet("street");
+        request.setCity("city");
+        request.setCountry("country");
         request.setPhoneNumber("123456789");
         request.setGender("Male");
         request.setAge(25);
@@ -47,7 +49,9 @@ class UserServiceTest {
         assertEquals("John", registeredUser.getFirstName());
         assertEquals("Doe", registeredUser.getLastName());
         assertEquals("john.doe@example.com", registeredUser.getEmail());
-        assertEquals("Address", registeredUser.getAddress());
+        assertEquals("street", registeredUser.getStreet());
+        assertEquals("city", registeredUser.getCity());
+        assertEquals("country", registeredUser.getCountry());
         assertEquals("123456789", registeredUser.getPhoneNumber());
         assertEquals("Male", registeredUser.getGender());
         assertEquals(25, registeredUser.getAge());

@@ -1,14 +1,11 @@
 package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.model.*;
-import com.training.OnlineTraining.repository.UserRepository;
 import com.training.OnlineTraining.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 
 @Controller
 @AllArgsConstructor
@@ -51,6 +48,5 @@ public class UserController {
         User authenticated = userService.authenticate(user.getEmail(), user.getPassword());
         return authenticated == null ? "error_page" : "redirect:/user-page";
     }
-
 }
 
