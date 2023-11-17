@@ -18,28 +18,30 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    private boolean areInputsValid(String firstName, String lastName, String email, String address, String phoneNumber, String gender, Integer age, String password) {
+    private boolean areInputsInvalid(String firstName, String lastName, String email, String address, String phoneNumber, String gender, Integer age, String password) {
         return firstName == null || lastName == null || email == null || address == null || phoneNumber == null || gender == null || age == null || password == null || age <= 0;
     }
 
-    public User registerUser(String firstName, String lastName, String email, String address, String phoneNumber, String gender, Integer age, String password) {
-
-        if (areInputsValid(firstName, lastName, email, address, phoneNumber, gender, age, password)) {
+    public User registerUser(User request) {
+        if (areInputsInvalid(request.getFirstName(), request.getLastName(), request.getEmail(),
+                request.getAddress(), request.getPhoneNumber(), request.getGender(),
+                request.getAge(), request.getPassword())) {
             return null;
-        } else if (userRepository.findByEmail(email).isPresent()) {
+        } else if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             System.out.println("Duplicate email");
             return null;
         }
 
         User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setAddress(address);
-        user.setPhoneNumber(phoneNumber);
-        user.setGender(gender);
-        user.setAge(age);
-        user.setPassword(password);
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setEmail(request.getEmail());
+        user.setAddress(request.getAddress());
+        user.setPhoneNumber(request.getPhoneNumber());
+        user.setGender(request.getGender());
+        user.setAge(request.getAge());
+        user.setPassword(request.getPassword());
+
         return userRepository.save(user);
     }
 

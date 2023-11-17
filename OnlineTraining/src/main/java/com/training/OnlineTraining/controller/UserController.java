@@ -36,25 +36,16 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User user, @RequestParam String confirmPassword, Model model) {
-        if (!user.getPassword().equals(confirmPassword)) {
+    public String register(@ModelAttribute User request, @RequestParam String confirmPassword, Model model) {
+        if (!request.getPassword().equals(confirmPassword)) {
             model.addAttribute("error", "Passwords do not match");
-            model.addAttribute("registerRequest", user);
+            model.addAttribute("registerRequest", request);
             return "register_page";
         }
-        User registeredUser = userService.registerUser(
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail(),
-                user.getAddress(),
-                user.getPhoneNumber(),
-                user.getGender(),
-                user.getAge(),
-                user.getPassword());
+        User registeredUser = userService.registerUser(request);
         System.out.println("REGISTERED USER " + registeredUser);
         return registeredUser == null ? "error_page" : "redirect:/login";
     }
-
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user) {
@@ -62,7 +53,6 @@ public class UserController {
         User authenticated = userService.authenticate(user.getEmail(), user.getPassword());
         return authenticated == null ? "error_page" : "redirect:/user-page";
     }
-
 
 }
 

@@ -4,49 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration Form</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
-<body>
+<body class="align">
 
-<h2>User Registration Form</h2>
+<div class="login">
+    <header class="login__header">
+        <h2 class="align">Registration Form</h2>
+    </header>
 
-<form action="/register" method="POST" th:object="${registerRequest}">
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" th:value="${registerRequest.firstName}" required><br>
+    <form action="/register" class="login__form" method="POST" th:object="${registerRequest}">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" th:value="${registerRequest.firstName}" required placeholder="Enter your first name">
 
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" th:value="${registerRequest.lastName}" required><br>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" th:value="${registerRequest.lastName}" required placeholder="Enter your last name">
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" th:value="${registerRequest.email}" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:value="${registerRequest.email}" required placeholder="Enter your email">
 
-    <label for="address">Address:</label>
-    <textarea id="address" name="address" rows="4" th:value="${registerRequest.address}" required></textarea><br>
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" th:value="${registerRequest.address}" required placeholder="Enter your address"></textarea>
 
-    <label for="phoneNumber">Phone Number:</label>
-    <input type="tel" id="phoneNumber" name="phoneNumber" th:value="${registerRequest.phoneNumber}" required><br>
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" th:value="${registerRequest.phoneNumber}" required placeholder="Enter your phone number">
 
-    <label for="gender">Gender:</label>
-    <select id="gender" name="gender" required>
-        <option value="male" th:selected="${registerRequest.gender == 'male'}">Male</option>
-        <option value="female" th:selected="${registerRequest.gender == 'female'}">Female</option>
-    </select><br>
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="male" th:selected="${registerRequest.gender == 'male'}">Male</option>
+            <option value="female" th:selected="${registerRequest.gender == 'female'}">Female</option>
+        </select>
 
-    <label for="age">Age:</label>
-    <input type="number" id="age" name="age" th:value="${registerRequest.age}" required min="1"><br>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" th:value="${registerRequest.age}" required min="1" placeholder="Enter your age">
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required placeholder="Enter your password">
 
-    <label for="confirmPassword">Confirm Password:</label>
-    <input type="password" id="confirmPassword" name="confirmPassword" required>
-    <div th:if="${error}" class="error">
-        <p th:text="${error}"></p>
-    </div>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
 
-    <input type="submit" name="sign-in" value="Register">
-    <a href="/">Navigate to home page </a>
-</form>
+        <div th:if="${error}" class="error">
+            <p th:text="${error}"></p>
+        </div>
+        <div>
+            <input class="button" type="submit" value="Register">
+        </div>
+    </form>
+</div>
 
 </body>
 </html>
