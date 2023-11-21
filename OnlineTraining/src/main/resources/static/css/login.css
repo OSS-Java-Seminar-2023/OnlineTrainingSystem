@@ -39,13 +39,11 @@ svg {
   vertical-align: middle;
 }
 
-/* ---------- ALIGN ---------- */
+
 .align {
   display: grid;
   place-items: center;
 }
-
-/* ---------- BUTTON ---------- */
 
 .button {
   background-color: #33cc77;
@@ -58,7 +56,6 @@ svg {
   background-color: #28ad63;
 }
 
-/* ---------- ICONS ---------- */
 .icons {
   display: none;
 }
@@ -70,7 +67,6 @@ svg {
   width: 1em;
 }
 
-/* ---------- LOGIN ---------- */
 .login {
   width: 400px;
 }
@@ -113,25 +109,20 @@ svg {
 .login input[type="password"],
 .login input[type="text"],
 .login input[type="tel"],
-.login input[type="number"] {
-  background-color: #eee;
-  color: #777;
-  padding: 0.25em 0.625em;
-  width: 100%;
-}
-
+.login input[type="number"],
 textarea {
   background-color: #eee;
   color: #777;
   padding: 0.25em 0.625em;
-  font-size: 1rem; /* Adjust the font size as needed */
+  width: 100%;
+  resize: none;
 }
 
 select {
   background-color: #eee;
   color: #777;
   padding: 0.25em 0.625em;
-  font-size: 1rem; /* Adjust the font size as needed */
+  font-size: 1rem;
 }
 
 .login input[type="submit"] {

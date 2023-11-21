@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Client or Coach</title>
+    <link rel="stylesheet" th:href="@{/css/choosing.css}">
+</head>
+<body>
+
+<h1>Welcome!</h1>
+
+<p>You are not currently registered as a client or coach.</p>
+
+<div class="link-container">
+    <th:unless="${isClient}">
+    <a class="become-link" th:href="@{'/clients/register?userId=' + ${userId}}">Become a Client</a>
+    </th:unless>
+    <th:unless="${isCoach}">
+    <a class="become-link" th:href="@{'/coaches/register?userId=' + ${userId}}">Become a Coach</a>
+    </th:unless>
+</div>
+
+</body>
+</html>

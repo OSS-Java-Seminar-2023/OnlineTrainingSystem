@@ -51,7 +51,7 @@
         <label for="confirmPassword">Confirm Password:</label>
         <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
 
-        <div th:if="${error}" class="error">
+        <div th:if="${error}" class="error" style="color: red;">
             <p th:text="${error}"></p>
         </div>
         <div>

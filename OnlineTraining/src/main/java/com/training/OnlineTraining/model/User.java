@@ -8,6 +8,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "user", schema = "public")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -44,4 +46,8 @@ public class User {
 
     @Column
     private String password;
+
+    public User(UUID id) {
+        this.id = id;
+    }
 }

@@ -46,8 +46,6 @@ public class UserService {
 
         return userRepository.save(user);
     }
-
-
     public User authenticate(String email, String enteredPassword) {
         Optional<User> userOptional = userRepository.findByEmail(email);
 
@@ -61,5 +59,8 @@ public class UserService {
             throw new RuntimeException("Wrong password");
         }
         throw new RuntimeException("Authentication failed");
+    }
+    public User getUserById(UUID userId) {
+        return userRepository.findById(userId).orElse(null);
     }
 }

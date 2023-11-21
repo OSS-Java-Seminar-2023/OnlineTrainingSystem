@@ -2,6 +2,8 @@ package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.model.*;
+import com.training.OnlineTraining.service.ClientService;
+import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final ClientService clientService;
+    private final CoachService coachService;
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
@@ -51,12 +55,19 @@ public class UserController {
     public String login(@ModelAttribute User user, Model model) {
         try {
             User authenticated = userService.authenticate(user.getEmail(), user.getPassword());
-            return "redirect:/user-page";
+            boolean isClient = clientService.isClient(authenticated);
+            boolean isCoach = coachService.isCoach(authenticated);
+
+            if (isClient || isCoach) {
+                return "redirect:/user-page";
+            } else {
+                model.addAttribute("userId", authenticated.getId());
+                return "become_client_or_coach_page";
+            }
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
             return "login_page";
         }
     }
-
 }
 
