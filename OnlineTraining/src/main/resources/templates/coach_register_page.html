@@ -17,13 +17,13 @@
     <input type="hidden" name="userId" th:value="${userId}" />
 
     <label for="yearsOfExperience">Years of Experience:</label>
-    <input type="number" id="yearsOfExperience" name="yearsOfExperience" th:field="*{yearsOfExperience}" required placeholder="Enter years of experience" />
+    <input type="number" id="yearsOfExperience" step="0.5" name="yearsOfExperience" th:field="*{yearsOfExperience}" required placeholder="Enter years of experience" />
 
     <label for="education">Education:</label>
     <textarea id="education" name="education" th:field="*{education}" required placeholder="..." rows="8"></textarea>
 
 
-    <label for="monthlyPrice">Monthly Price:</label>
+    <label for="monthlyPrice">Monthly Price in €:</label>
     <input type="number" id="monthlyPrice" step="0.01" name="monthlyPrice" th:field="*{monthlyPrice}" required  placeholder="Enter monthly price" />
 
     <div>
