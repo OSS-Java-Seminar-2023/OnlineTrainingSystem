@@ -58,6 +58,7 @@ public class UserService {
                 user.setId(UUID.fromString(user.getId().toString()));
                 return user;
             }
+            throw new RuntimeException("Wrong password");
         }
         throw new RuntimeException("Authentication failed");
     }

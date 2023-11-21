@@ -4,7 +4,6 @@ import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.model.User;
 import com.training.OnlineTraining.util.PasswordUtils;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
