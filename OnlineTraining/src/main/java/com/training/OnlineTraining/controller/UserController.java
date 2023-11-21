@@ -1,5 +1,6 @@
 package com.training.OnlineTraining.controller;
 
+import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.model.*;
 import com.training.OnlineTraining.service.UserService;
 import lombok.AllArgsConstructor;
@@ -31,22 +32,31 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User request, @RequestParam String confirmPassword, Model model) {
-        if (!request.getPassword().equals(confirmPassword)) {
-            model.addAttribute("error", "Passwords do not match");
+    public String register(@ModelAttribute UserDto request, @RequestParam String confirmPassword, Model model) {
+        try {
+            if (!request.getPassword().equals(confirmPassword)) {
+                throw new RuntimeException("Passwords do not match");
+            }
+
+            User registeredUser = userService.registerUser(request);
+            return registeredUser == null ? "error_page" : "redirect:/login";
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
             model.addAttribute("registerRequest", request);
             return "register_page";
         }
-        User registeredUser = userService.registerUser(request);
-        System.out.println("REGISTERED USER " + registeredUser);
-        return registeredUser == null ? "error_page" : "redirect:/login";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute User user) {
-        System.out.println("login request " + user);
-        User authenticated = userService.authenticate(user.getEmail(), user.getPassword());
-        return authenticated == null ? "error_page" : "redirect:/user-page";
+    public String login(@ModelAttribute User user, Model model) {
+        try {
+            User authenticated = userService.authenticate(user.getEmail(), user.getPassword());
+            return "redirect:/user-page";
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+            return "login_page";
+        }
     }
+
 }
 

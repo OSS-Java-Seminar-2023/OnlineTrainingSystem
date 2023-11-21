@@ -26,6 +26,9 @@
         <div>
             <input class="button" type="submit" value="Sign In">
         </div>
+        <div th:if="${error}" class="error">
+            <p th:text="${error}"></p>
+        </div>
     </form>
 </div>
 <svg xmlns="http://www.w3.org/2000/svg" class="icons">

@@ -2,14 +2,14 @@ CREATE TABLE "user" (
     id UUID PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
-    email VARCHAR(30) NOT NULL,
-    street VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    street VARCHAR(100) NOT NULL,
     city VARCHAR(30) NOT NULL,
-    country VARCHAR(30) NOT NULL,
+    country VARCHAR(50) NOT NULL,
     phone_number VARCHAR(20) NOT NULL,
     gender VARCHAR(10) NOT NULL,
     age INTEGER NOT NULL,
-    password VARCHAR(30) NOT NULL
+    password VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Coach (

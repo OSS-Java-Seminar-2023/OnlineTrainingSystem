@@ -1,10 +1,14 @@
 package com.training.OnlineTraining.service;
 
+import com.training.OnlineTraining.dto.UserDto;
+import com.training.OnlineTraining.mapper.UserMapper;
 import com.training.OnlineTraining.model.User;
 import com.training.OnlineTraining.repository.UserRepository;
+import com.training.OnlineTraining.util.PasswordUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -12,51 +16,49 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    private boolean areInputsInvalid(User request) {
-        return request.getFirstName() == null ||
-                request.getLastName() == null ||
-                request.getEmail() == null ||
-                request.getStreet() == null ||
-                request.getCity() == null ||
-                request.getCountry() == null ||
-                request.getPhoneNumber() == null ||
-                request.getGender() == null ||
-                request.getAge() == null ||
-                request.getPassword() == null
-                || request.getAge() <= 0;
+    private boolean areInputsInvalid(UserDto request) {
+        return userMapper.isStringNullOrEmpty(request.getFirstName()) ||
+                userMapper.isStringNullOrEmpty(request.getLastName()) ||
+                userMapper.isStringNullOrEmpty(request.getEmail()) ||
+                userMapper.isStringNullOrEmpty(request.getStreet()) ||
+                userMapper.isStringNullOrEmpty(request.getCity()) ||
+                userMapper.isStringNullOrEmpty(request.getCountry()) ||
+                userMapper.isStringNullOrEmpty(request.getPhoneNumber()) ||
+                userMapper.isStringNullOrEmpty(request.getGender()) ||
+                userMapper.isAgeInvalid(request.getAge()) ||
+                userMapper.isStringNullOrEmpty(request.getPassword());
     }
 
-    public User registerUser(User request) {
+    public User registerUser(UserDto request) {
         if (areInputsInvalid(request)) {
-            return null;
-        } else if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            System.out.println("Duplicate email");
-            return null;
+            throw new RuntimeException("Invalid user input");
+        }
+
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new RuntimeException("Duplicate email");
         }
 
         User user = new User();
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setEmail(request.getEmail());
-        user.setStreet(request.getStreet());
-        user.setCity(request.getCity());
-        user.setCountry(request.getCountry());
-        user.setPhoneNumber(request.getPhoneNumber());
-        user.setGender(request.getGender());
-        user.setAge(request.getAge());
-        user.setPassword(request.getPassword());
+        userMapper.mapFieldsWithoutHashing(request, user);
+        user.setPassword(userMapper.hashPassword(request.getPassword()));
 
         return userRepository.save(user);
     }
 
-    public User authenticate(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password)
-                .map(user -> {
-                    user.setId(UUID.fromString(user.getId().toString()));
-                    return user;
-                })
-                .orElse(null);
+
+    public User authenticate(String email, String enteredPassword) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            if (PasswordUtils.verifyPassword(enteredPassword, user.getPassword())) {
+                user.setId(UUID.fromString(user.getId().toString()));
+                return user;
+            }
+        }
+        throw new RuntimeException("Authentication failed");
     }
 }
-
