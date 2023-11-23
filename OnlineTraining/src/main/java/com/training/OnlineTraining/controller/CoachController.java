@@ -2,12 +2,15 @@ package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.User;
+import com.training.OnlineTraining.model.enums.Education;
 import com.training.OnlineTraining.service.CoachService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.UUID;
 
 @Controller
@@ -29,11 +32,10 @@ public class CoachController {
         try {
             coach.setUser(new User(userId));
             coachService.registerCoach(coach);
-            return "redirect:/user-page";
-
+            return "user_page";
         } catch (RuntimeException e) {
-            model.addAttribute("error", e.getMessage());
-            return "/login";
+            return "error_page";
         }
     }
+
 }
