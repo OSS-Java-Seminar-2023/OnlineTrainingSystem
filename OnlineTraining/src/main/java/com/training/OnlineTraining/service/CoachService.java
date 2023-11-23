@@ -14,14 +14,14 @@ public class CoachService {
     private final UserService userService;
     private final CoachRepository coachRepository;
 
-    public Coach registerCoach(Coach coach) {
+    public void registerCoach(Coach coach) {
         User user = userService.getUserById(coach.getUser().getId());
 
         if (user == null) {
             throw new RuntimeException("User not found");
         }
         coach.setUser(user);
-        return coachRepository.save(coach);
+        coachRepository.save(coach);
     }
     public boolean isCoach(User user) {
         return coachRepository.existsByUser(user);
