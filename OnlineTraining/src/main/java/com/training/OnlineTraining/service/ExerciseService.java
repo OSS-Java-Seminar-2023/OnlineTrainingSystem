@@ -1,13 +1,16 @@
 package com.training.OnlineTraining.service;
 
-import com.training.OnlineTraining.repository.ExerciseRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.training.OnlineTraining.dto.ExerciseDTO;
+import com.training.OnlineTraining.model.Exercise;
 
-@Service
-@AllArgsConstructor
-public class ExerciseService {
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-    private final ExerciseRepository exerciseRepository;
-
+public interface ExerciseService {
+    Exercise createExercise(ExerciseDTO exerciseDTO);
+    Optional<Exercise> getExerciseById(UUID id);
+    List<Exercise> getAllExercises();
+    Exercise updateExercise(UUID id, ExerciseDTO exerciseDetails);
+    void deleteExercise(UUID id);
 }
