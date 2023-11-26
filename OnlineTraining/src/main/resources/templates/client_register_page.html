@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Client Registration</title>
   <link rel="stylesheet" th:href="@{/css/login.css}">
+  <link rel="stylesheet" th:href="@{/css/navigation.css}">
 </head>
-<body  class="align">
+<body>
+<div th:insert="~{fragments/navigation :: navigation}"></div>
+<main class="align">
 <div class="login">
   <header class="login__header">
     <h2 class="align">Client Registration Form</h2>
@@ -29,5 +32,6 @@
     </div>
   </form>
   </div>
+</main>
  </body>
 </html>

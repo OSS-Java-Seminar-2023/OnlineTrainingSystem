@@ -15,7 +15,7 @@ CREATE TABLE "user" (
 CREATE TABLE Coach (
     id UUID PRIMARY KEY,
     user_id UUID REFERENCES "user"(id),
-    years_of_experience NUMERIC(3,2) NOT NULL,
+    years_of_experience NUMERIC(5,2) NOT NULL,
     education TEXT NOT NULL,
     monthly_price NUMERIC(10, 2) NOT NULL
 );

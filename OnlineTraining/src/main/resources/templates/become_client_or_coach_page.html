@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Become a Client or Coach</title>
     <link rel="stylesheet" th:href="@{/css/choosing.css}">
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
 </head>
 <body>
+<div th:insert="~{fragments/navigation :: navigation}"></div>
+<main>
 
 <h1>Welcome!</h1>
 
@@ -20,6 +23,6 @@
     <a class="become-link" th:href="@{'/coaches/register?userId=' + ${userId}}">Become a Coach</a>
     </th:unless>
 </div>
-
+</main>
 </body>
 </html>
