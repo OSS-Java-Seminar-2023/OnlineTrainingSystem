@@ -1,16 +1,13 @@
 package com.training.OnlineTraining.controller;
 
-import com.training.OnlineTraining.model.Coach;
-import com.training.OnlineTraining.model.User;
-import com.training.OnlineTraining.model.enums.Education;
+import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.service.CoachService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Collections;
+
 import java.util.UUID;
 
 @Controller
@@ -23,19 +20,17 @@ public class CoachController {
     @GetMapping("/register")
     public String getBecomeCoachPage(@RequestParam UUID userId, Model model) {
         model.addAttribute("userId", userId);
-        model.addAttribute("coach", new Coach());
+        model.addAttribute("coach", new CoachDto());
         return "coach_register_page";
     }
 
     @PostMapping("/register")
-    public String becomeCoach(@ModelAttribute Coach coach, @RequestParam UUID userId, Model model) {
+    public String becomeCoach(@ModelAttribute CoachDto coachDto, @RequestParam UUID userId, Model model) {
         try {
-            coach.setUser(new User(userId));
-            coachService.registerCoach(coach);
+            coachService.registerCoach(coachDto, userId);
             return "user_page";
         } catch (RuntimeException e) {
             return "error_page";
         }
     }
-
 }

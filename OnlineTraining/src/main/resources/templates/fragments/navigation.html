@@ -1,5 +1,11 @@
-<ul th:fragment="navigation">
-        <li th:class="${activePath == '/' ? 'active' : ''}"><a href="/">Home</a></li>
-        <li th:class="${activePath == '/register' ? 'active' : ''}"><a href="/register">Register</a></li>
-        <li style="float:right" th:class="${activePath == '/login' ? 'active' : ''}"><a href="/login">Login</a></li>
-    </ul>
+<ul th:fragment="navigation(currentUrl)">
+    <li th:class="${currentUrl == '/' ? 'active' : ''}">
+        <a href="/">Home</a>
+    </li>
+    <li th:class="${currentUrl == '/register' ? 'active' : ''}">
+        <a href="/register">Register</a>
+    </li>
+    <li style="float:right" th:class="${currentUrl == '/login' ? 'active' : ''}">
+        <a href="/login">Login</a>
+    </li>
+</ul>

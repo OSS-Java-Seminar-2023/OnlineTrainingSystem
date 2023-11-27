@@ -10,10 +10,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div th:insert="~{fragments/navigation :: navigation}"></div>
+<div th:insert="~{fragments/navigation :: navigation('/')}"></div>
 <div id="carouselExample" class="carousel slide cartwheel-section" data-ride="carousel">
     <div class="carousel-inner">
-        <!-- Hardcode image URLs or use a property file to manage them -->
         <div class="carousel-item active">
             <img src="/images/image1.jpg" alt="Cartwheel Image">
         </div>
