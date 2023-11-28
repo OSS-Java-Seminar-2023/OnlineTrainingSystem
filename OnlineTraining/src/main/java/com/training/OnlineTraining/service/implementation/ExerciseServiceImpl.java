@@ -64,4 +64,9 @@ public class ExerciseServiceImpl implements ExerciseService {
                         }
                 );
     }
+
+    @Override
+    public void deleteAll() {
+        this.exerciseRepository.deleteAll();
+    }
 }
