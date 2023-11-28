@@ -9,8 +9,10 @@ import com.training.OnlineTraining.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -40,5 +42,26 @@ public class CoachServiceImpl implements CoachService {
     }
     @Override
     public boolean isCoach(User user) {return coachRepository.existsByUser(user);
+    }
+
+    @Override
+    public List<CoachDto> getAllCoaches() {
+        return coachRepository.findAll().stream()
+                .map(coach -> {
+                    CoachDto coachDto = new CoachDto();
+                    coachDto.setYearsOfExperience(coach.getYearsOfExperience());
+                    coachDto.setEducation(coach.getEducation());
+                    coachDto.setMonthlyPrice(coach.getMonthlyPrice());
+
+                    User user = coach.getUser();
+                    coachDto.setUserFirstName(user.getFirstName());
+                    coachDto.setUserLastName(user.getLastName());
+                    coachDto.setUserCity(user.getCity());
+                    coachDto.setUserCountry(user.getCountry());
+                    coachDto.setUserGender(user.getGender());
+                    coachDto.setUserAge(user.getAge());
+                    return coachDto;
+                })
+                .collect(Collectors.toList());
     }
 }

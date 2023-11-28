@@ -58,8 +58,11 @@ public class UserController {
             boolean isClient = clientService.isClient(authenticated);
             boolean isCoach = coachService.isCoach(authenticated);
 
-            if (isClient || isCoach) {
+            if (isClient) {
+                return "redirect:/client-page";
+            } else if (isCoach) {
                 return "redirect:/user-page";
+
             } else {
                 model.addAttribute("userId", authenticated.getId());
                 return "become_client_or_coach_page";
