@@ -85,6 +85,12 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.flywaydb.flyway-test-extensions</groupId>
+			<artifactId>flyway-spring-test</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+
 
 	</dependencies>
 

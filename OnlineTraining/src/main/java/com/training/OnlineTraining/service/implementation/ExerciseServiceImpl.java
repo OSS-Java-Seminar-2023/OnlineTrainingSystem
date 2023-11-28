@@ -42,26 +42,26 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public Exercise updateExercise(UUID id, ExerciseDTO exerciseDetails) {
-        Optional<Exercise> optionalExercise = exerciseRepository.findById(id);
-        if (optionalExercise.isPresent()) {
-            Exercise exercise = optionalExercise.get();
-            exercise.setName(exerciseDetails.getName());
-            exercise.setDescription(exerciseDetails.getDescription());
-            exercise.setEquipmentNeeded(exerciseDetails.getEquipmentNeeded());
-            exercise.setDifficultyLevel(exerciseDetails.getDifficultyLevel());
-            return exerciseRepository.save(exercise);
-        } else {
-            throw new ExerciseNotFoundException("Exercise with ID " + id + " not found");
-        }
+        return exerciseRepository.findById(id)
+                .map(exercise -> {
+                    exercise.setName(exerciseDetails.getName());
+                    exercise.setDescription(exerciseDetails.getDescription());
+                    exercise.setEquipmentNeeded(exerciseDetails.getEquipmentNeeded());
+                    exercise.setDifficultyLevel(exerciseDetails.getDifficultyLevel());
+                    return exerciseRepository.save(exercise);
+                })
+                .orElseThrow(() -> new ExerciseNotFoundException("Exercise with ID " + id + " not found"));
     }
+
 
     @Override
     public void deleteExercise(UUID id) {
-        Optional<Exercise> optionalExercise = exerciseRepository.findById(id);
-        if (optionalExercise.isPresent()) {
-            exerciseRepository.delete(optionalExercise.get());
-        } else {
-            throw new ExerciseNotFoundException("Exercise with ID " + id + " not found");
-        }
+        exerciseRepository.findById(id)
+                .ifPresentOrElse(
+                        exerciseRepository::delete,
+                        () -> {
+                            throw new ExerciseNotFoundException("Exercise with ID " + id + " not found");
+                        }
+                );
     }
 }
