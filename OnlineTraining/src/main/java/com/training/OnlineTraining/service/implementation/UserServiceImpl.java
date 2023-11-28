@@ -42,9 +42,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Duplicate email");
         }
 
-        User user = new User();
-        userMapper.mapFieldsWithoutHashing(request, user);
-        user.setPassword(userMapper.hashPassword(request.getPassword()));
+        User user = UserMapper.mapDtoToEntity(request);
 
         return userRepository.save(user);
     }
