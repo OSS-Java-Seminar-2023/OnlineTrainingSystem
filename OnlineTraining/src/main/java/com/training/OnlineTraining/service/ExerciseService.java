@@ -13,4 +13,6 @@ public interface ExerciseService {
     List<Exercise> getAllExercises();
     Exercise updateExercise(UUID id, ExerciseDTO exerciseDetails);
     void deleteExercise(UUID id);
+
+    void deleteAll();
 }
