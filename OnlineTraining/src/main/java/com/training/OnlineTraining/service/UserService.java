@@ -11,6 +11,4 @@ public interface UserService {
     User authenticate(String email, String enteredPassword);
     User getUserById(UUID userId);
 
-
-
 }
