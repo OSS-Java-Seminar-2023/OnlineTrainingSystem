@@ -6,6 +6,8 @@
     <title>Client page</title>
     <link rel="stylesheet" th:href="@{/css/navigation.css}">
     <link rel="stylesheet" th:href="@{/css/table.css}">
+    <link rel="stylesheet" th:href="@{/css/select.css}">
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
@@ -15,26 +17,35 @@
 <br>
 <br>
 <div>
-    <label for="educationFilter">Education:</label>
+    <div class="select">
     <select id="educationFilter">
+        <option selected disabled>Select education</option>
         <option value="">Any</option>
         <option value="HIGH_SCHOOL">High school</option>
         <option value="BACHELORS">Bachelors</option>
         <option value="MASTERS">Masters</option>
         <option value="PHD">PHD</option>
     </select>
+    </div>
+    <br>
 
-    <label for="experienceFilter">Experience:</label>
-    <select id="experienceFilter">
+
+    <div class="select">
+    <select id="experienceFilter" class="format">
+        <option selected disabled>Select experience</option>
         <option value="">Any</option>
         <option value="2">2+ years</option>
         <option value="5">5+ years</option>
         <option value="7">7+ years</option>
         <option value="10">10+ years</option>
     </select>
+    </div>
+    <br>
 
-    <label for="monthlyPriceFilter">Monthly Price:</label>
+
+    <div class="select">
     <select id="monthlyPriceFilter">
+        <option selected disabled>Select a monthly price</option>
         <option value="">Any</option>
         <option value="10.0">10+ €</option>
         <option value="15.0">15+ €</option>
@@ -44,8 +55,13 @@
         <option value="35.0">35+ €</option>
         <option value="40.0">40+ €</option>
     </select>
-    <label for="ageFilter">Age:</label>
+    </div>
+    <br>
+
+
+    <div class="select">
     <select id="ageFilter">
+        <option selected disabled>Select age</option>
         <option value="">Any</option>
         <option value="20">20+ years</option>
         <option value="25">35+ years</option>
@@ -55,21 +71,25 @@
         <option value="45">45+ years</option>
         <option value="50">50+ years</option>
     </select>
+    </div>
+    <br>
 
-    <label for="genderFilter">Gender:</label>
+    <div class="select" >
     <select id="genderFilter">
+        <option selected disabled>Select gender</option>
         <option value="">All</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
     </select>
-
-    <button type="button" onclick="filterCoaches()">Apply Filters</button>
+     </div>
+    <br>
+    <button type="button" onclick="filterCoaches()" class="become-link">Apply Filters</button>
+    <br>
 </div>
-
+<br>
 <div style="overflow-x: auto;">
     <div th:replace="~{fragments/coach_table :: coach_table}"></div>
 </div>
-
 <p th:unless="${coaches}">No coaches available.</p>
 
 <script th:src="@{/js/filterCoaches.js}"></script>
