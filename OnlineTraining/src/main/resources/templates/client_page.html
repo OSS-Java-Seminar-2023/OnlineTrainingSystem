@@ -6,6 +6,7 @@
     <title>Client page</title>
     <link rel="stylesheet" th:href="@{/css/navigation.css}">
     <link rel="stylesheet" th:href="@{/css/table.css}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 <div th:insert="~{fragments/navigation :: navigation('/clients/client-page')}"></div>
@@ -13,33 +14,64 @@
 <br>
 <br>
 <br>
-<br>
-<div style="overflow-x: auto;">
-    <table th:if="${coaches}">
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>City</th>
-            <th>Country</th>
-            <th>Gender</th>
-            <th>Age</th>
-            <th>Years of Experience</th>
-            <th>Education</th>
-            <th>Monthly Price</th>
-        </tr>
-        <tr th:each="coach : ${coaches}">
-            <td th:text="${coach.userFirstName}"></td>
-            <td th:text="${coach.userLastName}"></td>
-            <td th:text="${coach.userCity}"></td>
-            <td th:text="${coach.userCountry}"></td>
-            <td th:text="${coach.userGender}"></td>
-            <td th:text="${coach.userAge}"></td>
-            <td th:text="${coach.yearsOfExperience}"></td>
-            <td th:text="${coach.education}"></td>
-            <td th:text="${coach.monthlyPrice}"></td>
-        </tr>
-    </table>
+<div>
+    <label for="educationFilter">Education:</label>
+    <select id="educationFilter">
+        <option value="">Any</option>
+        <option value="HIGH_SCHOOL">High school</option>
+        <option value="BACHELORS">Bachelors</option>
+        <option value="MASTERS">Masters</option>
+        <option value="PHD">PHD</option>
+    </select>
+
+    <label for="experienceFilter">Experience:</label>
+    <select id="experienceFilter">
+        <option value="">Any</option>
+        <option value="2">2+ years</option>
+        <option value="5">5+ years</option>
+        <option value="7">7+ years</option>
+        <option value="10">10+ years</option>
+    </select>
+
+    <label for="monthlyPriceFilter">Monthly Price:</label>
+    <select id="monthlyPriceFilter">
+        <option value="">Any</option>
+        <option value="10.0">10+ €</option>
+        <option value="15.0">15+ €</option>
+        <option value="20.0">20+ €</option>
+        <option value="25.0">25+ €</option>
+        <option value="30.0">30+ €</option>
+        <option value="35.0">35+ €</option>
+        <option value="40.0">40+ €</option>
+    </select>
+    <label for="ageFilter">Age:</label>
+    <select id="ageFilter">
+        <option value="">Any</option>
+        <option value="20">20+ years</option>
+        <option value="25">35+ years</option>
+        <option value="30">30+ years</option>
+        <option value="35">35+ years</option>
+        <option value="40">40+ years</option>
+        <option value="45">45+ years</option>
+        <option value="50">50+ years</option>
+    </select>
+
+    <label for="genderFilter">Gender:</label>
+    <select id="genderFilter">
+        <option value="">All</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+
+    <button type="button" onclick="filterCoaches()">Apply Filters</button>
 </div>
-    <p th:unless="${coaches}">No coaches available.</p>
+
+<div style="overflow-x: auto;">
+    <div th:replace="~{fragments/coach_table :: coach_table}"></div>
+</div>
+
+<p th:unless="${coaches}">No coaches available.</p>
+
+<script th:src="@{/js/filterCoaches.js}"></script>
 </body>
 </html>

@@ -1,0 +1,26 @@
+<div th:fragment="coach_table">
+    <table id="coachesTable" th:if="${coaches}">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Years of Experience</th>
+            <th>Education</th>
+            <th>Monthly Price</th>
+        </tr>
+        <tr th:each="coach : ${coaches}">
+            <td th:text="${coach.userFirstName}"></td>
+            <td th:text="${coach.userLastName}"></td>
+            <td th:text="${coach.userCity}"></td>
+            <td th:text="${coach.userCountry}"></td>
+            <td th:text="${coach.userGender}"></td>
+            <td th:text="${coach.userAge}"></td>
+            <td th:text="${coach.yearsOfExperience}"></td>
+            <td th:text="${coach.education}"></td>
+            <td th:text="${coach.monthlyPrice}"></td>
+        </tr>
+    </table>
+</div>

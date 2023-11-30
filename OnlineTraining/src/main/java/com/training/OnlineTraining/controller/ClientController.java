@@ -22,8 +22,19 @@ public class ClientController {
     private final CoachService coachService;
 
     @GetMapping("/client-page")
-    public String getClientPage(Model model) {
-        List<CoachDto> coaches = coachService.getAllCoaches();
+    public String getClientPage(Model model,
+                                @RequestParam(name = "gender", required = false) String gender,
+                                @RequestParam(name = "experience", required = false) Double experience,
+                                @RequestParam(name = "age", required = false) Integer age,
+                                @RequestParam(name = "education", required = false) String education,
+                                @RequestParam(name = "monthlyPrice", required = false) Double monthlyPrice) {
+        List<CoachDto> coaches;
+
+        if (gender != null || experience != null || age != null || education != null || monthlyPrice != null) {
+            coaches = coachService.filterCoaches(gender, experience, age, education, monthlyPrice);
+        } else {
+            coaches = coachService.getAllCoaches();
+        }
         model.addAttribute("coaches", coaches);
         return "client_page";
     }

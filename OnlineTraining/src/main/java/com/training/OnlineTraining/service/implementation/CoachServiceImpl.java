@@ -3,6 +3,7 @@ package com.training.OnlineTraining.service.implementation;
 import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.User;
+import com.training.OnlineTraining.model.enums.Education;
 import com.training.OnlineTraining.repository.CoachRepository;
 import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.UserService;
@@ -45,23 +46,40 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
+    public CoachDto mapCoachToDto(Coach coach) {
+        CoachDto coachDto = new CoachDto();
+        coachDto.setYearsOfExperience(coach.getYearsOfExperience());
+        coachDto.setEducation(coach.getEducation());
+        coachDto.setMonthlyPrice(coach.getMonthlyPrice());
+
+        User user = coach.getUser();
+        coachDto.setUserFirstName(user.getFirstName());
+        coachDto.setUserLastName(user.getLastName());
+        coachDto.setUserCity(user.getCity());
+        coachDto.setUserCountry(user.getCountry());
+        coachDto.setUserGender(user.getGender());
+        coachDto.setUserAge(user.getAge());
+
+        return coachDto;
+    }
+
+    @Override
     public List<CoachDto> getAllCoaches() {
         return coachRepository.findAll().stream()
-                .map(coach -> {
-                    CoachDto coachDto = new CoachDto();
-                    coachDto.setYearsOfExperience(coach.getYearsOfExperience());
-                    coachDto.setEducation(coach.getEducation());
-                    coachDto.setMonthlyPrice(coach.getMonthlyPrice());
-
-                    User user = coach.getUser();
-                    coachDto.setUserFirstName(user.getFirstName());
-                    coachDto.setUserLastName(user.getLastName());
-                    coachDto.setUserCity(user.getCity());
-                    coachDto.setUserCountry(user.getCountry());
-                    coachDto.setUserGender(user.getGender());
-                    coachDto.setUserAge(user.getAge());
-                    return coachDto;
-                })
+                .map(this::mapCoachToDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<CoachDto> filterCoaches(String gender, Double experience, Integer age, String education, Double monthlyPrice) {
+        return coachRepository.findAll().stream()
+                .filter(coach -> gender == null || gender.isEmpty() || gender.equals(coach.getUser().getGender()))
+                .filter(coach -> experience == null || coach.getYearsOfExperience() >= experience)
+                .filter(coach -> age == null || coach.getUser().getAge() >= age)
+                .filter(coach -> education == null || education.isEmpty() || Education.valueOf(education).equals(coach.getEducation()))
+                .filter(coach -> monthlyPrice == null || coach.getMonthlyPrice() >= monthlyPrice)
+                .map(this::mapCoachToDto)
+                .collect(Collectors.toList());
+    }
+
 }
