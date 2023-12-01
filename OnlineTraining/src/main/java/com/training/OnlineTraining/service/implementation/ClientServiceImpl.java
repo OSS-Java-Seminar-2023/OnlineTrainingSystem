@@ -41,4 +41,10 @@ public class ClientServiceImpl implements ClientService {
     public boolean isClient(User user) {
         return clientRepository.existsByUser(user);
     }
+
+    @Override
+    public Client getClientByUserId(UUID userId) {
+        return clientRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("Client not found"));
+    }
 }

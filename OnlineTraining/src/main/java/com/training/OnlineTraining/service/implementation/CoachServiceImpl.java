@@ -48,6 +48,7 @@ public class CoachServiceImpl implements CoachService {
     @Override
     public CoachDto mapCoachToDto(Coach coach) {
         CoachDto coachDto = new CoachDto();
+        coachDto.setId(coach.getId());
         coachDto.setYearsOfExperience(coach.getYearsOfExperience());
         coachDto.setEducation(coach.getEducation());
         coachDto.setMonthlyPrice(coach.getMonthlyPrice());

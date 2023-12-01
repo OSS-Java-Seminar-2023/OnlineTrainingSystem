@@ -5,6 +5,7 @@ import com.training.OnlineTraining.model.*;
 import com.training.OnlineTraining.service.ClientService;
 import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,17 +53,20 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute User user, Model model) {
+    public String login(@ModelAttribute User user, Model model, HttpSession session) {
         try {
             User authenticated = userService.authenticate(user.getEmail(), user.getPassword());
             boolean isClient = clientService.isClient(authenticated);
             boolean isCoach = coachService.isCoach(authenticated);
 
             if (isClient) {
-                return "redirect:/client-page";
+                Client client = clientService.getClientByUserId(authenticated.getId());
+                session.setAttribute("clientId", client.getId());
+                session.setAttribute("clientName", authenticated.getFirstName());
+                return "redirect:clients/client-page";
             } else if (isCoach) {
+                session.setAttribute("coachId", authenticated.getId());
                 return "redirect:/user-page";
-
             } else {
                 model.addAttribute("userId", authenticated.getId());
                 return "become_client_or_coach_page";
