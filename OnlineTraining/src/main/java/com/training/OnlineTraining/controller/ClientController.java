@@ -2,6 +2,7 @@ package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.dto.ClientDto;
 import com.training.OnlineTraining.dto.CoachDto;
+import com.training.OnlineTraining.dto.CoachFilterParams;
 import com.training.OnlineTraining.service.ClientService;
 import com.training.OnlineTraining.service.CoachService;
 import jakarta.servlet.http.HttpSession;
@@ -25,27 +26,20 @@ public class ClientController {
 
     @GetMapping("/client-page")
     public String getClientPage(Model model,
-                                @RequestParam(name = "gender", required = false) String gender,
-                                @RequestParam(name = "experience", required = false) Double experience,
-                                @RequestParam(name = "age", required = false) Integer age,
-                                @RequestParam(name = "education", required = false) String education,
-                                @RequestParam(name = "monthlyPrice", required = false) Double monthlyPrice,
+                                @ModelAttribute CoachFilterParams filterParams,
                                 HttpSession session) {
-        List<CoachDto> coaches;
         UUID clientId = (UUID) session.getAttribute("clientId");
         String clientName = (String) session.getAttribute("clientName");
-        
-        if (gender != null || experience != null || age != null || education != null || monthlyPrice != null) {
-            coaches = coachService.filterCoaches(gender, experience, age, education, monthlyPrice);
-        } else {
-            coaches = coachService.getAllCoaches();
-        }
+
+        List<CoachDto> coaches = coachService.filterCoaches(filterParams);
+
         model.addAttribute("coaches", coaches);
         model.addAttribute("clientId", clientId);
         model.addAttribute("clientName", clientName);
 
         return "client_page";
     }
+
 
     @GetMapping("/register")
     public String getBecomeClientPage(@RequestParam UUID userId, Model model) {

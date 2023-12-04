@@ -1,6 +1,7 @@
 package com.training.OnlineTraining.service;
 
 import com.training.OnlineTraining.dto.CoachDto;
+import com.training.OnlineTraining.dto.CoachFilterParams;
 import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.User;
 
@@ -13,6 +14,6 @@ public interface CoachService {
    void registerCoach(CoachDto coachDto, UUID userId);
    boolean isCoach(User user);
    List<CoachDto> getAllCoaches();
-   List<CoachDto> filterCoaches(String gender, Double experience, Integer age, String education, Double monthlyPrice);
+   List<CoachDto> filterCoaches(CoachFilterParams filterParams);
    CoachDto mapCoachToDto(Coach coach);
 }

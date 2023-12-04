@@ -1,13 +1,15 @@
 package com.training.OnlineTraining.service.implementation;
 
 import com.training.OnlineTraining.dto.CoachDto;
+import com.training.OnlineTraining.dto.CoachFilterParams;
 import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.User;
-import com.training.OnlineTraining.model.enums.Education;
 import com.training.OnlineTraining.repository.CoachRepository;
 import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.UserService;
+import com.training.OnlineTraining.specification.CoachSpecifications;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -72,13 +74,15 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public List<CoachDto> filterCoaches(String gender, Double experience, Integer age, String education, Double monthlyPrice) {
-        return coachRepository.findAll().stream()
-                .filter(coach -> gender == null || gender.isEmpty() || gender.equals(coach.getUser().getGender()))
-                .filter(coach -> experience == null || coach.getYearsOfExperience() >= experience)
-                .filter(coach -> age == null || coach.getUser().getAge() >= age)
-                .filter(coach -> education == null || education.isEmpty() || Education.valueOf(education).equals(coach.getEducation()))
-                .filter(coach -> monthlyPrice == null || coach.getMonthlyPrice() >= monthlyPrice)
+    public List<CoachDto> filterCoaches(CoachFilterParams filterParams) {
+        Specification<Coach> spec = Specification
+                .where(CoachSpecifications.filterByGender(filterParams.getGender()))
+                .and(CoachSpecifications.filterByExperience(filterParams.getExperience()))
+                .and(CoachSpecifications.filterByAge(filterParams.getAge()))
+                .and(CoachSpecifications.filterByEducation(filterParams.getEducation()))
+                .and(CoachSpecifications.filterByMonthlyPrice(filterParams.getMonthlyPrice()));
+
+        return coachRepository.findAll(spec).stream()
                 .map(this::mapCoachToDto)
                 .collect(Collectors.toList());
     }
