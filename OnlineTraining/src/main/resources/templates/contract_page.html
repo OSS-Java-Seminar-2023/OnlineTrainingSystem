@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
+</head>
+<body>
+<div th:insert="~{fragments/navigation :: navigation('/login')}"></div>
+
+<br>
+<br>
+<br>
+
+<p th:if="${coachId != null}" th:text="'Coach ID: ' + ${coachId}"></p>
+
+<p th:if="${clientId != null}" th:text="'Client ID: ' + ${clientId}"></p>
+
+
+<p> this is contract page</p>
+</body>
+</html>

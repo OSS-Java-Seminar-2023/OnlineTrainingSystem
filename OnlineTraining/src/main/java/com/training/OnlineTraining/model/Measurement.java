@@ -17,20 +17,20 @@ public class Measurement {
     private UUID id;
 
     @Column(name = "body_weight")
-    private BigDecimal bodyWeight;
+    private Double bodyWeight;
 
     @Column(name = "body_fat")
-    private BigDecimal bodyFat;
+    private Double bodyFat;
 
     @Column(name = "waist_circumference")
-    private BigDecimal waistCircumference;
+    private Double waistCircumference;
 
     @Column(name = "chest_circumference")
-    private BigDecimal chestCircumference;
+    private Double chestCircumference;
 
     @Column(name = "arm_circumference")
-    private BigDecimal armCircumference;
+    private Double armCircumference;
 
     @Column(name = "leg_circumference")
-    private BigDecimal legCircumference;
+    private Double legCircumference;
 }

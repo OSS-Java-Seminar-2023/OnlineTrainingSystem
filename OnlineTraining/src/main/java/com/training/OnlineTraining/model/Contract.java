@@ -39,6 +39,4 @@ public class Contract {
     @Column(name = "end_date")
     private Date endDate;
 
-    @Column(name = "monthly_price")
-    private BigDecimal monthlyPrice;
 }
