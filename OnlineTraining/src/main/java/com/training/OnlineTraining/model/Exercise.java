@@ -1,5 +1,6 @@
 package com.training.OnlineTraining.model;
 
+import com.training.OnlineTraining.dto.ExerciseDTO;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -26,4 +27,11 @@ public class Exercise {
 
     @Column(name = "difficulty_level")
     private String difficultyLevel;
+
+    public void updateValues(ExerciseDTO exerciseDetails){
+        this.setName(exerciseDetails.getName());
+        this.setDescription(exerciseDetails.getDescription());
+        this.setEquipmentNeeded(exerciseDetails.getEquipmentNeeded());
+        this.setDifficultyLevel(exerciseDetails.getDifficultyLevel());
+    }
 }
