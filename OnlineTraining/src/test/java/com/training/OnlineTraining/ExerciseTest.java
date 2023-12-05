@@ -37,15 +37,17 @@ public class ExerciseTest {
 	@Autowired
 	private ExerciseService exerciseService;
 
+	private ExerciseDTO exerciseDTO;
+
 	@BeforeEach
 	public void setUp(){
 		exerciseService.deleteAll();
+
+		exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
 	}
 
 	@Test
 	public void testCreateExercise() {
-
-		ExerciseDTO exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
 		ResponseEntity<Exercise> responseEntity = exerciseController.createExercise(exerciseDTO);
 
 		assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
@@ -61,7 +63,6 @@ public class ExerciseTest {
 	@Test
 	public void testGetAllExercises() {
 
-		ExerciseDTO exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
 		exerciseController.createExercise(exerciseDTO);
 
 		ExerciseDTO exerciseDTO2 = new ExerciseDTO("Exercise 2", "Description 2", "NO", "LOW");
@@ -78,7 +79,6 @@ public class ExerciseTest {
 	@Test
 	public void testGetExerciseById() {
 
-		ExerciseDTO exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
 		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 
 		Exercise getetedExercise = exerciseController.getExerciseById(newExercise.getId()).getBody();
@@ -90,7 +90,6 @@ public class ExerciseTest {
 	@Test
 	public void testUpdateExercise() {
 
-		ExerciseDTO exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
 		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 
 		ExerciseDTO updatedExerciseDTO = new ExerciseDTO("Exercise UPDATE", "Description UPDATE", "NO", "LOW");
@@ -105,7 +104,6 @@ public class ExerciseTest {
 	@Test
 	public void testDeleteExercise() {
 
-		ExerciseDTO exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
 		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 
 		HttpStatus status = (HttpStatus) exerciseController.deleteExercise(newExercise.getId()).getStatusCode();

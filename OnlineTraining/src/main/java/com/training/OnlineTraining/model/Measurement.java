@@ -1,5 +1,7 @@
 package com.training.OnlineTraining.model;
 
+import com.training.OnlineTraining.dto.ExerciseDTO;
+import com.training.OnlineTraining.dto.MeasurementDTO;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -33,4 +35,14 @@ public class Measurement {
 
     @Column(name = "leg_circumference")
     private Double legCircumference;
+
+    public void updateValues(MeasurementDTO measurementDTO) {
+        this.setBodyWeight(measurementDTO.getBodyWeight());
+        this.setBodyFat(measurementDTO.getBodyFat());
+        this.setWaistCircumference(measurementDTO.getWaistCircumference());
+        this.setChestCircumference(measurementDTO.getChestCircumference());
+        this.setArmCircumference(measurementDTO.getArmCircumference());
+        this.setLegCircumference(measurementDTO.getLegCircumference());
+    }
+
 }

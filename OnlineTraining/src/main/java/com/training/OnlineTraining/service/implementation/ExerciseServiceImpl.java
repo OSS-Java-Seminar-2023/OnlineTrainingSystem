@@ -44,10 +44,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     public Exercise updateExercise(UUID id, ExerciseDTO exerciseDetails) {
         return exerciseRepository.findById(id)
                 .map(exercise -> {
-                    exercise.setName(exerciseDetails.getName());
-                    exercise.setDescription(exerciseDetails.getDescription());
-                    exercise.setEquipmentNeeded(exerciseDetails.getEquipmentNeeded());
-                    exercise.setDifficultyLevel(exerciseDetails.getDifficultyLevel());
+                    exercise.updateValues(exerciseDetails);
                     return exerciseRepository.save(exercise);
                 })
                 .orElseThrow(() -> new ExerciseNotFoundException("Exercise with ID " + id + " not found"));
