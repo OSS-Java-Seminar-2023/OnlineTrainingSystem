@@ -34,7 +34,8 @@ CREATE TABLE Measurement (
     waist_circumference NUMERIC(5, 2) NOT NULL,
     chest_circumference NUMERIC(5, 2) NOT NULL,
     arm_circumference NUMERIC(5, 2) NOT NULL,
-    leg_circumference NUMERIC(5, 2) NOT NULL
+    leg_circumference NUMERIC(5, 2) NOT NULL,
+    measurement_date DATE NOT NULL
 );
 
 CREATE TABLE Contract (
