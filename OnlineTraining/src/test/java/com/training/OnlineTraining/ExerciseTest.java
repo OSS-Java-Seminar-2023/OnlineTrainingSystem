@@ -43,7 +43,7 @@ public class ExerciseTest {
 	}
 
 	@Test
-	public void testCreateAddress() {
+	public void testCreateExercise() {
 
 		ExerciseDTO exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
 		ResponseEntity<Exercise> responseEntity = exerciseController.createExercise(exerciseDTO);
@@ -57,4 +57,61 @@ public class ExerciseTest {
 		assertEquals("Description 1", exercises.get(0).getDescription());
 
 	}
+
+	@Test
+	public void testGetAllExercises() {
+
+		ExerciseDTO exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
+		exerciseController.createExercise(exerciseDTO);
+
+		ExerciseDTO exerciseDTO2 = new ExerciseDTO("Exercise 2", "Description 2", "NO", "LOW");
+		exerciseController.createExercise(exerciseDTO2);
+
+		ExerciseDTO exerciseDTO3 = new ExerciseDTO("Exercise 3", "Description 3", "NO", "LOW");
+		exerciseController.createExercise(exerciseDTO3);
+
+
+		List<Exercise> exercises = exerciseService.getAllExercises();
+		assertEquals(3, exercises.size());
+	}
+
+	@Test
+	public void testGetExerciseById() {
+
+		ExerciseDTO exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
+		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
+
+		Exercise getetedExercise = exerciseController.getExerciseById(newExercise.getId()).getBody();
+
+		assertNotNull(getetedExercise);
+		assertEquals("Exercise 1", getetedExercise.getName());
+	}
+
+	@Test
+	public void testUpdateExercise() {
+
+		ExerciseDTO exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
+		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
+
+		ExerciseDTO updatedExerciseDTO = new ExerciseDTO("Exercise UPDATE", "Description UPDATE", "NO", "LOW");
+
+		Exercise updateExercise = (Exercise) exerciseController.updateExercise(newExercise.getId(), updatedExerciseDTO).getBody();
+
+		assertNotNull(updateExercise);
+		assertEquals("Exercise UPDATE", updateExercise.getName());
+		assertEquals("Description UPDATE", updateExercise.getDescription());
+	}
+
+	@Test
+	public void testDeleteExercise() {
+
+		ExerciseDTO exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
+		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
+
+		HttpStatus status = (HttpStatus) exerciseController.deleteExercise(newExercise.getId()).getStatusCode();
+
+		assertEquals(HttpStatus.NO_CONTENT, status);
+	}
+
+
 }
