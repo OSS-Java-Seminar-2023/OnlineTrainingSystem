@@ -4,7 +4,6 @@ import lombok.*;
 
 import jakarta.persistence.*;
 import java.util.UUID;
-import java.math.BigDecimal;
 import java.sql.Date;
 
 @Entity
@@ -25,18 +24,14 @@ public class Contract {
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
-    @ManyToOne
-    @JoinColumn(name = "starting_measurement_id", referencedColumnName = "id")
-    private Measurement startingMeasurement;
-
-    @ManyToOne
-    @JoinColumn(name = "goal_measurement_id", referencedColumnName = "id")
-    private Measurement goalMeasurement;
 
     @Column(name = "start_date")
     private Date startDate;
 
     @Column(name = "end_date")
     private Date endDate;
+
+    @Column(name = "monthly_price")
+    private Double monthlyPrice;
 
 }

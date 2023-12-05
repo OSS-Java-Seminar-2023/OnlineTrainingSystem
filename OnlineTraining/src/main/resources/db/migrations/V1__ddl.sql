@@ -27,24 +27,24 @@ CREATE TABLE Client (
     injuries TEXT
 );
 
+CREATE TABLE Contract (
+    id UUID PRIMARY KEY,
+    coach_id UUID REFERENCES Coach(id),
+    client_id UUID REFERENCES Client(id),
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    monthly_price NUMERIC(10, 2) NOT NULL
+);
+
 CREATE TABLE Measurement (
     id UUID PRIMARY KEY,
+    contract_id UUID REFERENCES Contract(id),
     body_weight NUMERIC(6, 2) NOT NULL,
     body_fat NUMERIC(5, 2) NOT NULL,
     waist_circumference NUMERIC(6, 2) NOT NULL,
     chest_circumference NUMERIC(6, 2) NOT NULL,
     arm_circumference NUMERIC(6, 2) NOT NULL,
     leg_circumference NUMERIC(6, 2) NOT NULL
-);
-
-CREATE TABLE Contract (
-    id UUID PRIMARY KEY,
-    coach_id UUID REFERENCES Coach(id),
-    client_id UUID REFERENCES Client(id),
-    starting_measurement_id UUID REFERENCES Measurement(id),
-    goal_measurement_id UUID REFERENCES Measurement(id),
-    start_date DATE NOT NULL,
-    end_date DATE NOT NULL
 );
 
 CREATE TABLE Workout (

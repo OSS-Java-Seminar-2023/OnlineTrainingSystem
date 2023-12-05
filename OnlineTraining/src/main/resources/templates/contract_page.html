@@ -8,17 +8,33 @@
     <link rel="stylesheet" th:href="@{/css/navigation.css}">
 </head>
 <body>
-<div th:insert="~{fragments/navigation :: navigation('/login')}"></div>
+<div th:insert="~{fragments/navigation :: navigation('/nothing')}"></div>
 
-<br>
-<br>
-<br>
+<main class="align">
+    <div class="login">
+        <header class="login__header">
+            <h2>Make a contract</h2>
+        </header>
 
-<p th:if="${coachId != null}" th:text="'Coach ID: ' + ${coachId}"></p>
+<form th:action="@{'/contracts/' + ${coachId}}" th:object="${contract}" method="post" class="login__form">
 
-<p th:if="${clientId != null}" th:text="'Client ID: ' + ${clientId}"></p>
+    <input type="hidden" name="coach" th:value="${coachId}" />
+    <input type="hidden" name="client" th:value="${clientId}" />
 
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required />
 
-<p> this is contract page</p>
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" th:field="*{endDate}" required />
+
+    <label for="monthlyPrice">Monthly Price:</label>
+    <input type="text" id="monthlyPrice" name="monthlyPrice" th:value="${monthlyPrice}" readonly required />
+
+    <div>
+        <input class="button" type="submit">
+    </div>
+</form>
+    </div>
+</main>
 </body>
 </html>

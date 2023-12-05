@@ -1,15 +1,15 @@
 package com.training.OnlineTraining.controller;
 
 
+import com.training.OnlineTraining.dto.ContractDto;
+import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.ContractService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -21,16 +21,26 @@ public class ContractController {
 
 
     private ContractService contractService;
+    private CoachService coachService;
 
     @GetMapping("/{coachId}")
     public String viewContract(@PathVariable UUID coachId, Model model, HttpSession session) {
 
         UUID clientId = (UUID) session.getAttribute("clientId");
+        Double monthlyPrice = coachService.getMonthlyPriceById(coachId);
 
         model.addAttribute("coachId", coachId);
         model.addAttribute("clientId", clientId);
+        model.addAttribute("contract", new ContractDto());
+        model.addAttribute("monthlyPrice", monthlyPrice);
+
 
         return "contract_page";
     }
 
+    @PostMapping("/{coachId}")
+    public String createContract(@PathVariable UUID coachId, @ModelAttribute ContractDto contractDto, Model model) {
+        contractService.createContract(contractDto);
+        return "index";
+    }
 }

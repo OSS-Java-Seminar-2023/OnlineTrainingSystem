@@ -87,4 +87,8 @@ public class CoachServiceImpl implements CoachService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Double getMonthlyPriceById(UUID coachId) {
+        return coachRepository.findMonthlyPriceById(coachId);
+    }
 }

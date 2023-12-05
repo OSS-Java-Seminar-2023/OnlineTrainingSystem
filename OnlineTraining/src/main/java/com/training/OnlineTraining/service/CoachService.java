@@ -16,4 +16,6 @@ public interface CoachService {
    List<CoachDto> getAllCoaches();
    List<CoachDto> filterCoaches(CoachFilterParams filterParams);
    CoachDto mapCoachToDto(Coach coach);
+   Double getMonthlyPriceById(UUID coachId);
+
 }
