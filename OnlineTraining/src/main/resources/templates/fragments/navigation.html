@@ -5,7 +5,7 @@
     <li th:class="${currentUrl == '/register' ? 'active' : ''}">
         <a href="/register">Register</a>
     </li>
-    <li th:class="${currentUrl == '/clients/client-page' ? 'active' : ''}">
+    <li th:if="${clientId != null}" th:class="${currentUrl == '/clients/client-page' ? 'active' : ''}">
         <a th:href="@{/clients/client-page}">Client Page</a>
     </li>
     <li style="float:right" th:class="${currentUrl == '/login' ? 'active' : ''}">

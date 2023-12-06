@@ -64,13 +64,14 @@ public class UserController {
                 session.setAttribute("clientId", client.getId());
                 session.setAttribute("clientName", authenticated.getFirstName());
                 return "redirect:clients/client-page";
-            } else if (isCoach) {
+            }
+            if (isCoach) {
                 session.setAttribute("coachId", authenticated.getId());
                 return "redirect:/user-page";
-            } else {
-                model.addAttribute("userId", authenticated.getId());
-                return "become_client_or_coach_page";
             }
+            model.addAttribute("userId", authenticated.getId());
+            return "become_client_or_coach_page";
+
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
             return "login_page";

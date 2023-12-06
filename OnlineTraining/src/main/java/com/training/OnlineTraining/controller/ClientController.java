@@ -29,6 +29,9 @@ public class ClientController {
                                 @ModelAttribute CoachFilterParams filterParams,
                                 HttpSession session) {
         UUID clientId = (UUID) session.getAttribute("clientId");
+        if (clientId == null){
+            return "login_page";
+        }
         String clientName = (String) session.getAttribute("clientName");
 
         List<CoachDto> coaches = coachService.filterCoaches(filterParams);
@@ -36,7 +39,6 @@ public class ClientController {
         model.addAttribute("coaches", coaches);
         model.addAttribute("clientId", clientId);
         model.addAttribute("clientName", clientName);
-
         return "client_page";
     }
 

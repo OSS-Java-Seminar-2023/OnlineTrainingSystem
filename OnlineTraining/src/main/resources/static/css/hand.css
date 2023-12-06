@@ -1,6 +1,9 @@
 .greeting p {
     display: inline;
-    margin: 0; /* Add margin: 0; to ensure no extra spacing */
+    margin: 0;
+    padding: 5px;
+    font-family: 'Varela Round', sans-serif;
+
 }
 
 .greeting .hand {
