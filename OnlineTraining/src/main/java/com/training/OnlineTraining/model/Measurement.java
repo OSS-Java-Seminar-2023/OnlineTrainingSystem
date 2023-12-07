@@ -4,6 +4,8 @@ import com.training.OnlineTraining.dto.MeasurementDTO;
 import lombok.*;
 
 import jakarta.persistence.*;
+
+import java.sql.Date;
 import java.util.UUID;
 
 @Entity
@@ -19,6 +21,9 @@ public class Measurement {
     @ManyToOne
     @JoinColumn(name = "contract_id", referencedColumnName = "id")
     private Contract contract;
+
+    @Column(name = "measurement_date")
+    private Date measurementDate;
 
     @Column(name = "body_weight")
     private Double bodyWeight;

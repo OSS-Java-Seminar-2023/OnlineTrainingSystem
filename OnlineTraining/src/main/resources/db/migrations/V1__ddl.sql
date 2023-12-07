@@ -39,6 +39,7 @@ CREATE TABLE Contract (
 CREATE TABLE Measurement (
     id UUID PRIMARY KEY,
     contract_id UUID REFERENCES Contract(id),
+    measurement_date DATE NOT NULL,
     body_weight NUMERIC(6, 2) NOT NULL,
     body_fat NUMERIC(5, 2) NOT NULL,
     waist_circumference NUMERIC(6, 2) NOT NULL,

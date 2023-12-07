@@ -1,8 +1,10 @@
 package com.training.OnlineTraining.dto;
 
+import com.training.OnlineTraining.model.Contract;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -11,6 +13,9 @@ import java.util.UUID;
 @NoArgsConstructor
 public class MeasurementDTO {
 
+	private Contract contract;
+
+	private Date measurementDate;
 
 	private Double bodyWeight;
 
