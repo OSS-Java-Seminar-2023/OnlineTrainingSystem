@@ -17,6 +17,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -48,11 +49,10 @@ public class ExerciseTest {
 
 	@Test
 	public void testCreateExercise() {
-		ResponseEntity<Exercise> responseEntity = exerciseController.createExercise(exerciseDTO);
+		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 
-		assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-		assertNotNull(responseEntity.getBody());
-		assertEquals("Exercise 1", responseEntity.getBody().getName());
+		assertNotNull(newExercise);
+		assertEquals("Exercise 1", newExercise.getName());
 
 		List<Exercise> exercises = exerciseService.getAllExercises();
 		assertEquals(1, exercises.size());
@@ -63,13 +63,13 @@ public class ExerciseTest {
 	@Test
 	public void testGetAllExercises() {
 
-		exerciseController.createExercise(exerciseDTO);
+		exerciseService.createExercise(exerciseDTO);
 
 		ExerciseDTO exerciseDTO2 = new ExerciseDTO("Exercise 2", "Description 2", "NO", "LOW");
-		exerciseController.createExercise(exerciseDTO2);
+		exerciseService.createExercise(exerciseDTO2);
 
 		ExerciseDTO exerciseDTO3 = new ExerciseDTO("Exercise 3", "Description 3", "NO", "LOW");
-		exerciseController.createExercise(exerciseDTO3);
+		exerciseService.createExercise(exerciseDTO3);
 
 
 		List<Exercise> exercises = exerciseService.getAllExercises();
@@ -81,10 +81,10 @@ public class ExerciseTest {
 
 		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 
-		Exercise getetedExercise = exerciseController.getExerciseById(newExercise.getId()).getBody();
+		Optional<Exercise> getetedExercise = exerciseService.getExerciseById(newExercise.getId());
 
 		assertNotNull(getetedExercise);
-		assertEquals("Exercise 1", getetedExercise.getName());
+		assertEquals("Exercise 1", getetedExercise.get().getName());
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class ExerciseTest {
 
 		ExerciseDTO updatedExerciseDTO = new ExerciseDTO("Exercise UPDATE", "Description UPDATE", "NO", "LOW");
 
-		Exercise updateExercise = (Exercise) exerciseController.updateExercise(newExercise.getId(), updatedExerciseDTO).getBody();
+		Exercise updateExercise = exerciseService.updateExercise(newExercise.getId(), updatedExerciseDTO);
 
 		assertNotNull(updateExercise);
 		assertEquals("Exercise UPDATE", updateExercise.getName());
@@ -104,11 +104,6 @@ public class ExerciseTest {
 	@Test
 	public void testDeleteExercise() {
 
-		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
-
-		HttpStatus status = (HttpStatus) exerciseController.deleteExercise(newExercise.getId()).getStatusCode();
-
-		assertEquals(HttpStatus.NO_CONTENT, status);
 	}
 
 

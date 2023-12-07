@@ -1,18 +1,17 @@
 package com.training.OnlineTraining.controller;
 
-
 import com.training.OnlineTraining.dto.ExerciseDTO;
 import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
-@RestController
+@Controller
 @RequestMapping("/exercises")
 public class ExerciseController {
 
@@ -23,34 +22,42 @@ public class ExerciseController {
         this.exerciseService = exerciseService;
     }
 
-    @PostMapping
-    public ResponseEntity<Exercise> createExercise(@RequestBody ExerciseDTO exerciseDTO) {
+    @GetMapping("/add")
+    public String showAddExerciseForm(Model model) {
+        model.addAttribute("exerciseDTO", new ExerciseDTO()); // Create a blank ExerciseDTO to bind the form
+        return "addExerciseForm"; // Return the Thymeleaf view name for the add exercise form
+    }
+
+    @PostMapping("/create")
+    public String createExercise(@ModelAttribute ExerciseDTO exerciseDTO, Model model) {
         Exercise createdExercise = exerciseService.createExercise(exerciseDTO);
-        return new ResponseEntity<>(createdExercise, HttpStatus.CREATED);
+        return ""; // Return the Thymeleaf view name
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Exercise> getExerciseById(@PathVariable UUID id) {
-        return exerciseService.getExerciseById(id)
-                .map(exercise -> new ResponseEntity<>(exercise, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @GetMapping("/show/{id}")
+    public String getExerciseById(@PathVariable UUID id, Model model) {
+        Exercise exercise = exerciseService.getExerciseById(id).orElse(null);
+        model.addAttribute("exercise", exercise);
+        return "exerciseDetails"; // Return the Thymeleaf view name
     }
 
-    @GetMapping
-    public ResponseEntity<List<Exercise>> getAllExercises() {
+    @GetMapping("/all")
+    public String getAllExercises(Model model) {
         List<Exercise> exercises = exerciseService.getAllExercises();
-        return new ResponseEntity<>(exercises, HttpStatus.OK);
+        model.addAttribute("exercises", exercises);
+        return "allExercises"; // Return the Thymeleaf view name
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Exercise> updateExercise(@PathVariable UUID id, @RequestBody ExerciseDTO exerciseDTO) {
+    @PutMapping("/update/{id}")
+    public String updateExercise(@PathVariable UUID id, @ModelAttribute ExerciseDTO exerciseDTO, Model model) {
         Exercise updatedExercise = exerciseService.updateExercise(id, exerciseDTO);
-        return new ResponseEntity<>(updatedExercise, HttpStatus.OK);
+        model.addAttribute("exercise", updatedExercise);
+        return "exerciseView"; // Return the Thymeleaf view name
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExercise(@PathVariable UUID id) {
+    @DeleteMapping("/delete/{id}")
+    public String deleteExercise(@PathVariable UUID id) {
         exerciseService.deleteExercise(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return "redirect:/exercises/all"; // Redirect to the endpoint displaying all exercises
     }
 }
