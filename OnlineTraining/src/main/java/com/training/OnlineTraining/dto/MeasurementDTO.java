@@ -28,4 +28,5 @@ public class MeasurementDTO {
 	private Double armCircumference;
 
 	private Double legCircumference;
+
 }

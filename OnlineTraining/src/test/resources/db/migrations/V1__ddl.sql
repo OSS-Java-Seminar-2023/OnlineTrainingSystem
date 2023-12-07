@@ -44,9 +44,9 @@ CREATE TABLE Contract (
     client_id UUID REFERENCES Client(id),
     starting_measurement_id UUID REFERENCES Measurement(id),
     goal_measurement_id UUID REFERENCES Measurement(id),
-    start_date DATE NOT NULL,
-    end_date DATE NOT NULL,
-    monthly_price NUMERIC(10, 2) NOT NULL
+    start_date DATE,
+    end_date DATE,
+    monthly_price NUMERIC(10, 2)
 );
 
 CREATE TABLE Workout (

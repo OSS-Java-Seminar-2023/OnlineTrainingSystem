@@ -20,6 +20,8 @@ public interface MeasurementMapper {
 	@Mapping(source = "chestCircumference", target = "chestCircumference")
 	@Mapping(source = "armCircumference", target = "armCircumference")
 	@Mapping(source = "legCircumference", target = "legCircumference")
+	@Mapping(source = "contract", target = "contract")
+	@Mapping(source = "measurementDate", target = "measurementDate")
 	Measurement toMeasurement(MeasurementDTO measurementDTO);
 
 	MeasurementDTO toMeasurementDTO(Measurement measurement);
