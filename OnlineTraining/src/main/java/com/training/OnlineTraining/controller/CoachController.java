@@ -28,7 +28,7 @@ public class CoachController {
     public String becomeCoach(@ModelAttribute CoachDto coachDto, @RequestParam UUID userId, Model model) {
         try {
             coachService.registerCoach(coachDto, userId);
-            return "user_page";
+            return "redirect:/login";
         } catch (RuntimeException e) {
             return "error_page";
         }

@@ -54,7 +54,7 @@ public class ClientController {
     public String becomeClient(@ModelAttribute ClientDto clientDto, @RequestParam UUID userId, Model model) {
         try {
             clientService.registerClient(clientDto, userId);
-            return "redirect:/clients/client-page";
+            return "redirect:/login";
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
             return "error_page";
