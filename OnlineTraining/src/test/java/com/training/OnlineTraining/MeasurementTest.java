@@ -18,6 +18,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -44,23 +45,22 @@ public class MeasurementTest {
 	@Test
 	public void testCreateMeasurement()  {
 		MeasurementDTO measurementDTO = new MeasurementDTO(70.5, 15.0, 80.0, 90.0, 30.0, 40.0);
-		ResponseEntity<Measurement> responseEntity = measurementController.createMeasurement(measurementDTO);
+		Measurement measurement = measurementService.createMeasurement(measurementDTO);
 
-		assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-		assertNotNull(responseEntity.getBody());
-		assertEquals(70.5, responseEntity.getBody().getBodyWeight());
+		assertNotNull(measurement);
+		assertEquals(70.5,measurement.getBodyWeight());
 	}
 
 	@Test
 	public void testGetAllMeasurements()  {
 		MeasurementDTO measurementDTO1 = new MeasurementDTO(70.5, 15.0, 80.0, 90.0, 30.0, 40.0);
-		measurementController.createMeasurement(measurementDTO1);
+		measurementService.createMeasurement(measurementDTO1);
 
 		MeasurementDTO measurementDTO2 = new MeasurementDTO(72.0, 18.0, 85.0, 95.0, 32.0, 42.0);
-		measurementController.createMeasurement(measurementDTO2);
+		measurementService.createMeasurement(measurementDTO2);
 
 		MeasurementDTO measurementDTO3 = new MeasurementDTO(71.2, 16.5, 82.0, 92.0, 31.0, 41.0);
-		measurementController.createMeasurement(measurementDTO3);
+		measurementService.createMeasurement(measurementDTO3);
 
 		List<Measurement> measurementList = measurementService.getAllMeasurements();
 		assertEquals(3, measurementList.size());
@@ -71,10 +71,10 @@ public class MeasurementTest {
 		MeasurementDTO measurementDTO = new MeasurementDTO(70.5, 15.0, 80.0, 90.0, 30.0, 40.0);
 		Measurement newMeasurement = measurementService.createMeasurement(measurementDTO);
 
-		Measurement retrievedMeasurement = measurementController.getMeasurementById(newMeasurement.getId()).getBody();
+		Optional<Measurement> retrievedMeasurement = measurementService.getMeasurementById(newMeasurement.getId());
 
 		assertNotNull(retrievedMeasurement);
-		assertEquals(70.5, retrievedMeasurement.getBodyWeight());
+		assertEquals(70.5, retrievedMeasurement.get().getBodyWeight());
 	}
 
 	@Test
@@ -84,7 +84,7 @@ public class MeasurementTest {
 
 		MeasurementDTO updatedMeasurementDTO = new MeasurementDTO(72.0, 18.0, 85.0, 95.0, 32.0, 42.0);
 
-		Measurement updatedMeasurement = measurementController.updateMeasurement(newMeasurement.getId(), updatedMeasurementDTO).getBody();
+		Measurement updatedMeasurement = measurementService.updateMeasurement(newMeasurement.getId(), updatedMeasurementDTO);
 
 		assertNotNull(updatedMeasurement);
 		assertEquals(72.0, updatedMeasurement.getBodyWeight());
@@ -95,9 +95,10 @@ public class MeasurementTest {
 		MeasurementDTO measurementDTO = new MeasurementDTO(70.5, 15.0, 80.0, 90.0, 30.0, 40.0);
 		Measurement newMeasurement = measurementService.createMeasurement(measurementDTO);
 
-		HttpStatus status = (HttpStatus) measurementController.deleteMeasurement(newMeasurement.getId()).getStatusCode();
+		measurementService.deleteMeasurement(newMeasurement.getId());
 
-		assertEquals(HttpStatus.NO_CONTENT, status);
+
+		assertEquals(0, measurementService.getAllMeasurements().size());
 	}
 
 	@Test
@@ -108,10 +109,7 @@ public class MeasurementTest {
 		MeasurementDTO measurementDTO2 = new MeasurementDTO(72.0, 18.0, 85.0, 95.0, 32.0, 42.0);
 		measurementController.createMeasurement(measurementDTO2);
 
-		HttpStatus status = (HttpStatus) measurementController.deleteAllMeasurements().getStatusCode();
-
-		assertEquals(HttpStatus.NO_CONTENT, status);
-
+		measurementService.deleteAll();
 		assertEquals(0, measurementService.getAllMeasurements().size());
 	}
 
