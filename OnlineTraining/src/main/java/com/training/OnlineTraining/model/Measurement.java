@@ -18,7 +18,7 @@ public class Measurement {
     @Column(name = "id")
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "contract_id", referencedColumnName = "id")
     private Contract contract;
 

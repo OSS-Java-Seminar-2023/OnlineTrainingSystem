@@ -18,9 +18,10 @@ public class ContractServiceImpl implements ContractService {
     private final ContractMapper contractMapper;
 
 
-    public void createContract(ContractDto contractDto) {
+    public Contract createContract(ContractDto contractDto) {
         Contract contract = contractMapper.mapDto(contractDto);
         contractRepository.save(contract);
+        return contract;
     }
 
 }

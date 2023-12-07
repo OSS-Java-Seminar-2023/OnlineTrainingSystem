@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 public interface ContractService {
-    void createContract(ContractDto contractDto);
+    Contract createContract(ContractDto contractDto);
 
 
 }
