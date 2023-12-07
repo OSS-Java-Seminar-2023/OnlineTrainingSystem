@@ -9,3 +9,16 @@
   height: 100%;
   object-fit: cover;
 }
+
+.carousel-caption {
+  position: absolute;
+  top: 20%;
+  text-align: center;
+
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
