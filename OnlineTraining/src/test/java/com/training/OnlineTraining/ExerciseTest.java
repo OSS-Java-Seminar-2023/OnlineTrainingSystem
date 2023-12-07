@@ -103,7 +103,10 @@ public class ExerciseTest {
 
 	@Test
 	public void testDeleteExercise() {
+		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
+		exerciseService.deleteExercise(newExercise.getId());
 
+		assertEquals(0, exerciseService.getAllExercises().size());
 	}
 
 

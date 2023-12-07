@@ -1,18 +1,17 @@
 package com.training.OnlineTraining.controller;
 
-
 import com.training.OnlineTraining.dto.MeasurementDTO;
 import com.training.OnlineTraining.model.Measurement;
 import com.training.OnlineTraining.service.MeasurementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
-@RestController
+@Controller
 @RequestMapping("/measurements")
 public class MeasurementController {
 
@@ -23,40 +22,47 @@ public class MeasurementController {
 		this.measurementService = measurementService;
 	}
 
-	@PostMapping
-	public ResponseEntity<Measurement> createMeasurement(@RequestBody MeasurementDTO measurementDTO) {
-		Measurement createdMeasurement = measurementService.createMeasurement(measurementDTO);
-		return new ResponseEntity<>(createdMeasurement, HttpStatus.CREATED);
+	@GetMapping("/add")
+	public String showAddMeasurementForm(Model model) {
+		model.addAttribute("measurementDTO", new MeasurementDTO());
+		return "addMeasurementForm";
+	}
+
+	@PostMapping("/create")
+	public String createMeasurement(@ModelAttribute MeasurementDTO measurementDTO) {
+		measurementService.createMeasurement(measurementDTO);
+		return "";
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Measurement> getMeasurementById(@PathVariable UUID id) {
-		return measurementService.getMeasurementById(id)
-				.map(measurement -> new ResponseEntity<>(measurement, HttpStatus.OK))
-				.orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	public String getMeasurementById(@PathVariable UUID id, Model model) {
+		Measurement measurement = measurementService.getMeasurementById(id).orElse(null);
+		model.addAttribute("measurement", measurement);
+		return "measurementDetails";
 	}
 
-	@GetMapping
-	public ResponseEntity<List<Measurement>> getAllMeasurements() {
+	@GetMapping("/all")
+	public String getAllMeasurements(Model model) {
 		List<Measurement> measurements = measurementService.getAllMeasurements();
-		return new ResponseEntity<>(measurements, HttpStatus.OK);
+		model.addAttribute("measurements", measurements);
+		return "allMeasurements";
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Measurement> updateMeasurement(@PathVariable UUID id, @RequestBody MeasurementDTO measurementDTO) {
-		Measurement updatedMeasurement = measurementService.updateMeasurement(id, measurementDTO);
-		return new ResponseEntity<>(updatedMeasurement, HttpStatus.OK);
+	public String updateMeasurement(@PathVariable UUID id, @ModelAttribute MeasurementDTO measurementDTO) {
+		measurementService.updateMeasurement(id, measurementDTO);
+		return "redirect:/measurements/" + id;
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteMeasurement(@PathVariable UUID id) {
+	public String deleteMeasurement(@PathVariable UUID id) {
 		measurementService.deleteMeasurement(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return "redirect:/measurements/all";
 	}
 
 	@DeleteMapping
-	public ResponseEntity<Void> deleteAllMeasurements() {
+	public String deleteAllMeasurements() {
 		measurementService.deleteAll();
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return "redirect:/measurements/all";
 	}
 }
