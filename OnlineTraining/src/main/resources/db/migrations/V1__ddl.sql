@@ -1,4 +1,4 @@
-CREATE TABLE "user" (
+CREATE TABLE User_table (
     id UUID PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE Coach (
     id UUID PRIMARY KEY,
-    user_id UUID REFERENCES "user"(id),
+    user_id UUID REFERENCES User_table(id),
     years_of_experience NUMERIC(5,2) NOT NULL,
     education TEXT NOT NULL,
     monthly_price NUMERIC(10, 2) NOT NULL
@@ -22,7 +22,7 @@ CREATE TABLE Coach (
 
 CREATE TABLE Client (
     id UUID PRIMARY KEY,
-    user_id UUID REFERENCES "user"(id),
+    user_id UUID REFERENCES User_table(id),
     medical_condition TEXT,
     injuries TEXT
 );
