@@ -1,4 +1,4 @@
-<div th:fragment="coach_table">
+<div th:fragment="coach_table" xmlns:th="http://www.w3.org/1999/xhtml">
     <table id="coachesTable" th:if="${coaches}">
         <tr>
             <th>First Name</th>
@@ -13,12 +13,12 @@
             <th>Make a contract</th>
         </tr>
         <tr th:each="coach : ${coaches}">
-            <td th:text="${coach.userFirstName}"></td>
-            <td th:text="${coach.userLastName}"></td>
-            <td th:text="${coach.userCity}"></td>
-            <td th:text="${coach.userCountry}"></td>
-            <td th:text="${coach.userGender}"></td>
-            <td th:text="${coach.userAge}"></td>
+            <td th:text="${coach.coachUserDTO.firstName}"></td>
+            <td th:text="${coach.coachUserDTO.lastName}"></td>
+            <td th:text="${coach.coachUserDTO.city}"></td>
+            <td th:text="${coach.coachUserDTO.country}"></td>
+            <td th:text="${coach.coachUserDTO.gender}"></td>
+            <td th:text="${coach.coachUserDTO.age}"></td>
             <td th:text="${coach.yearsOfExperience}"></td>
             <td th:text="${coach.education}"></td>
             <td th:text="${coach.monthlyPrice}"></td>
