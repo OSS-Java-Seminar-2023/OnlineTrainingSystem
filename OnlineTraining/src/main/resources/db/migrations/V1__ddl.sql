@@ -69,8 +69,12 @@ CREATE TABLE Exercise (
 CREATE TABLE WorkoutSession (
     id UUID PRIMARY KEY,
     workout_id UUID REFERENCES Workout(id),
-    exercise_id UUID REFERENCES Exercise(id),
+    exercise_id UUID,
     number_of_reps INTEGER NOT NULL,
     pause_after_exercise_in_seconds INTEGER NOT NULL,
-    weight NUMERIC(6, 2) NOT NULL
+    weight NUMERIC(6, 2) NOT NULL,
+    CONSTRAINT fk_exercise
+    FOREIGN KEY (exercise_id)
+    REFERENCES Exercise(id)
+    ON DELETE SET NULL
 );
