@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -40,28 +38,28 @@ public class ExerciseTest {
 
 	private ExerciseDTO exerciseDTO;
 
-	private int tempNumberOfExercises;
+	private int numberOfExercisesInDatabaseBeforeTest;
+
 	@BeforeEach
 	public void setUp(){
+		numberOfExercisesInDatabaseBeforeTest = exerciseService.getAllExercises().size();
+
 		exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
-		tempNumberOfExercises = exerciseService.getAllExercises().size();
 	}
 
 	@Test
 	public void testCreateExercise() {
-
 		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 
 		assertNotNull(newExercise);
 		assertEquals("Exercise 1", newExercise.getName());
 
 		List<Exercise> exercises = exerciseService.getAllExercises();
-		assertEquals(tempNumberOfExercises + 1, exercises.size());
+		assertEquals(numberOfExercisesInDatabaseBeforeTest + 1, exercises.size());
 	}
 
 	@Test
 	public void testGetAllExercises() {
-
 		exerciseService.createExercise(exerciseDTO);
 
 		ExerciseDTO exerciseDTO2 = new ExerciseDTO("Exercise 2", "Description 2", "NO", "LOW");
@@ -70,25 +68,22 @@ public class ExerciseTest {
 		ExerciseDTO exerciseDTO3 = new ExerciseDTO("Exercise 3", "Description 3", "NO", "LOW");
 		exerciseService.createExercise(exerciseDTO3);
 
-
 		List<Exercise> exercises = exerciseService.getAllExercises();
-		assertEquals(tempNumberOfExercises + 3, exercises.size());
+		assertEquals(numberOfExercisesInDatabaseBeforeTest + 3, exercises.size());
 	}
 
 	@Test
 	public void testGetExerciseById() {
-
 		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 
-		Optional<Exercise> gettedExercise = exerciseService.getExerciseById(newExercise.getId());
+		Optional<Exercise> gotExercise = exerciseService.getExerciseById(newExercise.getId());
 
-		assertNotNull(gettedExercise);
-		assertEquals("Exercise 1", gettedExercise.get().getName());
+		assertNotNull(gotExercise);
+		assertEquals("Exercise 1", gotExercise.get().getName());
 	}
 
 	@Test
 	public void testUpdateExercise() {
-
 		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 
 		ExerciseDTO updatedExerciseDTO = new ExerciseDTO("Exercise UPDATE", "Description UPDATE", "NO", "LOW");
@@ -104,7 +99,7 @@ public class ExerciseTest {
 	public void testDeleteExercise() {
 		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 		exerciseService.deleteExercise(newExercise.getId());
-		assertEquals(tempNumberOfExercises, exerciseService.getAllExercises().size());
+		assertEquals(numberOfExercisesInDatabaseBeforeTest, exerciseService.getAllExercises().size());
 	}
 
 	@Test
