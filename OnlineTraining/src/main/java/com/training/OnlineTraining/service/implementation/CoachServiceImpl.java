@@ -2,6 +2,8 @@ package com.training.OnlineTraining.service.implementation;
 
 import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.dto.CoachFilterParams;
+import com.training.OnlineTraining.exceptions.UserNotFoundException;
+import com.training.OnlineTraining.mapper.CoachMapper;
 import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.User;
 import com.training.OnlineTraining.repository.CoachRepository;
@@ -21,8 +23,10 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class CoachServiceImpl implements CoachService {
+
     private final UserService userService;
     private final CoachRepository coachRepository;
+    private final CoachMapper coachMapper;
 
     @Override
     public void registerCoach(CoachDto coachDto, UUID userId) {
@@ -30,46 +34,21 @@ public class CoachServiceImpl implements CoachService {
 
         optionalUser.ifPresentOrElse(
                 user -> {
-                    Coach coach = new Coach();
-                    coach.setUser(user);
-                    coach.setYearsOfExperience(coachDto.getYearsOfExperience());
-                    coach.setEducation(coachDto.getEducation());
-                    coach.setMonthlyPrice(coachDto.getMonthlyPrice());
-
-                    coachRepository.save(coach);
+                    coachRepository.save(coachMapper.coachDtoToCoach(coachDto));
                 },
                 () -> {
-                    throw new RuntimeException("User not found");
+                    throw new UserNotFoundException(userId);
                 }
         );
     }
     @Override
-    public boolean isCoach(User user) {return coachRepository.existsByUser(user);
-    }
-
-    @Override
-    public CoachDto mapCoachToDto(Coach coach) {
-        CoachDto coachDto = new CoachDto();
-        coachDto.setId(coach.getId());
-        coachDto.setYearsOfExperience(coach.getYearsOfExperience());
-        coachDto.setEducation(coach.getEducation());
-        coachDto.setMonthlyPrice(coach.getMonthlyPrice());
-
-        User user = coach.getUser();
-        coachDto.setUserFirstName(user.getFirstName());
-        coachDto.setUserLastName(user.getLastName());
-        coachDto.setUserCity(user.getCity());
-        coachDto.setUserCountry(user.getCountry());
-        coachDto.setUserGender(user.getGender());
-        coachDto.setUserAge(user.getAge());
-
-        return coachDto;
+    public boolean isCoach(User user) { return coachRepository.existsByUser(user);
     }
 
     @Override
     public List<CoachDto> getAllCoaches() {
         return coachRepository.findAll().stream()
-                .map(this::mapCoachToDto)
+                .map(coachMapper::coachToCoachDto)
                 .collect(Collectors.toList());
     }
 
@@ -83,7 +62,7 @@ public class CoachServiceImpl implements CoachService {
                 .and(CoachSpecifications.filterByMonthlyPrice(filterParams.getMonthlyPrice()));
 
         return coachRepository.findAll(spec).stream()
-                .map(this::mapCoachToDto)
+                .map(coachMapper::coachToCoachDto)
                 .collect(Collectors.toList());
     }
 
