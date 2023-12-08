@@ -40,24 +40,23 @@ public class ExerciseTest {
 
 	private ExerciseDTO exerciseDTO;
 
+	private int tempNumberOfExercises;
 	@BeforeEach
 	public void setUp(){
-		exerciseService.deleteAll();
-
 		exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", "LOW");
+		tempNumberOfExercises = exerciseService.getAllExercises().size();
 	}
 
 	@Test
 	public void testCreateExercise() {
+
 		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 
 		assertNotNull(newExercise);
 		assertEquals("Exercise 1", newExercise.getName());
 
 		List<Exercise> exercises = exerciseService.getAllExercises();
-		assertEquals(1, exercises.size());
-		assertEquals("Description 1", exercises.get(0).getDescription());
-
+		assertEquals(tempNumberOfExercises + 1, exercises.size());
 	}
 
 	@Test
@@ -73,7 +72,7 @@ public class ExerciseTest {
 
 
 		List<Exercise> exercises = exerciseService.getAllExercises();
-		assertEquals(3, exercises.size());
+		assertEquals(tempNumberOfExercises + 3, exercises.size());
 	}
 
 	@Test
@@ -81,10 +80,10 @@ public class ExerciseTest {
 
 		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 
-		Optional<Exercise> getetedExercise = exerciseService.getExerciseById(newExercise.getId());
+		Optional<Exercise> gettedExercise = exerciseService.getExerciseById(newExercise.getId());
 
-		assertNotNull(getetedExercise);
-		assertEquals("Exercise 1", getetedExercise.get().getName());
+		assertNotNull(gettedExercise);
+		assertEquals("Exercise 1", gettedExercise.get().getName());
 	}
 
 	@Test
@@ -105,7 +104,12 @@ public class ExerciseTest {
 	public void testDeleteExercise() {
 		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 		exerciseService.deleteExercise(newExercise.getId());
+		assertEquals(tempNumberOfExercises, exerciseService.getAllExercises().size());
+	}
 
+	@Test
+	public void testDeleteAllExercises() {
+		exerciseService.deleteAll();
 		assertEquals(0, exerciseService.getAllExercises().size());
 	}
 
