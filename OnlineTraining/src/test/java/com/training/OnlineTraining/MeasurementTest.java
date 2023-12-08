@@ -1,7 +1,5 @@
 package com.training.OnlineTraining;
 
-import com.training.OnlineTraining.controller.MeasurementController;
-import com.training.OnlineTraining.dto.ContractDto;
 import com.training.OnlineTraining.dto.MeasurementDTO;
 import com.training.OnlineTraining.model.*;
 import com.training.OnlineTraining.service.ContractService;
@@ -12,8 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -21,7 +17,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -49,11 +44,11 @@ public class MeasurementTest {
 
 	private Date currentDate;
 
-	private int startingNumberOfMeasurements = 0;
+	private int numberOfMeasurementsInDatabaseBeforeTest = 0;
 
 	@BeforeEach
 	public void setUp(){
-		startingNumberOfMeasurements = measurementService.getAllMeasurements().size();
+		numberOfMeasurementsInDatabaseBeforeTest = measurementService.getAllMeasurements().size();
 
 		contract = contractService.getAllContracts().get(0);
 		currentDate = Date.valueOf(java.time.LocalDate.now());
@@ -62,6 +57,7 @@ public class MeasurementTest {
 	@Test
 	public void testCreateMeasurement()  {
 		measurement = measurementService.createMeasurement(measurementDTO);
+
 		assertNotNull(measurement);
 		assertEquals(70.5,measurement.getBodyWeight());
 	}
@@ -77,12 +73,13 @@ public class MeasurementTest {
 		measurementService.createMeasurement(measurementDTO3);
 
 		List<Measurement> measurementList = measurementService.getAllMeasurements();
-		assertEquals(startingNumberOfMeasurements + 3, measurementList.size());
+		assertEquals(numberOfMeasurementsInDatabaseBeforeTest + 3, measurementList.size());
 	}
 
 	@Test
 	public void testGetMeasurementById() throws Exception {
 		measurement = measurementService.createMeasurement(measurementDTO);
+
 		Optional<Measurement> retrievedMeasurement = measurementService.getMeasurementById(measurement.getId());
 
 		assertNotNull(retrievedMeasurement);
@@ -92,8 +89,8 @@ public class MeasurementTest {
 	@Test
 	public void testUpdateMeasurement() throws Exception {
 		measurement = measurementService.createMeasurement(measurementDTO);
-		MeasurementDTO updatedMeasurementDTO = new MeasurementDTO(contract, currentDate,72.0, 18.0, 85.0, 95.0, 32.0, 42.0);
 
+		MeasurementDTO updatedMeasurementDTO = new MeasurementDTO(contract, currentDate,72.0, 18.0, 85.0, 95.0, 32.0, 42.0);
 		Measurement updatedMeasurement = measurementService.updateMeasurement(measurement.getId(), updatedMeasurementDTO);
 
 		assertNotNull(updatedMeasurement);
@@ -103,14 +100,16 @@ public class MeasurementTest {
 	@Test
 	public void testDeleteMeasurement() throws Exception {
 		measurement = measurementService.createMeasurement(measurementDTO);
+
 		measurementService.deleteMeasurement(measurement.getId());
 
-		assertEquals(startingNumberOfMeasurements, measurementService.getAllMeasurements().size());
+		assertEquals(numberOfMeasurementsInDatabaseBeforeTest, measurementService.getAllMeasurements().size());
 	}
 
 	@Test
 	public void testDeleteAllMeasurements() throws Exception {
 		measurement = measurementService.createMeasurement(measurementDTO);
+
 		MeasurementDTO measurementDTO2 = new MeasurementDTO(contract, currentDate, 72.0, 18.0, 85.0, 95.0, 32.0, 42.0);
 		measurementService.createMeasurement(measurementDTO2);
 
