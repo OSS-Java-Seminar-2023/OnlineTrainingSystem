@@ -3,6 +3,8 @@ package com.training.OnlineTraining.model;
 import lombok.*;
 
 import jakarta.persistence.*;
+
+import java.sql.Date;
 import java.util.UUID;
 
 @Entity
@@ -18,6 +20,12 @@ public class Workout {
     @ManyToOne
     @JoinColumn(name = "contract_id", referencedColumnName = "id")
     private Contract contract;
+
+    @Column(name = "date_of_workout")
+    private Date dateOfWorkout;
+
+    @Column(name = "ordinal_number_of_workout")
+    private Integer ordinalNumberOfWorkout;
 
     @Column(name = "number_of_exercises")
     private Integer numberOfExercises;
