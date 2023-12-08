@@ -1,4 +1,4 @@
-INSERT INTO "user" (id, first_name, last_name, email, street, city, country, phone_number, gender, age, password)
+INSERT INTO User_table (id, first_name, last_name, email, street, city, country, phone_number, gender, age, password)
 VALUES
 ('0b2ae5a0-3322-4a75-ba4b-f55f5b23f818', 'John', 'Doe', 'johndoe@example.com', '123 Main St', 'Anytown', 'USA', '+123456789012', 'Male', 35, 'hashed_pass'),
 ('1a6e3a4f-79d9-4f92-b7b5-c1c5b0f98a55', 'Emily', 'Johnson', 'emily.j@example.com', '456 Elm St', 'Smallville', 'Canada', '+145632189078', 'Female', 28, 'hashed_pass'),

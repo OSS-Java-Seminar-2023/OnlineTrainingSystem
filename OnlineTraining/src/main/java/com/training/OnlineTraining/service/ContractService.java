@@ -2,13 +2,17 @@ package com.training.OnlineTraining.service;
 
 import com.training.OnlineTraining.dto.ContractDto;
 import com.training.OnlineTraining.model.Contract;
-import com.training.OnlineTraining.repository.ContractRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface ContractService {
     Contract createContract(ContractDto contractDto);
+    Optional<Contract> getContractById(UUID id);
+    List<Contract> getAllContracts();
+    Contract updateContract(UUID id, ContractDto contractDetails);
+    void deleteContract(UUID id);
 
-
+    void deleteAllContracts();
 }

@@ -36,9 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class MeasurementTest {
 
 	@Autowired
-	private MeasurementController measurementController;
-
-	@Autowired
 	private MeasurementService measurementService;
 
 	@Autowired
@@ -50,42 +47,42 @@ public class MeasurementTest {
 
 	private Contract contract;
 
-
 	private Date currentDate;
+
+	private int startingNumberOfMeasurements = 0;
 
 	@BeforeEach
 	public void setUp(){
-		measurementService.deleteAll();
+		startingNumberOfMeasurements = measurementService.getAllMeasurements().size();
+
+		contract = contractService.getAllContracts().get(0);
 		currentDate = Date.valueOf(java.time.LocalDate.now());
-
-		ContractDto contractDto = new ContractDto(UUID.randomUUID(), new Coach(), new Client(), currentDate, currentDate, 10.0);
-		contract = contractService.createContract(contractDto);
-
 		measurementDTO = new MeasurementDTO(contract, currentDate, 70.5, 15.0, 80.0, 90.0, 30.0, 40.0);
-		measurement = measurementService.createMeasurement(measurementDTO);
-
 	}
 	@Test
 	public void testCreateMeasurement()  {
+		measurement = measurementService.createMeasurement(measurementDTO);
 		assertNotNull(measurement);
 		assertEquals(70.5,measurement.getBodyWeight());
 	}
 
 	@Test
 	public void testGetAllMeasurements()  {
+		measurement = measurementService.createMeasurement(measurementDTO);
 
-		MeasurementDTO measurementDTO2 = new MeasurementDTO(new Contract(), currentDate,72.0, 18.0, 85.0, 95.0, 32.0, 42.0);
+		MeasurementDTO measurementDTO2 = new MeasurementDTO(contract, currentDate,72.0, 18.0, 85.0, 95.0, 32.0, 42.0);
 		measurementService.createMeasurement(measurementDTO2);
 
-		MeasurementDTO measurementDTO3 = new MeasurementDTO(new Contract(), currentDate,71.2, 16.5, 82.0, 92.0, 31.0, 41.0);
+		MeasurementDTO measurementDTO3 = new MeasurementDTO(contract, currentDate,71.2, 16.5, 82.0, 92.0, 31.0, 41.0);
 		measurementService.createMeasurement(measurementDTO3);
 
 		List<Measurement> measurementList = measurementService.getAllMeasurements();
-		assertEquals(3, measurementList.size());
+		assertEquals(startingNumberOfMeasurements + 3, measurementList.size());
 	}
 
 	@Test
 	public void testGetMeasurementById() throws Exception {
+		measurement = measurementService.createMeasurement(measurementDTO);
 		Optional<Measurement> retrievedMeasurement = measurementService.getMeasurementById(measurement.getId());
 
 		assertNotNull(retrievedMeasurement);
@@ -94,7 +91,8 @@ public class MeasurementTest {
 
 	@Test
 	public void testUpdateMeasurement() throws Exception {
-		MeasurementDTO updatedMeasurementDTO = new MeasurementDTO(new Contract(), currentDate,72.0, 18.0, 85.0, 95.0, 32.0, 42.0);
+		measurement = measurementService.createMeasurement(measurementDTO);
+		MeasurementDTO updatedMeasurementDTO = new MeasurementDTO(contract, currentDate,72.0, 18.0, 85.0, 95.0, 32.0, 42.0);
 
 		Measurement updatedMeasurement = measurementService.updateMeasurement(measurement.getId(), updatedMeasurementDTO);
 
@@ -104,15 +102,17 @@ public class MeasurementTest {
 
 	@Test
 	public void testDeleteMeasurement() throws Exception {
+		measurement = measurementService.createMeasurement(measurementDTO);
 		measurementService.deleteMeasurement(measurement.getId());
 
-		assertEquals(0, measurementService.getAllMeasurements().size());
+		assertEquals(startingNumberOfMeasurements, measurementService.getAllMeasurements().size());
 	}
 
 	@Test
 	public void testDeleteAllMeasurements() throws Exception {
-		MeasurementDTO measurementDTO2 = new MeasurementDTO(new Contract(), currentDate, 72.0, 18.0, 85.0, 95.0, 32.0, 42.0);
-		measurementController.createMeasurement(measurementDTO2);
+		measurement = measurementService.createMeasurement(measurementDTO);
+		MeasurementDTO measurementDTO2 = new MeasurementDTO(contract, currentDate, 72.0, 18.0, 85.0, 95.0, 32.0, 42.0);
+		measurementService.createMeasurement(measurementDTO2);
 
 		measurementService.deleteAll();
 		assertEquals(0, measurementService.getAllMeasurements().size());
