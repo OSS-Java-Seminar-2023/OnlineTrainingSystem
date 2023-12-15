@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class MeasurementDTO {
 
-	private Contract contract;
+	private UUID contractId;
 
 	private Date measurementDate;
 

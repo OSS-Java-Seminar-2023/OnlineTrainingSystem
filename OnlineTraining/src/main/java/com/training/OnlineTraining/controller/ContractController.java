@@ -2,6 +2,7 @@ package com.training.OnlineTraining.controller;
 
 
 import com.training.OnlineTraining.dto.ContractDto;
+import com.training.OnlineTraining.model.Contract;
 import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.ContractService;
 import jakarta.servlet.http.HttpSession;
@@ -34,13 +35,14 @@ public class ContractController {
         model.addAttribute("contract", new ContractDto());
         model.addAttribute("monthlyPrice", monthlyPrice);
 
-
         return "contract_page";
     }
 
     @PostMapping("/{coachId}")
     public String createContract(@PathVariable UUID coachId, @ModelAttribute ContractDto contractDto, Model model) {
-        contractService.createContract(contractDto);
-        return "index";
+        Contract savedContract = contractService.createContract(contractDto);
+        UUID contractId = savedContract.getId();
+
+        return "redirect:/measurements/" + contractId;
     }
 }

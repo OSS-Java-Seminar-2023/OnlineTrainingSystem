@@ -14,13 +14,13 @@ public interface MeasurementMapper {
 
 	MeasurementMapper INSTANCE = Mappers.getMapper(MeasurementMapper.class);
 
+	@Mapping(source = "contractId", target = "contract.id")
 	@Mapping(source = "bodyWeight", target = "bodyWeight")
 	@Mapping(source = "bodyFat", target = "bodyFat")
 	@Mapping(source = "waistCircumference", target = "waistCircumference")
 	@Mapping(source = "chestCircumference", target = "chestCircumference")
 	@Mapping(source = "armCircumference", target = "armCircumference")
 	@Mapping(source = "legCircumference", target = "legCircumference")
-	@Mapping(source = "contract", target = "contract")
 	@Mapping(source = "measurementDate", target = "measurementDate")
 	Measurement toMeasurement(MeasurementDTO measurementDTO);
 

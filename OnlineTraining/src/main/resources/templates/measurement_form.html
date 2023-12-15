@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Measurement Form</title>
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+
+<div th:replace="fragments/navigation :: navigation('/measurements')"></div>
+<br>
+<br>
+
+<main class="align">
+    <div class="login">
+        <header class="login__header">
+            <h2 class="align">Measurement Form</h2>
+        </header>
+
+        <form th:action="@{'/measurements/' + ${contractId}}" th:object="${measurementDto}" method="post" class="login__form">
+
+            <input type="hidden" name="contract" th:value="*{contractId}" />
+
+                <label for="measurementDate">Measurement Date:</label>
+                <input type="date" id="measurementDate" name="measurementDate" th:field="*{measurementDate}" required />
+            <div>
+                 <label for="bodyWeight">Body Weight:</label>
+                <input type="number" id="bodyWeight" step="0.1" name="bodyWeight" th:field="*{bodyWeight}" required />
+            </div>
+            <div>
+                <label for="bodyFat">Body Fat:</label>
+                <input type="number" id="bodyFat" step="0.1" name="bodyFat" th:field="*{bodyFat}" required />
+            </div>
+            <div>
+
+            <label for="waistCircumference">Waist Circumference:</label>
+                <input type="number" id="waistCircumference" step="0.1" name="waistCircumference" th:field="*{waistCircumference}" required />
+            </div>
+            <div>
+                <label for="chestCircumference">Chest Circumference:</label>
+                <input type="number" id="chestCircumference" step="0.1" name="chestCircumference" th:field="*{chestCircumference}" required />
+            </div>
+            <div>
+                <label for="armCircumference">Arm Circumference:</label>
+                <input type="number" id="armCircumference" step="0.1" name="armCircumference" th:field="*{armCircumference}" required />
+            </div>
+            <div>
+                 <label for="legCircumference">Leg Circumference:</label>
+                <input type="number" id="legCircumference" step="0.1" name="legCircumference" th:field="*{legCircumference}" required />
+            </div>
+            <div>
+                <input class="button" type="submit">
+            </div>
+        </form>
+    </div>
+</main>
+<script th:src="@{/js/noBack.js}"></script>
+</body>
+</html>
