@@ -4,6 +4,7 @@ import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.dto.CoachFilterParams;
 import com.training.OnlineTraining.exceptions.UserNotFoundException;
 import com.training.OnlineTraining.mapper.CoachMapper;
+import com.training.OnlineTraining.mapper.CoachUserMapper;
 import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.User;
 import com.training.OnlineTraining.repository.CoachRepository;
@@ -27,10 +28,13 @@ public class CoachServiceImpl implements CoachService {
     private final UserService userService;
     private final CoachRepository coachRepository;
     private final CoachMapper coachMapper;
+    private final CoachUserMapper coachUserMapper;
 
     @Override
     public void registerCoach(CoachDto coachDto, UUID userId) {
         Optional<User> optionalUser = Optional.ofNullable(userService.getUserById(userId));
+
+        coachDto.setCoachUserDTO(coachUserMapper.toCoachUserDTO(optionalUser.get()));
 
         optionalUser.ifPresentOrElse(
                 user -> {
