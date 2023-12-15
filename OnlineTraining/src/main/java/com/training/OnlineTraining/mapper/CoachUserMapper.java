@@ -25,6 +25,7 @@ public interface CoachUserMapper {
 	@Mapping(source = "phoneNumber", target = "phoneNumber")
 	@Mapping(source = "gender", target = "gender")
 	@Mapping(source = "age", target = "age")
+	@Mapping(source = "id", target = "id")
 	CoachUserDTO toCoachUserDTO(User user);
 
 	@Mapping(source = "firstName", target = "firstName")
@@ -36,5 +37,6 @@ public interface CoachUserMapper {
 	@Mapping(source = "phoneNumber", target = "phoneNumber")
 	@Mapping(source = "gender", target = "gender")
 	@Mapping(source = "age", target = "age")
+	@Mapping(source = "id", target = "id")
 	User toUser(CoachUserDTO coachUserDTO);
 }
