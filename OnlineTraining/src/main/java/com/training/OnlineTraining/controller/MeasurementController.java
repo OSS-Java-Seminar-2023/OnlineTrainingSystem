@@ -22,7 +22,7 @@ public class MeasurementController {
 	public String showMeasurementForm(@PathVariable UUID contractId, Model model) {
 		model.addAttribute("contractId", contractId);
 		model.addAttribute("measurementDto", new MeasurementDTO());
-		return "measurement_form";
+		return "client/measurement_form";
 	}
 
 	@PostMapping("/{contractId}")

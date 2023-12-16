@@ -21,19 +21,20 @@ public class UserController {
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
+
         model.addAttribute("registerRequest", new User());
-        return "register_page";
+        return "registration/register_page";
     }
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         model.addAttribute("loginRequest", new User());
-        return "login_page";
+        return "auth/login_page";
     }
 
     @GetMapping("/user-page")
     public String getUserPage() {
-        return "user_page";
+        return "coach/user_page";
     }
 
     @PostMapping("/register")
@@ -44,11 +45,11 @@ public class UserController {
             }
 
             User registeredUser = userService.registerUser(request);
-            return registeredUser == null ? "error_page" : "redirect:/login";
+            return registeredUser == null ? "error_page" : "auth/login_page";
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
             model.addAttribute("registerRequest", request);
-            return "register_page";
+            return "registration/register_page";
         }
     }
 
@@ -67,14 +68,14 @@ public class UserController {
             }
             if (isCoach) {
                 session.setAttribute("coachId", authenticated.getId());
-                return "redirect:/user-page";
+                return "coach/coach_page";
             }
             model.addAttribute("userId", authenticated.getId());
-            return "become_client_or_coach_page";
+            return "auth/become_client_or_coach_page";
 
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
-            return "login_page";
+            return "auth/login_page";
         }
     }
 }

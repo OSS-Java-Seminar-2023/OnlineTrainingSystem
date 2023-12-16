@@ -35,7 +35,7 @@ public class ContractController {
         model.addAttribute("contract", new ContractDto());
         model.addAttribute("monthlyPrice", monthlyPrice);
 
-        return "contract_page";
+        return "client/contract_page";
     }
 
     @PostMapping("/{coachId}")

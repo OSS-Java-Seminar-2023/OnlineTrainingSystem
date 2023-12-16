@@ -21,7 +21,7 @@ public class CoachController {
     public String getBecomeCoachPage(@RequestParam UUID userId, Model model) {
         model.addAttribute("userId", userId);
         model.addAttribute("coach", new CoachDto());
-        return "coach_register_page";
+        return "coach/coach_register_page";
     }
 
     @PostMapping("/register")

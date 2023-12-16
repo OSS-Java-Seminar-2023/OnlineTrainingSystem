@@ -30,7 +30,7 @@ public class ClientController {
                                 HttpSession session) {
         UUID clientId = (UUID) session.getAttribute("clientId");
         if (clientId == null){
-            return "login_page";
+            return "auth/login_page";
         }
         String clientName = (String) session.getAttribute("clientName");
 
@@ -39,7 +39,7 @@ public class ClientController {
         model.addAttribute("coaches", coaches);
         model.addAttribute("clientId", clientId);
         model.addAttribute("clientName", clientName);
-        return "client_page";
+        return "client/client_page";
     }
 
 
@@ -47,7 +47,7 @@ public class ClientController {
     public String getBecomeClientPage(@RequestParam UUID userId, Model model) {
         model.addAttribute("userId", userId);
         model.addAttribute("client", new ClientDto());
-        return "client_register_page";
+        return "client/client_register_page";
     }
 
     @PostMapping("/register")
