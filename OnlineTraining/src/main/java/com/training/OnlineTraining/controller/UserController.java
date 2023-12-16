@@ -32,10 +32,6 @@ public class UserController {
         return "auth/login_page";
     }
 
-    @GetMapping("/user-page")
-    public String getUserPage() {
-        return "coach/user_page";
-    }
 
     @PostMapping("/register")
     public String register(@ModelAttribute UserDto request, @RequestParam String confirmPassword, Model model) {
@@ -68,7 +64,7 @@ public class UserController {
             }
             if (isCoach) {
                 session.setAttribute("coachId", authenticated.getId());
-                return "coach/coach_page";
+                return "redirect:coaches/coach-page";
             }
             model.addAttribute("userId", authenticated.getId());
             return "auth/become_client_or_coach_page";

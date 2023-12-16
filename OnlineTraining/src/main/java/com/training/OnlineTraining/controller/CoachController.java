@@ -17,6 +17,12 @@ public class CoachController {
 
     private final CoachService coachService;
 
+
+    @GetMapping("/coach-page")
+    public String getCoachPage() {
+        return "coach/coach_page";
+    }
+
     @GetMapping("/register")
     public String getBecomeCoachPage(@RequestParam UUID userId, Model model) {
         model.addAttribute("userId", userId);
