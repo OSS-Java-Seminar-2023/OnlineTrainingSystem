@@ -53,8 +53,6 @@ CREATE TABLE Workout (
     contract_id UUID REFERENCES Contract(id),
     dateOfWorkout DATE,
     number_of_exercises INTEGER NOT NULL,
-
-    number_of_exercises INTEGER NOT NULL,
     warming_up_time_in_seconds INTEGER NOT NULL,
     number_of_sets INTEGER NOT NULL,
     pause_between_sets_in_seconds INTEGER NOT NULL,

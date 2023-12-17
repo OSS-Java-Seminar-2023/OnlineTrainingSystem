@@ -12,6 +12,18 @@ CREATE TABLE User_table (
     password VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE Role (
+    id serial PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE User_role (
+    id UUID PRIMARY KEY,
+    user_id UUID REFERENCES User_table(id),
+    role_id serial REFERENCES Role(id)
+);
+
+
 CREATE TABLE Coach (
     id UUID PRIMARY KEY,
     user_id UUID REFERENCES User_table(id),

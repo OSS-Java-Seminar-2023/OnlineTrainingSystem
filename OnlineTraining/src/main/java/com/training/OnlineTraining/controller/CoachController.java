@@ -36,6 +36,7 @@ public class CoachController {
             coachService.registerCoach(coachDto, userId);
             return "redirect:/login";
         } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
             return "error_page";
         }
     }
