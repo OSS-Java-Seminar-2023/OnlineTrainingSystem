@@ -18,11 +18,10 @@ CREATE TABLE Role (
 );
 
 CREATE TABLE User_role (
-    id UUID PRIMARY KEY,
     user_id UUID REFERENCES User_table(id),
-    role_id serial REFERENCES Role(id)
+    role_id serial REFERENCES Role(id),
+    PRIMARY KEY (user_id, role_id)
 );
-
 
 CREATE TABLE Coach (
     id UUID PRIMARY KEY,

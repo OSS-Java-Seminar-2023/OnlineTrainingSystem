@@ -5,31 +5,35 @@ import lombok.Data;
 
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
 @Table(name = "user_role")
 @Data
 @AllArgsConstructor
-public class UserRole {
+@NoArgsConstructor
+public class UserRole implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private UUID id;
+    @EmbeddedId
+    private UserRoleId id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @MapsId("userId")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @ManyToOne
+    @MapsId("roleId")
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
     public UserRole(User user, Role role) {
         this.user = user;
         this.role = role;
+        this.id = new UserRoleId(user.getId(), role.getId());
     }
-
 }
 

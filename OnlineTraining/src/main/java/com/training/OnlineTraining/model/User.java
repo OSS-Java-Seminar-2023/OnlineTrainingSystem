@@ -3,6 +3,7 @@ package com.training.OnlineTraining.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -46,6 +47,9 @@ public class User {
 
     @Column
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<UserRole> userRoles;
 
     public User(UUID id) {
         this.id = id;
