@@ -48,8 +48,8 @@ public class User {
     @Column
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<UserRole> userRoles;
+    @Column
+    private String role;
 
     public User(UUID id) {
         this.id = id;

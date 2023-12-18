@@ -1,3 +1,0 @@
-INSERT INTO Role (name) VALUES ('ADMIN');
-INSERT INTO Role (name) VALUES ('CLIENT');
-INSERT INTO Role (name) VALUES ('COACH');

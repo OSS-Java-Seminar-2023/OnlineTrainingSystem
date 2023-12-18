@@ -2,12 +2,9 @@ package com.training.OnlineTraining.service.implementation;
 
 import com.training.OnlineTraining.dto.ClientDto;
 import com.training.OnlineTraining.model.Client;
-import com.training.OnlineTraining.model.Role;
 import com.training.OnlineTraining.model.User;
-import com.training.OnlineTraining.model.UserRole;
 import com.training.OnlineTraining.repository.ClientRepository;
-import com.training.OnlineTraining.repository.RoleRepository;
-import com.training.OnlineTraining.repository.UserRoleRepository;
+import com.training.OnlineTraining.repository.UserRepository;
 import com.training.OnlineTraining.service.ClientService;
 import com.training.OnlineTraining.service.UserService;
 import lombok.AllArgsConstructor;
@@ -22,8 +19,8 @@ public class ClientServiceImpl implements ClientService {
 
     private final UserService userService;
     private final ClientRepository clientRepository;
-    private final RoleRepository roleRepository;
-    private final UserRoleRepository userRoleRepository;
+    private final UserRepository userRepository;
+
 
     @Override
     public void registerClient(ClientDto clientDto, UUID userId) {
@@ -36,9 +33,9 @@ public class ClientServiceImpl implements ClientService {
                     client.setMedicalCondition(clientDto.getMedicalCondition());
                     client.setInjuries(clientDto.getInjuries());
                     clientRepository.save(client);
-                    Role roleClient = roleRepository.findByName("CLIENT")
-                            .orElseThrow(() -> new RuntimeException("Role not found: CLIENT"));
-                    userRoleRepository.save(new UserRole(user, roleClient));
+                    user.setRole("CLIENT");
+                    userRepository.save(user);
+
                 },
                 () -> {
                     throw new RuntimeException("User not found");

@@ -6,12 +6,9 @@ import com.training.OnlineTraining.exceptions.UserNotFoundException;
 import com.training.OnlineTraining.mapper.CoachMapper;
 import com.training.OnlineTraining.mapper.CoachUserMapper;
 import com.training.OnlineTraining.model.Coach;
-import com.training.OnlineTraining.model.Role;
 import com.training.OnlineTraining.model.User;
-import com.training.OnlineTraining.model.UserRole;
 import com.training.OnlineTraining.repository.CoachRepository;
-import com.training.OnlineTraining.repository.RoleRepository;
-import com.training.OnlineTraining.repository.UserRoleRepository;
+import com.training.OnlineTraining.repository.UserRepository;
 import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.UserService;
 import com.training.OnlineTraining.specification.CoachSpecifications;
@@ -33,8 +30,8 @@ public class CoachServiceImpl implements CoachService {
     private final CoachRepository coachRepository;
     private final CoachMapper coachMapper;
     private final CoachUserMapper coachUserMapper;
-    private final RoleRepository roleRepository;
-    private final UserRoleRepository userRoleRepository;
+    private final UserRepository userRepository;
+
 
     @Override
     public void registerCoach(CoachDto coachDto, UUID userId) {
@@ -45,10 +42,8 @@ public class CoachServiceImpl implements CoachService {
         optionalUser.ifPresentOrElse(
                 user -> {
                     coachRepository.save(coachMapper.coachDtoToCoach(coachDto));
-                    Role roleCoach = roleRepository.findByName("COACH")
-                            .orElseThrow(() -> new RuntimeException("Role not found: COACH"));
-
-                    userRoleRepository.save(new UserRole(user, roleCoach));
+                    user.setRole("COACH");
+                    userRepository.save(user);
 
                 },
                 () -> {

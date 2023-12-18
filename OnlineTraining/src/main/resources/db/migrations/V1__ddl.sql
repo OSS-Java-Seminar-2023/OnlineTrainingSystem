@@ -9,18 +9,8 @@ CREATE TABLE User_table (
     phone_number VARCHAR(20) NOT NULL,
     gender VARCHAR(10) NOT NULL,
     age INTEGER NOT NULL,
-    password VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE Role (
-    id serial PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
-);
-
-CREATE TABLE User_role (
-    user_id UUID REFERENCES User_table(id),
-    role_id serial REFERENCES Role(id),
-    PRIMARY KEY (user_id, role_id)
+    password VARCHAR(100) NOT NULL,
+    role VARCHAR(20)
 );
 
 CREATE TABLE Coach (
