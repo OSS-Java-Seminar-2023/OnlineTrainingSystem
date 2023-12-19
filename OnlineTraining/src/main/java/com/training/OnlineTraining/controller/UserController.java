@@ -26,6 +26,7 @@ public class UserController {
         return "registration/register_page";
     }
 
+
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         model.addAttribute("loginRequest", new User());
@@ -48,6 +49,7 @@ public class UserController {
             return "registration/register_page";
         }
     }
+
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user, Model model, HttpSession session) {
@@ -74,5 +76,13 @@ public class UserController {
             return "auth/login_page";
         }
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "index";
+    }
+
+
 }
 
