@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public interface ContractService {
     Contract createContract(ContractDto contractDto);
+
+    public List<Contract> getContractsByClientId(UUID clientId);
     Optional<Contract> getContractById(UUID id);
     List<Contract> getAllContracts();
     Contract updateContract(UUID id, ContractDto contractDetails);

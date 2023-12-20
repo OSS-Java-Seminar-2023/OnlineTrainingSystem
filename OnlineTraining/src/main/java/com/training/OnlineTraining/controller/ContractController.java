@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -45,4 +46,22 @@ public class ContractController {
 
         return "redirect:/measurements/" + contractId;
     }
+
+    @GetMapping("/personal")
+    public String getPersonalContracts(Model model, HttpSession session) {
+        UUID clientId = (UUID) session.getAttribute("clientId");
+
+        if (clientId == null) {
+            return "auth/login_page";
+        }
+
+        List<Contract> contracts = contractService.getContractsByClientId(clientId);
+
+
+        model.addAttribute("contracts", contracts);
+
+        return "client/personal_contracts";
+    }
+
+
 }

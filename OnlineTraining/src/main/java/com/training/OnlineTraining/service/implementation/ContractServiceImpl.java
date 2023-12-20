@@ -28,6 +28,12 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    public List<Contract> getContractsByClientId(UUID clientId) {
+        return contractRepository.findByClientId(clientId);
+    }
+
+
+    @Override
     public Optional<Contract> getContractById(UUID id) {
         return contractRepository.findById(id);
     }
