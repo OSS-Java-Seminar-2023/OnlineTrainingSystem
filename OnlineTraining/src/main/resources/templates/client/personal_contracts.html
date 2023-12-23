@@ -8,7 +8,6 @@
     <link rel="stylesheet" th:href="@{/css/navigation.css}">
     <link rel="stylesheet" th:href="@{/css/table.css}">
     <link rel="stylesheet" th:href="@{/css/select.css}">
-    <link rel="stylesheet" th:href="@{/css/hand.css}">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -22,24 +21,26 @@
 <table th:if="${contracts != null and not #lists.isEmpty(contracts)}">
     <thead>
     <tr>
-        <th>Contract ID</th>
         <th>Coach FirstName</th>
         <th>Coach LastName</th>
         <th>Coach Email</th>
         <th>Start Date</th>
         <th>End Date</th>
         <th>Monthly Price in €:</th>
+        <th>Personal measurements</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="contract : ${contracts}">
-        <td th:text="${contract.id}"></td>
         <td th:text="${contract.coach.user.firstName}"></td>
         <td th:text="${contract.coach.user.lastName}"></td>
         <td th:text="${contract.coach.user.email}"></td>
         <td th:text="${#dates.format(contract.startDate, 'yyyy-MM-dd')}"></td>
         <td th:text="${#dates.format(contract.endDate, 'yyyy-MM-dd')}"></td>
         <td th:text="${contract.monthlyPrice}"></td>
+        <td>
+            <a th:href="@{'/measurements/personal/' + ${contract.id}}" class="become-link">measurement</a>
+        </td>
     </tr>
     </tbody>
 </table>

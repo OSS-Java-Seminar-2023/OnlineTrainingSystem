@@ -8,4 +8,5 @@ public class ValidationUtils {
     public static boolean isAgeInvalid(Integer age) {
         return age == null || age <= 0 || age >= 120;
     }
+
 }

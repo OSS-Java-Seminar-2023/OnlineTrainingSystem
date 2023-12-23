@@ -6,8 +6,10 @@ import com.training.OnlineTraining.service.MeasurementService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,10 +28,27 @@ public class MeasurementController {
 	}
 
 	@PostMapping("/{contractId}")
-	public String saveMeasurement(@PathVariable UUID contractId, @ModelAttribute MeasurementDTO measurementDto) {
+	public String createMeasurement(@PathVariable UUID contractId,
+								   @Valid MeasurementDTO measurementDto,
+								   BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "client/measurement_form";
+		}
+
 		measurementService.createMeasurement(measurementDto);
+
 		return "index";
 	}
+
+
+	@GetMapping("/personal/{contractId}")
+	public String getPersonalMeasurements(@PathVariable UUID contractId, Model model) {
+		List<Measurement> measurements = measurementService.getMeasurementsByContractIdSortedByDate(contractId);
+
+		model.addAttribute("measurements", measurements);
+		return "client/personal_measurements";
+	}
+
 
 
 
