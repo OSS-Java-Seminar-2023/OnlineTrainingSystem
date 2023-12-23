@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise Details</title>
+</head>
+<body>
+<h2>Exercise Details</h2>
+<table border="1">
+    <tr>
+        <td>Name:</td>
+        <td th:text="${exercise.name}"></td>
+    </tr>
+    <tr>
+        <td>Description:</td>
+        <td th:text="${exercise.description}"></td>
+    </tr>
+    <tr>
+        <td>Equipment Needed:</td>
+        <td th:text="${exercise.equipmentNeeded}"></td>
+    </tr>
+    <tr>
+        <td>Difficulty Level:</td>
+        <td th:text="${exercise.difficultyLevel}"></td>
+    </tr>
+</table>
+</body>
+</html>

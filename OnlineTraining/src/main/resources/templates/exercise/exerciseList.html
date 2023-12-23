@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise List</title>
+</head>
+<body>
+<h2>List of Exercises</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Equipment Needed</th>
+        <th>Difficulty Level</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="exercise : ${exercises}">
+        <td th:text="${exercise.name}"></td>
+        <td th:text="${exercise.description}"></td>
+        <td th:text="${exercise.equipmentNeeded}"></td>
+        <td th:text="${exercise.difficultyLevel}"></td>
+        <td>
+            <form th:action="@{/exercise/delete/{id}(id=${exercise.id})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+            <a th:href="@{/exercise/update/{id}(id=${exercise.id})}">Update</a>
+            <a th:href="@{/exercise/details/{id}(id=${exercise.id})}">Details</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
