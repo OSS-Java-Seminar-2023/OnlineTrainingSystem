@@ -1,6 +1,7 @@
 package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.dto.ExerciseDTO;
+import com.training.OnlineTraining.mapper.ExerciseMapper;
 import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,52 +13,64 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/exercises")
+@RequestMapping("/exercise")
 public class ExerciseController {
 
     private final ExerciseService exerciseService;
 
-    @Autowired
-    public ExerciseController(ExerciseService exerciseService) {
+    private final ExerciseMapper exerciseMapper;
+
+    public ExerciseController(ExerciseService exerciseService, ExerciseMapper exerciseMapper) {
         this.exerciseService = exerciseService;
+        this.exerciseMapper = exerciseMapper;
     }
 
-    @GetMapping("/add")
+    @GetMapping("/create")
     public String showAddExerciseForm(Model model) {
-        model.addAttribute("exerciseDTO", new ExerciseDTO()); // Create a blank ExerciseDTO to bind the form
-        return "addExerciseForm"; // Return the Thymeleaf view name for the add exercise form
+        model.addAttribute("exercise", new ExerciseDTO());
+        return "exercise/exerciseForm";
     }
 
     @PostMapping("/create")
     public String createExercise(@ModelAttribute ExerciseDTO exerciseDTO, Model model) {
         Exercise createdExercise = exerciseService.createExercise(exerciseDTO);
-        return ""; // Return the Thymeleaf view name
+        return "redirect:/exercise";
     }
 
-    @GetMapping("/show/{id}")
-    public String getExerciseById(@PathVariable UUID id, Model model) {
-        Exercise exercise = exerciseService.getExerciseById(id).orElse(null);
+    @GetMapping("/details/{id}")
+    public String showExerciseDetails(@PathVariable UUID id, Model model) {
+        Exercise exercise = exerciseService.getExerciseById(id);
         model.addAttribute("exercise", exercise);
-        return "exerciseDetails"; // Return the Thymeleaf view name
+        return "exercise/exerciseDetails"; // Create a details view
     }
 
-    @GetMapping("/all")
+
+    @GetMapping()
     public String getAllExercises(Model model) {
         List<Exercise> exercises = exerciseService.getAllExercises();
         model.addAttribute("exercises", exercises);
-        return "allExercises"; // Return the Thymeleaf view name
+        return "exercise/exerciseList"; // Return the Thymeleaf view name
     }
 
-    @PutMapping("/update/{id}")
-    public String updateExercise(@PathVariable UUID id, @ModelAttribute ExerciseDTO exerciseDTO, Model model) {
-        Exercise updatedExercise = exerciseService.updateExercise(id, exerciseDTO);
-        model.addAttribute("exercise", updatedExercise);
-        return "exerciseView"; // Return the Thymeleaf view name
+    @GetMapping("/update/{id}")
+    public String getUpdateFormForExercise(@PathVariable UUID id, Model model) {
+        Exercise tempExercise = exerciseService.getExerciseById(id);
+        System.out.println("getUpdateFormForExercise ->  exercise : " + tempExercise);
+        model.addAttribute("exerciseForUpdating", tempExercise);
+        return "exercise/exerciseUpdateForm"; // Return the Thymeleaf view name
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/update/{id}")
+    public String updateExercise(@PathVariable String id, @ModelAttribute("exercise") ExerciseDTO exerciseDTO, Model model) {
+        System.out.println("updateExercise -> " + id);
+        System.out.println("updateExercise -> " + exerciseDTO);
+        exerciseService.updateExercise(exerciseDTO.getId(), exerciseDTO);
+        return "redirect:/exercise";
+    }
+
+    @PostMapping("/delete/{id}")
     public String deleteExercise(@PathVariable UUID id) {
         exerciseService.deleteExercise(id);
-        return "redirect:/exercises/all"; // Redirect to the endpoint displaying all exercises
+        return "redirect:/exercise";
     }
 }

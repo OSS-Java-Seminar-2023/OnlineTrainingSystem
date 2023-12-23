@@ -17,4 +17,6 @@ public interface ExerciseMapper {
     @Mapping(source = "equipmentNeeded", target = "equipmentNeeded")
     @Mapping(source = "difficultyLevel", target = "difficultyLevel")
     Exercise toExercise(ExerciseDTO exerciseDTO);
+
+    ExerciseDTO toExerciseDTO(Exercise exercise);
 }

@@ -31,8 +31,9 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public Optional<Exercise> getExerciseById(UUID id) {
-        return exerciseRepository.findById(id);
+    public Exercise getExerciseById(UUID id) {
+        return exerciseRepository.findById(id)
+                .orElseThrow(() -> new ExerciseNotFoundException("Exercise with ID " + id + " not found"));
     }
 
     @Override

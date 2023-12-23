@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Exercise</title>
+</head>
+<body>
+<h2>Update Exercise</h2>
+<form action="/exercise/update/{id}" method="post" th:object="${exerciseForUpdating}">
+    <input type="hidden" th:field="*{id}"/>
+
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" required/><br/>
+
+    <label>Description:</label>
+    <textarea th:field="*{description}" required></textarea><br/>
+
+    <label>Equipment Needed:</label>
+    <input type="text" th:field="*{equipmentNeeded}" required/><br/>
+
+    <label>Difficulty Level:</label>
+    <select th:field="*{difficultyLevel}" required>
+        <option value="">Select difficulty level</option>
+        <option value="LOW">LOW</option>
+        <option value="MEDIUM">MEDIUM</option>
+        <option value="HARD">HARD</option>
+    </select><br/>
+
+    <input type="submit" value="Update"/>
+</form>
+</body>
+</html>
