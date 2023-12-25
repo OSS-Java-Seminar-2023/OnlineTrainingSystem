@@ -81,4 +81,9 @@ public class CoachServiceImpl implements CoachService {
     public Double getMonthlyPriceById(UUID coachId) {
         return coachRepository.findMonthlyPriceById(coachId);
     }
+
+    @Override
+    public Coach findByUserId(UUID userId) {
+        return coachRepository.findByUserId(userId);
+    }
 }

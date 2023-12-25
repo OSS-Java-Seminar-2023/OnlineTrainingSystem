@@ -65,7 +65,9 @@ public class UserController {
                 return "redirect:clients/client-page";
             }
             if (isCoach) {
-                session.setAttribute("coachId", authenticated.getId());
+                Coach coach = coachService.findByUserId(authenticated.getId());
+                session.setAttribute("userId", authenticated.getId());
+                session.setAttribute("coachId", coach.getId());
                 return "redirect:coaches/coach-page";
             }
             model.addAttribute("userId", authenticated.getId());
