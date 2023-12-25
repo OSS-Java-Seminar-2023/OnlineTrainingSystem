@@ -2,11 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Coach Page</title>
     <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
 </head>
 <body>
 <h1>Check</h1>
 
+<form th:action="@{/exercise}" method="get">
+    <button type="submit">Go to Exercise Page</button>
+</form>
+
+<h1>Contracts</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Coach F NAME</th>
+        <th>Coach S NAME</th>
+        <th>Client F NAME</th>
+        <th>Client S NAME</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Monthly Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Assuming the structure for User includes a field called 'name' -->
+    <tr th:each="contract : ${coachesListContracts}">
+        <td th:text="${contract.id}"></td>
+        <td th:text="${contract.coach.user.firstName}"></td>
+        <td th:text="${contract.coach.user.lastName}"></td>
+        <td th:text="${contract.client.user.firstName}"></td>
+        <td th:text="${contract.client.user.lastName}"></td>
+        <td th:text="${contract.startDate}"></td>
+        <td th:text="${contract.endDate}"></td>
+        <td th:text="${contract.monthlyPrice}"></td>
+    </tr>
+
+    </tbody>
+</table>
 </body>
 </html>

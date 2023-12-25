@@ -64,6 +64,11 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    public List<Contract> getAllContractsForCoach(UUID coachID) {
+        return contractRepository.findByCoachId(coachID);
+    }
+
+    @Override
     public void deleteAllContracts() {
         contractRepository.deleteAll();
     }

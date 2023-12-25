@@ -16,4 +16,6 @@ public interface CoachRepository extends JpaRepository<Coach, UUID>, JpaSpecific
 
     @Query("SELECT c.monthlyPrice FROM Coach c WHERE c.id = :coachId")
     Double findMonthlyPriceById(@Param("coachId") UUID coachId);
+
+    Coach findByUserId(UUID userId);
 }

@@ -4,6 +4,7 @@ import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.dto.CoachFilterParams;
 import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.User;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,5 +17,7 @@ public interface CoachService {
    List<CoachDto> getAllCoaches();
    List<CoachDto> filterCoaches(CoachFilterParams filterParams);
    Double getMonthlyPriceById(UUID coachId);
+
+   Coach findByUserId(UUID userId);
 
 }

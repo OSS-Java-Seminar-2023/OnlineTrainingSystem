@@ -10,4 +10,6 @@ import java.util.UUID;
 public interface ContractRepository extends JpaRepository<Contract, UUID> {
 
     List<Contract> findByClientId(UUID clientId);
+
+    List<Contract> findByCoachId(UUID coachId);
 }

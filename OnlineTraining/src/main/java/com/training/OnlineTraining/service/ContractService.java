@@ -15,6 +15,6 @@ public interface ContractService {
     List<Contract> getAllContracts();
     Contract updateContract(UUID id, ContractDto contractDetails);
     void deleteContract(UUID id);
-
+    List<Contract> getAllContractsForCoach(UUID coachID);
     void deleteAllContracts();
 }
