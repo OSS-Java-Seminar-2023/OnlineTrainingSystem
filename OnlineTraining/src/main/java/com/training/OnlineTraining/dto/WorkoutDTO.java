@@ -27,4 +27,8 @@ public class WorkoutDTO {
 	private Integer numberOfSets;
 	private Integer pauseBetweenSetsInSeconds;
 	private Integer selfRating;
+
+	public WorkoutDTO(UUID contractId) {
+		this.contractId = contractId;
+	}
 }
