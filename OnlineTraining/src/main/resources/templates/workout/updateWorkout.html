@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Workout</title>
+</head>
+<body>
+<h1>Update Workout</h1>
+<form th:action="@{/workout/update}" th:object="${workout}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Contract ID:</label>
+    <input type="text" th:field="*{contractId}" required><br>
+
+    <label>Date of Workout:</label>
+    <input type="date" th:field="*{dateOfWorkout}" pattern="yyyy-MM-dd" required><br>
+
+    <label>Ordinal Number of Workout:</label>
+    <input type="number" th:field="*{ordinalNumberOfWorkout}" required><br>
+
+    <label>Number of Exercises:</label>
+    <input type="number" th:field="*{numberOfExercises}" required><br>
+
+    <label>Warming Up Time (in seconds):</label>
+    <input type="number" th:field="*{warmingUpTimeInSeconds}" required><br>
+
+    <label>Number of Sets:</label>
+    <input type="number" th:field="*{numberOfSets}" required><br>
+
+    <label>Pause Between Sets (in seconds):</label>
+    <input type="number" th:field="*{pauseBetweenSetsInSeconds}" required><br>
+
+    <label>Self Rating:</label>
+    <input type="number" th:field="*{selfRating}" required><br>
+
+    <!-- Add any other fields from WorkoutDTO as needed -->
+
+    <button type="submit">Update</button>
+</form>
+</body>
+</html>

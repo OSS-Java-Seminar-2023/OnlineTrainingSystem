@@ -21,6 +21,9 @@
         <th>Number of Sets</th>
         <th>Pause Between Sets (in seconds)</th>
         <th>Self Rating</th>
+        <th>Details</th>
+        <th>Delete</th>
+        <th>Update</th>
     </tr>
     </thead>
     <tbody>
@@ -35,6 +38,28 @@
         <td th:text="${workout.numberOfSets}"></td>
         <td th:text="${workout.pauseBetweenSetsInSeconds}"></td>
         <td th:text="${workout.selfRating}"></td>
+        <td>
+            <!-- Details button -->
+            <form th:action="@{/workout/details/{id}(id=${workout.id})}" method="post">
+                <button type="submit">Details</button>
+            </form>
+        </td>
+
+        <td>
+            <!-- Delete button -->
+            <form th:action="@{/workout/delete/{id}(id=${workout.id})}" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+
+        <td>
+            <!-- Update button -->
+            <form th:action="@{/workout/update/{id}(id=${workout.id})}" method="post">
+                <button type="submit">Update</button>
+            </form>
+        </td>
+
     </tr>
     </tbody>
 </table>

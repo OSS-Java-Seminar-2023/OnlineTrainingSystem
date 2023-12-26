@@ -70,7 +70,7 @@ CREATE TABLE Exercise (
     difficulty_level VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE WorkoutSession (
+CREATE TABLE workout_session (
     id UUID PRIMARY KEY,
     workout_id UUID REFERENCES Workout(id),
     exercise_id UUID,

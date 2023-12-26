@@ -1,5 +1,5 @@
 -- Inserting workout sessions for workouts with random UUIDs
-INSERT INTO WorkoutSession (id, workout_id, exercise_id, number_of_reps, pause_after_exercise_in_seconds, weight)
+INSERT INTO workout_session (id, workout_id, exercise_id, number_of_reps, pause_after_exercise_in_seconds, weight)
 VALUES
 ('5fa6f5b0-60c2-4ae0-9ba7-88c6b6b8a964', '5d023fe0-f953-46b1-8e3d-9183aae9d4a4', '11111111-1111-1111-1111-111111111111', 12, 60, 50.00),
 ('53de2f11-1d5c-4de6-a70e-0b3f1b68cbf1', 'b899b5fe-2a26-49e0-8320-d5de5219c2c9', '22222222-2222-2222-2222-222222222222', 10, 45, 70.00),

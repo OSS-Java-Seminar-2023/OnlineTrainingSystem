@@ -1,5 +1,6 @@
 package com.training.OnlineTraining.controller;
 
+import com.training.OnlineTraining.dto.ExerciseDTO;
 import com.training.OnlineTraining.dto.WorkoutDTO;
 import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.Workout;
@@ -31,7 +32,6 @@ public class WorkoutController {
 	@PostMapping("/create")
 	public String createWorkout(@ModelAttribute("workoutDTO") WorkoutDTO workoutDTO, HttpSession session) {
 
-
 		UUID contractID = (UUID) session.getAttribute("contractID");
 
 		workoutDTO.setContractId(contractID);
@@ -43,24 +43,44 @@ public class WorkoutController {
 		return "redirect:/workout"; // Redirect to the workout list after creating the workout
 	}
 
-	// Existing method to get all workouts for a contract
 	@GetMapping()
 	public String getAllWorkoutsForContract(@RequestParam(value = "contractID", required = false) String passedContractID, HttpSession session, Model model) {
+		UUID contractID = (UUID) session.getAttribute("contractID");
 
-		UUID  contractID = null;
-
-		if(session.getAttribute("contractID") != null){
-			contractID = (UUID) session.getAttribute("contractID");
-		}
-		else{
-			contractID = UUID.fromString(passedContractID);
+		if (contractID == null) {
+			contractID = (passedContractID != null) ? UUID.fromString(passedContractID) : null;
 			session.setAttribute("contractID", contractID);
 		}
 
 		List<Workout> workouts = workoutService.getWorkoutsByContractID(contractID);
-
 		model.addAttribute("workoutsList", workouts);
 
 		return "workout/workoutList";
+	}
+
+	@GetMapping("/details/{id}")
+	public String showWorkoutDetails(@PathVariable UUID id, Model model) {
+		Workout workout = workoutService.getWorkoutById(id);
+		model.addAttribute("workout", workout);
+		return "workout/workoutDetails"; // Assuming you have a view for displaying workout details
+	}
+
+	@GetMapping("/update/{id}")
+	public String showUpdateWorkoutForm(@PathVariable UUID id, Model model) {
+		Workout workout = workoutService.getWorkoutById(id);
+		model.addAttribute("workout", workout);
+		return "workout/updateWorkout"; // Assuming you have a view for updating workouts
+	}
+
+	@PostMapping("/update/{id}")
+	public String updateWorkout(@PathVariable UUID id, @ModelAttribute("workout") WorkoutDTO workoutDTO, Model model) {
+		workoutService.updateWorkout(id, workoutDTO);
+		return "workout/updateWorkout"; // Assuming you have a view for updating workouts
+	}
+
+	@PostMapping("/delete/{id}")
+	public String deleteWorkout(@PathVariable UUID id) {
+		workoutService.deleteWorkout(id);
+		return "redirect:/workout"; // Redirect to the workout list after deletion
 	}
 }

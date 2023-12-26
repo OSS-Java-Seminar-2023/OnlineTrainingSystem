@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Table
+@Table(name = "workout_session")
 public class WorkoutSession {
 
     @Id
