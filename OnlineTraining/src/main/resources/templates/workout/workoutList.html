@@ -39,10 +39,7 @@
         <td th:text="${workout.pauseBetweenSetsInSeconds}"></td>
         <td th:text="${workout.selfRating}"></td>
         <td>
-            <!-- Details button -->
-            <form th:action="@{/workout/details/{id}(id=${workout.id})}" method="post">
-                <button type="submit">Details</button>
-            </form>
+            <a th:href="@{/workout/details/{id}(id=${workout.id})}"><button>Details</button></a>
         </td>
 
         <td>
@@ -54,10 +51,7 @@
         </td>
 
         <td>
-            <!-- Update button -->
-            <form th:action="@{/workout/update/{id}(id=${workout.id})}" method="post">
-                <button type="submit">Update</button>
-            </form>
+            <a th:href="@{/workout/update/{id}(id=${workout.id})}"><button>Update</button></a>
         </td>
 
     </tr>

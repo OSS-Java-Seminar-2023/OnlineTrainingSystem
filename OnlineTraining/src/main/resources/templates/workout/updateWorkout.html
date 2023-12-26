@@ -6,11 +6,8 @@
 </head>
 <body>
 <h1>Update Workout</h1>
-<form th:action="@{/workout/update}" th:object="${workout}" method="post">
+<form th:action="@{'/workout/update/' + ${workout.id}}" th:object="${workout}" method="post">
     <input type="hidden" th:field="*{id}" />
-
-    <label>Contract ID:</label>
-    <input type="text" th:field="*{contractId}" required><br>
 
     <label>Date of Workout:</label>
     <input type="date" th:field="*{dateOfWorkout}" pattern="yyyy-MM-dd" required><br>
