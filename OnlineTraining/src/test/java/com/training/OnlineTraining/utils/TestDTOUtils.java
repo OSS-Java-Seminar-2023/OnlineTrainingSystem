@@ -1,8 +1,10 @@
 package com.training.OnlineTraining.utils;
 
 import com.training.OnlineTraining.dto.WorkoutDTO;
+import com.training.OnlineTraining.dto.WorkoutSessionDTO;
+import org.springframework.boot.context.properties.bind.BindHandler;
 
-import java.util.Date;
+import java.math.BigDecimal;
 import java.util.Random;
 import java.util.UUID;
 
@@ -24,8 +26,25 @@ public class TestDTOUtils {
 		return workoutDTO;
 	}
 
+	public static WorkoutSessionDTO getWorkoutSessionDTO(UUID workoutId, UUID exerciseId){
+		WorkoutSessionDTO workoutSessionDTO = new WorkoutSessionDTO();
+
+		workoutSessionDTO.setWorkoutId(workoutId);
+		workoutSessionDTO.setExerciseId(exerciseId);
+
+		workoutSessionDTO.setNumberOfReps(getRandomNumber());
+		workoutSessionDTO.setPauseAfterExerciseInSeconds(getRandomNumber());
+		workoutSessionDTO.setWeight(BigDecimal.valueOf(getRandomDecimalNumber()));
+
+		return workoutSessionDTO;
+	}
+
 	private static int getRandomNumber(){
 		return new Random().nextInt(1000);
+	}
+
+	private static double getRandomDecimalNumber(){
+		return new Random().nextDouble(1000.0);
 	}
 }
 
