@@ -1,7 +1,22 @@
-INSERT INTO Exercise (id, name, description, equipment_needed, difficulty_level)
-VALUES
-('5ef4e276-2b82-431d-9f3d-4cc3d1a8368d', 'Bench Press', 'Lay flat on a bench and lift the bar upwards, targeting chest muscles.', 'Barbell, Bench', 'Intermediate'),
-('f72c4a7f-62ef-4ee8-b207-df0b70b972eb', 'Squats', 'Stand with a barbell on your shoulders, then bend your knees and hips to lower your body.', 'Barbell, Squat Rack', 'Intermediate'),
-('d23ca21b-75dc-4aa4-b452-2a347aee33d9', 'Deadlifts', 'Lift a loaded barbell or kettlebell off the ground to the level of the hips, then lower it back down.', 'Barbell, Weight Plates', 'Advanced'),
-('8e2abddc-5425-4c21-8b78-6b4e18b40d44', 'Plank', 'Hold a push-up position with the body straight as a plank, engaging the core muscles.', 'None', 'Beginner'),
-('bc8c1b85-8f75-4b08-8a5b-5ee3edfd2f8e', 'Pull-ups', 'Lift your body upwards by pulling on a horizontal bar until the chin is level with or above the bar.', 'Pull-up Bar', 'Intermediate');
+-- Inserting exercises with predefined UUIDs
+INSERT INTO Exercise (id, name, description, equipment_needed, difficulty_level) VALUES
+('11111111-1111-1111-1111-111111111111', 'Bench Press', 'Lay flat on a bench and push a weighted barbell upwards.', 'Barbell, Bench', 'Intermediate'),
+('22222222-2222-2222-2222-222222222222', 'Squats', 'Stand with a barbell on your shoulders and squat down and up.', 'Barbell, Squat Rack', 'Intermediate'),
+('33333333-3333-3333-3333-333333333333', 'Deadlifts', 'Lift a weighted barbell from the ground to hip level.', 'Barbell, Weight Plates', 'Advanced'),
+('44444444-4444-4444-4444-444444444444', 'Pull-ups', 'Lift your body weight by pulling up on a bar.', 'Pull-up Bar', 'Intermediate'),
+('55555555-5555-5555-5555-555555555555', 'Dumbbell Shoulder Press', 'Press dumbbells upwards from shoulder level.', 'Dumbbells, Bench', 'Intermediate'),
+('66666666-6666-6666-6666-666666666666', 'Bent-over Rows', 'Bend over and lift a barbell towards your abdomen.', 'Barbell, Weight Plates', 'Intermediate'),
+('77777777-7777-7777-7777-777777777777', 'Lunges', 'Step forward and lower your hips until both knees are bent at a 90-degree angle.', 'None (Bodyweight)', 'Beginner'),
+('88888888-8888-8888-8888-888888888888', 'Leg Press', 'Push a weighted platform away from your body using your legs.', 'Leg Press Machine', 'Intermediate'),
+('99999999-9999-9999-9999-999999999999', 'Barbell Curls', 'Lift a barbell upwards with your arms, focusing on bicep contraction.', 'Barbell, Weight Plates', 'Intermediate'),
+('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Planks', 'Hold a push-up position with your body straight as a plank.', 'None (Bodyweight)', 'Beginner'),
+('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'Tricep Dips', 'Lower and raise your body using parallel bars.', 'Parallel Bars', 'Intermediate'),
+('cccccccc-cccc-cccc-cccc-cccccccccccc', 'Seated Cable Rows', 'Pull the cable attachment towards your torso while seated.', 'Cable Machine, Bench', 'Intermediate'),
+('dddddddd-dddd-dddd-dddd-dddddddddddd', 'Romanian Deadlifts', 'Similar to deadlifts but focusing on the posterior chain.', 'Barbell, Weight Plates', 'Advanced'),
+('eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee', 'Hanging Leg Raises', 'Raise your legs while hanging from a bar.', 'Pull-up Bar', 'Intermediate'),
+('ffffffff-ffff-ffff-ffff-ffffffffffff', 'Bench Dips', 'Lower and raise your body using a bench and your arms.', 'Bench', 'Intermediate'),
+('11112222-3333-4444-5555-666677778888', 'Hammer Curls', 'Curl dumbbells with a neutral grip.', 'Dumbbells', 'Intermediate'),
+('99998888-7777-6666-5555-444433332222', 'Reverse Lunges', 'Step backward and lower your hips until both knees are bent at a 90-degree angle.', 'None (Bodyweight)', 'Beginner'),
+('11113333-4444-2222-5555-666655557777', 'Decline Bench Press', 'Perform bench presses on a declined angle.', 'Barbell, Decline Bench', 'Intermediate'),
+('22224444-8888-7777-6666-555544443333', 'Calf Raises', 'Raise your heels using a platform to work your calf muscles.', 'Calf Raise Machine', 'Beginner'),
+('33335555-2222-4444-6666-88889999aaaa', 'Russian Twists', 'Rotate your torso while holding a weight or without one.', 'Weight (Optional)', 'Intermediate');

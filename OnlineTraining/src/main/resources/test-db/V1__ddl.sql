@@ -9,7 +9,8 @@ CREATE TABLE User_table (
     phone_number VARCHAR(20) NOT NULL,
     gender VARCHAR(10) NOT NULL,
     age INTEGER NOT NULL,
-    password VARCHAR(100) NOT NULL
+    password VARCHAR(100) NOT NULL,
+    role VARCHAR(20)
 );
 
 CREATE TABLE Coach (
@@ -51,10 +52,11 @@ CREATE TABLE Measurement (
 CREATE TABLE Workout (
     id UUID PRIMARY KEY,
     contract_id UUID REFERENCES Contract(id),
-    dateOfWorkout DATE,
+    date_of_workout DATE,
     number_of_exercises INTEGER NOT NULL,
     warming_up_time_in_seconds INTEGER NOT NULL,
     number_of_sets INTEGER NOT NULL,
+    ordinal_number_of_workout INTEGER NOT NULL,
     pause_between_sets_in_seconds INTEGER NOT NULL,
     self_rating INTEGER
 );

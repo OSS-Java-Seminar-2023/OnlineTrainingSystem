@@ -18,4 +18,10 @@ public class ExerciseDTO {
     private String equipmentNeeded;
     private String difficultyLevel;
 
+    public ExerciseDTO(String name, String description, String equipmentNeeded, String difficultyLevel) {
+        this.name = name;
+        this.description = description;
+        this.equipmentNeeded = equipmentNeeded;
+        this.difficultyLevel = difficultyLevel;
+    }
 }
