@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Workout Details</title>
+</head>
+<body>
+<h1>Workout Details</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Date of Workout</th>
+        <th>Ordinal Number of Workout</th>
+        <th>Number of Exercises</th>
+        <th>Warming Up Time (in seconds)</th>
+        <th>Number of Sets</th>
+        <th>Pause Between Sets (in seconds)</th>
+        <th>Self Rating</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Display details of the workout -->
+    <tr>
+        <td th:text="${workout.id}"></td>
+        <td th:text="${workout.dateOfWorkout}"></td>
+        <td th:text="${workout.ordinalNumberOfWorkout}"></td>
+        <td th:text="${workout.numberOfExercises}"></td>
+        <td th:text="${workout.warmingUpTimeInSeconds}"></td>
+        <td th:text="${workout.numberOfSets}"></td>
+        <td th:text="${workout.pauseBetweenSetsInSeconds}"></td>
+        <td th:text="${workout.selfRating}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
