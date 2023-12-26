@@ -13,5 +13,4 @@ public class WorkoutSessionDTO {
 	private Integer pauseAfterExerciseInSeconds;
 	private BigDecimal weight;
 
-	// Constructors, getters, setters, etc. as needed
 }
