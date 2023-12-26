@@ -1,12 +1,16 @@
 package com.training.OnlineTraining.service;
 
-import com.training.OnlineTraining.repository.WorkoutSessionRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.training.OnlineTraining.dto.WorkoutSessionDTO;
+import com.training.OnlineTraining.model.WorkoutSession;
 
-@Service
-@AllArgsConstructor
-public class WorkoutSessionService {
-    private final WorkoutSessionRepository workoutSessionRepository;
+import java.util.List;
+import java.util.UUID;
 
+public interface WorkoutSessionService {
+    WorkoutSession createWorkoutSession(WorkoutSessionDTO workoutSessionDTO);
+    WorkoutSession getWorkoutSessionById(UUID id);
+    List<WorkoutSession> getAllWorkoutSessions();
+    WorkoutSession updateWorkoutSession(UUID id, WorkoutSessionDTO workoutSessionDetails);
+    void deleteWorkoutSession(UUID id);
+    void deleteAllWorkoutSessions();
 }
