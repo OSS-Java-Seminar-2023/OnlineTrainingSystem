@@ -6,6 +6,8 @@ import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.Workout;
 import com.training.OnlineTraining.service.WorkoutService;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,32 +21,38 @@ public class WorkoutController {
 
 	private final WorkoutService workoutService;
 
+	private static final Logger logger = LoggerFactory.getLogger(WorkoutController.class);
+
 	public WorkoutController(WorkoutService workoutService) {
 		this.workoutService = workoutService;
+		logger.info("WorkoutController initialized.");
 	}
 
 	@GetMapping("/create")
-	public String showCreateWorkoutForm(Model model, HttpSession session) {
-		model.addAttribute("workoutDTO", new WorkoutDTO()); // Provide an empty WorkoutDTO to the form
-		return "workout/createWorkout"; // Assuming you have a view named "createWorkout"
+	public String showCreateWorkoutForm(Model model) {
+		logger.info("Displaying create workout form.");
+
+		model.addAttribute("workoutDTO", new WorkoutDTO());
+
+		return "workout/createWorkout";
 	}
 
 	@PostMapping("/create")
 	public String createWorkout(@ModelAttribute("workoutDTO") WorkoutDTO workoutDTO, HttpSession session) {
+		logger.info("Creating a new workout.");
 
 		UUID contractID = (UUID) session.getAttribute("contractID");
-
 		workoutDTO.setContractId(contractID);
 
 		workoutService.createWorkout(workoutDTO);
 
-		System.out.println("workoutDTO : " + workoutDTO);
-
-		return "redirect:/workout"; // Redirect to the workout list after creating the workout
+		return "redirect:/workout";
 	}
 
 	@GetMapping()
 	public String getAllWorkoutsForContract(@RequestParam(value = "contractID", required = false) String passedContractID, HttpSession session, Model model) {
+		logger.info("Fetching all workouts for a contract.");
+
 		UUID contractID = (UUID) session.getAttribute("contractID");
 
 		if (contractID == null) {
@@ -60,27 +68,41 @@ public class WorkoutController {
 
 	@GetMapping("/details/{id}")
 	public String showWorkoutDetails(@PathVariable UUID id, Model model) {
+		logger.info("Displaying workout details for ID: {}", id);
+
 		Workout workout = workoutService.getWorkoutById(id);
 		model.addAttribute("workout", workout);
-		return "workout/workoutDetails"; // Assuming you have a view for displaying workout details
+		return "workout/workoutDetails";
 	}
 
 	@GetMapping("/update/{id}")
 	public String showUpdateWorkoutForm(@PathVariable UUID id, Model model) {
+		logger.info("Displaying update workout form for ID: {}", id);
+
 		Workout workout = workoutService.getWorkoutById(id);
 		model.addAttribute("workout", workout);
-		return "workout/updateWorkout"; // Assuming you have a view for updating workouts
+
+		return "workout/updateWorkout";
 	}
 
 	@PostMapping("/update/{id}")
-	public String updateWorkout(@PathVariable UUID id, @ModelAttribute("workout") WorkoutDTO workoutDTO, Model model) {
+	public String updateWorkout(@PathVariable UUID id, @ModelAttribute("workout") WorkoutDTO workoutDTO, HttpSession session) {
+		logger.info("Updating workout for ID: {}", id);
+
+		UUID contractID = (UUID) session.getAttribute("contractID");
+		workoutDTO.setContractId(contractID);
+
 		workoutService.updateWorkout(id, workoutDTO);
-		return "workout/updateWorkout"; // Assuming you have a view for updating workouts
+
+		return "redirect:/workout";
 	}
 
 	@PostMapping("/delete/{id}")
 	public String deleteWorkout(@PathVariable UUID id) {
+		logger.info("Deleting workout for ID: {}", id);
+
 		workoutService.deleteWorkout(id);
-		return "redirect:/workout"; // Redirect to the workout list after deletion
+
+		return "redirect:/workout";
 	}
 }
