@@ -3,6 +3,7 @@ package com.training.OnlineTraining.model;
 import lombok.*;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.util.UUID;
@@ -21,6 +22,8 @@ public class Workout {
     @JoinColumn(name = "contract_id", referencedColumnName = "id")
     private Contract contract;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_of_workout")
     private Date dateOfWorkout;
 
