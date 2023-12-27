@@ -9,11 +9,8 @@
 <form th:action="@{'/workout/update/' + ${workout.id}}" th:object="${workout}" method="post">
     <input type="hidden" th:field="*{id}" />
 
-    <label>Date of Workout:</label>
-    <input type="date" th:field="*{dateOfWorkout}" pattern="yyyy-MM-dd" required><br>
-
-    <label>Ordinal Number of Workout:</label>
-    <input type="number" th:field="*{ordinalNumberOfWorkout}" required><br>
+    <input type="hidden" th:field="*{dateOfWorkout}" />
+    <input type="hidden" th:field="*{ordinalNumberOfWorkout}" />
 
     <label>Number of Exercises:</label>
     <input type="number" th:field="*{numberOfExercises}" required><br>
@@ -26,11 +23,6 @@
 
     <label>Pause Between Sets (in seconds):</label>
     <input type="number" th:field="*{pauseBetweenSetsInSeconds}" required><br>
-
-    <label>Self Rating:</label>
-    <input type="number" th:field="*{selfRating}" required><br>
-
-    <!-- Add any other fields from WorkoutDTO as needed -->
 
     <button type="submit">Update</button>
 </form>
