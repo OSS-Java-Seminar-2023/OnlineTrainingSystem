@@ -74,6 +74,7 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 
 		WorkoutSession updatedWorkoutSession = workoutSessionMapper.toWorkoutSession(workoutSessionDetails);
 		updatedWorkoutSession.setId(existingWorkoutSession.getId()); // Ensure the ID is preserved
+
 		return workoutSessionRepository.save(updatedWorkoutSession);
 	}
 

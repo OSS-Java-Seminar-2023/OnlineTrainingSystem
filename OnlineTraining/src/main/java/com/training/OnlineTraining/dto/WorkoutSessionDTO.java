@@ -7,6 +7,7 @@ import java.util.UUID;
 
 @Data
 public class WorkoutSessionDTO {
+	private UUID id;
 	private UUID workoutId;
 	private UUID exerciseId;
 	private Integer numberOfReps;
