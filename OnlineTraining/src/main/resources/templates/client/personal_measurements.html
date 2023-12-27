@@ -34,6 +34,7 @@
         <th>Chest Circumference</th>
         <th>Arm Circumference</th>
         <th>Leg Circumference</th>
+        <th>Update measurement</th>
     </tr>
     </thead>
     <tbody>
@@ -45,6 +46,11 @@
         <td th:text="${measurement.chestCircumference}"></td>
         <td th:text="${measurement.armCircumference}"></td>
         <td th:text="${measurement.legCircumference}"></td>
+        <td>
+            <a th:if="${measurement.id != null}" th:href="@{'/measurements/personal/' + ${contractId} + '/update/' + ${measurement.id}}" class="become-link">Update</a>
+        </td>
+
+
     </tr>
     </tbody>
 </table>

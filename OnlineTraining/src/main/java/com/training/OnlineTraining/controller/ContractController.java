@@ -54,10 +54,7 @@ public class ContractController {
         if (clientId == null) {
             return "auth/login_page";
         }
-
         List<Contract> contracts = contractService.getContractsByClientId(clientId);
-
-
         model.addAttribute("contracts", contracts);
 
         return "client/personal_contracts";
