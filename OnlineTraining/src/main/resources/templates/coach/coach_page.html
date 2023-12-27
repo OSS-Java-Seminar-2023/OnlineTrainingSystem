@@ -16,22 +16,16 @@
 <table border="1">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Coach F NAME</th>
-        <th>Coach S NAME</th>
-        <th>Client F NAME</th>
-        <th>Client S NAME</th>
+        <th>Client First Name</th>
+        <th>Client Second Name</th>
         <th>Start Date</th>
         <th>End Date</th>
         <th>Monthly Price</th>
-        <th>Action</th> <!-- New column for the button -->
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="contract : ${coachesListContracts}">
-        <td th:text="${contract.id}"></td>
-        <td th:text="${contract.coach.user.firstName}"></td>
-        <td th:text="${contract.coach.user.lastName}"></td>
         <td th:text="${contract.client.user.firstName}"></td>
         <td th:text="${contract.client.user.lastName}"></td>
         <td th:text="${contract.startDate}"></td>
@@ -41,7 +35,7 @@
             <!-- Button to call the /workout endpoint with contract-id -->
             <form th:action="@{/workout}" method="get">
                 <input type="hidden" th:name="contractID" th:value="${contract.id}" />
-                <button type="submit">View Workout</button>
+                <button type="submit">View Workouts</button>
             </form>
         </td>
     </tr>

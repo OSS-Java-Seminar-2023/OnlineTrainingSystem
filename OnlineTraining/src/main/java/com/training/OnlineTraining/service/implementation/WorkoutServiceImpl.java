@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,11 +22,30 @@ public class WorkoutServiceImpl implements WorkoutService {
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutServiceImpl.class);
 
 	public WorkoutServiceImpl(WorkoutRepository workoutRepository, WorkoutMapper workoutMapper) {
+		logger.info("WorkoutServiceImpl constructed.");
+
 		this.workoutRepository = workoutRepository;
 		this.workoutMapper = workoutMapper;
-		logger.info("WorkoutServiceImpl constructed.");
 	}
 
+	@Override
+	public Workout createWorkout(WorkoutDTO workoutDTO, UUID contractID) {
+		logger.info("Creating new workout.");
+
+		int ordinalNumberOfLastWorkout =
+				workoutRepository.findTopByContractIdOrderByOrdinalNumberOfWorkoutDesc(contractID).getOrdinalNumberOfWorkout();
+
+		workoutDTO.setDateOfWorkout(null);
+		workoutDTO.setContractId(contractID);
+		workoutDTO.setOrdinalNumberOfWorkout(++ordinalNumberOfLastWorkout);
+
+
+		Workout savedWorkout = workoutRepository.save(workoutMapper.toWorkout(workoutDTO));
+
+		logger.info("New workout created.");
+
+		return savedWorkout;
+	}
 	@Override
 	public Workout createWorkout(WorkoutDTO workoutDTO) {
 		logger.info("Creating new workout.");
@@ -59,6 +79,23 @@ public class WorkoutServiceImpl implements WorkoutService {
 	@Override
 	public Workout updateWorkout(UUID id, WorkoutDTO workoutDetails) {
 		logger.info("Updating workout with ID: {}", id);
+
+		Workout existingWorkout = workoutRepository.findById(id)
+				.orElseThrow(() -> {
+					logger.error("Workout with ID {} not found.", id);
+					return new WorkoutNotFoundException(id);
+				});
+
+		Workout updatedWorkout = workoutMapper.toWorkout(workoutDetails);
+		updatedWorkout.setId(existingWorkout.getId()); // Ensure the ID is preserved
+		return workoutRepository.save(updatedWorkout);
+	}
+
+	@Override
+	public Workout updateWorkout(UUID id, WorkoutDTO workoutDetails, UUID contractID) {
+		logger.info("Updating workout with ID: {}", id);
+
+		workoutDetails.setContractId(contractID);
 
 		Workout existingWorkout = workoutRepository.findById(id)
 				.orElseThrow(() -> {

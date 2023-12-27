@@ -20,11 +20,11 @@ import java.util.UUID;
 public class WorkoutController {
 
 	private final WorkoutService workoutService;
-
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutController.class);
 
 	public WorkoutController(WorkoutService workoutService) {
 		this.workoutService = workoutService;
+
 		logger.info("WorkoutController initialized.");
 	}
 
@@ -42,9 +42,8 @@ public class WorkoutController {
 		logger.info("Creating a new workout.");
 
 		UUID contractID = (UUID) session.getAttribute("contractID");
-		workoutDTO.setContractId(contractID);
 
-		workoutService.createWorkout(workoutDTO);
+		workoutService.createWorkout(workoutDTO, contractID);
 
 		return "redirect:/workout";
 	}
@@ -72,6 +71,7 @@ public class WorkoutController {
 
 		Workout workout = workoutService.getWorkoutById(id);
 		model.addAttribute("workout", workout);
+
 		return "workout/workoutDetails";
 	}
 
@@ -90,9 +90,8 @@ public class WorkoutController {
 		logger.info("Updating workout for ID: {}", id);
 
 		UUID contractID = (UUID) session.getAttribute("contractID");
-		workoutDTO.setContractId(contractID);
 
-		workoutService.updateWorkout(id, workoutDTO);
+		workoutService.updateWorkout(id, workoutDTO, contractID);
 
 		return "redirect:/workout";
 	}

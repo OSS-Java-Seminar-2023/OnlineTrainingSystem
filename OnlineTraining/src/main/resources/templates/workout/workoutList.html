@@ -12,8 +12,6 @@
 <table border="1">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Contract ID</th>
         <th>Date of Workout</th>
         <th>Ordinal Number of Workout</th>
         <th>Number of Exercises</th>
@@ -29,14 +27,12 @@
     <tbody>
     <!-- Assuming you have a List<Workout> called 'workouts' in your model -->
     <tr th:each="workout : ${workoutsList}">
-        <td th:text="${workout.id}"></td>
-        <td th:text="${workout.contract.id}"></td>
         <td th:text="${workout.dateOfWorkout}"></td>
         <td th:text="${workout.ordinalNumberOfWorkout}"></td>
         <td th:text="${workout.numberOfExercises}"></td>
-        <td th:text="${workout.warmingUpTimeInSeconds}"></td>
+        <td th:text="${workout.warmingUpTimeInSeconds + ' seconds'}"></td>
         <td th:text="${workout.numberOfSets}"></td>
-        <td th:text="${workout.pauseBetweenSetsInSeconds}"></td>
+        <td th:text="${workout.pauseBetweenSetsInSeconds + ' seconds'}"></td>
         <td th:text="${workout.selfRating}"></td>
         <td>
             <a th:href="@{/workout/details/{id}(id=${workout.id})}"><button>Details</button></a>
