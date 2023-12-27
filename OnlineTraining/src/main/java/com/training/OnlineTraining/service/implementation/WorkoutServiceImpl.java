@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +28,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 	}
 
 	@Override
-	public Workout createWorkout(WorkoutDTO workoutDTO, UUID contractID) {
+	public void createWorkout(WorkoutDTO workoutDTO, UUID contractID) {
 		logger.info("Creating new workout.");
 
 		int ordinalNumberOfLastWorkout =
@@ -44,7 +43,6 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 		logger.info("New workout created.");
 
-		return savedWorkout;
 	}
 	@Override
 	public Workout createWorkout(WorkoutDTO workoutDTO) {
@@ -92,7 +90,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 	}
 
 	@Override
-	public Workout updateWorkout(UUID id, WorkoutDTO workoutDetails, UUID contractID) {
+	public void updateWorkout(UUID id, WorkoutDTO workoutDetails, UUID contractID) {
 		logger.info("Updating workout with ID: {}", id);
 
 		workoutDetails.setContractId(contractID);
@@ -105,7 +103,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 		Workout updatedWorkout = workoutMapper.toWorkout(workoutDetails);
 		updatedWorkout.setId(existingWorkout.getId()); // Ensure the ID is preserved
-		return workoutRepository.save(updatedWorkout);
+		workoutRepository.save(updatedWorkout);
 	}
 
 	@Override
