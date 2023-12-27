@@ -1,15 +1,18 @@
 package com.training.OnlineTraining.service.implementation;
 
 import com.training.OnlineTraining.dto.WorkoutDTO;
+import com.training.OnlineTraining.dto.WorkoutSessionDTO;
 import com.training.OnlineTraining.exceptions.WorkoutNotFoundException;
 import com.training.OnlineTraining.mapper.WorkoutMapper;
 import com.training.OnlineTraining.model.Workout;
 import com.training.OnlineTraining.repository.WorkoutRepository;
 import com.training.OnlineTraining.service.WorkoutService;
+import com.training.OnlineTraining.service.WorkoutSessionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,11 +21,13 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	private final WorkoutRepository workoutRepository;
 	private final WorkoutMapper workoutMapper;
+	private final WorkoutSessionService workoutSessionService;
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutServiceImpl.class);
 
-	public WorkoutServiceImpl(WorkoutRepository workoutRepository, WorkoutMapper workoutMapper) {
+	public WorkoutServiceImpl(WorkoutRepository workoutRepository, WorkoutMapper workoutMapper, WorkoutSessionService workoutSessionService) {
 		logger.info("WorkoutServiceImpl constructed.");
 
+		this.workoutSessionService = workoutSessionService;
 		this.workoutRepository = workoutRepository;
 		this.workoutMapper = workoutMapper;
 	}
@@ -38,8 +43,14 @@ public class WorkoutServiceImpl implements WorkoutService {
 		workoutDTO.setContractId(contractID);
 		workoutDTO.setOrdinalNumberOfWorkout(++ordinalNumberOfLastWorkout);
 
-
 		Workout savedWorkout = workoutRepository.save(workoutMapper.toWorkout(workoutDTO));
+
+		for(int i = 0; i < workoutDTO.getNumberOfExercises(); ++i){
+			WorkoutSessionDTO workoutSessionDTO = WorkoutSessionDTO.createEmptyWorkoutSessionDTO();
+			workoutSessionDTO.setWorkoutId(savedWorkout.getId());
+
+			workoutSessionService.createWorkoutSession(workoutSessionDTO);
+		}
 
 		logger.info("New workout created.");
 

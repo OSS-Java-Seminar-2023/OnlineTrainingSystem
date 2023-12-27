@@ -1,5 +1,6 @@
 package com.training.OnlineTraining.controller;
 
+import com.training.OnlineTraining.dto.WorkoutDTO;
 import com.training.OnlineTraining.dto.WorkoutSessionDTO;
 import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.service.WorkoutSessionService;
@@ -25,62 +26,23 @@ public class WorkoutSessionController {
 		logger.info("WorkoutSessionController initialized.");
 	}
 
-	@GetMapping("/create")
-	public String showCreateWorkoutSessionForm(Model model) {
-		logger.info("Displaying create workout session form.");
-
-		model.addAttribute("workoutSessionDTO", new WorkoutSessionDTO());
-		return "workoutSession/createWorkoutSession";
-	}
-
-	@PostMapping("/create")
-	public String createWorkoutSession(@ModelAttribute("workoutSessionDTO") WorkoutSessionDTO workoutSessionDTO) {
-		logger.info("Creating a new workout session.");
-
-		workoutSessionService.createWorkoutSession(workoutSessionDTO);
-		return "redirect:/workoutSession";
-	}
-
-	@GetMapping()
-	public String getAllWorkoutSessions(Model model) {
-		logger.info("Fetching all workout sessions.");
-
-		List<WorkoutSession> workoutSessions = workoutSessionService.getAllWorkoutSessions();
-		model.addAttribute("workoutSessions", workoutSessions);
-		return "workoutSession/workoutSessionList";
-	}
-
-	@GetMapping("/details/{id}")
-	public String showWorkoutSessionDetails(@PathVariable UUID id, Model model) {
-		logger.info("Displaying workout session details for ID: {}", id);
-
-		WorkoutSession workoutSession = workoutSessionService.getWorkoutSessionById(id);
-		model.addAttribute("workoutSession", workoutSession);
-		return "workoutSession/workoutSessionDetails";
-	}
-
-	@GetMapping("/update/{id}")
-	public String showUpdateWorkoutSessionForm(@PathVariable UUID id, Model model) {
-		logger.info("Displaying update workout session form for ID: {}", id);
-
-		WorkoutSession workoutSession = workoutSessionService.getWorkoutSessionById(id);
-		model.addAttribute("workoutSessionDTO", workoutSession);
-		return "workoutSession/updateWorkoutSession";
-	}
 
 	@PostMapping("/update/{id}")
-	public String updateWorkoutSession(@PathVariable UUID id, @ModelAttribute("workoutSessionDTO") WorkoutSessionDTO workoutSessionDTO) {
-		logger.info("Updating workout session for ID: {}", id);
+	public String updateWorkoutDetails(@PathVariable UUID id,
+	                                   @ModelAttribute("workout") WorkoutDTO updatedWorkout,
+	                                   @ModelAttribute("workoutSessionDTOList") List<WorkoutSessionDTO> updatedSessions) {
+		logger.info("Updating workout details for ID: {}", id);
 
-		workoutSessionService.updateWorkoutSession(id, workoutSessionDTO);
-		return "redirect:/workoutSession";
+		// Update the workout using updatedWorkout (if needed)
+
+		// Update or save the modified workout sessions
+		for (WorkoutSessionDTO session : updatedSessions) {
+			// Check if session needs to be updated or saved (handle accordingly)
+			// Update or save each modified session using session data (exerciseId, numberOfReps, etc.)
+		}
+
+		// Redirect to a confirmation page or any other appropriate page
+		return "redirect:/details/" + id;
 	}
 
-	@PostMapping("/delete/{id}")
-	public String deleteWorkoutSession(@PathVariable UUID id) {
-		logger.info("Deleting workout session for ID: {}", id);
-
-		workoutSessionService.deleteWorkoutSession(id);
-		return "redirect:/workoutSession";
-	}
 }

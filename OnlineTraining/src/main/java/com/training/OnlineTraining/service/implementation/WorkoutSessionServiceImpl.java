@@ -58,6 +58,11 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 	}
 
 	@Override
+	public List<WorkoutSession> getAllByWorkoutId(UUID workoutID) {
+		return workoutSessionRepository.findAllByWorkout_Id(workoutID);
+	}
+
+	@Override
 	public WorkoutSession updateWorkoutSession(UUID id, WorkoutSessionDTO workoutSessionDetails) {
 		logger.info("Updating workout session with ID: {}", id);
 

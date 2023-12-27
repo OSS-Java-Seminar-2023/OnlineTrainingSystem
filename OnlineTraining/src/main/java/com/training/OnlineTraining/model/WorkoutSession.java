@@ -21,7 +21,7 @@ public class WorkoutSession {
     private Workout workout;
 
     @ManyToOne
-    @JoinColumn(name = "exercise_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "exercise_id", referencedColumnName = "id", nullable = true)
     private Exercise exercise;
 
     @Column(name = "number_of_reps")

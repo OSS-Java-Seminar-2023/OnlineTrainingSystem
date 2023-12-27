@@ -33,7 +33,7 @@
 </table>
 
 <h1>Enter Workout Sessions</h1>
-<form th:action="@{/workoutSession/create}" method="post">
+<form th:action="@{/workoutSession/update}" method="post">
     <input type="hidden" name="workoutId" th:value="${workout.id}" />
 
     <table border="1">
@@ -45,29 +45,31 @@
             <th>Weight</th>
         </tr>
         </thead>
+        <!-- Modify the tbody to display existing workout session data -->
         <tbody>
-        <!-- Loop through the number of exercises to generate rows for workout sessions -->
-        <tr th:each="exerciseIndex : ${#numbers.sequence(0, workout.numberOfExercises - 1)}">
+        <tr th:each="session : ${workoutSessionList}">
             <td>
-                <select name="workoutSessionDTOList[${exerciseIndex}].exerciseId">
-                    <!-- Populate the dropdown with exercise options -->
-                    <option th:each="exercise : ${listExercises}"
-                            th:value="${exercise.id}"
-                            th:text="${exercise.name}">
-                    </option>
-                </select>
+                <!-- Display existing exercise for the workout session -->
+                <span th:text="${session.exercise.name}"></span>
             </td>
             <td>
-                <input type="number" name="workoutSessionDTOList[${exerciseIndex}].numberOfReps" />
+                <!-- Display and allow updating of number of reps -->
+                <input type="number" th:field="*{workoutSessionDTOList[__${session.id}__].numberOfReps}"
+                       th:value="${session.numberOfReps}" />
             </td>
             <td>
-                <input type="number" name="workoutSessionDTOList[${exerciseIndex}].pauseAfterExerciseInSeconds" />
+                <!-- Display and allow updating of pause after exercise in seconds -->
+                <input type="number" th:field="*{workoutSessionDTOList[__${session.id}__].pauseAfterExerciseInSeconds}"
+                       th:value="${session.pauseAfterExerciseInSeconds}" />
             </td>
             <td>
-                <input type="text" name="workoutSessionDTOList[${exerciseIndex}].weight" />
+                <!-- Display and allow updating of weight -->
+                <input type="text" th:field="*{workoutSessionDTOList[__${session.id}__].weight}"
+                       th:value="${session.weight}" />
             </td>
         </tr>
         </tbody>
+
     </table>
 
     <input type="submit" value="Save Workout Sessions" />
