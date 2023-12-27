@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Mapper(componentModel = "spring")
@@ -31,4 +32,6 @@ public interface WorkoutSessionMapper {
 		}
 		return null;
 	}
+
+
 }

@@ -32,4 +32,14 @@ public class WorkoutSession {
 
     @Column
     private BigDecimal weight;
+
+    @Override
+    public String toString() {
+        return "WorkoutSession{" +
+                "exercise=" + exercise.getName() +
+                ", numberOfReps=" + numberOfReps +
+                ", pauseAfterExerciseInSeconds=" + pauseAfterExerciseInSeconds +
+                ", weight=" + weight +
+                '}';
+    }
 }

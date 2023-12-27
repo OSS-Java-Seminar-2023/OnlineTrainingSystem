@@ -2,6 +2,7 @@ package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.dto.WorkoutDTO;
 import com.training.OnlineTraining.model.Workout;
+import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutService;
 import com.training.OnlineTraining.service.WorkoutSessionService;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -74,10 +77,9 @@ public class WorkoutController {
 		logger.info("Displaying workout details for ID: {}", id);
 
 		Workout workout = workoutService.getWorkoutById(id);
+
 		model.addAttribute("workout", workout);
 		model.addAttribute("listExercises", exerciseService.getAllExercises());
-		model.addAttribute("workoutSessionList", workoutSessionService.getAllByWorkoutId(id));
-
 
 		return "workout/workoutDetails";
 	}
