@@ -32,51 +32,57 @@
     </tbody>
 </table>
 
-<h1>Enter Workout Sessions</h1>
-<form id="updateForm" th:action="@{/workoutSession/update/{workoutID}(workoutID=${workout.id})}" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="workoutId" th:value="${workout.id}" />
+<!-- Form for Workout Details with Workout Sessions -->
+<form th:action="@{/workoutSession/update/{workoutID}(workoutID=${workout.id})}" method="post">
+    <table border="1">
+        <!-- Workout details section -->
+        <!-- ...Existing workout details table content... -->
 
-    <table>
+        <!-- Workout sessions details section -->
         <thead>
         <tr>
             <th>Exercise</th>
             <th>Number of Reps</th>
-            <th>Pause After Exercise (in seconds)</th>
+            <th>Pause After Exercise (Seconds)</th>
             <th>Weight</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="workoutSession, iterStat : ${workoutSessionList}">
+        <!-- Iterate over each WorkoutSession -->
+        <tr th:each="workoutSession, rowStat : ${workout.workoutSessions}">
+
+            <input type="hidden" th:field="*{workout.workoutSessions[__${rowStat.index}__].id}">
+
+            <!-- Hidden input for Workout ID -->
+            <input type="hidden" th:field="*{workout.workoutSessions[__${rowStat.index}__].workout.id}">
+
+
             <td>
-                <!-- Hidden input for workoutSession ID -->
-                <input type="hidden" th:name="workoutSessionDTOList[__${iterStat.index}__].id"
-                       th:value="${workoutSession.id}" />
-                <!-- Exercise name -->
-                <input type="text" th:name="workoutSessionDTOList[__${iterStat.index}__].exerciseName"
-                       placeholder="Exercise Name" />
+                <!-- Dropdown to select exercise -->
+                <select th:field="*{workout.workoutSessions[__${rowStat.index}__].exercise.id}">
+                    <option value="">Select Exercise</option>
+                    <option th:each="exercise : ${listExercises}"
+                            th:value="${exercise.id}"
+                            th:text="${exercise.name}"
+                            th:selected="${exercise.id == workoutSession.exercise.id}"> <!-- Set selected option -->
+                    </option>
+                </select>
             </td>
             <td>
-                <!-- Number of Reps -->
-                <input type="number" th:name="workoutSessionDTOList[__${iterStat.index}__].numberOfReps"
-                       placeholder="Number of Reps" />
+                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].numberOfReps}">
             </td>
             <td>
-                <!-- Pause After Exercise in seconds -->
-                <input type="number" th:name="workoutSessionDTOList[__${iterStat.index}__].pauseAfterExerciseInSeconds"
-                       placeholder="Pause After Exercise (in seconds)" />
+                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].pauseAfterExerciseInSeconds}">
             </td>
             <td>
-                <!-- Weight -->
-                <input type="text" th:name="workoutSessionDTOList[__${iterStat.index}__].weight"
-                       placeholder="Weight" />
+                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].weight}">
             </td>
         </tr>
+
         </tbody>
     </table>
-
-    <input type="submit" value="Save Workout Sessions"/>
+    <button type="submit">Update</button>
 </form>
-
 
 </body>
 </html>

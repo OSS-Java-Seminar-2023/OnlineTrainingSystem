@@ -4,8 +4,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.training.OnlineTraining.dto.WorkoutDTO;
 import com.training.OnlineTraining.dto.WorkoutSessionDTO;
+import com.training.OnlineTraining.mapper.WorkoutSessionMapper;
+import com.training.OnlineTraining.model.Workout;
 import com.training.OnlineTraining.model.WorkoutSession;
+import com.training.OnlineTraining.service.WorkoutService;
 import com.training.OnlineTraining.service.WorkoutSessionService;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -23,27 +27,31 @@ import java.util.UUID;
 @RequestMapping("/workoutSession")
 public class WorkoutSessionController {
 
-	private final WorkoutSessionService workoutSessionService;
+	private final WorkoutService workoutService;
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutSessionController.class);
 
-	public WorkoutSessionController(WorkoutSessionService workoutSessionService) {
-		this.workoutSessionService = workoutSessionService;
 
-		logger.info("WorkoutSessionController initialized.");
+	public WorkoutSessionController(WorkoutService workoutService) {
+		this.workoutService = workoutService;
 	}
-
 
 	@PostMapping("/update/{workoutID}")
-	public String updateWorkoutDetails(
+	public String updateWorkoutAndSessions(
 			@PathVariable UUID workoutID,
-			@ModelAttribute("workout") WorkoutDTO updatedWorkout,
-			@RequestBody ArrayList<WorkoutSessionDTO> workoutSessionDTOList,
-			Model model) {
+			@ModelAttribute("workout") WorkoutDTO workoutDTO,
+			HttpSession session) {
 
-		System.out.println("List size : " + workoutSessionDTOList.size());
+		// Retrieve the existing workout
+		Workout existingWorkout = workoutService.getWorkoutById(workoutID);
 
-		return "";
+		existingWorkout.setWorkoutSessions(workoutDTO.getWorkoutSessions());
+
+		Workout returnedWorkout = workoutService.updateWorkout(existingWorkout);
+
+		// Redirect to the workout details page or any other page after updating
+		return "redirect:/workout/details/" + workoutID;
 	}
+
 
 
 

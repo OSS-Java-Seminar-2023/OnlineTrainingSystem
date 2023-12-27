@@ -101,6 +101,11 @@ public class WorkoutServiceImpl implements WorkoutService {
 	}
 
 	@Override
+	public Workout updateWorkout(Workout workout) {
+		return workoutRepository.save(workout);
+	}
+
+	@Override
 	public void updateWorkout(UUID id, WorkoutDTO workoutDetails, UUID contractID) {
 		logger.info("Updating workout with ID: {}", id);
 
