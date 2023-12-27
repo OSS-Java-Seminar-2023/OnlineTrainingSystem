@@ -78,6 +78,7 @@ public class WorkoutController {
 		model.addAttribute("listExercises", exerciseService.getAllExercises());
 		model.addAttribute("workoutSessionList", workoutSessionService.getAllByWorkoutId(id));
 
+
 		return "workout/workoutDetails";
 	}
 

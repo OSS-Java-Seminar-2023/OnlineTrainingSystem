@@ -33,10 +33,10 @@
 </table>
 
 <h1>Enter Workout Sessions</h1>
-<form th:action="@{/workoutSession/update}" method="post">
+<form id="updateForm" th:action="@{/workoutSession/update/{workoutID}(workoutID=${workout.id})}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="workoutId" th:value="${workout.id}" />
 
-    <table border="1">
+    <table>
         <thead>
         <tr>
             <th>Exercise</th>
@@ -45,35 +45,38 @@
             <th>Weight</th>
         </tr>
         </thead>
-        <!-- Modify the tbody to display existing workout session data -->
         <tbody>
-        <tr th:each="session : ${workoutSessionList}">
+        <tr th:each="workoutSession, iterStat : ${workoutSessionList}">
             <td>
-                <!-- Display existing exercise for the workout session -->
-                <span th:text="${session.exercise.name}"></span>
+                <!-- Hidden input for workoutSession ID -->
+                <input type="hidden" th:name="workoutSessionDTOList[__${iterStat.index}__].id"
+                       th:value="${workoutSession.id}" />
+                <!-- Exercise name -->
+                <input type="text" th:name="workoutSessionDTOList[__${iterStat.index}__].exerciseName"
+                       placeholder="Exercise Name" />
             </td>
             <td>
-                <!-- Display and allow updating of number of reps -->
-                <input type="number" th:field="*{workoutSessionDTOList[__${session.id}__].numberOfReps}"
-                       th:value="${session.numberOfReps}" />
+                <!-- Number of Reps -->
+                <input type="number" th:name="workoutSessionDTOList[__${iterStat.index}__].numberOfReps"
+                       placeholder="Number of Reps" />
             </td>
             <td>
-                <!-- Display and allow updating of pause after exercise in seconds -->
-                <input type="number" th:field="*{workoutSessionDTOList[__${session.id}__].pauseAfterExerciseInSeconds}"
-                       th:value="${session.pauseAfterExerciseInSeconds}" />
+                <!-- Pause After Exercise in seconds -->
+                <input type="number" th:name="workoutSessionDTOList[__${iterStat.index}__].pauseAfterExerciseInSeconds"
+                       placeholder="Pause After Exercise (in seconds)" />
             </td>
             <td>
-                <!-- Display and allow updating of weight -->
-                <input type="text" th:field="*{workoutSessionDTOList[__${session.id}__].weight}"
-                       th:value="${session.weight}" />
+                <!-- Weight -->
+                <input type="text" th:name="workoutSessionDTOList[__${iterStat.index}__].weight"
+                       placeholder="Weight" />
             </td>
         </tr>
         </tbody>
-
     </table>
 
-    <input type="submit" value="Save Workout Sessions" />
+    <input type="submit" value="Save Workout Sessions"/>
 </form>
+
 
 </body>
 </html>
