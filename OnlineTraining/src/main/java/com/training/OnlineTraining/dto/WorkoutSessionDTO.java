@@ -13,4 +13,14 @@ public class WorkoutSessionDTO {
 	private Integer pauseAfterExerciseInSeconds;
 	private BigDecimal weight;
 
+	public static WorkoutSessionDTO createEmptyWorkoutSessionDTO() {
+		WorkoutSessionDTO emptyWorkoutSession = new WorkoutSessionDTO();
+		emptyWorkoutSession.setWorkoutId(null);
+		emptyWorkoutSession.setExerciseId(null);
+		emptyWorkoutSession.setNumberOfReps(0);
+		emptyWorkoutSession.setPauseAfterExerciseInSeconds(0);
+		emptyWorkoutSession.setWeight(BigDecimal.ZERO);
+		return emptyWorkoutSession;
+	}
+
 }

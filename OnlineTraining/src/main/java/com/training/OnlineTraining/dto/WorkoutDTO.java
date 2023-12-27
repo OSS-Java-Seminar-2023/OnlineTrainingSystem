@@ -20,7 +20,6 @@ public class WorkoutDTO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateOfWorkout;
 
-
 	private Integer ordinalNumberOfWorkout;
 	private Integer numberOfExercises;
 	private Integer warmingUpTimeInSeconds;
