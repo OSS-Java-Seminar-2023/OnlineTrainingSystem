@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Workout Details</title>
+    <title>Workout Details with Session Entry</title>
 </head>
 <body>
 <h1>Workout Details</h1>
@@ -31,5 +31,47 @@
     </tr>
     </tbody>
 </table>
+
+<h1>Enter Workout Sessions</h1>
+<form th:action="@{/workoutSession/create}" method="post">
+    <input type="hidden" name="workoutId" th:value="${workout.id}" />
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Exercise</th>
+            <th>Number of Reps</th>
+            <th>Pause After Exercise (in seconds)</th>
+            <th>Weight</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through the number of exercises to generate rows for workout sessions -->
+        <tr th:each="exerciseIndex : ${#numbers.sequence(0, workout.numberOfExercises - 1)}">
+            <td>
+                <select name="workoutSessionDTOList[${exerciseIndex}].exerciseId">
+                    <!-- Populate the dropdown with exercise options -->
+                    <option th:each="exercise : ${listExercises}"
+                            th:value="${exercise.id}"
+                            th:text="${exercise.name}">
+                    </option>
+                </select>
+            </td>
+            <td>
+                <input type="number" name="workoutSessionDTOList[${exerciseIndex}].numberOfReps" />
+            </td>
+            <td>
+                <input type="number" name="workoutSessionDTOList[${exerciseIndex}].pauseAfterExerciseInSeconds" />
+            </td>
+            <td>
+                <input type="text" name="workoutSessionDTOList[${exerciseIndex}].weight" />
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <input type="submit" value="Save Workout Sessions" />
+</form>
+
 </body>
 </html>

@@ -4,6 +4,7 @@ import com.training.OnlineTraining.dto.ExerciseDTO;
 import com.training.OnlineTraining.dto.WorkoutDTO;
 import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.Workout;
+import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -20,12 +21,14 @@ import java.util.UUID;
 public class WorkoutController {
 
 	private final WorkoutService workoutService;
+	private ExerciseService exerciseService;
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutController.class);
 
-	public WorkoutController(WorkoutService workoutService) {
-		this.workoutService = workoutService;
-
+	public WorkoutController(WorkoutService workoutService, ExerciseService exerciseService) {
 		logger.info("WorkoutController initialized.");
+
+		this.workoutService = workoutService;
+		this.exerciseService = exerciseService;
 	}
 
 	@GetMapping("/create")
@@ -71,6 +74,7 @@ public class WorkoutController {
 
 		Workout workout = workoutService.getWorkoutById(id);
 		model.addAttribute("workout", workout);
+		model.addAttribute("listExercises", exerciseService.getAllExercises());
 
 		return "workout/workoutDetails";
 	}
