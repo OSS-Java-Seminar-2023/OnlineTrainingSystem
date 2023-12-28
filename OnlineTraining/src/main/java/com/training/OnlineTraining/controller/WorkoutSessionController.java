@@ -38,17 +38,18 @@ public class WorkoutSessionController {
 		return "redirect:/workout/details/" + workoutID;
 	}
 
-	@PostMapping("/delete/{workoutSessionID}/{workoutID}")
-	public String deleteWorkoutSession(@PathVariable String workoutSessionID, @PathVariable String workoutID) {
+	@PostMapping("/delete/{workoutSessionID}")
+	public String deleteWorkoutSession(@PathVariable UUID workoutSessionID) {
 		logger.info("Deleting workout session with ID: {}", workoutSessionID);
 
-		workoutSessionService.deleteWorkoutSession(UUID.fromString(workoutSessionID));
+		workoutSessionService.deleteWorkoutSession(workoutSessionID);
 
 		logger.info("Workout session deleted successfully.");
 
 		// Redirect to the appropriate page after deletion
-		return "redirect:/workout/details/" + UUID.fromString(workoutID); // Assuming the path is correct
+		return "redirect:/workout"; // Assuming the path is correct
 	}
+
 
 
 }
