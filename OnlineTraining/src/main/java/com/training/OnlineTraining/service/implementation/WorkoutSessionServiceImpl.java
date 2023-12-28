@@ -79,6 +79,12 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 	}
 
 	@Override
+	public void updateWorkoutSessions(List<WorkoutSession> workoutSessionList) {
+		for(WorkoutSession workoutSession : workoutSessionList)
+			updateWorkoutSession(workoutSession.getId(), workoutSessionMapper.toWorkoutSessionDTO(workoutSession));
+	}
+
+	@Override
 	public void deleteWorkoutSession(UUID id) {
 		logger.info("Deleting workout session with ID: {}", id);
 
