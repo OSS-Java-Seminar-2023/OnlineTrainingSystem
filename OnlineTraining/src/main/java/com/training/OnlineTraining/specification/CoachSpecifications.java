@@ -41,7 +41,7 @@ public class CoachSpecifications {
     public static Specification<Coach> filterByMonthlyPrice(Double monthlyPrice) {
         return (root, query, criteriaBuilder) ->
                 Optional.ofNullable(monthlyPrice)
-                        .map(d -> criteriaBuilder.greaterThanOrEqualTo(root.get("monthlyPrice"), d))
+                        .map(d -> criteriaBuilder.lessThanOrEqualTo(root.get("monthlyPrice"), d))
                         .orElse(criteriaBuilder.isTrue(criteriaBuilder.literal(true)));
     }
 }

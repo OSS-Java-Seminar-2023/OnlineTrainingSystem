@@ -16,20 +16,21 @@
 <div th:insert="~{fragments/navigation :: navigation('/clients/client-page')}"></div>
 <br>
 <br>
-<p th:if="${clientId != null}" th:text="'Client ID: ' + ${clientId}"></p>
+<br>
+
 <div class="greeting" style="display: inline-block;">
-    <p th:if="${clientName != null}" th:text="'Hello ' + ${clientName}"></p>
-    <span th:if="${clientName != null}" class="hand">👋</span>
+    <p th:if="${clientName != null}" th:text="'Hello ' + ${clientName}  + '. Welcome to OnlineTrainingSystem!'"></p>
+    <span th:if="${clientName != null}" class="hand">💪</span>
 </div>
 <br>
 <br>
-<div>
-<a th:href="@{'/contracts/personal'}" class="become-link">Your Contracts</a>
-    <a th:href="@{'/clients/settings'}" class="become-link">Settings</a>
-</div>
-
+    <div>
+        <a th:href="@{'/contracts/personal'}" class="links">Your Contracts</a>
+    </div>
 <br>
-
+    <div> <a th:href="@{'/clients/settings'}" class="links">Settings</a>
+    </div>
+<br>
 <div>
     <div class="select">
     <select id="educationFilter">
@@ -58,13 +59,13 @@
     <select id="monthlyPriceFilter">
         <option selected disabled>Select a monthly price</option>
         <option value="">Any</option>
-        <option value="10.0">10+ €</option>
-        <option value="15.0">15+ €</option>
-        <option value="20.0">20+ €</option>
-        <option value="25.0">25+ €</option>
-        <option value="30.0">30+ €</option>
-        <option value="35.0">35+ €</option>
-        <option value="40.0">40+ €</option>
+        <option value="1000.0"><1000 €</option>
+        <option value="1200.0"><1200 €</option>
+        <option value="1500.0"><1500 €</option>
+        <option value="1800.0"><1800 €</option>
+        <option value="2000.0"><2000 €</option>
+        <option value="2500.0"><2500 €</option>
+        <option value="3000.0"><3000 €</option>
     </select>
     </div>
 

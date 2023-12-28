@@ -3,11 +3,13 @@
     margin: 0;
     padding: 5px;
     font-family: 'Varela Round', sans-serif;
-
+    font-size: 1.7em;
+    color: #333;
 }
 
 .greeting .hand {
     display: inline-block;
+    font-size: 1.5em;
     animation: wave 2s infinite;
     transform-origin: 80% 40%;
 }
