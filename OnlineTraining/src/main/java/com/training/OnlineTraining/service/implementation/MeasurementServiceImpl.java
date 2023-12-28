@@ -57,5 +57,10 @@ public class MeasurementServiceImpl implements MeasurementService {
 		measurementRepository.save(updatedMeasurement);
 	}
 
+	public void deleteMeasurement(UUID measurementId) {
+		measurementRepository.deleteById(measurementId);
+	}
+
+
 
 }

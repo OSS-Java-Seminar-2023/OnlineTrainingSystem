@@ -15,4 +15,6 @@ public interface MeasurementService {
 
 	public void updateMeasurement(UUID measurementId, MeasurementDTO measurementDto);
 
+	public void deleteMeasurement(UUID measurementId);
+
 }

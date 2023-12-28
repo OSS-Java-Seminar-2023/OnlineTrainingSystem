@@ -73,6 +73,15 @@ public class MeasurementController {
 		return "redirect:/measurements/personal/{contractId}";
 	}
 
+	@DeleteMapping("/personal/{contractId}/delete/{measurementId}")
+	public String deleteMeasurement(@PathVariable UUID contractId,
+									@PathVariable UUID measurementId) {
+		measurementService.deleteMeasurement(measurementId);
+		return "redirect:/measurements/personal/{contractId}";
+	}
+
+
+
 
 
 }
