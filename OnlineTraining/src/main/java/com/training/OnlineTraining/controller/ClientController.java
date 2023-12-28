@@ -3,8 +3,12 @@ package com.training.OnlineTraining.controller;
 import com.training.OnlineTraining.dto.ClientDto;
 import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.dto.CoachFilterParams;
+import com.training.OnlineTraining.dto.UpdateClientDTO;
+import com.training.OnlineTraining.model.Client;
+import org.springframework.validation.BindingResult;
 import com.training.OnlineTraining.service.ClientService;
 import com.training.OnlineTraining.service.CoachService;
+import com.training.OnlineTraining.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +27,7 @@ public class ClientController {
 
     private final ClientService clientService;
     private final CoachService coachService;
+    private final UserService userService;
 
     @GetMapping("/client-page")
     public String getClientPage(Model model,
@@ -42,7 +47,6 @@ public class ClientController {
         return "client/client_page";
     }
 
-
     @GetMapping("/register")
     public String getBecomeClientPage(@RequestParam UUID userId, Model model) {
         model.addAttribute("userId", userId);
@@ -60,4 +64,38 @@ public class ClientController {
             return "error_page";
         }
     }
+
+    @GetMapping("/settings")
+    public String getSettings(Model model, HttpSession session) {
+        UUID clientId = (UUID) session.getAttribute("clientId");
+        if (clientId == null) {
+            return "auth/login_page";
+        }
+        Client client = clientService.getClientsById(clientId);
+        model.addAttribute("client", client);
+        model.addAttribute("genderOptions", Arrays.asList("Male", "Female"));
+
+
+        return "client/settings";
+    }
+
+    @PutMapping("/update")
+    public String updateClient(@ModelAttribute UpdateClientDTO updateClientDTO,
+                               HttpSession session, Model model,
+                               BindingResult bindingResult) {
+        UUID clientId = (UUID) session.getAttribute("clientId");
+
+        if (clientId == null) {
+            return "auth/login_page";
+        }
+        try {
+            clientService.updateClient(clientId, updateClientDTO);
+            return "index";
+
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+            return "client/settings";
+        }
+    }
+
 }

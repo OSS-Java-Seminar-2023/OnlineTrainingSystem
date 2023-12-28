@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Settings</title>
+    <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
+</head>
+
+<body>
+<div th:insert="~{fragments/navigation :: navigation('/error')}"></div>
+<br>
+<br>
+<br>
+<h1>An error occurred!</h1>
+<p>Sorry, something went wrong. Please try again later.</p>
+</body>
+</html>

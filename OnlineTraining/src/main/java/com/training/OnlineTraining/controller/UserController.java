@@ -22,14 +22,14 @@ public class UserController {
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
 
-        model.addAttribute("registerRequest", new User());
+        model.addAttribute("registerRequest", new UserDto());
         return "registration/register_page";
     }
 
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
-        model.addAttribute("loginRequest", new User());
+        model.addAttribute("loginRequest", new UserDto());
         return "auth/login_page";
     }
 
@@ -52,9 +52,9 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public String login(@ModelAttribute User user, Model model, HttpSession session) {
+    public String login(@ModelAttribute UserDto userDto, Model model, HttpSession session) {
         try {
-            User authenticated = userService.authenticate(user.getEmail(), user.getPassword());
+            User authenticated = userService.authenticate(userDto.getEmail(), userDto.getPassword());
             boolean isClient = clientService.isClient(authenticated);
             boolean isCoach = coachService.isCoach(authenticated);
 
