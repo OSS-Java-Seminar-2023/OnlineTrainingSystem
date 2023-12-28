@@ -55,7 +55,7 @@
             <form th:if="${measurement.id != null}"
                   th:action="@{'/measurements/personal/' + ${contractId} + '/delete/' + ${measurement.id}}"
                   method="post"
-                  onsubmit="return showConfirmation()">
+                  onsubmit="return showConfirmation(this)">
                 <input type="hidden" name="_method" value="delete" />
                 <button type="submit" class="become-link">Delete</button>
             </form>

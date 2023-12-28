@@ -1,14 +1,18 @@
-    function showConfirmation() {
-        document.getElementById('confirmation-dialog').style.display = 'block';
-        return false;
-    }
+function showConfirmation(form) {
+    document.getElementById('confirmation-dialog').style.display = 'block';
 
-    function confirmDelete() {
-        document.getElementById('confirmation-dialog').style.display = 'none';
-        document.querySelector('form').submit();
-    }
+    window.deleteForm = form;
+    return false;
+}
 
-    function cancelDelete() {
-        document.getElementById('confirmation-dialog').style.display = 'none';
+function confirmDelete() {
+    document.getElementById('confirmation-dialog').style.display = 'none';
 
+    if (window.deleteForm) {
+        window.deleteForm.submit();
     }
+}
+
+function cancelDelete() {
+    document.getElementById('confirmation-dialog').style.display = 'none';
+}
