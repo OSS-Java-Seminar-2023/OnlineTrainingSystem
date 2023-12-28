@@ -50,35 +50,38 @@ public class MeasurementController {
 	}
 
 
+	@GetMapping("/personal/{contractId}/update/{measurementId}")
+	public String showUpdateForm(@PathVariable UUID contractId, @PathVariable UUID measurementId, Model model) {
+		MeasurementDTO measurementDto = measurementService.getMeasurementById(measurementId);
+		model.addAttribute("contractId", contractId);
+		model.addAttribute("measurementId", measurementId);
+		model.addAttribute("measurementDto", measurementDto);
+		return "client/update_measurement_form";
+	}
+
+	@PutMapping("/personal/{contractId}/update/{measurementId}")
+	public String updateMeasurement(@PathVariable UUID contractId,
+									@PathVariable UUID measurementId,
+								    @Valid MeasurementDTO measurementDto,
+									BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "client/update_measurement_form";
+		}
+
+		measurementService.updateMeasurement(measurementId, measurementDto);
+
+		return "redirect:/measurements/personal/{contractId}";
+	}
+
+	@DeleteMapping("/personal/{contractId}/delete/{measurementId}")
+	public String deleteMeasurement(@PathVariable UUID contractId,
+									@PathVariable UUID measurementId) {
+		measurementService.deleteMeasurement(measurementId);
+		return "redirect:/measurements/personal/{contractId}";
+	}
 
 
-//	@GetMapping("/add")
-//	public String showAddMeasurementForm(Model model) {
-//		model.addAttribute("measurementDTO", new MeasurementDTO());
-//		return "addMeasurementForm";
-//	}
 
-	//	@GetMapping("/all")
-//	public String getAllMeasurements(Model model) {
-//		List<Measurement> measurements = measurementService.getAllMeasurements();
-//		model.addAttribute("measurements", measurements);
-//		return "allMeasurements";
-//	}
-// 	@PutMapping("/{id}")
-//	public String updateMeasurement(@PathVariable UUID id, @ModelAttribute MeasurementDTO measurementDTO) {
-//		measurementService.updateMeasurement(id, measurementDTO);
-//		return "redirect:/measurements/" + id;
-//	}
 
-	//	@DeleteMapping("/{id}")
-//	public String deleteMeasurement(@PathVariable UUID id) {
-//		measurementService.deleteMeasurement(id);
-//		return "redirect:/measurements/all";
-//	}
 
-	//	@DeleteMapping
-//	public String deleteAllMeasurements() {
-//		measurementService.deleteAll();
-//		return "redirect:/measurements/all";
-//	}
 }

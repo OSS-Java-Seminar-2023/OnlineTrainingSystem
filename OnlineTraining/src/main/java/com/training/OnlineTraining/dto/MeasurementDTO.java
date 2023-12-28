@@ -14,6 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class MeasurementDTO {
 
+	private UUID id;
+
 	private UUID contractId;
 
 	private Date measurementDate;
