@@ -19,7 +19,6 @@ public class WorkoutSessionController {
 
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutSessionController.class);
 
-
 	public WorkoutSessionController(WorkoutSessionService workoutSessionService) {
 		this.workoutSessionService = workoutSessionService;
 	}
@@ -30,12 +29,28 @@ public class WorkoutSessionController {
 			@ModelAttribute("workout") WorkoutDTO workoutDTO,
 			HttpSession session) {
 
+		logger.info("Updating workout and sessions for workout ID: {}", workoutID);
+
 		workoutSessionService.updateWorkoutSessions(workoutDTO.getWorkoutSessions());
+
+		logger.info("Workout and sessions updated successfully.");
 
 		return "redirect:/workout/details/" + workoutID;
 	}
 
+	@PostMapping("/delete/{workoutSessionID}")
+	public String deleteWorkoutSession(@PathVariable UUID workoutSessionID) {
+		logger.info("Deleting workout session with ID: {}", workoutSessionID);
+
+		workoutSessionService.deleteWorkoutSession(workoutSessionID);
+
+		logger.info("Workout session deleted successfully.");
+
+		// Redirect to the appropriate page after deletion
+		return "redirect:/workout"; // Assuming the path is correct
+	}
 
 
 
 }
+
