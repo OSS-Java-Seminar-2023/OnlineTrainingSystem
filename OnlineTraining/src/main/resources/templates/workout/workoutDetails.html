@@ -45,6 +45,7 @@
             <th>Number of Reps</th>
             <th>Pause After Exercise (Seconds)</th>
             <th>Weight</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -77,12 +78,35 @@
             <td>
                 <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].weight}">
             </td>
+            <!-- Delete button column -->
+            <td>
+                <form id="deleteForm" th:action="@{/workoutSession/delete/{workoutID}/{workoutSessionID}(workoutID=${workout.id}, workoutSessionID=${workout.workoutSessions[__${rowStat.index}__].id})}" method="post">
+                    <button type="button" onclick="confirmDelete(this)">Delete</button>
+                </form>
+
+            </td>
+
         </tr>
 
         </tbody>
     </table>
     <button type="submit">Update</button>
 </form>
+
+<!-- JavaScript for delete confirmation -->
+<script th:inline="javascript">
+    function confirmDelete(button) {
+        if (confirm('Are you sure you want to delete this session?')) {
+            var workoutSessionId = button.parentNode.parentNode.querySelector('input[type=hidden]').value;
+            var workoutId = button.closest('form').getAttribute('data-workout-id'); // Get workout ID
+
+            var deleteForm = document.getElementById('deleteForm');
+            deleteForm.action = '/workoutSession/delete/' + workoutSessionId + '/' + workoutId; // Set both IDs
+            deleteForm.submit();
+        }
+    }
+</script>
+
 
 </body>
 </html>

@@ -41,7 +41,6 @@
         <td>
             <!-- Delete button -->
             <form th:action="@{/workout/delete/{id}(id=${workout.id})}" method="post">
-                <input type="hidden" name="_method" value="delete">
                 <button type="submit">Delete</button>
             </form>
         </td>
