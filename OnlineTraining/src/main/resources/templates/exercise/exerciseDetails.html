@@ -23,6 +23,26 @@
         <td>Difficulty Level:</td>
         <td th:text="${exercise.exerciseDifficultyLevel}"></td>
     </tr>
-</table>
+    <tr>
+        <td>Actions : </td>
+        <td>
+            <form id="deleteForm" th:action="@{/exercise/delete/{id}(id=${exercise.id})}" method="post">
+                <button type="button" onclick="confirmDelete()">Delete</button>
+            </form>
+        </td>
+        <td>
+            <a th:href="@{/exercise/update/{id}(id=${exercise.id})}">Update</a>
+        </td>
+    </tr>
+    </table>
+
+<script>
+    function confirmDelete() {
+        if (confirm("Are you sure you want to delete this item?")) {
+            document.getElementById("deleteForm").submit();
+        }
+    }
+</script>
+
 </body>
 </html>
