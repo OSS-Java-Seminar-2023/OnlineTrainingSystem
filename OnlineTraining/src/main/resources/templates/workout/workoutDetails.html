@@ -80,7 +80,7 @@
             </td>
             <!-- Delete button column -->
             <td>
-                <form id="deleteForm" th:action="@{/workoutSession/delete/{workoutSessionID}(workoutSessionID=${workout.workoutSessions[__${rowStat.index}__].id})}" method="post">
+                <form id="deleteForm" method="post">
                     <input type="hidden" name="workoutID" th:value="${workout.id}" />
                     <input type="hidden" name="workoutSessionID" th:value="${workout.workoutSessions[__${rowStat.index}__].id}" />
                     <button type="button" onclick="confirmDelete(this)">Delete</button>
