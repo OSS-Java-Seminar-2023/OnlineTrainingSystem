@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
     @Override
-
     public User authenticate(String email, String enteredPassword) {
         return userRepository.findByEmail(email)
                 .map(user -> {

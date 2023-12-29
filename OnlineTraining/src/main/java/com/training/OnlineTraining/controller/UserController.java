@@ -4,9 +4,12 @@ import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.model.*;
 import com.training.OnlineTraining.service.ClientService;
 import com.training.OnlineTraining.service.CoachService;
+import com.training.OnlineTraining.service.MailService;
 import com.training.OnlineTraining.service.UserService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.hibernate.cfg.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,7 @@ public class UserController {
     private final UserService userService;
     private final ClientService clientService;
     private final CoachService coachService;
+    private final MailService mailService;
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
@@ -42,8 +46,11 @@ public class UserController {
             }
 
             User registeredUser = userService.registerUser(request);
-            return registeredUser == null ? "error_page" : "auth/login_page";
-        } catch (RuntimeException e) {
+           // mailService.sendEmail(registeredUser.getEmail(),
+           //         "Welcome to OnlineTrainingSystem!",
+           //         " Registration Confirmation");
+            return "auth/login_page";
+        } catch (RuntimeException e) { // (RuntimeException | MessagingException e)
             model.addAttribute("error", e.getMessage());
             model.addAttribute("registerRequest", request);
             return "registration/register_page";
