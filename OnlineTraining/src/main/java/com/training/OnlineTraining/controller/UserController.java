@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.CompletableFuture;
+
 @Controller
 @AllArgsConstructor
 public class UserController {
@@ -46,17 +48,18 @@ public class UserController {
             }
 
             User registeredUser = userService.registerUser(request);
-           // mailService.sendEmail(registeredUser.getEmail(),
-           //         "Welcome to OnlineTrainingSystem!",
-           //         " Registration Confirmation");
+            CompletableFuture<Void> emailFuture = mailService.sendEmailAsync(
+                    registeredUser.getEmail(),
+                    "Welcome to OnlineTrainingSystem!",
+                    " Registration Confirmation"
+            );
             return "auth/login_page";
-        } catch (RuntimeException e) { // (RuntimeException | MessagingException e)
+        } catch (RuntimeException | MessagingException e){
             model.addAttribute("error", e.getMessage());
             model.addAttribute("registerRequest", request);
             return "registration/register_page";
         }
     }
-
 
     @PostMapping("/login")
     public String login(@ModelAttribute UserDto userDto, Model model, HttpSession session) {
