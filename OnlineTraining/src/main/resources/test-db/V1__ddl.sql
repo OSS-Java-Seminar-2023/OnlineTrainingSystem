@@ -66,7 +66,7 @@ CREATE TABLE Exercise (
     id UUID PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
     description TEXT NOT NULL,
-    equipment_needed TEXT NOT NULL,
+    exercise_equipment TEXT NOT NULL,
     difficulty_level VARCHAR(30) NOT NULL
 );
 
