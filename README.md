@@ -62,6 +62,9 @@ The primary objective of this application is to facilitate the connection betwee
 
 ## Business Logic🎓💡
 
+- **Account Creation and Welcome Email**
+  - When a new user account is created, the application sends a "Welcome" email to the user's registered email address.
+
 - **Matching Algorithm**
   - The application uses an algorithm to match clients with coaches based on factors such as gender, age, experience, types of training, and price.
 
