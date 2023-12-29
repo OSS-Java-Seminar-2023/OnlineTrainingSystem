@@ -3,6 +3,7 @@ package com.training.OnlineTraining.controller;
 import com.training.OnlineTraining.dto.ExerciseDTO;
 import com.training.OnlineTraining.mapper.ExerciseMapper;
 import com.training.OnlineTraining.model.Exercise;
+import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.service.ExerciseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,7 +35,7 @@ public class ExerciseController {
     public String showAddExerciseForm(Model model) {
         logger.info("Displaying add exercise form.");
         model.addAttribute("exercise", new ExerciseDTO());
-        return "exercise/exerciseForm";
+        return "exercise/exerciseCreateForm";
     }
 
     @PostMapping("/create")
@@ -62,8 +64,13 @@ public class ExerciseController {
     @GetMapping("/update/{id}")
     public String getUpdateFormForExercise(@PathVariable UUID id, Model model) {
         logger.info("Displaying update form for exercise ID: {}", id);
+
         Exercise tempExercise = exerciseService.getExerciseById(id);
+        List<ExerciseDifficultyLevel> difficultyLevels = Arrays.asList(ExerciseDifficultyLevel.values());
+
         model.addAttribute("exerciseForUpdating", tempExercise);
+        model.addAttribute("difficultyLevels", difficultyLevels);
+
         return "exercise/exerciseUpdateForm";
     }
 
@@ -71,7 +78,9 @@ public class ExerciseController {
     public String updateExercise(@PathVariable String id, @ModelAttribute("exercise") ExerciseDTO exerciseDTO, Model model) {
         logger.info("Updating exercise for ID: {}", id);
         logger.info("ExerciseDTO: {}", exerciseDTO);
+
         exerciseService.updateExercise(exerciseDTO.getId(), exerciseDTO);
+
         return "redirect:/exercise";
     }
 

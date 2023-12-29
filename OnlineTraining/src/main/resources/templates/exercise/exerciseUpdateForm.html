@@ -19,12 +19,13 @@
     <input type="text" th:field="*{equipmentNeeded}" required/><br/>
 
     <label>Difficulty Level:</label>
-    <select th:field="*{difficultyLevel}" required>
+    <select th:field="*{exerciseDifficultyLevel}" required>
         <option value="">Select difficulty level</option>
-        <option value="LOW">LOW</option>
-        <option value="MEDIUM">MEDIUM</option>
-        <option value="HARD">HARD</option>
-    </select><br/>
+        <option th:each="level : ${difficultyLevels}"
+                th:value="${level}" th:text="${level}">
+        </option>
+    </select>
+
 
     <input type="submit" value="Update"/>
 </form>

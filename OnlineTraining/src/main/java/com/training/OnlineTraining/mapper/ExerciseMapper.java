@@ -12,10 +12,6 @@ import org.springframework.stereotype.Component;
 public interface ExerciseMapper {
     ExerciseMapper INSTANCE = Mappers.getMapper(ExerciseMapper.class);
 
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "description", target = "description")
-    @Mapping(source = "equipmentNeeded", target = "equipmentNeeded")
-    @Mapping(source = "difficultyLevel", target = "difficultyLevel")
     Exercise toExercise(ExerciseDTO exerciseDTO);
 
     ExerciseDTO toExerciseDTO(Exercise exercise);
