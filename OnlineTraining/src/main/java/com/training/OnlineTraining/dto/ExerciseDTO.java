@@ -1,5 +1,6 @@
 package com.training.OnlineTraining.dto;
 
+import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,12 +17,12 @@ public class ExerciseDTO {
     private String name;
     private String description;
     private String equipmentNeeded;
-    private String difficultyLevel;
+    private ExerciseDifficultyLevel exerciseDifficultyLevel;
 
-    public ExerciseDTO(String name, String description, String equipmentNeeded, String difficultyLevel) {
+    public ExerciseDTO(String name, String description, String equipmentNeeded, ExerciseDifficultyLevel exerciseDifficultyLevel) {
         this.name = name;
         this.description = description;
         this.equipmentNeeded = equipmentNeeded;
-        this.difficultyLevel = difficultyLevel;
+        this.exerciseDifficultyLevel = exerciseDifficultyLevel;
     }
 }

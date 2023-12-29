@@ -21,7 +21,7 @@
         <td th:text="${exercise.name}"></td>
         <td th:text="${exercise.description}"></td>
         <td th:text="${exercise.equipmentNeeded}"></td>
-        <td th:text="${exercise.difficultyLevel}"></td>
+        <td th:text="${exercise.exerciseDifficultyLevel}"></td>
         <td>
             <form th:action="@{/exercise/delete/{id}(id=${exercise.id})}" method="post">
                 <button type="submit">Delete</button>

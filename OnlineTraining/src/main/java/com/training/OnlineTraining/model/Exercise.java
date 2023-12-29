@@ -1,6 +1,7 @@
 package com.training.OnlineTraining.model;
 
 import com.training.OnlineTraining.dto.ExerciseDTO;
+import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -26,12 +27,13 @@ public class Exercise {
     private String equipmentNeeded;
 
     @Column(name = "difficulty_level")
-    private String difficultyLevel;
+    @Enumerated(EnumType.STRING)
+    private ExerciseDifficultyLevel exerciseDifficultyLevel;
 
     public void updateValues(ExerciseDTO exerciseDetails){
         this.setName(exerciseDetails.getName());
         this.setDescription(exerciseDetails.getDescription());
         this.setEquipmentNeeded(exerciseDetails.getEquipmentNeeded());
-        this.setDifficultyLevel(exerciseDetails.getDifficultyLevel());
+        this.setExerciseDifficultyLevel(exerciseDetails.getExerciseDifficultyLevel());
     }
 }
