@@ -81,9 +81,10 @@
             <!-- Delete button column -->
             <td>
                 <form id="deleteForm" th:action="@{/workoutSession/delete/{workoutSessionID}(workoutSessionID=${workout.workoutSessions[__${rowStat.index}__].id})}" method="post">
+                    <input type="hidden" name="workoutID" th:value="${workout.id}" />
+                    <input type="hidden" name="workoutSessionID" th:value="${workout.workoutSessions[__${rowStat.index}__].id}" />
                     <button type="button" onclick="confirmDelete(this)">Delete</button>
                 </form>
-
             </td>
 
         </tr>
@@ -93,18 +94,17 @@
     <button type="submit">Update</button>
 </form>
 
-<!-- JavaScript for delete confirmation -->
 <script th:inline="javascript">
     function confirmDelete(button) {
         if (confirm('Are you sure you want to delete this session?')) {
-            var workoutSessionId = button.parentNode.parentNode.querySelector('input[type=hidden]').value;
-            var deleteForm = document.getElementById('deleteForm');
-            deleteForm.action = '/workoutSession/delete/' + workoutSessionId;
+            var workoutID = button.parentNode.querySelector('input[name="workoutID"]').value;
+            var workoutSessionID = button.parentNode.querySelector('input[name="workoutSessionID"]').value;
+            var deleteForm = button.parentNode; // Adjusted to get the form element
+            deleteForm.action = '/workoutSession/delete/' + workoutID + '/' + workoutSessionID;
             deleteForm.submit();
         }
     }
 </script>
-
 
 </body>
 </html>
