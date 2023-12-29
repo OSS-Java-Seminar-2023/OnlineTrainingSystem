@@ -16,7 +16,12 @@
     <textarea th:field="*{description}" required></textarea><br/>
 
     <label>Equipment Needed:</label>
-    <input type="text" th:field="*{equipmentNeeded}" required/><br/>
+    <select th:field="*{exerciseEquipment}" required>
+        <option value="">Select exercise equipment</option>
+        <option th:each="equipment : ${exerciseEquipmentList}"
+                th:value="${equipment}" th:text="${equipment}">
+        </option>
+    </select>
 
     <label>Difficulty Level:</label>
     <select th:field="*{exerciseDifficultyLevel}" required>

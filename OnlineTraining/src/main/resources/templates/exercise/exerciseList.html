@@ -22,7 +22,7 @@
     <tr th:each="exercise : ${exercises}">
         <td th:text="${exercise.name}"></td>
         <td th:text="${exercise.description}"></td>
-        <td th:text="${exercise.equipmentNeeded}"></td>
+        <td th:text="${exercise.exerciseEquipment}"></td>
         <td th:text="${exercise.exerciseDifficultyLevel}"></td>
         <td>
             <form id="deleteForm" th:action="@{/exercise/delete/{id}(id=${exercise.id})}" method="post">
@@ -36,6 +36,10 @@
 
             <a th:href="@{/exercise/details/{id}(id=${exercise.id})}">Details</a>
         </td>
+    </tr>
+
+    <tr>
+        <a th:href="@{/exercise/create}"><button>Create New Exercise</button></a>
     </tr>
     </tbody>
 </table>

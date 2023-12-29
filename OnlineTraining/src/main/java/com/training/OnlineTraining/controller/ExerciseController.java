@@ -4,6 +4,7 @@ import com.training.OnlineTraining.dto.ExerciseDTO;
 import com.training.OnlineTraining.mapper.ExerciseMapper;
 import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
+import com.training.OnlineTraining.model.enums.ExerciseEquipment;
 import com.training.OnlineTraining.service.ExerciseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,14 @@ public class ExerciseController {
     @GetMapping("/create")
     public String showAddExerciseForm(Model model) {
         logger.info("Displaying add exercise form.");
+
+        List<ExerciseDifficultyLevel> difficultyLevels = Arrays.asList(ExerciseDifficultyLevel.values());
+        List<ExerciseEquipment> exerciseEquipmentList = Arrays.asList(ExerciseEquipment.values());
+
+        model.addAttribute("difficultyLevels", difficultyLevels);
+        model.addAttribute("exerciseEquipmentList", exerciseEquipmentList);
         model.addAttribute("exercise", new ExerciseDTO());
+
         return "exercise/exerciseCreateForm";
     }
 
@@ -67,9 +75,12 @@ public class ExerciseController {
 
         Exercise tempExercise = exerciseService.getExerciseById(id);
         List<ExerciseDifficultyLevel> difficultyLevels = Arrays.asList(ExerciseDifficultyLevel.values());
+        List<ExerciseEquipment> exerciseEquipmentList = Arrays.asList(ExerciseEquipment.values());
 
-        model.addAttribute("exerciseForUpdating", tempExercise);
+        model.addAttribute("exerciseEquipmentList", exerciseEquipmentList);
         model.addAttribute("difficultyLevels", difficultyLevels);
+        model.addAttribute("exerciseForUpdating", tempExercise);
+
 
         return "exercise/exerciseUpdateForm";
     }
