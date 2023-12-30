@@ -7,11 +7,17 @@
 <body>
 <h2>Create Workout Session</h2>
 <form th:action="@{/workoutSession/create}" th:object="${workoutSessionDTO}" method="post">
-    <label>Workout ID:</label>
-    <input type="text" th:field="*{workoutId}" /><br/>
 
-    <label>Exercise ID:</label>
-    <input type="text" th:field="*{exerciseId}" /><br/>
+    <input type="hidden" th:field="*{workoutId}">
+
+    <label>Exercise :</label>
+    <select th:field="*{exerciseId}">
+        <option value="">Select Exercise</option>
+        <option th:each="exercise : ${listExercises}"
+                th:value="${exercise.id}"
+                th:text="${exercise.name}"> <!-- Set selected option -->
+        </option>
+    </select>
 
     <label>Number of Reps:</label>
     <input type="number" th:field="*{numberOfReps}" /><br/>

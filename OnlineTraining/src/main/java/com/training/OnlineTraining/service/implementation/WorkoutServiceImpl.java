@@ -4,8 +4,11 @@ import com.training.OnlineTraining.dto.WorkoutDTO;
 import com.training.OnlineTraining.dto.WorkoutSessionDTO;
 import com.training.OnlineTraining.exceptions.WorkoutNotFoundException;
 import com.training.OnlineTraining.mapper.WorkoutMapper;
+import com.training.OnlineTraining.mapper.WorkoutSessionMapper;
 import com.training.OnlineTraining.model.Workout;
+import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.repository.WorkoutRepository;
+import com.training.OnlineTraining.repository.WorkoutSessionRepository;
 import com.training.OnlineTraining.service.WorkoutService;
 import com.training.OnlineTraining.service.WorkoutSessionService;
 import org.slf4j.Logger;
@@ -21,13 +24,17 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	private final WorkoutRepository workoutRepository;
 	private final WorkoutMapper workoutMapper;
-	private final WorkoutSessionService workoutSessionService;
+
+	private WorkoutSessionRepository workoutSessionRepository;
+	private WorkoutSessionMapper workoutSessionMapper;
+
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutServiceImpl.class);
 
-	public WorkoutServiceImpl(WorkoutRepository workoutRepository, WorkoutMapper workoutMapper, WorkoutSessionService workoutSessionService) {
+	public WorkoutServiceImpl(WorkoutRepository workoutRepository, WorkoutMapper workoutMapper, WorkoutSessionRepository workoutSessionRepository, WorkoutSessionMapper workoutSessionMapper) {
 		logger.info("WorkoutServiceImpl constructed.");
 
-		this.workoutSessionService = workoutSessionService;
+		this.workoutSessionRepository = workoutSessionRepository;
+		this.workoutSessionMapper = workoutSessionMapper;
 		this.workoutRepository = workoutRepository;
 		this.workoutMapper = workoutMapper;
 	}
@@ -53,7 +60,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 			WorkoutSessionDTO workoutSessionDTO = WorkoutSessionDTO.createEmptyWorkoutSessionDTO();
 			workoutSessionDTO.setWorkoutId(savedWorkout.getId());
 
-			workoutSessionService.createWorkoutSession(workoutSessionDTO);
+			workoutSessionRepository.save(workoutSessionMapper.toWorkoutSession(workoutSessionDTO));
 		}
 
 		logger.info("New workout created.");
@@ -107,6 +114,20 @@ public class WorkoutServiceImpl implements WorkoutService {
 	@Override
 	public Workout updateWorkout(Workout workout) {
 		return workoutRepository.save(workout);
+	}
+
+	@Override
+	public void incrementNumberOfExercises(UUID workoutID) {
+		Workout tempWorkout = getWorkoutById(workoutID);
+		tempWorkout.setNumberOfExercises(tempWorkout.getNumberOfExercises() + 1);
+		workoutRepository.save(tempWorkout);
+	}
+
+	@Override
+	public void decrementNumberOfExercises(UUID workoutID) {
+		Workout tempWorkout = getWorkoutById(workoutID);
+		tempWorkout.setNumberOfExercises(tempWorkout.getNumberOfExercises() - 1);
+		workoutRepository.save(tempWorkout);
 	}
 
 	@Override
