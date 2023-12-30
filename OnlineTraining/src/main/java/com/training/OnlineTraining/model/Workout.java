@@ -1,5 +1,6 @@
 package com.training.OnlineTraining.model;
 
+import com.training.OnlineTraining.model.additional.Duration;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -48,4 +49,17 @@ public class Workout {
 
     @Column(name = "self_rating")
     private Integer selfRating;
+
+    public Duration getDuration() {
+        Duration newDuration = new Duration();
+
+        newDuration.add(warmingUpTimeInSeconds);
+        newDuration.add(numberOfSets * pauseBetweenSetsInSeconds);
+
+        for(WorkoutSession workoutSession : workoutSessions)
+            newDuration.add(workoutSession.getDuration());
+
+        return newDuration;
+    }
+
 }

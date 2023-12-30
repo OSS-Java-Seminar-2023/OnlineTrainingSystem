@@ -6,16 +6,14 @@ import com.training.OnlineTraining.exceptions.WorkoutNotFoundException;
 import com.training.OnlineTraining.mapper.WorkoutMapper;
 import com.training.OnlineTraining.mapper.WorkoutSessionMapper;
 import com.training.OnlineTraining.model.Workout;
-import com.training.OnlineTraining.model.WorkoutSession;
+import com.training.OnlineTraining.model.additional.Duration;
 import com.training.OnlineTraining.repository.WorkoutRepository;
 import com.training.OnlineTraining.repository.WorkoutSessionRepository;
 import com.training.OnlineTraining.service.WorkoutService;
-import com.training.OnlineTraining.service.WorkoutSessionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 

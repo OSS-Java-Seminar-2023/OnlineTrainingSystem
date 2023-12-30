@@ -4,6 +4,7 @@ import com.training.OnlineTraining.controller.ExerciseController;
 import com.training.OnlineTraining.dto.ExerciseDTO;
 import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
+import com.training.OnlineTraining.model.enums.ExerciseEquipment;
 import com.training.OnlineTraining.service.ExerciseService;
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +46,7 @@ public class ExerciseTest {
 	public void setUp(){
 		numberOfExercisesInDatabaseBeforeTest = exerciseService.getAllExercises().size();
 
-		exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", "NO", ExerciseDifficultyLevel.Beginner);
+		exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", ExerciseEquipment.Barbell, ExerciseDifficultyLevel.Beginner);
 	}
 
 	@Test
@@ -63,10 +64,10 @@ public class ExerciseTest {
 	public void testGetAllExercises() {
 		exerciseService.createExercise(exerciseDTO);
 
-		ExerciseDTO exerciseDTO2 = new ExerciseDTO("Exercise 2", "Description 2", "NO", ExerciseDifficultyLevel.Beginner);
+		ExerciseDTO exerciseDTO2 = new ExerciseDTO("Exercise 2", "Description 2", ExerciseEquipment.Barbell, ExerciseDifficultyLevel.Beginner);
 		exerciseService.createExercise(exerciseDTO2);
 
-		ExerciseDTO exerciseDTO3 = new ExerciseDTO("Exercise 3", "Description 3", "NO", ExerciseDifficultyLevel.Beginner);
+		ExerciseDTO exerciseDTO3 = new ExerciseDTO("Exercise 3", "Description 3", ExerciseEquipment.Barbell, ExerciseDifficultyLevel.Beginner);
 		exerciseService.createExercise(exerciseDTO3);
 
 		List<Exercise> exercises = exerciseService.getAllExercises();
@@ -87,7 +88,7 @@ public class ExerciseTest {
 	public void testUpdateExercise() {
 		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
 
-		ExerciseDTO updatedExerciseDTO = new ExerciseDTO("Exercise UPDATE", "Description UPDATE", "NO", ExerciseDifficultyLevel.Beginner);
+		ExerciseDTO updatedExerciseDTO = new ExerciseDTO("Exercise UPDATE", "Description UPDATE", ExerciseEquipment.Barbell, ExerciseDifficultyLevel.Beginner);
 
 		Exercise updateExercise = exerciseService.updateExercise(newExercise.getId(), updatedExerciseDTO);
 
