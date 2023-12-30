@@ -36,8 +36,12 @@ public class WorkoutServiceImpl implements WorkoutService {
 	public void createWorkout(WorkoutDTO workoutDTO, UUID contractID) {
 		logger.info("Creating new workout.");
 
-		int ordinalNumberOfLastWorkout =
-				workoutRepository.findTopByContractIdOrderByOrdinalNumberOfWorkoutDesc(contractID).getOrdinalNumberOfWorkout();
+		int ordinalNumberOfLastWorkout = 0;
+
+		Workout lastWorkout = workoutRepository.findTopByContractIdOrderByOrdinalNumberOfWorkoutDesc(contractID);
+
+		if(lastWorkout != null) ordinalNumberOfLastWorkout = lastWorkout.getOrdinalNumberOfWorkout();
+
 
 		workoutDTO.setDateOfWorkout(null);
 		workoutDTO.setContractId(contractID);
