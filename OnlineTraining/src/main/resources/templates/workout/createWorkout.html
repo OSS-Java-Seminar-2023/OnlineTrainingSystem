@@ -2,11 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create Workout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout form</title>
+    <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
 </head>
 <body>
-<h1>Create Workout</h1>
-<form th:action="@{/workout/create}" th:object="${workoutDTO}" method="post">
+<div th:insert="~{fragments/navigation :: navigation('/register')}"></div>
+<main class="align">
+    <div class="login">
+        <br>
+        <br>
+        <header class="login__header">
+            <h2 class="align">Create Workout</h2>
+        </header>
+<form th:action="@{/workout/create}" th:object="${workoutDTO}" method="post" class="login__form">
     <!--
     <label>Date of Workout:</label>
     <input type="date" th:field="*{dateOfWorkout}" pattern="yyyy-MM-dd" required><br>
@@ -14,19 +25,23 @@
     <label>Ordinal Number of Workout:</label>
     <input type="number" th:field="*{ordinalNumberOfWorkout}" required><br>
     -->
-    <label>Number of Exercises:</label>
-    <input type="number" th:field="*{numberOfExercises}" required><br>
+    <label for="exercises">Number of Exercises:</label>
+    <input type="number" id="exercises" th:field="*{numberOfExercises}" required min="1" placeholder="Enter the number of exercises">
 
-    <label>Warming Up Time (in seconds):</label>
-    <input type="number" th:field="*{warmingUpTimeInSeconds}" required><br>
+    <label for="time">Warming Up Time (in seconds):</label>
+    <input type="number" id="time" th:field="*{warmingUpTimeInSeconds}" required min="30" placeholder="Enter the warming up time">
 
-    <label>Number of Sets:</label>
-    <input type="number" th:field="*{numberOfSets}" required><br>
+    <label for="sets">Number of Sets:</label>
+    <input type="number" id="sets" th:field="*{numberOfSets}" required min="1" placeholder="Enter the number of sets">
 
-    <label>Pause Between Sets (in seconds):</label>
-    <input type="number" th:field="*{pauseBetweenSetsInSeconds}" required><br>
+    <label for="pause">Pause Between Sets (in seconds):</label>
+    <input type="number" id="pause" th:field="*{pauseBetweenSetsInSeconds}" required min="30" placeholder="Enter a duration of the pause">
 
-    <button type="submit">Create</button>
+    <div>
+        <input class="button" type="submit" value="Create">
+    </div>
 </form>
+    </div>
+</main>
 </body>
 </html>
