@@ -19,7 +19,7 @@
     <select th:field="*{exerciseEquipment}" required>
         <option value="">Select exercise equipment</option>
         <option th:each="equipment : ${exerciseEquipmentList}"
-                th:value="${equipment}" th:text="${equipment}">
+                th:value="${equipment}" th:text="${equipment.displayName}">
         </option>
     </select>
 

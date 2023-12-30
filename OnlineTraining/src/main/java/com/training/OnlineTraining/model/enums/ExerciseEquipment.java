@@ -24,4 +24,8 @@ public enum ExerciseEquipment {
 		this.displayName = displayName;
 	}
 
+//	@Override
+//	public String toString() {
+//		return displayName;
+//	}
 }
