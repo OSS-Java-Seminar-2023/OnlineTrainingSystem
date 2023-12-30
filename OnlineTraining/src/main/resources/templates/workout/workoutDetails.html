@@ -15,6 +15,7 @@
         <th>Warming Up Time (in seconds)</th>
         <th>Number of Sets</th>
         <th>Pause Between Sets (in seconds)</th>
+        <th>Duration of the workout</th>
         <th>Self Rating</th>
         <th>Action</th>
     </tr>
@@ -28,6 +29,7 @@
         <td th:text="${workout.warmingUpTimeInSeconds}"></td>
         <td th:text="${workout.numberOfSets}"></td>
         <td th:text="${workout.pauseBetweenSetsInSeconds}"></td>
+        <td th:text="${workout.getDuration}"></td>
         <td th:text="${workout.selfRating}"></td>
         <td>
             <form th:action="@{/workout/delete/{id}(id=${workout.id})}" method="post" onsubmit="return confirmDeleteWorkout()">

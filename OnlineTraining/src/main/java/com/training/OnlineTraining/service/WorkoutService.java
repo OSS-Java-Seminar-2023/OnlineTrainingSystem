@@ -2,6 +2,7 @@ package com.training.OnlineTraining.service;
 
 import com.training.OnlineTraining.dto.WorkoutDTO;
 import com.training.OnlineTraining.model.Workout;
+import com.training.OnlineTraining.model.additional.Duration;
 
 import java.util.List;
 import java.util.UUID;

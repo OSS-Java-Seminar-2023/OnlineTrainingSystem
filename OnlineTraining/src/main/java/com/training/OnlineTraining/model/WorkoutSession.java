@@ -1,10 +1,13 @@
 package com.training.OnlineTraining.model;
 
+import com.training.OnlineTraining.model.additional.Duration;
 import lombok.*;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.UUID;
+
+import static com.training.OnlineTraining.util.WorkoutConstants.DURATION_OF_ONE_REP_IN_SECONDS;
 
 @Entity
 @Data
@@ -32,6 +35,15 @@ public class WorkoutSession {
 
     @Column
     private BigDecimal weight;
+
+    public Duration getDuration() {
+        Duration newDuration = new Duration();
+
+        newDuration.add(this.numberOfReps * DURATION_OF_ONE_REP_IN_SECONDS);
+        newDuration.add(pauseAfterExerciseInSeconds);
+
+        return newDuration;
+    }
 
     @Override
     public String toString() {
