@@ -13,6 +13,9 @@ public interface WorkoutService {
 	List<Workout> getAllWorkouts();
 	Workout updateWorkout(UUID id, WorkoutDTO workoutDetails);
 	Workout updateWorkout(Workout workout);
+
+	void incrementNumberOfExercises(UUID workoutID);
+	void decrementNumberOfExercises(UUID workoutID);
 	void updateWorkout(UUID id, WorkoutDTO workoutDetails, UUID contractID);
 	void deleteWorkout(UUID id);
 	void deleteAll();
