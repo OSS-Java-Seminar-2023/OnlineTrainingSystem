@@ -78,6 +78,7 @@ public class UserController {
                 Coach coach = coachService.findByUserId(authenticated.getId());
                 session.setAttribute("userId", authenticated.getId());
                 session.setAttribute("coachId", coach.getId());
+                session.setAttribute("coachName", authenticated.getFirstName());
                 return "redirect:coaches/coach-page";
             }
             model.addAttribute("userId", authenticated.getId());

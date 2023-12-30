@@ -30,9 +30,11 @@ public class CoachController {
         logger.info("Fetching coach page.");
 
         UUID coachID = (UUID) session.getAttribute("coachId");
+        String coachName = (String) session.getAttribute("coachName");
         List<Contract> contractList = contractService.getAllContractsForCoach(coachID);
 
         model.addAttribute("coachesListContracts", contractList);
+        model.addAttribute("coachName", coachName);
 
         return "coach/coach_page";
     }
