@@ -16,6 +16,7 @@
         <th>Number of Sets</th>
         <th>Pause Between Sets (in seconds)</th>
         <th>Self Rating</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -28,6 +29,13 @@
         <td th:text="${workout.numberOfSets}"></td>
         <td th:text="${workout.pauseBetweenSetsInSeconds}"></td>
         <td th:text="${workout.selfRating}"></td>
+        <td>
+            <form th:action="@{/workout/delete/{id}(id=${workout.id})}" method="post" onsubmit="return confirmDeleteWorkout()">
+                <button type="submit">Delete</button>
+            </form>
+
+            <a th:href="@{/workout/update/{id}(id=${workout.id})}"><button>Update</button></a>
+        </td>
     </tr>
     </tbody>
 </table>
@@ -122,6 +130,10 @@
         } else {
             console.log('Deletion cancelled by user.');
         }
+    }
+
+    function confirmDeleteWorkout() {
+        return confirm("Are you sure you want to delete this workout?");
     }
 </script>
 

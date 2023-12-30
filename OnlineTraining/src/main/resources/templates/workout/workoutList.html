@@ -39,8 +39,8 @@
         </td>
 
         <td>
-            <!-- Delete button -->
-            <form th:action="@{/workout/delete/{id}(id=${workout.id})}" method="post">
+            <!-- Delete button with confirmation -->
+            <form th:action="@{/workout/delete/{id}(id=${workout.id})}" method="post" onsubmit="return confirmDelete()">
                 <button type="submit">Delete</button>
             </form>
         </td>
@@ -52,5 +52,12 @@
     </tr>
     </tbody>
 </table>
+
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this workout?");
+    }
+</script>
+
 </body>
 </html>
