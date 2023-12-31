@@ -2,11 +2,34 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Workout Details with Session Entry</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout List</title>
+    <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/table.css}">
+    <link rel="stylesheet" th:href="@{/css/hand.css}">
+    <link rel="stylesheet" th:href="@{/css/choosing.css}">
+    <link rel="stylesheet" th:href="@{/css/confirmation.css}">
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
+<div th:insert="~{fragments/navigation :: navigation('/workout/details')}"></div>
+<br>
+<br>
+<br>
 <h1>Workout Details</h1>
-<table border="1">
+<br>
+<br>
+<div>
+    <a th:href="@{/workoutSession/create(workoutID=${workout.id})}">
+        <button type="button" class="become-link">Create new Workout Session</button>
+    </a>
+</div>
+<br>
+<br>
+<table>
     <thead>
     <tr>
         <th>Date of Workout</th>
@@ -17,7 +40,8 @@
         <th>Pause Between Sets (in seconds)</th>
         <th>Duration of the workout</th>
         <th>Self Rating</th>
-        <th>Action</th>
+        <th>Delete</th>
+        <th>Update</th>
     </tr>
     </thead>
     <tbody>
@@ -33,18 +57,19 @@
         <td th:text="${workout.selfRating}"></td>
         <td>
             <form th:action="@{/workout/delete/{id}(id=${workout.id})}" method="post" onsubmit="return confirmDeleteWorkout()">
-                <button type="submit">Delete</button>
+                <button type="submit" class="become-link" >Delete</button>
             </form>
-
-            <a th:href="@{/workout/update/{id}(id=${workout.id})}"><button>Update</button></a>
         </td>
+        <td> <a th:href="@{/workout/update/{id}(id=${workout.id})}" class="become-link">Update</a></td>
     </tr>
     </tbody>
 </table>
-
+<br>
+<h1>Exercises</h1>
+<br>
 <!-- Form for Workout Details with Workout Sessions -->
 <form th:action="@{/workoutSession/update/{workoutID}(workoutID=${workout.id})}" method="post">
-    <table border="1">
+    <table>
         <!-- Workout details section -->
         <!-- ...Existing workout details table content... -->
 
@@ -56,6 +81,7 @@
             <th>Pause After Exercise (Seconds)</th>
             <th>Weight</th>
             <th>Delete</th>
+            <th>Update</th>
         </tr>
         </thead>
         <tbody>
@@ -70,7 +96,7 @@
 
             <td>
                 <!-- Dropdown to select exercise -->
-                <select th:field="*{workout.workoutSessions[__${rowStat.index}__].exercise.id}">
+                <select th:field="*{workout.workoutSessions[__${rowStat.index}__].exercise.id}" required>
                     <option value="">Select Exercise</option>
                     <option th:each="exercise : ${listExercises}"
                             th:value="${exercise.id}"
@@ -80,36 +106,28 @@
                 </select>
             </td>
             <td>
-                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].numberOfReps}">
+                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].numberOfReps}" required min="1">
             </td>
             <td>
-                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].pauseAfterExerciseInSeconds}">
+                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].pauseAfterExerciseInSeconds}" required min="30">
             </td>
             <td>
-                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].weight}">
+                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].weight}" required min="1">
             </td>
             <!-- Delete button column -->
             <td>
                 <form id="deleteForm" method="post">
                     <input type="hidden" name="workoutID" th:value="${workout.id}" />
                     <input type="hidden" name="workoutSessionID" th:value="${workout.workoutSessions[__${rowStat.index}__].id}" />
-                    <button type="button" onclick="confirmDelete(this)">Delete</button>
+                    <button type="button" onclick="confirmDelete(this)" class="become-link">Delete</button>
                 </form>
             </td>
+            <td>  <button type="submit" class="become-link">Update</button></td>
 
-        </tr>
-
-        <tr>
-            <td>
-                <a th:href="@{/workoutSession/create(workoutID=${workout.id})}">
-                    <button type="button">Create new Workout Session</button>
-                </a>
-            </td>
         </tr>
 
         </tbody>
     </table>
-    <button type="submit">Update</button>
 </form>
 
 <script th:inline="javascript">

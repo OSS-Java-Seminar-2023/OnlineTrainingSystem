@@ -23,10 +23,10 @@
     <input type="hidden" name="client" th:value="${clientId}" />
 
     <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required />
+    <input type="date" id="startDate" name="startDate" th:field="*{startDate}"  th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" required />
 
     <label for="endDate">End Date:</label>
-    <input type="date" id="endDate" name="endDate" th:field="*{endDate}" required />
+    <input type="date" id="endDate" name="endDate" th:field="*{endDate}" th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" required />
 
     <label for="monthlyPrice">Monthly Price in €:</label>
     <input type="text" id="monthlyPrice" name="monthlyPrice" th:value="${monthlyPrice}" readonly required />

@@ -2,29 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Update Workout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout form</title>
+    <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
 </head>
 <body>
-<h1>Update Workout</h1>
-<form th:action="@{'/workout/update/' + ${workout.id}}" th:object="${workout}" method="post">
+<div th:insert="~{fragments/navigation :: navigation('/workout/update')}"></div>
+<main class="align">
+    <div class="login">
+        <br>
+        <br>
+        <header class="login__header">
+            <h2 class="align">Update Workout</h2>
+        </header>
+<form th:action="@{'/workout/update/' + ${workout.id}}" th:object="${workout}" method="post" class="login__form">
     <input type="hidden" th:field="*{id}" />
 
     <input type="hidden" th:field="*{dateOfWorkout}" />
     <input type="hidden" th:field="*{ordinalNumberOfWorkout}" />
 
-    <label>Number of Exercises:</label>
-    <input type="number" th:field="*{numberOfExercises}" required><br>
+    <label for="exercises">Number of Exercises:</label>
+    <input type="number" id="exercises" th:field="*{numberOfExercises}" required min="1">
 
-    <label>Warming Up Time (in seconds):</label>
-    <input type="number" th:field="*{warmingUpTimeInSeconds}" required><br>
+    <label for="time" >Warming Up Time (in seconds):</label>
+    <input type="number"  id="time" th:field="*{warmingUpTimeInSeconds}" required min="30">
 
-    <label>Number of Sets:</label>
-    <input type="number" th:field="*{numberOfSets}" required><br>
+    <label for="sets">Number of Sets:</label>
+    <input type="number"  id="sets" th:field="*{numberOfSets}" required min="1">
 
-    <label>Pause Between Sets (in seconds):</label>
-    <input type="number" th:field="*{pauseBetweenSetsInSeconds}" required><br>
+    <label  for="pause">Pause Between Sets (in seconds):</label>
+    <input type="number" id="pause" th:field="*{pauseBetweenSetsInSeconds}" required min="30">
 
-    <button type="submit">Update</button>
+    <div>
+        <input class="button" type="submit" value="Update">
+    </div>
 </form>
+    </div>
+</main>
 </body>
 </html>
