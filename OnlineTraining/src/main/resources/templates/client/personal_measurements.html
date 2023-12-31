@@ -16,14 +16,11 @@
 <div th:insert="~{fragments/navigation :: navigation('/measurements/personal')}"></div>
 <br>
 <br>
-<p th:if="${contractId != null}" th:text="'Contract ID: ' + ${contractId}"></p>
-
 <h1>Personal Measurements</h1>
 
 <a th:href="@{'/measurements/' + ${contractId}}" class="become-link">Create Measurement</a>
 
-<br>
-<br>
+
 
 <table>
     <thead>

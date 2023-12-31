@@ -1,18 +1,19 @@
 .confirmation-dialog {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #E5E5FF;
-        border: 3px solid #FF0000;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #E5E5FF;
+    border: 3px solid #FF0000;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-radius: 10px;
 }
 
 .confirmation-content {
-        text-align: center;
+    text-align: center;
 }
 
 .confirmation-content button {
@@ -27,6 +28,6 @@
     text-align: center;
 }
 
-.confirmation-content button:hover{
-      background-color: #2980b9;
+.confirmation-content button:hover {
+    background-color: #2980b9;
 }
