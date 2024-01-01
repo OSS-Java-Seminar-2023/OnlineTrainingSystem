@@ -28,6 +28,7 @@
         <th>End Date</th>
         <th>Monthly Price in €:</th>
         <th>Personal measurements</th>
+        <th>Workout lists</th>
     </tr>
     </thead>
     <tbody>
@@ -35,19 +36,22 @@
         <td th:text="${contract.coach.user.firstName}"></td>
         <td th:text="${contract.coach.user.lastName}"></td>
         <td th:text="${contract.coach.user.email}"></td>
-        <td th:text="${#dates.format(contract.startDate, 'yyyy-MM-dd')}"></td>
-        <td th:text="${#dates.format(contract.endDate, 'yyyy-MM-dd')}"></td>
+        <td th:text="${#dates.format(contract.startDate, 'dd-MM-yyyy')}"></td>
+        <td th:text="${#dates.format(contract.endDate, 'dd-MM-yyyy')}"></td>
         <td th:text="${contract.monthlyPrice}"></td>
         <td>
             <a th:href="@{'/measurements/personal/' + ${contract.id}}" class="become-link">measurement</a>
+        </td>
+        <td>
+            <form th:action="@{/workout}" method="get">
+                <input type="hidden" th:name="contractID" th:value="${contract.id}" />
+                <button type="submit" class="become-link" >View Workouts</button>
+            </form>
         </td>
     </tr>
     </tbody>
 </table>
 <p th:if="${contracts != null and #lists.isEmpty(contracts)}">No contracts available.</p>
-
-<br>
-<br>
-
 </body>
 </html>
+

@@ -3,6 +3,7 @@ package com.training.OnlineTraining.service.implementation;
 import com.training.OnlineTraining.dto.WorkoutSessionDTO;
 import com.training.OnlineTraining.exceptions.WorkoutSessionNotFoundException;
 import com.training.OnlineTraining.mapper.WorkoutSessionMapper;
+import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.repository.WorkoutSessionRepository;
 import com.training.OnlineTraining.service.WorkoutService;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -113,6 +115,12 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 		logger.info("Deleting all workout sessions.");
 
 		workoutSessionRepository.deleteAll();
+	}
+
+	@Override
+	public Optional<Exercise> getExerciseById(UUID workoutSessionId) {
+		return workoutSessionRepository.findById(workoutSessionId)
+				.map(WorkoutSession::getExercise);
 	}
 
 }

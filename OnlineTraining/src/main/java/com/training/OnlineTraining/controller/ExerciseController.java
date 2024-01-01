@@ -3,9 +3,11 @@ package com.training.OnlineTraining.controller;
 import com.training.OnlineTraining.dto.ExerciseDTO;
 import com.training.OnlineTraining.mapper.ExerciseMapper;
 import com.training.OnlineTraining.model.Exercise;
+import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.model.enums.ExerciseEquipment;
 import com.training.OnlineTraining.service.ExerciseService;
+import com.training.OnlineTraining.service.WorkoutSessionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -23,12 +26,15 @@ public class ExerciseController {
 
     private final ExerciseService exerciseService;
     private final ExerciseMapper exerciseMapper;
+
+    private final WorkoutSessionService workoutSessionService;
     private static final Logger logger = LoggerFactory.getLogger(ExerciseController.class);
 
     @Autowired
-    public ExerciseController(ExerciseService exerciseService, ExerciseMapper exerciseMapper) {
+    public ExerciseController(ExerciseService exerciseService, ExerciseMapper exerciseMapper, WorkoutSessionService workoutSessionService) {
         this.exerciseService = exerciseService;
         this.exerciseMapper = exerciseMapper;
+        this.workoutSessionService = workoutSessionService;
         logger.info("ExerciseController initialized.");
     }
 
@@ -101,4 +107,17 @@ public class ExerciseController {
         exerciseService.deleteExercise(id);
         return "redirect:/exercise";
     }
+
+    @GetMapping("/client-details/{id}")
+    public String showClientExerciseDetails(@PathVariable UUID id, Model model) {
+
+        Optional<Exercise> exerciseOptional = workoutSessionService.getExerciseById(id);
+
+        exerciseOptional.ifPresent(exercise -> {
+            model.addAttribute("exercise", exercise);
+        });
+        return "client/client_exercise_details";
+    }
+
+
 }

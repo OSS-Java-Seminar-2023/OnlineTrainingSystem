@@ -45,8 +45,8 @@
     <tr th:each="contract : ${coachesListContracts}">
         <td th:text="${contract.client.user.firstName}"></td>
         <td th:text="${contract.client.user.lastName}"></td>
-        <td th:text="${contract.startDate}"></td>
-        <td th:text="${contract.endDate}"></td>
+        <td th:text="${#dates.format(contract.startDate, 'dd-MM-yyyy')}"></td>
+        <td th:text="${#dates.format(contract.endDate, 'dd-MM-yyyy')}"></td>
         <td th:text="${contract.monthlyPrice}"></td>
         <td>
             <!-- Button to call the /workout endpoint with contract-id -->

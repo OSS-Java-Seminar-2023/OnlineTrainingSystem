@@ -69,11 +69,16 @@ public class WorkoutController {
 		List<Workout> workouts = workoutService.getWorkoutsByContractID(contractID);
 		model.addAttribute("workoutsList", workouts);
 
-		return "workout/workoutList";
+		UUID clientId = (UUID) session.getAttribute("clientId");
+		if (clientId == null){
+
+			return "workout/workoutList";
+		}
+		return "workout/workoutClientList";
 	}
 
 	@GetMapping("/details/{id}")
-	public String showWorkoutDetails(@PathVariable UUID id, Model model) {
+	public String showWorkoutDetails(@PathVariable UUID id, Model model, HttpSession session) {
 		logger.info("Displaying workout details for ID: {}", id);
 
 		Workout workout = workoutService.getWorkoutById(id);
@@ -81,17 +86,30 @@ public class WorkoutController {
 		model.addAttribute("workout", workout);
 		model.addAttribute("listExercises", exerciseService.getAllExercises());
 
-		return "workout/workoutDetails";
+		UUID clientId = (UUID) session.getAttribute("clientId");
+		if (clientId == null){
+
+			return "workout/workoutDetails";
+		}
+
+		return "workout/workoutClientDetails";
 	}
 
 	@GetMapping("/update/{id}")
-	public String showUpdateWorkoutForm(@PathVariable UUID id, Model model) {
+	public String showUpdateWorkoutForm(@PathVariable UUID id, Model model, HttpSession session) {
 		logger.info("Displaying update workout form for ID: {}", id);
 
 		Workout workout = workoutService.getWorkoutById(id);
 		model.addAttribute("workout", workout);
 
-		return "workout/updateWorkout";
+		UUID clientId = (UUID) session.getAttribute("clientId");
+		if (clientId == null){
+
+			return "workout/updateWorkout";
+		}
+		return "workout/updateClientWorkout";
+
+
 	}
 
 	@PostMapping("/update/{id}")
@@ -101,6 +119,7 @@ public class WorkoutController {
 		UUID contractID = (UUID) session.getAttribute("contractID");
 
 		workoutService.updateWorkout(id, workoutDTO, contractID);
+
 
 		return "redirect:/workout";
 	}
