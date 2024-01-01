@@ -50,6 +50,10 @@ public class Workout {
     @Column(name = "self_rating")
     private Integer selfRating;
 
+    @Column(name = "is_finished")
+    private Boolean isFinished;
+
+
     public Duration getDuration() {
         Duration newDuration = new Duration();
 

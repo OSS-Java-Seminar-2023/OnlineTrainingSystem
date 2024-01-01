@@ -28,6 +28,7 @@ public class WorkoutDTO {
 	private Integer numberOfSets;
 	private Integer pauseBetweenSetsInSeconds;
 	private Integer selfRating;
+	private Boolean isFinished;
 
 	private List<WorkoutSession> workoutSessions;
 

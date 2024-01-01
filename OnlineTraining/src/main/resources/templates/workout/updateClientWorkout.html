@@ -41,6 +41,12 @@
             <label for="rating">Self rating (1 to 5)</label>
             <input type="number" id="rating" th:field="*{selfRating}" min="1" max="5">
 
+            <label for="finished">Is Workout Finished?:</label>
+            <select id="finished" th:field="*{isFinished}">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+
             <div>
                 <input class="button" type="submit" value="Update">
             </div>

@@ -18,6 +18,7 @@ public interface WorkoutMapper {
 	WorkoutDTO toWorkoutDTO(Workout workout);
 
 	@Mapping(source = "contractId", target = "contract.id")
+	@Mapping(source = "isFinished", target = "isFinished")
 	Workout toWorkout(WorkoutDTO workoutDTO);
 
 }

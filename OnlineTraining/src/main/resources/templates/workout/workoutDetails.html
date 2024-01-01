@@ -97,13 +97,14 @@
             <td>
                 <!-- Dropdown to select exercise -->
                 <select th:field="*{workout.workoutSessions[__${rowStat.index}__].exercise.id}" required>
-                    <option value="" disabled>Select Exercise</option>
+                    <option value="" th:selected="true" disabled>Select Exercise</option>
                     <option th:each="exercise : ${listExercises}"
                             th:value="${exercise.id}"
                             th:text="${exercise.name}"
                             th:selected="${exercise.id == workoutSession.exercise.id}"> <!-- Set selected option -->
                     </option>
                 </select>
+
             </td>
             <td>
                 <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].numberOfReps}" required min="1" class="table__login">
