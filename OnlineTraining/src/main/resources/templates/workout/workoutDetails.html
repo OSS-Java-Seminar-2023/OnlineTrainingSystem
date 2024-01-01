@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout List</title>
+    <title>Workout details</title>
     <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
     <link rel="stylesheet" th:href="@{/css/navigation.css}">
     <link rel="stylesheet" th:href="@{/css/login.css}">
@@ -97,7 +97,7 @@
             <td>
                 <!-- Dropdown to select exercise -->
                 <select th:field="*{workout.workoutSessions[__${rowStat.index}__].exercise.id}" required>
-                    <option value="">Select Exercise</option>
+                    <option value="" disabled>Select Exercise</option>
                     <option th:each="exercise : ${listExercises}"
                             th:value="${exercise.id}"
                             th:text="${exercise.name}"
@@ -106,13 +106,13 @@
                 </select>
             </td>
             <td>
-                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].numberOfReps}" required min="1">
+                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].numberOfReps}" required min="1" class="table__login">
             </td>
             <td>
-                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].pauseAfterExerciseInSeconds}" required min="30">
+                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].pauseAfterExerciseInSeconds}" required min="30" class="table__login">
             </td>
             <td>
-                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].weight}" required min="1">
+                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].weight}" required min="1" class="table__login">
             </td>
             <!-- Delete button column -->
             <td>

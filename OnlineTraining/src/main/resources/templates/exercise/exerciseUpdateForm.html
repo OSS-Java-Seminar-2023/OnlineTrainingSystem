@@ -1,38 +1,52 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Exercise</title>
+    <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
 </head>
 <body>
-<h2>Update Exercise</h2>
-<form action="/exercise/update/{id}" method="post" th:object="${exerciseForUpdating}">
+<div th:insert="~{fragments/navigation :: navigation('/register')}"></div>
+<main class="align">
+    <div class="login">
+        <br>
+        <br>
+        <header class="login__header">
+            <h2 class="align">Update Exercise</h2>
+        </header>
+<form action="/exercise/update/{id}" method="post" th:object="${exerciseForUpdating}" class="login__form" >
     <input type="hidden" th:field="*{id}"/>
 
-    <label>Name:</label>
-    <input type="text" th:field="*{name}" required/><br/>
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" required/>
 
-    <label>Description:</label>
-    <textarea th:field="*{description}" required></textarea><br/>
+    <label for="desc">Description:</label>
+    <textarea th:field="*{description}" id="desc" rows="4" style="font-family: 'Varela Round'; font-size: 1.1rem;" required></textarea>
 
-    <label>Equipment Needed:</label>
-    <select th:field="*{exerciseEquipment}" required>
-        <option value="">Select exercise equipment</option>
+    <label for="req">Equipment Needed:</label>
+    <select id="req" th:field="*{exerciseEquipment}" required>
+        <option value="" disabled>Select exercise equipment</option>
         <option th:each="equipment : ${exerciseEquipmentList}"
                 th:value="${equipment}" th:text="${equipment.displayName}">
         </option>
     </select>
 
-    <label>Difficulty Level:</label>
-    <select th:field="*{exerciseDifficultyLevel}" required>
-        <option value="">Select difficulty level</option>
+    <label for="diff">Difficulty Level:</label>
+    <select  id="diff" th:field="*{exerciseDifficultyLevel}" required>
+        <option value="" disabled>Select difficulty level</option>
         <option th:each="level : ${difficultyLevels}"
                 th:value="${level}" th:text="${level}">
         </option>
     </select>
 
-
-    <input type="submit" value="Update"/>
+    <div>
+        <input class="button" type="submit" value="Register">
+    </div>
 </form>
+    </div>
+</main>
 </body>
 </html>

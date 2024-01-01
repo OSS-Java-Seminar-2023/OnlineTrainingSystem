@@ -110,7 +110,8 @@ svg {
 .login input[type="text"],
 .login input[type="tel"],
 .login input[type="number"],
-textarea {
+textarea,
+.table__login{
   background-color: #eee;
   color: #777;
   padding: 0.25em 0.625em;

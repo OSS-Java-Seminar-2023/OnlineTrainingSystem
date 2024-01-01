@@ -23,10 +23,10 @@
             <input type="hidden" name="_method" value="put" />
 
             <label for="medicalCondition">Medical condition: </label>
-            <textarea id="medicalCondition" th:field="*{medicalCondition}" rows="4"></textarea>
+            <textarea id="medicalCondition" th:field="*{medicalCondition}" rows="4" style="font-family: 'Varela Round'; font-size: 1.1rem;"></textarea>
 
             <label for="injuries">Injuries: </label>
-            <textarea id="injuries" th:field="*{injuries}" rows="4"></textarea>
+            <textarea id="injuries" th:field="*{injuries}" rows="4" style="font-family: 'Varela Round'; font-size: 1.1rem;"></textarea>
 
             <label for="firstName">First Name:</label>
             <input type="text" id="firstName" th:value="${client.user.firstName}" name="firstName" required >
