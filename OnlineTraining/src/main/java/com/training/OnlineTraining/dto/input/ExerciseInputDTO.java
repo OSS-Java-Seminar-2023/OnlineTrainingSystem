@@ -1,4 +1,4 @@
-package com.training.OnlineTraining.dto;
+package com.training.OnlineTraining.dto.input;
 
 import com.training.OnlineTraining.converter.ExerciseEquipmentConverter;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
@@ -12,11 +12,9 @@ import lombok.ToString;
 import java.util.UUID;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ExerciseDTO {
-    private UUID id;
+public class ExerciseInputDTO {
     private String name;
     private String description;
 
@@ -25,7 +23,7 @@ public class ExerciseDTO {
 
     private ExerciseDifficultyLevel exerciseDifficultyLevel;
 
-    public ExerciseDTO(String name, String description, ExerciseEquipment exerciseEquipment, ExerciseDifficultyLevel exerciseDifficultyLevel) {
+    public ExerciseInputDTO(String name, String description, ExerciseEquipment exerciseEquipment, ExerciseDifficultyLevel exerciseDifficultyLevel) {
         this.name = name;
         this.description = description;
         this.exerciseEquipment = exerciseEquipment;

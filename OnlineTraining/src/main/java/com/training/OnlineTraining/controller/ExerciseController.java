@@ -1,9 +1,9 @@
 package com.training.OnlineTraining.controller;
 
-import com.training.OnlineTraining.dto.ExerciseDTO;
+import com.training.OnlineTraining.dto.input.ExerciseInputDTO;
+import com.training.OnlineTraining.dto.output.ExerciseOutputDTO;
 import com.training.OnlineTraining.mapper.ExerciseMapper;
 import com.training.OnlineTraining.model.Exercise;
-import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.model.enums.ExerciseEquipment;
 import com.training.OnlineTraining.service.ExerciseService;
@@ -47,22 +47,26 @@ public class ExerciseController {
 
         model.addAttribute("difficultyLevels", difficultyLevels);
         model.addAttribute("exerciseEquipmentList", exerciseEquipmentList);
-        model.addAttribute("exercise", new ExerciseDTO());
+        model.addAttribute("exercise", new ExerciseInputDTO());
 
         return "exercise/exerciseCreateForm";
     }
 
     @PostMapping("/create")
-    public String createExercise(@ModelAttribute ExerciseDTO exerciseDTO, Model model) {
+    public String createExercise(@ModelAttribute ExerciseInputDTO exerciseInputDTO, Model model) {
         logger.info("Creating a new exercise.");
-        Exercise createdExercise = exerciseService.createExercise(exerciseDTO);
+
+        ExerciseOutputDTO createdExercise = exerciseService.createExercise(exerciseInputDTO);
+
         return "redirect:/exercise";
     }
 
     @GetMapping("/details/{id}")
     public String showExerciseDetails(@PathVariable UUID id, Model model) {
         logger.info("Displaying exercise details for ID: {}", id);
-        Exercise exercise = exerciseService.getExerciseById(id);
+
+        ExerciseOutputDTO exercise = exerciseService.getExerciseById(id);
+
         model.addAttribute("exercise", exercise);
         return "exercise/exerciseDetails";
     }
@@ -70,7 +74,9 @@ public class ExerciseController {
     @GetMapping()
     public String getAllExercises(Model model) {
         logger.info("Fetching all exercises.");
-        List<Exercise> exercises = exerciseService.getAllExercises();
+
+        List<ExerciseOutputDTO> exercises = exerciseService.getAllExercises();
+
         model.addAttribute("exercises", exercises);
         return "exercise/exerciseList";
     }
@@ -79,7 +85,7 @@ public class ExerciseController {
     public String getUpdateFormForExercise(@PathVariable UUID id, Model model) {
         logger.info("Displaying update form for exercise ID: {}", id);
 
-        Exercise tempExercise = exerciseService.getExerciseById(id);
+        ExerciseOutputDTO tempExercise = exerciseService.getExerciseById(id);
         List<ExerciseDifficultyLevel> difficultyLevels = Arrays.asList(ExerciseDifficultyLevel.values());
         List<ExerciseEquipment> exerciseEquipmentList = Arrays.asList(ExerciseEquipment.values());
 
@@ -92,11 +98,11 @@ public class ExerciseController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateExercise(@PathVariable String id, @ModelAttribute("exercise") ExerciseDTO exerciseDTO, Model model) {
+    public String updateExercise(@PathVariable String id, @ModelAttribute("exercise") ExerciseInputDTO exerciseInputDTO, Model model) {
         logger.info("Updating exercise for ID: {}", id);
-        logger.info("ExerciseDTO: {}", exerciseDTO);
+        logger.info("ExerciseDTO: {}", exerciseInputDTO);
 
-        exerciseService.updateExercise(exerciseDTO.getId(), exerciseDTO);
+        exerciseService.updateExercise(UUID.fromString(id), exerciseInputDTO);
 
         return "redirect:/exercise";
     }
