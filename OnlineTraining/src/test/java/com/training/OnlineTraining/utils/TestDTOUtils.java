@@ -2,6 +2,7 @@ package com.training.OnlineTraining.utils;
 
 import com.training.OnlineTraining.dto.WorkoutDTO;
 import com.training.OnlineTraining.dto.WorkoutSessionDTO;
+import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import org.springframework.boot.context.properties.bind.BindHandler;
 
 import java.math.BigDecimal;
@@ -22,6 +23,7 @@ public class TestDTOUtils {
 		workoutDTO.setNumberOfSets(getRandomNumber());
 		workoutDTO.setPauseBetweenSetsInSeconds(getRandomNumber());
 		workoutDTO.setSelfRating(getRandomNumber());
+		workoutDTO.setWorkoutStatus(WorkoutStatus.WAITING);
 
 		return workoutDTO;
 	}
