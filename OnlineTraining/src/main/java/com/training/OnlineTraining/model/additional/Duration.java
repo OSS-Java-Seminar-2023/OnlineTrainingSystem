@@ -24,11 +24,16 @@ public class Duration {
 
 	@Override
 	public String toString() {
+		return getFormatedDuration();
+	}
+
+
+	public String getFormatedDuration() {
 		int hours = seconds / 3600;
 		int minutes = (seconds % 3600) / 60;
 		int remainingSeconds = seconds % 60;
 
-		return String.format("%02d:%02d:%02d", hours, minutes, remainingSeconds);
+		return String.format("%02dh:%02dm:%02ds", hours, minutes, remainingSeconds);
 	}
 
 }
