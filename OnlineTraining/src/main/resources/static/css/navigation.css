@@ -44,3 +44,6 @@ li a:hover:not(.active) {
   color:white;
 }
 
+.margin{
+    margin-left:10px;
+}

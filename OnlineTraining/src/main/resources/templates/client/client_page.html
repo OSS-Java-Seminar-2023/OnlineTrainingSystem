@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client page</title>
     <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
+    <link rel="stylesheet" th:href="@{/css/pagination.css}">
     <link rel="stylesheet" th:href="@{/css/navigation.css}">
     <link rel="stylesheet" th:href="@{/css/table.css}">
     <link rel="stylesheet" th:href="@{/css/select.css}">
     <link rel="stylesheet" th:href="@{/css/hand.css}">
+
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -25,10 +27,10 @@
 <br>
 <br>
     <div>
-        <a th:href="@{'/contracts/personal'}" class="links">Your Contracts</a>
+        <a th:href="@{'/contracts/personal'}" class="links" style="margin-left:10px;">Your Contracts</a>
     </div>
 <br>
-    <div> <a th:href="@{'/clients/settings'}" class="links">Settings</a>
+    <div> <a th:href="@{'/clients/settings'}" class="links" style="margin-left:10px;">Settings</a>
     </div>
 <br>
 <div>
@@ -99,7 +101,28 @@
 <div style="overflow-x: auto;">
     <div th:replace="~{fragments/coach_table :: coach_table}"></div>
 </div>
+
 <p th:unless="${coaches}">No coaches available.</p>
+
+<div class="pagination-container">
+    <ol class="pagination-list">
+        <li th:unless="${currentPage == 1}" class="pagination-item">
+            <a th:href="@{/clients/client-page(page=1)}" class="pagination-link">First</a>
+        </li>
+        <li th:unless="${currentPage == 1}" class="pagination-item">
+            <a th:href="@{/clients/client-page(page=${currentPage - 1})}" class="pagination-link">Previous</a>
+        </li>
+        <li th:each="pageNum : ${#numbers.sequence(1, totalPages)}" class="pagination-item">
+            <a th:href="@{/clients/client-page(page=${pageNum})}" th:text="${pageNum}" class="pagination-link" style="color:gray;" th:class="${pageNum == currentPage} ? 'active'"></a>
+        </li>
+        <li th:unless="${currentPage == totalPages}" class="pagination-item">
+            <a th:href="@{/clients/client-page(page=${currentPage + 1})}" class="pagination-link">Next</a>
+        </li>
+        <li th:unless="${currentPage == totalPages}" class="pagination-item">
+            <a th:href="@{/clients/client-page(page=${totalPages})}" class="pagination-link">Last</a>
+        </li>
+    </ol>
+</div>
 <script th:src="@{/js/filterCoaches.js}"></script>
 </body>
 </html>

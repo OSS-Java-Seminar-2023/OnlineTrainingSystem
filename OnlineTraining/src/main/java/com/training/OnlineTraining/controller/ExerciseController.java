@@ -125,5 +125,9 @@ public class ExerciseController {
         return "client/client_exercise_details";
     }
 
+    @GetMapping("/progress")
+    public String showError(){
+         return "client/no_exercise_found";
+    }
 
 }

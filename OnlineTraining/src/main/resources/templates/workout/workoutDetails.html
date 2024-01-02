@@ -19,7 +19,7 @@
 <br>
 <br>
 <br>
-<h1>Workout Details</h1>
+<h1 class="margin">Workout Details</h1>
 <br>
 <br>
 <div>
@@ -65,7 +65,7 @@
     </tbody>
 </table>
 <br>
-<h1>Exercises</h1>
+<h1 class="margin">Exercises</h1>
 <br>
 <!-- Form for Workout Details with Workout Sessions -->
 <form th:action="@{/workoutSession/update/{workoutID}(workoutID=${workout.id})}" method="post">
@@ -110,7 +110,7 @@
                 <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].numberOfReps}" required min="1" class="table__login">
             </td>
             <td>
-                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].pauseAfterExerciseInSeconds}" required min="30" class="table__login">
+                <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].pauseAfterExerciseInSeconds}" required min="5" class="table__login">
             </td>
             <td>
                 <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].weight}" required min="1" class="table__login">
@@ -123,8 +123,15 @@
                     <button type="button" onclick="confirmDelete(this)" class="become-link">Delete</button>
                 </form>
             </td>
-            <td>  <button type="submit" class="become-link">Update</button></td>
-
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>  <button type="submit" class="become-link">Update All</button></td>
         </tr>
 
         </tbody>

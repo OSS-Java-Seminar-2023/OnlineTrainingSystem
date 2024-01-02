@@ -13,6 +13,9 @@ import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.UserService;
 import com.training.OnlineTraining.specification.CoachSpecifications;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +67,7 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public List<CoachDto> filterCoaches(CoachFilterParams filterParams) {
+    public Page<CoachDto> filterCoaches(CoachFilterParams filterParams, Pageable pageable) {
         Specification<Coach> spec = Specification
                 .where(CoachSpecifications.filterByGender(filterParams.getGender()))
                 .and(CoachSpecifications.filterByExperience(filterParams.getExperience()))
@@ -72,10 +75,11 @@ public class CoachServiceImpl implements CoachService {
                 .and(CoachSpecifications.filterByEducation(filterParams.getEducation()))
                 .and(CoachSpecifications.filterByMonthlyPrice(filterParams.getMonthlyPrice()));
 
-        return coachRepository.findAll(spec).stream()
-                .map(coachMapper::coachToCoachDto)
-                .collect(Collectors.toList());
+        return coachRepository.findAll(spec, pageable)
+                .map(coachMapper::coachToCoachDto);
     }
+
+
 
     @Override
     public Double getMonthlyPriceById(UUID coachId) {

@@ -7,7 +7,8 @@
     background: #5c6664;
     overflow: hidden;
     border-radius: .25em;
-    margin-right: 10px;
+    margin-right: 5px;
+    margin-left:10px;
 }
 
 select {
@@ -54,6 +55,7 @@ select {
     border-radius: 5px;
     transition: background-color 0.3s ease;
     text-align: center;
+    margin-left:10px;
 }
 
 .become-link:hover {
@@ -74,6 +76,10 @@ select {
 
 .links:hover {
     background-color: #2980b9;
+}
+
+.margin{
+    margin-left:10px;
 }
 
 

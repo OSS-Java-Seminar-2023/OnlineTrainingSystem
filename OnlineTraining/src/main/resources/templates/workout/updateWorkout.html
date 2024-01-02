@@ -27,13 +27,13 @@
     <input type="number" id="exercises" th:field="*{numberOfExercises}" required min="1">
 
     <label for="time" >Warming Up Time (in seconds):</label>
-    <input type="number"  id="time" th:field="*{warmingUpTimeInSeconds}" required min="30">
+    <input type="number"  id="time" th:field="*{warmingUpTimeInSeconds}" required min="5">
 
     <label for="sets">Number of Sets:</label>
     <input type="number"  id="sets" th:field="*{numberOfSets}" required min="1">
 
     <label  for="pause">Pause Between Sets (in seconds):</label>
-    <input type="number" id="pause" th:field="*{pauseBetweenSetsInSeconds}" required min="30">
+    <input type="number" id="pause" th:field="*{pauseBetweenSetsInSeconds}" required min="5">
 
     <div>
         <input class="button" type="submit" value="Update">

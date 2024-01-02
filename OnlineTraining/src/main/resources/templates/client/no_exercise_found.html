@@ -7,10 +7,8 @@
     <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
     <link rel="stylesheet" th:href="@{/css/navigation.css}">
     <link rel="stylesheet" th:href="@{/css/login.css}">
-    <link rel="stylesheet" th:href="@{/css/table.css}">
     <link rel="stylesheet" th:href="@{/css/hand.css}">
     <link rel="stylesheet" th:href="@{/css/choosing.css}">
-    <link rel="stylesheet" th:href="@{/css/confirmation.css}">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -20,25 +18,6 @@
 <br>
 <br>
 <h1 class="margin">Exercise Details</h1>
-<br>
-<br>
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Equipment needed</th>
-        <th>Difficulty Level</th>
-    </tr>
-    </thead>
-
-    <tr>
-        <td th:text="${exercise.name}"></td>
-        <td th:text="${exercise.description}"></td>
-        <td th:text="${exercise.exerciseEquipment}"></td>
-        <td th:text="${exercise.exerciseDifficultyLevel}"></td>
-    </tr>
-</table>
-
-</body>
-</html>
+<div>
+    <p>Exercise not found. Coach is currently working on your workout. Come back later.</p>
+</div>

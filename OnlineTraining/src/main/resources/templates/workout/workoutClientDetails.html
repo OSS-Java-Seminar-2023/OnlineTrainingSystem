@@ -24,7 +24,7 @@
 <br>
 <br>
 <br>
-<h1>Workout Details</h1>
+<h1 class="margin">Workout Details</h1>
 <br>
 <br>
 
@@ -62,9 +62,14 @@
             <td>
                 <input type="number" th:field="*{workout.workoutSessions[__${rowStat.index}__].weight}" required min="1" class="table__login" readonly="readonly">
             </td>
-            <td>
-                <a th:href="@{/exercise/client-details/{id}(id=${workout.workoutSessions[__${rowStat.index}__].id})}" class="become-link"> Details</a>
+
+            <td th:if="${workout.workoutSessions[__${rowStat.index}__].exercise.id != null}">
+                <a th:href="@{/exercise/client-details/{id}(id=${workout.workoutSessions[__${rowStat.index}__].exercise.id})}" class="become-link"> Details</a>
             </td>
+            <td th:unless="${workout.workoutSessions[__${rowStat.index}__].exercise.id}">
+                <a th:href="@{/exercise/progress}" class="become-link">In Progress</a>
+            </td>
+
 
         </tr>
 

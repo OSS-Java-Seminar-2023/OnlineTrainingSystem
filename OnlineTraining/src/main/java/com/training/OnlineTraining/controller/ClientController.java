@@ -5,6 +5,9 @@ import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.dto.CoachFilterParams;
 import com.training.OnlineTraining.dto.UpdateClientDTO;
 import com.training.OnlineTraining.model.Client;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
 import com.training.OnlineTraining.service.ClientService;
 import com.training.OnlineTraining.service.CoachService;
@@ -32,20 +35,27 @@ public class ClientController {
     @GetMapping("/client-page")
     public String getClientPage(Model model,
                                 @ModelAttribute CoachFilterParams filterParams,
-                                HttpSession session) {
+                                HttpSession session,
+                                @RequestParam(defaultValue = "1") int page,
+                                @RequestParam(defaultValue = "10") int size) {
         UUID clientId = (UUID) session.getAttribute("clientId");
         if (clientId == null){
             return "auth/login_page";
         }
         String clientName = (String) session.getAttribute("clientName");
 
-        List<CoachDto> coaches = coachService.filterCoaches(filterParams);
+        Pageable pageable = PageRequest.of(page - 1, size); // Adjust page to 0-based index
 
-        model.addAttribute("coaches", coaches);
+        Page<CoachDto> coachesPage = coachService.filterCoaches(filterParams, pageable);
+
+        model.addAttribute("coaches", coachesPage.getContent());
         model.addAttribute("clientId", clientId);
         model.addAttribute("clientName", clientName);
+        model.addAttribute("currentPage", coachesPage.getNumber() + 1); // Adjust to 1-based index
+        model.addAttribute("totalPages", coachesPage.getTotalPages());
         return "client/client_page";
     }
+
 
     @GetMapping("/register")
     public String getBecomeClientPage(@RequestParam UUID userId, Model model) {
