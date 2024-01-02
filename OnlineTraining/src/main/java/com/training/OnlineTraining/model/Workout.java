@@ -1,6 +1,10 @@
 package com.training.OnlineTraining.model;
 
+import com.training.OnlineTraining.converter.ExerciseEquipmentConverter;
+import com.training.OnlineTraining.converter.WorkoutStatusConverter;
 import com.training.OnlineTraining.model.additional.Duration;
+import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
+import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -51,8 +55,9 @@ public class Workout {
     @Column(name = "self_rating")
     private Integer selfRating;
 
-    @Column(name = "is_finished")
-    private Boolean isFinished;
+    @Column(name = "workout_status")
+    @Convert(converter = WorkoutStatusConverter.class)
+    private WorkoutStatus workoutStatus;
 
     public Duration getDuration() {
         Duration newDuration = new Duration();

@@ -3,6 +3,7 @@ package com.training.OnlineTraining.controller;
 import com.training.OnlineTraining.dto.WorkoutDTO;
 import com.training.OnlineTraining.model.Workout;
 import com.training.OnlineTraining.model.WorkoutSession;
+import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutService;
 import com.training.OnlineTraining.service.WorkoutSessionService;
@@ -13,10 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/workout")
@@ -98,6 +96,9 @@ public class WorkoutController {
 	@GetMapping("/update/{id}")
 	public String showUpdateWorkoutForm(@PathVariable UUID id, Model model, HttpSession session) {
 		logger.info("Displaying update workout form for ID: {}", id);
+
+		List<WorkoutStatus> workoutStatuses = Arrays.asList(WorkoutStatus.values());
+		model.addAttribute("workoutStatuses", workoutStatuses);
 
 		Workout workout = workoutService.getWorkoutById(id);
 		model.addAttribute("workout", workout);

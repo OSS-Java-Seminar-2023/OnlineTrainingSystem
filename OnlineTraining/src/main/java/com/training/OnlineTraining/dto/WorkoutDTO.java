@@ -1,6 +1,10 @@
 package com.training.OnlineTraining.dto;
 
+import com.training.OnlineTraining.converter.ExerciseEquipmentConverter;
+import com.training.OnlineTraining.converter.WorkoutStatusConverter;
 import com.training.OnlineTraining.model.WorkoutSession;
+import com.training.OnlineTraining.model.enums.WorkoutStatus;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.*;
@@ -29,6 +33,9 @@ public class WorkoutDTO {
 	private Integer pauseBetweenSetsInSeconds;
 	private Integer selfRating;
 	private Boolean isFinished;
+
+	@Convert(converter = WorkoutStatusConverter.class)
+	private WorkoutStatus workoutStatus;
 
 	private List<WorkoutSession> workoutSessions;
 

@@ -59,7 +59,7 @@ CREATE TABLE Workout (
     ordinal_number_of_workout INTEGER NOT NULL,
     pause_between_sets_in_seconds INTEGER NOT NULL,
     self_rating INTEGER,
-    is_finished BOOLEAN
+    workout_status VARCHAR(50)
 );
 
 
