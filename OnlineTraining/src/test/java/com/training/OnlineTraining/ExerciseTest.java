@@ -18,6 +18,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -78,10 +79,10 @@ public class ExerciseTest {
 	public void testGetExerciseById() {
 		ExerciseOutputDTO newExercise = exerciseService.createExercise(exerciseInputDTO);
 
-		ExerciseOutputDTO gotExercise = exerciseService.getExerciseById(newExercise.getId());
+		Optional<ExerciseOutputDTO> gotExercise = exerciseService.getExerciseById(newExercise.getId());
 
 		assertNotNull(gotExercise);
-		assertEquals("Exercise 1", gotExercise.getName());
+		assertEquals("Exercise 1", gotExercise.get().getName());
 	}
 
 	@Test

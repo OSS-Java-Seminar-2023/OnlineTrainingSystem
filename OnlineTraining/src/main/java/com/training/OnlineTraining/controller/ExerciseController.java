@@ -65,9 +65,9 @@ public class ExerciseController {
     public String showExerciseDetails(@PathVariable UUID id, Model model) {
         logger.info("Displaying exercise details for ID: {}", id);
 
-        ExerciseOutputDTO exercise = exerciseService.getExerciseById(id);
+        Optional<ExerciseOutputDTO> exercise = exerciseService.getExerciseById(id);
 
-        model.addAttribute("exercise", exercise);
+        model.addAttribute("exercise", exercise.get());
         return "exercise/exerciseDetails";
     }
 
@@ -85,13 +85,13 @@ public class ExerciseController {
     public String getUpdateFormForExercise(@PathVariable UUID id, Model model) {
         logger.info("Displaying update form for exercise ID: {}", id);
 
-        ExerciseOutputDTO tempExercise = exerciseService.getExerciseById(id);
+        Optional<ExerciseOutputDTO> tempExercise = exerciseService.getExerciseById(id);
         List<ExerciseDifficultyLevel> difficultyLevels = Arrays.asList(ExerciseDifficultyLevel.values());
         List<ExerciseEquipment> exerciseEquipmentList = Arrays.asList(ExerciseEquipment.values());
 
         model.addAttribute("exerciseEquipmentList", exerciseEquipmentList);
         model.addAttribute("difficultyLevels", difficultyLevels);
-        model.addAttribute("exerciseForUpdating", tempExercise);
+        model.addAttribute("exerciseForUpdating", tempExercise.get());
 
 
         return "exercise/exerciseUpdateForm";
@@ -117,7 +117,7 @@ public class ExerciseController {
     @GetMapping("/client-details/{id}")
     public String showClientExerciseDetails(@PathVariable UUID id, Model model) {
 
-        Optional<Exercise> exerciseOptional = workoutSessionService.getExerciseById(id);
+        Optional<ExerciseOutputDTO> exerciseOptional = exerciseService.getExerciseById(id);
 
         exerciseOptional.ifPresent(exercise -> {
             model.addAttribute("exercise", exercise);

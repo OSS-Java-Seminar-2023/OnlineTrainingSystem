@@ -2,10 +2,9 @@ package com.training.OnlineTraining.controller;
 
 
 import com.training.OnlineTraining.dto.WorkoutDTO;
-import com.training.OnlineTraining.dto.WorkoutSessionDTO;
+import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
 import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutSessionService;
-import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -32,20 +31,20 @@ public class WorkoutSessionController {
 	public String showCreateWorkoutSessionForm(@RequestParam UUID workoutID, Model model) {
 		logger.info("Displaying create workout session form.");
 
-		WorkoutSessionDTO workoutSessionDTO = new WorkoutSessionDTO();
-		workoutSessionDTO.setWorkoutId(workoutID);
+		WorkoutSessionInputDTO workoutSessionInputDTO = new WorkoutSessionInputDTO();
+		workoutSessionInputDTO.setWorkoutId(workoutID);
 
-		model.addAttribute("workoutSessionDTO", workoutSessionDTO);
+		model.addAttribute("workoutSessionInputDTO", workoutSessionInputDTO);
 		model.addAttribute("listExercises", exerciseService.getAllExercises());
 
 		return "workout-session/createWorkoutSession";
 	}
 
 	@PostMapping("/create")
-	public String createWorkout(@ModelAttribute("workoutDTO") WorkoutSessionDTO workoutSessionDTO) {
-		logger.info("Creating a new workout session. {}", workoutSessionDTO);
+	public String createWorkout(@ModelAttribute("workoutDTO") WorkoutSessionInputDTO workoutSessionInputDTO) {
+		logger.info("Creating a new workout session. {}", workoutSessionInputDTO);
 
-		workoutSessionService.createWorkoutSession(workoutSessionDTO);
+		workoutSessionService.createWorkoutSession(workoutSessionInputDTO);
 
 		return "redirect:/workout";
 	}

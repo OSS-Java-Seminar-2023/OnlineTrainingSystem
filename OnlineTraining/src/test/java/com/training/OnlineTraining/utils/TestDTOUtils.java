@@ -1,9 +1,8 @@
 package com.training.OnlineTraining.utils;
 
 import com.training.OnlineTraining.dto.WorkoutDTO;
-import com.training.OnlineTraining.dto.WorkoutSessionDTO;
+import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
-import org.springframework.boot.context.properties.bind.BindHandler;
 
 import java.math.BigDecimal;
 import java.util.Random;
@@ -28,17 +27,17 @@ public class TestDTOUtils {
 		return workoutDTO;
 	}
 
-	public static WorkoutSessionDTO getWorkoutSessionDTO(UUID workoutId, UUID exerciseId){
-		WorkoutSessionDTO workoutSessionDTO = new WorkoutSessionDTO();
+	public static WorkoutSessionInputDTO getWorkoutSessionDTO(UUID workoutId, UUID exerciseId){
+		WorkoutSessionInputDTO workoutSessionInputDTO = new WorkoutSessionInputDTO();
 
-		workoutSessionDTO.setWorkoutId(workoutId);
-		workoutSessionDTO.setExerciseId(exerciseId);
+		workoutSessionInputDTO.setWorkoutId(workoutId);
+		workoutSessionInputDTO.setExerciseId(exerciseId);
 
-		workoutSessionDTO.setNumberOfReps(getRandomNumber());
-		workoutSessionDTO.setPauseAfterExerciseInSeconds(getRandomNumber());
-		workoutSessionDTO.setWeight(BigDecimal.valueOf(getRandomDecimalNumber()));
+		workoutSessionInputDTO.setNumberOfReps(getRandomNumber());
+		workoutSessionInputDTO.setPauseAfterExerciseInSeconds(getRandomNumber());
+		workoutSessionInputDTO.setWeight(BigDecimal.valueOf(getRandomDecimalNumber()));
 
-		return workoutSessionDTO;
+		return workoutSessionInputDTO;
 	}
 
 	private static int getRandomNumber(){

@@ -1,23 +1,25 @@
 package com.training.OnlineTraining.service;
 
-import com.training.OnlineTraining.dto.WorkoutSessionDTO;
+import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
+import com.training.OnlineTraining.dto.output.WorkoutSessionOutputDTO;
 import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.WorkoutSession;
-import com.training.OnlineTraining.model.additional.Duration;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface WorkoutSessionService {
-    WorkoutSession createWorkoutSession(WorkoutSessionDTO workoutSessionDTO);
-    WorkoutSession getWorkoutSessionById(UUID id);
-    List<WorkoutSession> getAllWorkoutSessions();
-    List<WorkoutSession> getAllByWorkoutId(UUID workoutID);
-    WorkoutSession updateWorkoutSession(UUID id, WorkoutSessionDTO workoutSessionDetails);
+    WorkoutSessionOutputDTO createWorkoutSession(WorkoutSessionInputDTO workoutSessionInputDTO);
+    WorkoutSessionOutputDTO getWorkoutSessionById(UUID id);
+    List<WorkoutSessionOutputDTO> getAllWorkoutSessions();
+    List<WorkoutSessionOutputDTO> getAllByWorkoutId(UUID workoutID);
+    WorkoutSessionOutputDTO updateWorkoutSession(UUID id, WorkoutSessionInputDTO workoutSessionDetails);
+
+    WorkoutSessionOutputDTO updateWorkoutSession(WorkoutSessionOutputDTO workoutSessionOutputDTO);
 
     void updateWorkoutSessions(List<WorkoutSession> workoutSessionList);
     void deleteWorkoutSession(UUID id);
     void deleteAllWorkoutSessions();
-    public Optional<Exercise> getExerciseById(UUID workoutSessionId);
+    Optional<WorkoutSessionOutputDTO> getExerciseById(UUID workoutSessionId);
 }
