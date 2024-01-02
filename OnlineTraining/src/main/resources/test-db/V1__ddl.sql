@@ -58,7 +58,8 @@ CREATE TABLE Workout (
     number_of_sets INTEGER NOT NULL,
     ordinal_number_of_workout INTEGER NOT NULL,
     pause_between_sets_in_seconds INTEGER NOT NULL,
-    self_rating INTEGER
+    self_rating INTEGER,
+    workout_status VARCHAR(50)
 );
 
 
@@ -66,7 +67,7 @@ CREATE TABLE Exercise (
     id UUID PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
     description TEXT NOT NULL,
-    exercise_equipment TEXT NOT NULL,
+    exercise_equipment VARCHAR(30) NOT NULL,
     difficulty_level VARCHAR(30) NOT NULL
 );
 

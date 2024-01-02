@@ -66,7 +66,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 	}
 	@Override
 	public Workout createWorkout(WorkoutDTO workoutDTO) {
-		logger.info("Creating new workout.");
+		logger.info("Creating new workout. {}", workoutDTO);
 
 		Workout workout = workoutMapper.toWorkout(workoutDTO);
 		Workout savedWorkout = workoutRepository.save(workout);
