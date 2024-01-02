@@ -1,12 +1,11 @@
 package com.training.OnlineTraining.service.implementation;
 
 import com.training.OnlineTraining.dto.WorkoutDTO;
-import com.training.OnlineTraining.dto.WorkoutSessionDTO;
+import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
 import com.training.OnlineTraining.exceptions.WorkoutNotFoundException;
 import com.training.OnlineTraining.mapper.WorkoutMapper;
 import com.training.OnlineTraining.mapper.WorkoutSessionMapper;
 import com.training.OnlineTraining.model.Workout;
-import com.training.OnlineTraining.model.additional.Duration;
 import com.training.OnlineTraining.repository.WorkoutRepository;
 import com.training.OnlineTraining.repository.WorkoutSessionRepository;
 import com.training.OnlineTraining.service.WorkoutService;
@@ -55,10 +54,10 @@ public class WorkoutServiceImpl implements WorkoutService {
 		Workout savedWorkout = workoutRepository.save(workoutMapper.toWorkout(workoutDTO));
 
 		for(int i = 0; i < workoutDTO.getNumberOfExercises(); ++i){
-			WorkoutSessionDTO workoutSessionDTO = WorkoutSessionDTO.createEmptyWorkoutSessionDTO();
-			workoutSessionDTO.setWorkoutId(savedWorkout.getId());
+			WorkoutSessionInputDTO workoutSessionInputDTO = WorkoutSessionInputDTO.createEmptyWorkoutSessionDTO();
+			workoutSessionInputDTO.setWorkoutId(savedWorkout.getId());
 
-			workoutSessionRepository.save(workoutSessionMapper.toWorkoutSession(workoutSessionDTO));
+			workoutSessionRepository.save(workoutSessionMapper.toWorkoutSession(workoutSessionInputDTO));
 		}
 
 		logger.info("New workout created.");

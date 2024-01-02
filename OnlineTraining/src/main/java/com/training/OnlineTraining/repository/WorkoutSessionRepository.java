@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.UUID;
 @Repository
 public interface WorkoutSessionRepository extends JpaRepository<WorkoutSession, UUID> {
-	List<WorkoutSession> findAllByWorkout_Id(UUID workoutId);
+	List<WorkoutSession> findAllByWorkoutId(UUID workoutId);
 }

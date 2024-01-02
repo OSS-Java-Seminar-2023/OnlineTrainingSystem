@@ -1,9 +1,9 @@
 package com.training.OnlineTraining.service.implementation;
 
-import com.training.OnlineTraining.dto.WorkoutSessionDTO;
+import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
+import com.training.OnlineTraining.dto.output.WorkoutSessionOutputDTO;
 import com.training.OnlineTraining.exceptions.WorkoutSessionNotFoundException;
 import com.training.OnlineTraining.mapper.WorkoutSessionMapper;
-import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.repository.WorkoutSessionRepository;
 import com.training.OnlineTraining.service.WorkoutService;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class WorkoutSessionServiceImpl implements WorkoutSessionService {
@@ -39,24 +40,26 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 
 
 	@Override
-	public WorkoutSession createWorkoutSession(WorkoutSessionDTO workoutSessionDTO) {
+	public WorkoutSessionOutputDTO createWorkoutSession(WorkoutSessionInputDTO workoutSessionInputDTO) {
 		logger.info("Creating new workout session.");
 
-		WorkoutSession workoutSession = workoutSessionMapper.toWorkoutSession(workoutSessionDTO);
+		WorkoutSession workoutSession = workoutSessionMapper.toWorkoutSession(workoutSessionInputDTO);
 		WorkoutSession savedWorkoutSession = workoutSessionRepository.save(workoutSession);
 
-		workoutService.incrementNumberOfExercises(workoutSessionDTO.getWorkoutId());
+		workoutService.incrementNumberOfExercises(workoutSessionInputDTO.getWorkoutId());
 
 		logger.info("New workout session created.");
 
-		return savedWorkoutSession;
+		return workoutSessionMapper.toWorkoutSessionOutputDTO(savedWorkoutSession);
 	}
 
 	@Override
-	public WorkoutSession getWorkoutSessionById(UUID id) {
+	public WorkoutSessionOutputDTO getWorkoutSessionById(UUID id) {
 		logger.info("Getting workout session by ID: {}", id);
 
-		return workoutSessionRepository.findById(id)
+		return workoutSessionRepository
+				.findById(id)
+				.map(workoutSessionMapper::toWorkoutSessionOutputDTO)
 				.orElseThrow(() -> {
 					logger.error("Workout session with ID {} not found.", id);
 					return new WorkoutSessionNotFoundException(id);
@@ -64,19 +67,27 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 	}
 
 	@Override
-	public List<WorkoutSession> getAllWorkoutSessions() {
+	public List<WorkoutSessionOutputDTO> getAllWorkoutSessions() {
 		logger.info("Getting all workout sessions.");
 
-		return workoutSessionRepository.findAll();
+		return workoutSessionRepository
+				.findAll()
+				.stream()
+				.map(workoutSessionMapper::toWorkoutSessionOutputDTO)
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public List<WorkoutSession> getAllByWorkoutId(UUID workoutID) {
-		return workoutSessionRepository.findAllByWorkout_Id(workoutID);
+	public List<WorkoutSessionOutputDTO> getAllByWorkoutId(UUID workoutID) {
+		return workoutSessionRepository
+				.findAllByWorkoutId(workoutID)
+				.stream()
+				.map(workoutSessionMapper::toWorkoutSessionOutputDTO)
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public WorkoutSession updateWorkoutSession(UUID id, WorkoutSessionDTO workoutSessionDetails) {
+	public WorkoutSessionOutputDTO updateWorkoutSession(UUID id, WorkoutSessionInputDTO workoutSessionDetails) {
 		logger.info("Updating workout session with ID: {}", id);
 
 		WorkoutSession existingWorkoutSession = workoutSessionRepository.findById(id)
@@ -88,20 +99,38 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 		WorkoutSession updatedWorkoutSession = workoutSessionMapper.toWorkoutSession(workoutSessionDetails);
 		updatedWorkoutSession.setId(existingWorkoutSession.getId()); // Ensure the ID is preserved
 
-		return workoutSessionRepository.save(updatedWorkoutSession);
+		return workoutSessionMapper.toWorkoutSessionOutputDTO(workoutSessionRepository.save(updatedWorkoutSession));
+	}
+
+	@Override
+	public WorkoutSessionOutputDTO updateWorkoutSession(WorkoutSessionOutputDTO workoutSessionOutputDTO) {
+		UUID id = workoutSessionOutputDTO.getId();
+
+		logger.info("Updating workout session with ID: {}", id);
+
+		WorkoutSession existingWorkoutSession = workoutSessionRepository.findById(id)
+				.orElseThrow(() -> {
+					logger.error("Workout session with ID {} not found.", id);
+					return new WorkoutSessionNotFoundException(id);
+				});
+
+		WorkoutSession updatedWorkoutSession = workoutSessionMapper.toWorkoutSession(workoutSessionOutputDTO);
+		updatedWorkoutSession.setId(existingWorkoutSession.getId()); // Ensure the ID is preserved
+
+		return workoutSessionMapper.toWorkoutSessionOutputDTO(workoutSessionRepository.save(updatedWorkoutSession));
 	}
 
 	@Override
 	public void updateWorkoutSessions(List<WorkoutSession> workoutSessionList) {
 		for(WorkoutSession workoutSession : workoutSessionList)
-			updateWorkoutSession(workoutSession.getId(), workoutSessionMapper.toWorkoutSessionDTO(workoutSession));
+			updateWorkoutSession(workoutSession.getId(), workoutSessionMapper.toWorkoutSessionInputDTO(workoutSession));
 	}
 
 	@Override
 	public void deleteWorkoutSession(UUID id) {
 		logger.info("Deleting workout session with ID: {}", id);
 
-		WorkoutSession workoutSession = getWorkoutSessionById(id);
+		WorkoutSession workoutSession = workoutSessionMapper.toWorkoutSession(getWorkoutSessionById(id));
 
 		logger.info("Workout session {}", workoutSession);
 
@@ -118,9 +147,10 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 	}
 
 	@Override
-	public Optional<Exercise> getExerciseById(UUID workoutSessionId) {
-		return workoutSessionRepository.findById(workoutSessionId)
-				.map(WorkoutSession::getExercise);
+	public Optional<WorkoutSessionOutputDTO> getExerciseById(UUID workoutSessionId) {
+		return workoutSessionRepository
+				.findById(workoutSessionId)
+				.map(workoutSessionMapper::toWorkoutSessionOutputDTO);
 	}
 
 }

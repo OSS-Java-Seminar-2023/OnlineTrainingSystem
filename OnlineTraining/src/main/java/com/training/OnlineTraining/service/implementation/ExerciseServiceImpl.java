@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -41,17 +42,17 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public ExerciseOutputDTO getExerciseById(UUID id) {
+    public Optional<ExerciseOutputDTO> getExerciseById(UUID id) {
         logger.info("Getting exercise by ID: {}", id);
 
-        return exerciseRepository
-                .findById(id)
+        return exerciseRepository.findById(id)
                 .map(exerciseMapper::toExerciseOutputDTO)
-                .orElseThrow(() -> {
+                .or(() -> {
                     logger.error("Exercise with ID {} not found.", id);
-                    return new ExerciseNotFoundException("Exercise with ID " + id + " not found");
+                    throw new ExerciseNotFoundException("Exercise with ID " + id + " not found");
                 });
     }
+
 
     @Override
     public List<ExerciseOutputDTO> getAllExercises() {

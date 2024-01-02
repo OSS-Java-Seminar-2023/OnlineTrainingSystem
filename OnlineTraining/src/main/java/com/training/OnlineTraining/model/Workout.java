@@ -57,7 +57,7 @@ public class Workout {
 
     @Column(name = "workout_status")
     @Convert(converter = WorkoutStatusConverter.class)
-    private WorkoutStatus workoutStatus;
+    private WorkoutStatus workoutStatus = WorkoutStatus.WAITING;
 
     public Duration getDuration() {
         Duration newDuration = new Duration();

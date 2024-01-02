@@ -1,4 +1,4 @@
-package com.training.OnlineTraining.dto;
+package com.training.OnlineTraining.dto.output;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
-public class WorkoutSessionDTO {
+public class WorkoutSessionOutputDTO {
 	private UUID id;
 	private UUID workoutId;
 	private UUID exerciseId;
@@ -14,8 +14,8 @@ public class WorkoutSessionDTO {
 	private Integer pauseAfterExerciseInSeconds;
 	private BigDecimal weight;
 
-	public static WorkoutSessionDTO createEmptyWorkoutSessionDTO() {
-		WorkoutSessionDTO emptyWorkoutSession = new WorkoutSessionDTO();
+	public static WorkoutSessionOutputDTO createEmptyWorkoutSessionDTO() {
+		WorkoutSessionOutputDTO emptyWorkoutSession = new WorkoutSessionOutputDTO();
 		emptyWorkoutSession.setWorkoutId(null);
 		emptyWorkoutSession.setExerciseId(null);
 		emptyWorkoutSession.setNumberOfReps(0);

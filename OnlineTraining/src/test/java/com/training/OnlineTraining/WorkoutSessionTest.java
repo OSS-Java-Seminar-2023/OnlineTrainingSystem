@@ -1,7 +1,7 @@
 package com.training.OnlineTraining;
 
-import com.training.OnlineTraining.OnlineTrainingApplication;
-import com.training.OnlineTraining.dto.WorkoutSessionDTO;
+import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
+import com.training.OnlineTraining.dto.output.WorkoutSessionOutputDTO;
 import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutService;
@@ -41,7 +41,7 @@ public class WorkoutSessionTest {
 	@Autowired
 	private ExerciseService exerciseService;
 
-	private WorkoutSessionDTO workoutSessionDTO;
+	private WorkoutSessionInputDTO workoutSessionInputDTO;
 
 	private UUID workoutID = null, exerciseID = null;
 
@@ -54,26 +54,26 @@ public class WorkoutSessionTest {
 		workoutID = workoutService.getAllWorkouts().get(0).getId();
 		exerciseID = exerciseService.getAllExercises().get(0).getId();
 
-		workoutSessionDTO = TestDTOUtils.getWorkoutSessionDTO(workoutID, exerciseID); // Implement TestDTOUtils for WorkoutSessionDTO if not existing
+		workoutSessionInputDTO = TestDTOUtils.getWorkoutSessionDTO(workoutID, exerciseID); // Implement TestDTOUtils for WorkoutSessionDTO if not existing
 	}
 
 	@Test
 	public void testCreateWorkoutSession() {
-		WorkoutSession newWorkoutSession = workoutSessionService.createWorkoutSession(workoutSessionDTO);
+		WorkoutSessionOutputDTO newWorkoutSession = workoutSessionService.createWorkoutSession(workoutSessionInputDTO);
 
 		assertNotNull(newWorkoutSession);
 
-		List<WorkoutSession> workoutSessions = workoutSessionService.getAllWorkoutSessions();
+		List<WorkoutSessionOutputDTO> workoutSessions = workoutSessionService.getAllWorkoutSessions();
 		assertEquals(numberOfWorkoutSessionsInDatabaseBeforeTest + 1, workoutSessions.size());
 	}
 
 	@Test
 	public void testGetWorkoutSessionById() {
-		workoutSessionDTO.setNumberOfReps(1000);
+		workoutSessionInputDTO.setNumberOfReps(1000);
 
-		WorkoutSession newWorkoutSession = workoutSessionService.createWorkoutSession(workoutSessionDTO);
+		WorkoutSessionOutputDTO newWorkoutSession = workoutSessionService.createWorkoutSession(workoutSessionInputDTO);
 
-		WorkoutSession retrievedWorkoutSession = workoutSessionService.getWorkoutSessionById(newWorkoutSession.getId());
+		WorkoutSessionOutputDTO retrievedWorkoutSession = workoutSessionService.getWorkoutSessionById(newWorkoutSession.getId());
 
 		assertNotNull(retrievedWorkoutSession);
 		assertEquals(1000, retrievedWorkoutSession.getNumberOfReps());
@@ -81,11 +81,11 @@ public class WorkoutSessionTest {
 
 	@Test
 	public void testGetAllWorkoutSessions() {
-		workoutSessionService.createWorkoutSession(workoutSessionDTO);
-		workoutSessionService.createWorkoutSession(workoutSessionDTO);
-		workoutSessionService.createWorkoutSession(workoutSessionDTO);
+		workoutSessionService.createWorkoutSession(workoutSessionInputDTO);
+		workoutSessionService.createWorkoutSession(workoutSessionInputDTO);
+		workoutSessionService.createWorkoutSession(workoutSessionInputDTO);
 
-		List<WorkoutSession> workoutSessionList = workoutSessionService.getAllWorkoutSessions();
+		List<WorkoutSessionOutputDTO> workoutSessionList = workoutSessionService.getAllWorkoutSessions();
 
 		assertNotNull(workoutSessionList);
 		assertEquals(numberOfWorkoutSessionsInDatabaseBeforeTest + 3, workoutSessionList.size());
@@ -95,13 +95,13 @@ public class WorkoutSessionTest {
 
 	@Test
 	public void testUpdateWorkoutSession() {
-		WorkoutSession newWorkoutSession = workoutSessionService.createWorkoutSession(workoutSessionDTO);
+		WorkoutSessionOutputDTO newWorkoutSession = workoutSessionService.createWorkoutSession(workoutSessionInputDTO);
 
-		WorkoutSessionDTO updatedWorkoutSessionDTO = TestDTOUtils.getWorkoutSessionDTO(workoutID, exerciseID);
+		WorkoutSessionInputDTO updatedWorkoutSessionInputDTO = TestDTOUtils.getWorkoutSessionDTO(workoutID, exerciseID);
 
-		updatedWorkoutSessionDTO.setNumberOfReps(1500);
+		updatedWorkoutSessionInputDTO.setNumberOfReps(1500);
 
-		WorkoutSession updatedWorkoutSession = workoutSessionService.updateWorkoutSession(newWorkoutSession.getId(), updatedWorkoutSessionDTO);
+		WorkoutSessionOutputDTO updatedWorkoutSession = workoutSessionService.updateWorkoutSession(newWorkoutSession.getId(), updatedWorkoutSessionInputDTO);
 
 		assertNotNull(updatedWorkoutSession);
 		assertEquals(1500, updatedWorkoutSession.getNumberOfReps());
@@ -109,7 +109,7 @@ public class WorkoutSessionTest {
 
 	@Test
 	public void testDeleteWorkoutSession() {
-		WorkoutSession newWorkoutSession = workoutSessionService.createWorkoutSession(workoutSessionDTO);
+		WorkoutSessionOutputDTO newWorkoutSession = workoutSessionService.createWorkoutSession(workoutSessionInputDTO);
 		workoutSessionService.deleteWorkoutSession(newWorkoutSession.getId());
 		assertEquals(numberOfWorkoutSessionsInDatabaseBeforeTest, workoutSessionService.getAllWorkoutSessions().size());
 	}

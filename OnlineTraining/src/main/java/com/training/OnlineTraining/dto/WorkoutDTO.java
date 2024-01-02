@@ -35,7 +35,7 @@ public class WorkoutDTO {
 	private Boolean isFinished;
 
 	@Convert(converter = WorkoutStatusConverter.class)
-	private WorkoutStatus workoutStatus;
+	private WorkoutStatus workoutStatus = WorkoutStatus.WAITING;
 
 	private List<WorkoutSession> workoutSessions;
 

@@ -15,6 +15,7 @@ public class WorkoutStatusConverter implements AttributeConverter<WorkoutStatus,
 	@Override
 	public String convertToDatabaseColumn(WorkoutStatus attribute) {
 		LOGGER.info("Converting WorkoutStatus to database column: {}", attribute);
+
 		return attribute.getDisplayName();
 	}
 
