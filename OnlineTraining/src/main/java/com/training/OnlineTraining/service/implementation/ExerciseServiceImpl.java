@@ -1,6 +1,7 @@
 package com.training.OnlineTraining.service.implementation;
 
-import com.training.OnlineTraining.dto.ExerciseDTO;
+import com.training.OnlineTraining.dto.input.ExerciseInputDTO;
+import com.training.OnlineTraining.dto.output.ExerciseOutputDTO;
 import com.training.OnlineTraining.exceptions.ExerciseNotFoundException;
 import com.training.OnlineTraining.mapper.ExerciseMapper;
 import com.training.OnlineTraining.model.Exercise;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
@@ -27,22 +29,24 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public Exercise createExercise(ExerciseDTO exerciseDTO) {
+    public ExerciseOutputDTO createExercise(ExerciseInputDTO exerciseInputDTO) {
         logger.info("Creating new exercise.");
 
-        Exercise exercise = exerciseMapper.toExercise(exerciseDTO);
+        Exercise exercise = exerciseMapper.toExercise(exerciseInputDTO);
         Exercise savedExercise = exerciseRepository.save(exercise);
 
         logger.info("New exercise created.");
 
-        return savedExercise;
+        return exerciseMapper.toExerciseOutputDTO(savedExercise);
     }
 
     @Override
-    public Exercise getExerciseById(UUID id) {
+    public ExerciseOutputDTO getExerciseById(UUID id) {
         logger.info("Getting exercise by ID: {}", id);
 
-        return exerciseRepository.findById(id)
+        return exerciseRepository
+                .findById(id)
+                .map(exerciseMapper::toExerciseOutputDTO)
                 .orElseThrow(() -> {
                     logger.error("Exercise with ID {} not found.", id);
                     return new ExerciseNotFoundException("Exercise with ID " + id + " not found");
@@ -50,20 +54,24 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public List<Exercise> getAllExercises() {
+    public List<ExerciseOutputDTO> getAllExercises() {
         logger.info("Getting all exercises.");
 
-        return exerciseRepository.findAll();
+        return exerciseRepository
+                .findAll()
+                .stream()
+                .map(exerciseMapper::toExerciseOutputDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Exercise updateExercise(UUID id, ExerciseDTO exerciseDetails) {
+    public ExerciseOutputDTO updateExercise(UUID id, ExerciseInputDTO exerciseDetails) {
         logger.info("Updating exercise with ID: {}", id);
 
         return exerciseRepository.findById(id)
                 .map(exercise -> {
                     exercise.updateValues(exerciseDetails);
-                    return exerciseRepository.save(exercise);
+                    return exerciseMapper.toExerciseOutputDTO(exerciseRepository.save(exercise));
                 })
                 .orElseThrow(() -> {
                     logger.error("Exercise with ID {} not found.", id);

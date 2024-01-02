@@ -1,7 +1,7 @@
 package com.training.OnlineTraining.model;
 
 import com.training.OnlineTraining.converter.ExerciseEquipmentConverter;
-import com.training.OnlineTraining.dto.ExerciseDTO;
+import com.training.OnlineTraining.dto.input.ExerciseInputDTO;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.model.enums.ExerciseEquipment;
 import lombok.*;
@@ -33,7 +33,7 @@ public class Exercise {
     @Enumerated(EnumType.STRING)
     private ExerciseDifficultyLevel exerciseDifficultyLevel;
 
-    public void updateValues(ExerciseDTO exerciseDetails){
+    public void updateValues(ExerciseInputDTO exerciseDetails){
         this.setName(exerciseDetails.getName());
         this.setDescription(exerciseDetails.getDescription());
         this.setExerciseEquipment(exerciseDetails.getExerciseEquipment());

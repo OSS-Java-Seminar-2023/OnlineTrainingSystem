@@ -28,7 +28,7 @@
     <select id="equipment" th:field="${exercise.exerciseEquipment}" required>
         <option value="" disabled>Select exercise equipment</option>
         <option th:each="equipment : ${exerciseEquipmentList}"
-                th:value="${equipment}" th:text="${equipment}">
+                th:value="${equipment}" th:text="${equipment.displayName}">
         </option>
     </select>
 

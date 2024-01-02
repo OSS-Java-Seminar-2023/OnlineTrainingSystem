@@ -1,7 +1,8 @@
 package com.training.OnlineTraining;
 
 import com.training.OnlineTraining.controller.ExerciseController;
-import com.training.OnlineTraining.dto.ExerciseDTO;
+import com.training.OnlineTraining.dto.input.ExerciseInputDTO;
+import com.training.OnlineTraining.dto.output.ExerciseOutputDTO;
 import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.model.enums.ExerciseEquipment;
@@ -17,7 +18,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -38,7 +38,7 @@ public class ExerciseTest {
 	@Autowired
 	private ExerciseService exerciseService;
 
-	private ExerciseDTO exerciseDTO;
+	private ExerciseInputDTO exerciseInputDTO;
 
 	private int numberOfExercisesInDatabaseBeforeTest;
 
@@ -46,39 +46,39 @@ public class ExerciseTest {
 	public void setUp(){
 		numberOfExercisesInDatabaseBeforeTest = exerciseService.getAllExercises().size();
 
-		exerciseDTO = new ExerciseDTO("Exercise 1", "Description 1", ExerciseEquipment.Barbell, ExerciseDifficultyLevel.Beginner);
+		exerciseInputDTO = new ExerciseInputDTO("Exercise 1", "Description 1", ExerciseEquipment.Barbell, ExerciseDifficultyLevel.Beginner);
 	}
 
 	@Test
 	public void testCreateExercise() {
-		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
+		ExerciseOutputDTO newExercise = exerciseService.createExercise(exerciseInputDTO);
 
 		assertNotNull(newExercise);
 		assertEquals("Exercise 1", newExercise.getName());
 
-		List<Exercise> exercises = exerciseService.getAllExercises();
+		List<ExerciseOutputDTO> exercises = exerciseService.getAllExercises();
 		assertEquals(numberOfExercisesInDatabaseBeforeTest + 1, exercises.size());
 	}
 
 	@Test
 	public void testGetAllExercises() {
-		exerciseService.createExercise(exerciseDTO);
+		exerciseService.createExercise(exerciseInputDTO);
 
-		ExerciseDTO exerciseDTO2 = new ExerciseDTO("Exercise 2", "Description 2", ExerciseEquipment.Barbell, ExerciseDifficultyLevel.Beginner);
-		exerciseService.createExercise(exerciseDTO2);
+		ExerciseInputDTO exerciseInputDTO2 = new ExerciseInputDTO("Exercise 2", "Description 2", ExerciseEquipment.Barbell, ExerciseDifficultyLevel.Beginner);
+		exerciseService.createExercise(exerciseInputDTO2);
 
-		ExerciseDTO exerciseDTO3 = new ExerciseDTO("Exercise 3", "Description 3", ExerciseEquipment.Barbell, ExerciseDifficultyLevel.Beginner);
-		exerciseService.createExercise(exerciseDTO3);
+		ExerciseInputDTO exerciseInputDTO3 = new ExerciseInputDTO("Exercise 3", "Description 3", ExerciseEquipment.Barbell, ExerciseDifficultyLevel.Beginner);
+		exerciseService.createExercise(exerciseInputDTO3);
 
-		List<Exercise> exercises = exerciseService.getAllExercises();
+		List<ExerciseOutputDTO> exercises = exerciseService.getAllExercises();
 		assertEquals(numberOfExercisesInDatabaseBeforeTest + 3, exercises.size());
 	}
 
 	@Test
 	public void testGetExerciseById() {
-		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
+		ExerciseOutputDTO newExercise = exerciseService.createExercise(exerciseInputDTO);
 
-		Exercise gotExercise = exerciseService.getExerciseById(newExercise.getId());
+		ExerciseOutputDTO gotExercise = exerciseService.getExerciseById(newExercise.getId());
 
 		assertNotNull(gotExercise);
 		assertEquals("Exercise 1", gotExercise.getName());
@@ -86,11 +86,11 @@ public class ExerciseTest {
 
 	@Test
 	public void testUpdateExercise() {
-		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
+		ExerciseOutputDTO newExercise = exerciseService.createExercise(exerciseInputDTO);
 
-		ExerciseDTO updatedExerciseDTO = new ExerciseDTO("Exercise UPDATE", "Description UPDATE", ExerciseEquipment.Barbell, ExerciseDifficultyLevel.Beginner);
+		ExerciseInputDTO updatedExerciseInputDTO = new ExerciseInputDTO("Exercise UPDATE", "Description UPDATE", ExerciseEquipment.Barbell, ExerciseDifficultyLevel.Beginner);
 
-		Exercise updateExercise = exerciseService.updateExercise(newExercise.getId(), updatedExerciseDTO);
+		ExerciseOutputDTO updateExercise = exerciseService.updateExercise(newExercise.getId(), updatedExerciseInputDTO);
 
 		assertNotNull(updateExercise);
 		assertEquals("Exercise UPDATE", updateExercise.getName());
@@ -99,7 +99,7 @@ public class ExerciseTest {
 
 	@Test
 	public void testDeleteExercise() {
-		Exercise newExercise = exerciseService.createExercise(exerciseDTO);
+		ExerciseOutputDTO newExercise = exerciseService.createExercise(exerciseInputDTO);
 		exerciseService.deleteExercise(newExercise.getId());
 		assertEquals(numberOfExercisesInDatabaseBeforeTest, exerciseService.getAllExercises().size());
 	}
