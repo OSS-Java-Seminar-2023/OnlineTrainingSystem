@@ -33,6 +33,7 @@
         <th>Warming Up Time (in seconds)</th>
         <th>Number of Sets</th>
         <th>Pause Between Sets (in seconds)</th>
+        <th>Training duration</th>
         <th>Clients Self Rating</th>
         <th>Finished?</th>
         <th>Details</th>
@@ -48,6 +49,7 @@
         <td th:text="${workout.warmingUpTimeInSeconds + ' seconds'}"></td>
         <td th:text="${workout.numberOfSets}"></td>
         <td th:text="${workout.pauseBetweenSetsInSeconds + ' seconds'}"></td>
+        <td th:text="${workout.getDuration()}"></td>
         <td th:text="${workout.selfRating}"></td>
         <td th:text="${workout.isFinished}"></td>
         <td>

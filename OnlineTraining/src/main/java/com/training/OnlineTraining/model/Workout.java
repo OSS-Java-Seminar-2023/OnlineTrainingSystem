@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +26,7 @@ public class Workout {
     private Contract contract;
 
     @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
-    private List<WorkoutSession> workoutSessions;
+    private List<WorkoutSession> workoutSessions = new ArrayList<>();
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -33,19 +34,19 @@ public class Workout {
     private Date dateOfWorkout;
 
     @Column(name = "ordinal_number_of_workout")
-    private Integer ordinalNumberOfWorkout;
+    private Integer ordinalNumberOfWorkout = 0;
 
     @Column(name = "number_of_exercises")
-    private Integer numberOfExercises;
+    private Integer numberOfExercises = 0;
 
     @Column(name = "warming_up_time_in_seconds")
-    private Integer warmingUpTimeInSeconds;
+    private Integer warmingUpTimeInSeconds = 0;
 
     @Column(name = "number_of_sets")
-    private Integer numberOfSets;
+    private Integer numberOfSets = 0;
 
     @Column(name = "pause_between_sets_in_seconds")
-    private Integer pauseBetweenSetsInSeconds;
+    private Integer pauseBetweenSetsInSeconds = 0;
 
     @Column(name = "self_rating")
     private Integer selfRating;
@@ -53,15 +54,14 @@ public class Workout {
     @Column(name = "is_finished")
     private Boolean isFinished;
 
-
     public Duration getDuration() {
         Duration newDuration = new Duration();
 
         newDuration.add(warmingUpTimeInSeconds);
-        newDuration.add(numberOfSets * pauseBetweenSetsInSeconds);
+        newDuration.add((numberOfSets - 1) * pauseBetweenSetsInSeconds);
 
         for(WorkoutSession workoutSession : workoutSessions)
-            newDuration.add(workoutSession.getDuration());
+            newDuration.add(workoutSession.getDuration().getDurationInSeconds() * numberOfSets);
 
         return newDuration;
     }
