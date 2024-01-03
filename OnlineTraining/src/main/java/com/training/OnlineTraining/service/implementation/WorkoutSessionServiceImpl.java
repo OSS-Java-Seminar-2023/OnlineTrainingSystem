@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -127,20 +128,18 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteWorkoutSession(UUID id) {
 		logger.info("Deleting workout session with ID: {}", id);
 
-		System.err.println("Workout session id : " + id);
-
 		WorkoutSession workoutSession = workoutSessionMapper.toWorkoutSession(getWorkoutSessionById(id));
-
-		System.err.println("Workout session : " + workoutSession);
 
 		logger.info("Workout session {}", workoutSession);
 
 		workoutService.decrementNumberOfExercises(workoutSession.getWorkout().getId());
 
-		workoutSessionRepository.deleteById(id);
+		workoutSessionRepository.deleteByCustomQuery(id);
+
 	}
 
 	@Override
