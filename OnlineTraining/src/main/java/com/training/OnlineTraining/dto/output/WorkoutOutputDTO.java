@@ -1,7 +1,9 @@
 package com.training.OnlineTraining.dto.output;
 
 import com.training.OnlineTraining.converter.WorkoutStatusConverter;
+import com.training.OnlineTraining.model.Workout;
 import com.training.OnlineTraining.model.WorkoutSession;
+import com.training.OnlineTraining.model.additional.Duration;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import jakarta.persistence.Convert;
 import lombok.*;
@@ -38,5 +40,17 @@ public class WorkoutOutputDTO {
 
 	public WorkoutOutputDTO(UUID contractId) {
 		this.contractId = contractId;
+	}
+
+	public Duration getDuration() {
+		Duration newDuration = new Duration();
+
+		newDuration.add(warmingUpTimeInSeconds);
+		newDuration.add((numberOfSets - 1) * pauseBetweenSetsInSeconds);
+
+		for(WorkoutSession workoutSession : workoutSessions)
+			newDuration.add(workoutSession.getDuration().getDurationInSeconds() * numberOfSets);
+
+		return newDuration;
 	}
 }

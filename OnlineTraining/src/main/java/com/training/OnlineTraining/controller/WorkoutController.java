@@ -37,7 +37,7 @@ public class WorkoutController {
 	public String showCreateWorkoutForm(Model model) {
 		logger.info("Displaying create workout form.");
 
-		model.addAttribute("workoutDTO", new WorkoutInputDTO());
+		model.addAttribute("workoutInputDTO", new WorkoutInputDTO());
 
 		return "workout/createWorkout";
 	}
