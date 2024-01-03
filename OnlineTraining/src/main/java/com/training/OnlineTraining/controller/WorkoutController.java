@@ -1,8 +1,8 @@
 package com.training.OnlineTraining.controller;
 
-import com.training.OnlineTraining.dto.WorkoutDTO;
+import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
+import com.training.OnlineTraining.dto.output.WorkoutOutputDTO;
 import com.training.OnlineTraining.model.Workout;
-import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutService;
@@ -37,18 +37,18 @@ public class WorkoutController {
 	public String showCreateWorkoutForm(Model model) {
 		logger.info("Displaying create workout form.");
 
-		model.addAttribute("workoutDTO", new WorkoutDTO());
+		model.addAttribute("workoutDTO", new WorkoutInputDTO());
 
 		return "workout/createWorkout";
 	}
 
 	@PostMapping("/create")
-	public String createWorkout(@ModelAttribute("workoutDTO") WorkoutDTO workoutDTO, HttpSession session) {
+	public String createWorkout(@ModelAttribute("workoutDTO") WorkoutInputDTO workoutInputDTO, HttpSession session) {
 		logger.info("Creating a new workout.");
 
 		UUID contractID = (UUID) session.getAttribute("contractID");
 
-		workoutService.createWorkout(workoutDTO, contractID);
+		workoutService.createWorkout(workoutInputDTO, contractID);
 
 		return "redirect:/workout";
 	}
@@ -64,7 +64,7 @@ public class WorkoutController {
 			session.setAttribute("contractID", contractID);
 		}
 
-		List<Workout> workouts = workoutService.getWorkoutsByContractID(contractID);
+		List<WorkoutOutputDTO> workouts = workoutService.getWorkoutsByContractID(contractID);
 		model.addAttribute("workoutsList", workouts);
 
 		UUID clientId = (UUID) session.getAttribute("clientId");
@@ -79,7 +79,7 @@ public class WorkoutController {
 	public String showWorkoutDetails(@PathVariable UUID id, Model model, HttpSession session) {
 		logger.info("Displaying workout details for ID: {}", id);
 
-		Workout workout = workoutService.getWorkoutById(id);
+		WorkoutOutputDTO workout = workoutService.getWorkoutById(id);
 
 		model.addAttribute("workout", workout);
 		model.addAttribute("listExercises", exerciseService.getAllExercises());
@@ -100,7 +100,7 @@ public class WorkoutController {
 		List<WorkoutStatus> workoutStatuses = Arrays.asList(WorkoutStatus.values());
 		model.addAttribute("workoutStatuses", workoutStatuses);
 
-		Workout workout = workoutService.getWorkoutById(id);
+		WorkoutOutputDTO workout = workoutService.getWorkoutById(id);
 		model.addAttribute("workout", workout);
 
 		UUID clientId = (UUID) session.getAttribute("clientId");
@@ -114,12 +114,12 @@ public class WorkoutController {
 	}
 
 	@PostMapping("/update/{id}")
-	public String updateWorkout(@PathVariable UUID id, @ModelAttribute("workout") WorkoutDTO workoutDTO, HttpSession session) {
+	public String updateWorkout(@PathVariable UUID id, @ModelAttribute("workout") WorkoutInputDTO workoutInputDTO, HttpSession session) {
 		logger.info("Updating workout for ID: {}", id);
 
 		UUID contractID = (UUID) session.getAttribute("contractID");
 
-		workoutService.updateWorkout(id, workoutDTO, contractID);
+		workoutService.updateWorkout(id, workoutInputDTO, contractID);
 
 
 		return "redirect:/workout";

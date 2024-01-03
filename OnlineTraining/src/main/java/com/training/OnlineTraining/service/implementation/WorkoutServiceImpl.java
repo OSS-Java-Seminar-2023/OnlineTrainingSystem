@@ -1,8 +1,10 @@
 package com.training.OnlineTraining.service.implementation;
 
-import com.training.OnlineTraining.dto.WorkoutDTO;
+import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
+import com.training.OnlineTraining.dto.output.WorkoutOutputDTO;
 import com.training.OnlineTraining.exceptions.WorkoutNotFoundException;
+import com.training.OnlineTraining.exceptions.WorkoutSessionNotFoundException;
 import com.training.OnlineTraining.mapper.WorkoutMapper;
 import com.training.OnlineTraining.mapper.WorkoutSessionMapper;
 import com.training.OnlineTraining.model.Workout;
@@ -14,7 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class WorkoutServiceImpl implements WorkoutService {
@@ -37,7 +41,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 	}
 
 	@Override
-	public void createWorkout(WorkoutDTO workoutDTO, UUID contractID) {
+	public void createWorkout(WorkoutInputDTO workoutInputDTO, UUID contractID) {
 		logger.info("Creating new workout.");
 
 		int ordinalNumberOfLastWorkout = 0;
@@ -47,13 +51,13 @@ public class WorkoutServiceImpl implements WorkoutService {
 		if(lastWorkout != null) ordinalNumberOfLastWorkout = lastWorkout.getOrdinalNumberOfWorkout();
 
 
-		workoutDTO.setDateOfWorkout(null);
-		workoutDTO.setContractId(contractID);
-		workoutDTO.setOrdinalNumberOfWorkout(++ordinalNumberOfLastWorkout);
+		workoutInputDTO.setDateOfWorkout(null);
+		workoutInputDTO.setContractId(contractID);
+		workoutInputDTO.setOrdinalNumberOfWorkout(++ordinalNumberOfLastWorkout);
 
-		Workout savedWorkout = workoutRepository.save(workoutMapper.toWorkout(workoutDTO));
+		Workout savedWorkout = workoutRepository.save(workoutMapper.toWorkout(workoutInputDTO));
 
-		for(int i = 0; i < workoutDTO.getNumberOfExercises(); ++i){
+		for(int i = 0; i < workoutInputDTO.getNumberOfExercises(); ++i){
 			WorkoutSessionInputDTO workoutSessionInputDTO = WorkoutSessionInputDTO.createEmptyWorkoutSessionDTO();
 			workoutSessionInputDTO.setWorkoutId(savedWorkout.getId());
 
@@ -64,22 +68,25 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	}
 	@Override
-	public Workout createWorkout(WorkoutDTO workoutDTO) {
-		logger.info("Creating new workout. {}", workoutDTO);
+	public WorkoutOutputDTO createWorkout(WorkoutInputDTO workoutInputDTO) {
+		logger.info("Creating new workout. {}", workoutInputDTO);
 
-		Workout workout = workoutMapper.toWorkout(workoutDTO);
+		Workout workout = workoutMapper.toWorkout(workoutInputDTO);
 		Workout savedWorkout = workoutRepository.save(workout);
 
 		logger.info("New workout created.");
 
-		return savedWorkout;
+		return workoutMapper.toWorkoutOutputDTO(savedWorkout);
 	}
 
 	@Override
-	public Workout getWorkoutById(UUID id) {
+	public WorkoutOutputDTO getWorkoutById(UUID id) {
 		logger.info("Getting workout by ID: {}", id);
 
-		return workoutRepository.findById(id)
+
+		return workoutRepository
+				.findById(id)
+				.map(workoutMapper::toWorkoutOutputDTO)
 				.orElseThrow(() -> {
 					logger.error("Workout with ID {} not found.", id);
 					return new WorkoutNotFoundException(id);
@@ -87,14 +94,18 @@ public class WorkoutServiceImpl implements WorkoutService {
 	}
 
 	@Override
-	public List<Workout> getAllWorkouts() {
+	public List<WorkoutOutputDTO> getAllWorkouts() {
 		logger.info("Getting all workouts.");
 
-		return workoutRepository.findAll();
+		return workoutRepository
+				.findAll()
+				.stream()
+				.map(workoutMapper::toWorkoutOutputDTO)
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public Workout updateWorkout(UUID id, WorkoutDTO workoutDetails) {
+	public WorkoutOutputDTO updateWorkout(UUID id, WorkoutInputDTO workoutDetails) {
 		logger.info("Updating workout with ID: {}", id);
 
 		Workout existingWorkout = workoutRepository.findById(id)
@@ -105,30 +116,31 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 		Workout updatedWorkout = workoutMapper.toWorkout(workoutDetails);
 		updatedWorkout.setId(existingWorkout.getId()); // Ensure the ID is preserved
-		return workoutRepository.save(updatedWorkout);
+
+		return workoutMapper.toWorkoutOutputDTO(workoutRepository.save(updatedWorkout));
 	}
 
 	@Override
-	public Workout updateWorkout(Workout workout) {
-		return workoutRepository.save(workout);
+	public WorkoutOutputDTO updateWorkout(Workout workout) {
+		return workoutMapper.toWorkoutOutputDTO(workoutRepository.save(workout));
 	}
 
 	@Override
 	public void incrementNumberOfExercises(UUID workoutID) {
-		Workout tempWorkout = getWorkoutById(workoutID);
+		WorkoutOutputDTO tempWorkout = getWorkoutById(workoutID);
 		tempWorkout.setNumberOfExercises(tempWorkout.getNumberOfExercises() + 1);
-		workoutRepository.save(tempWorkout);
+		workoutRepository.save(workoutMapper.toWorkout(tempWorkout));
 	}
 
 	@Override
 	public void decrementNumberOfExercises(UUID workoutID) {
-		Workout tempWorkout = getWorkoutById(workoutID);
+		WorkoutOutputDTO tempWorkout = getWorkoutById(workoutID);
 		tempWorkout.setNumberOfExercises(tempWorkout.getNumberOfExercises() - 1);
-		workoutRepository.save(tempWorkout);
+		workoutRepository.save(workoutMapper.toWorkout(tempWorkout));
 	}
 
 	@Override
-	public void updateWorkout(UUID id, WorkoutDTO workoutDetails, UUID contractID) {
+	public void updateWorkout(UUID id, WorkoutInputDTO workoutDetails, UUID contractID) {
 		logger.info("Updating workout with ID: {}", id);
 
 		workoutDetails.setContractId(contractID);
@@ -159,9 +171,13 @@ public class WorkoutServiceImpl implements WorkoutService {
 	}
 
 	@Override
-	public List<Workout> getWorkoutsByContractID(UUID contractID) {
+	public List<WorkoutOutputDTO> getWorkoutsByContractID(UUID contractID) {
 		logger.info("Getting workouts by Contract ID: {}", contractID);
 
-		return workoutRepository.findByContractId(contractID);
+		return workoutRepository
+				.findByContractId(contractID)
+				.stream()
+				.map(workoutMapper::toWorkoutOutputDTO)
+				.collect(Collectors.toList());
 	}
 }

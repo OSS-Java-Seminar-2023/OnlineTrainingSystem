@@ -1,24 +1,25 @@
 package com.training.OnlineTraining.service;
 
-import com.training.OnlineTraining.dto.WorkoutDTO;
+import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
+import com.training.OnlineTraining.dto.output.WorkoutOutputDTO;
 import com.training.OnlineTraining.model.Workout;
-import com.training.OnlineTraining.model.additional.Duration;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface WorkoutService {
-	void createWorkout(WorkoutDTO workoutDTO, UUID contractID);
-	Workout createWorkout(WorkoutDTO workoutDTO);
-	Workout getWorkoutById(UUID id);
-	List<Workout> getAllWorkouts();
-	Workout updateWorkout(UUID id, WorkoutDTO workoutDetails);
-	Workout updateWorkout(Workout workout);
+	void createWorkout(WorkoutInputDTO workoutInputDTO, UUID contractID);
+	WorkoutOutputDTO createWorkout(WorkoutInputDTO workoutInputDTO);
+	WorkoutOutputDTO getWorkoutById(UUID id);
+	List<WorkoutOutputDTO> getAllWorkouts();
+	WorkoutOutputDTO updateWorkout(UUID id, WorkoutInputDTO workoutDetails);
+	WorkoutOutputDTO updateWorkout(Workout workout);
 
 	void incrementNumberOfExercises(UUID workoutID);
 	void decrementNumberOfExercises(UUID workoutID);
-	void updateWorkout(UUID id, WorkoutDTO workoutDetails, UUID contractID);
+	void updateWorkout(UUID id, WorkoutInputDTO workoutDetails, UUID contractID);
 	void deleteWorkout(UUID id);
 	void deleteAll();
-	List<Workout> getWorkoutsByContractID(UUID contractID);
+	List<WorkoutOutputDTO> getWorkoutsByContractID(UUID contractID);
 }

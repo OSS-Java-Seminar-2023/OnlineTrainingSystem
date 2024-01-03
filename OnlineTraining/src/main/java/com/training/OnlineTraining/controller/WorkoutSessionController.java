@@ -1,7 +1,7 @@
 package com.training.OnlineTraining.controller;
 
 
-import com.training.OnlineTraining.dto.WorkoutDTO;
+import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
 import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutSessionService;
@@ -52,11 +52,11 @@ public class WorkoutSessionController {
 	@PostMapping("/update/{workoutID}")
 	public String updateWorkoutAndSessions(
 			@PathVariable UUID workoutID,
-			@ModelAttribute("workout") WorkoutDTO workoutDTO) {
+			@ModelAttribute("workout") WorkoutInputDTO workoutInputDTO) {
 
 		logger.info("Updating workout and sessions for workout ID: {}", workoutID);
 
-		workoutSessionService.updateWorkoutSessions(workoutDTO.getWorkoutSessions());
+		workoutSessionService.updateWorkoutSessions(workoutInputDTO.getWorkoutSessions());
 
 		logger.info("Workout and sessions updated successfully.");
 
