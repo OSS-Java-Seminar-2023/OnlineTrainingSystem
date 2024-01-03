@@ -13,6 +13,8 @@ import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.UserService;
 import com.training.OnlineTraining.specification.CoachSpecifications;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +36,8 @@ public class CoachServiceImpl implements CoachService {
     private final CoachMapper coachMapper;
     private final CoachUserMapper coachUserMapper;
     private final UserRepository userRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(ExerciseServiceImpl.class);
 
 
     @Override
@@ -67,19 +71,33 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public Page<CoachDto> filterCoaches(CoachFilterParams filterParams, Pageable pageable) {
-        Specification<Coach> spec = Specification
+    public List<CoachDto> filterCoaches(CoachFilterParams filterParams) {
+        logger.info("Filter Params: {}", filterParams);
+        Specification<Coach> spec = buildSpecification(filterParams);
+
+        List<Coach> filteredCoaches = coachRepository.findAll(spec);
+
+        return filteredCoaches.stream()
+                .map(coachMapper::coachToCoachDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<CoachDto> coachesWithPagination(CoachFilterParams filterParams, Pageable pageable) {
+
+        return coachRepository.findAll(pageable)
+                .map(coachMapper::coachToCoachDto);
+    }
+
+    @Override
+    public Specification<Coach> buildSpecification(CoachFilterParams filterParams) {
+        return Specification
                 .where(CoachSpecifications.filterByGender(filterParams.getGender()))
                 .and(CoachSpecifications.filterByExperience(filterParams.getExperience()))
                 .and(CoachSpecifications.filterByAge(filterParams.getAge()))
                 .and(CoachSpecifications.filterByEducation(filterParams.getEducation()))
                 .and(CoachSpecifications.filterByMonthlyPrice(filterParams.getMonthlyPrice()));
-
-        return coachRepository.findAll(spec, pageable)
-                .map(coachMapper::coachToCoachDto);
     }
-
-
 
     @Override
     public Double getMonthlyPriceById(UUID coachId) {

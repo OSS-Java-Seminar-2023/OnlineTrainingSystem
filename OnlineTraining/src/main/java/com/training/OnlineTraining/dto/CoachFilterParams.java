@@ -10,4 +10,11 @@ public class CoachFilterParams {
     private String education;
     private Double monthlyPrice;
 
+    public boolean isNotEmpty() {
+        return this.gender != null ||
+                this.experience != null ||
+                this.age != null ||
+                this.education != null ||
+                this.monthlyPrice != null;
+    }
 }

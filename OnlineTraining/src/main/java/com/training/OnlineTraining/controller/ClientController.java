@@ -37,25 +37,31 @@ public class ClientController {
                                 @ModelAttribute CoachFilterParams filterParams,
                                 HttpSession session,
                                 @RequestParam(defaultValue = "1") int page,
-                                @RequestParam(defaultValue = "10") int size) {
+                                //ne zaboraviti prominiti u visu defaultnu vrijednost kad se seeda vise coacheva!
+                                @RequestParam(defaultValue = "2") int size) {
         UUID clientId = (UUID) session.getAttribute("clientId");
-        if (clientId == null){
+        if (clientId == null) {
             return "auth/login_page";
         }
         String clientName = (String) session.getAttribute("clientName");
 
-        Pageable pageable = PageRequest.of(page - 1, size); // Adjust page to 0-based index
+        List<CoachDto> filteredCoaches;
+        if (filterParams.isNotEmpty()) {
+            filteredCoaches = coachService.filterCoaches(filterParams);
+        } else {
+            Pageable pageable = PageRequest.of(page - 1, size);
+            Page<CoachDto> coachesPage = coachService.coachesWithPagination(filterParams, pageable);
+            filteredCoaches = coachesPage.getContent();
+            model.addAttribute("currentPage", coachesPage.getNumber() + 1);
+            model.addAttribute("totalPages", coachesPage.getTotalPages());
 
-        Page<CoachDto> coachesPage = coachService.filterCoaches(filterParams, pageable);
-
-        model.addAttribute("coaches", coachesPage.getContent());
+        }
+        model.addAttribute("coaches", filteredCoaches);
         model.addAttribute("clientId", clientId);
         model.addAttribute("clientName", clientName);
-        model.addAttribute("currentPage", coachesPage.getNumber() + 1); // Adjust to 1-based index
-        model.addAttribute("totalPages", coachesPage.getTotalPages());
+
         return "client/client_page";
     }
-
 
     @GetMapping("/register")
     public String getBecomeClientPage(@RequestParam UUID userId, Model model) {
