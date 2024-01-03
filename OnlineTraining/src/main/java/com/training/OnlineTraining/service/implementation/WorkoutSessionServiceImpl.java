@@ -132,21 +132,14 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 	public void deleteWorkoutSession(UUID id) {
 		logger.info("Deleting workout session with ID: {}", id);
 
-		System.err.println("Workout session id : " + id);
-
 		WorkoutSession workoutSession = workoutSessionMapper.toWorkoutSession(getWorkoutSessionById(id));
-
-		System.err.println("Workout session : " + workoutSession);
 
 		logger.info("Workout session {}", workoutSession);
 
 		workoutService.decrementNumberOfExercises(workoutSession.getWorkout().getId());
 
-		System.err.println("DELETING STARTED");
-
 		workoutSessionRepository.deleteByCustomQuery(id);
 
-		System.err.println("DELETING ENDED");
 	}
 
 	@Override

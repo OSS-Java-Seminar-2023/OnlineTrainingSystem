@@ -111,20 +111,9 @@ public class WorkoutSessionTest {
 	public void testDeleteWorkoutSession() {
 		WorkoutSessionOutputDTO newWorkoutSession = workoutSessionService.createWorkoutSession(workoutSessionInputDTO);
 
-		printList(workoutSessionService.getAllWorkoutSessions());
-
 		workoutSessionService.deleteWorkoutSession(newWorkoutSession.getId());
-
-		printList(workoutSessionService.getAllWorkoutSessions());
 
 		assertEquals(numberOfWorkoutSessionsInDatabaseBeforeTest, workoutSessionService.getAllWorkoutSessions().size());
 	}
 
-	private void printList(List<WorkoutSessionOutputDTO> workoutSessionOutputDTOS){
-		System.out.println();
-
-		workoutSessionOutputDTOS.forEach(System.err::println);
-
-		System.out.println();
-	}
 }
