@@ -48,12 +48,10 @@ public class WorkoutSession {
     @Override
     public String toString() {
         return "WorkoutSession{" +
-                "exercise=" + exercise.getName() +
+                "id=" + id +
                 ", numberOfReps=" + numberOfReps +
                 ", pauseAfterExerciseInSeconds=" + pauseAfterExerciseInSeconds +
                 ", weight=" + weight +
                 '}';
     }
-
-
 }
