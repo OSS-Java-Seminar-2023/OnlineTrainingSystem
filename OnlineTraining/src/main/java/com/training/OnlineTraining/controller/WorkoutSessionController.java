@@ -46,7 +46,10 @@ public class WorkoutSessionController {
 
 		workoutSessionService.createWorkoutSession(workoutSessionInputDTO);
 
-		return "redirect:/workout";
+
+		//return "redirect:/workout";
+
+		return "redirect:/workout/details/" + workoutSessionInputDTO.getWorkoutId();
 	}
 
 	@PostMapping("/update/{workoutID}")
