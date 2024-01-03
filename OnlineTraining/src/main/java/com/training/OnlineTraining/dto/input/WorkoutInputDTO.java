@@ -1,12 +1,9 @@
-package com.training.OnlineTraining.dto;
+package com.training.OnlineTraining.dto.input;
 
-import com.training.OnlineTraining.converter.ExerciseEquipmentConverter;
 import com.training.OnlineTraining.converter.WorkoutStatusConverter;
 import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import jakarta.persistence.Convert;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,8 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class WorkoutDTO {
-	private UUID id;
+public class WorkoutInputDTO {
 	private UUID contractId;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -39,7 +35,7 @@ public class WorkoutDTO {
 
 	private List<WorkoutSession> workoutSessions;
 
-	public WorkoutDTO(UUID contractId) {
+	public WorkoutInputDTO(UUID contractId) {
 		this.contractId = contractId;
 	}
 }

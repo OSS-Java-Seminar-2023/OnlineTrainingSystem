@@ -29,7 +29,7 @@ public class Workout {
     @JoinColumn(name = "contract_id", referencedColumnName = "id")
     private Contract contract;
 
-    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<WorkoutSession> workoutSessions = new ArrayList<>();
 
     @Temporal(TemporalType.DATE)

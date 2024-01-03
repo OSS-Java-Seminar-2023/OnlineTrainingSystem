@@ -1,6 +1,6 @@
 package com.training.OnlineTraining.utils;
 
-import com.training.OnlineTraining.dto.WorkoutDTO;
+import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 
@@ -10,21 +10,21 @@ import java.util.UUID;
 
 public class TestDTOUtils {
 
-	public static WorkoutDTO getWorkoutDTO(UUID contractID){
-		WorkoutDTO workoutDTO = new WorkoutDTO();
+	public static WorkoutInputDTO getWorkoutDTO(UUID contractID){
+		WorkoutInputDTO workoutInputDTO = new WorkoutInputDTO();
 
-		workoutDTO.setDateOfWorkout(DateUtils.getTodayDate());
-		workoutDTO.setContractId(contractID);
+		workoutInputDTO.setDateOfWorkout(DateUtils.getTodayDate());
+		workoutInputDTO.setContractId(contractID);
 
-		workoutDTO.setOrdinalNumberOfWorkout(getRandomNumber());
-		workoutDTO.setNumberOfExercises(getRandomNumber());
-		workoutDTO.setWarmingUpTimeInSeconds(getRandomNumber());
-		workoutDTO.setNumberOfSets(getRandomNumber());
-		workoutDTO.setPauseBetweenSetsInSeconds(getRandomNumber());
-		workoutDTO.setSelfRating(getRandomNumber());
-		workoutDTO.setWorkoutStatus(WorkoutStatus.WAITING);
+		workoutInputDTO.setOrdinalNumberOfWorkout(getRandomNumber());
+		workoutInputDTO.setNumberOfExercises(getRandomNumber());
+		workoutInputDTO.setWarmingUpTimeInSeconds(getRandomNumber());
+		workoutInputDTO.setNumberOfSets(getRandomNumber());
+		workoutInputDTO.setPauseBetweenSetsInSeconds(getRandomNumber());
+		workoutInputDTO.setSelfRating(getRandomNumber());
+		workoutInputDTO.setWorkoutStatus(WorkoutStatus.WAITING);
 
-		return workoutDTO;
+		return workoutInputDTO;
 	}
 
 	public static WorkoutSessionInputDTO getWorkoutSessionDTO(UUID workoutId, UUID exerciseId){
