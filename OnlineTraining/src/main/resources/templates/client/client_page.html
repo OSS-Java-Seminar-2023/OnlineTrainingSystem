@@ -112,9 +112,14 @@
         <li th:unless="${currentPage == 1}" class="pagination-item">
             <a th:href="@{/clients/client-page(page=${currentPage - 1})}" class="pagination-link">Previous</a>
         </li>
-        <li th:each="pageNum : ${#numbers.sequence(1, totalPages)}" class="pagination-item">
-            <a th:href="@{/clients/client-page(page=${pageNum})}" th:text="${pageNum}" class="pagination-link" style="color:gray;" th:class="${pageNum == currentPage} ? 'active'"></a>
+
+        <!-- Dynamic sequence based on current page -->
+        <li th:each="pageNum : ${#numbers.sequence((currentPage - 1) > 0 ? (currentPage - 1) : 1,
+                                                  (currentPage + 1) < totalPages ? (currentPage + 1) : totalPages)}"
+            class="pagination-item">
+            <a th:href="@{/clients/client-page(page=${pageNum})}" th:text="${pageNum}" class="pagination-link" th:class="${pageNum == currentPage} ? 'active'"></a>
         </li>
+
         <li th:unless="${currentPage == totalPages}" class="pagination-item">
             <a th:href="@{/clients/client-page(page=${currentPage + 1})}" class="pagination-link">Next</a>
         </li>
@@ -123,6 +128,7 @@
         </li>
     </ol>
 </div>
+
 <script th:src="@{/js/filterCoaches.js}"></script>
 </body>
 </html>
