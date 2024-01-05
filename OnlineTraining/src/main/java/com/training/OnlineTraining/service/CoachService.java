@@ -2,6 +2,7 @@ package com.training.OnlineTraining.service;
 
 import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.dto.CoachFilterParams;
+import com.training.OnlineTraining.dto.UpdateCoachDTO;
 import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.User;
 import org.springframework.data.domain.Page;
@@ -23,5 +24,7 @@ public interface CoachService {
    Specification<Coach> buildSpecification(CoachFilterParams filterParams);
    Double getMonthlyPriceById(UUID coachId);
    Coach findByUserId(UUID userId);
-
+   void updateCoach(UUID coachId, UpdateCoachDTO updateCoachDTO);
+   Coach getCoachById(UUID coachId);
+   boolean areInputsInvalid(UpdateCoachDTO request);
 }

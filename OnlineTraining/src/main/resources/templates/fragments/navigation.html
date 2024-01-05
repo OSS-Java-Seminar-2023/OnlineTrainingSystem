@@ -8,6 +8,9 @@
     <li th:if="${clientId != null}" th:class="${currentUrl == '/clients/client-page' ? 'active' : ''}">
         <a th:href="@{/clients/client-page}">Client Page</a>
     </li>
+    <li  th:class="${currentUrl == '/coaches/coach-page' ? 'active' : ''}">
+        <a th:href="@{/coaches/coach-page}">Coach Page</a>
+    </li>
     <li style="float:right" th:class="${currentUrl == '/login' ? 'active' : ''}">
         <a href="/login">Login</a>
     </li>

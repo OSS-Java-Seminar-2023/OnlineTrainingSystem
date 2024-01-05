@@ -13,7 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-<div th:insert="~{fragments/navigation :: navigation('/clients/coach-page')}"></div>
+<div th:insert="~{fragments/navigation :: navigation('/coaches/coach-page')}"></div>
 <br>
 <br>
 <br>
@@ -25,9 +25,12 @@
 <br>
 <br>
 
-<form th:action="@{/exercise}" method="get">
-    <button type="submit" class="become-link">Go to Exercise Page</button>
-</form>
+<div>
+    <a th:href="@{/exercise}" class="become-link" style="width: 150px;">Go to Exercise Page</a>
+</div>
+<br>
+<div> <a th:href="@{'/coaches/settings'}" class="become-link" style="width: 150px;">Settings</a>
+</div>
 
 <h1 class="margin">Contracts</h1>
 <table th:if="${coachesListContracts != null and not #lists.isEmpty(coachesListContracts)}">

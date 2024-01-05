@@ -2,6 +2,8 @@ package com.training.OnlineTraining.service.implementation;
 
 import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.dto.CoachFilterParams;
+import com.training.OnlineTraining.dto.UpdateClientDTO;
+import com.training.OnlineTraining.dto.UpdateCoachDTO;
 import com.training.OnlineTraining.exceptions.UserNotFoundException;
 import com.training.OnlineTraining.mapper.CoachMapper;
 import com.training.OnlineTraining.mapper.CoachUserMapper;
@@ -12,6 +14,9 @@ import com.training.OnlineTraining.repository.UserRepository;
 import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.UserService;
 import com.training.OnlineTraining.specification.CoachSpecifications;
+import com.training.OnlineTraining.util.ValidationUtils;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,4 +113,38 @@ public class CoachServiceImpl implements CoachService {
     public Coach findByUserId(UUID userId) {
         return coachRepository.findByUserId(userId);
     }
+
+    @Override
+    public Coach getCoachById(UUID coachId){
+        return coachRepository.findById(coachId).orElse(null);
+    }
+
+    @Override
+    public boolean areInputsInvalid(UpdateCoachDTO request) {
+        return  ValidationUtils.isStringNullOrEmpty(request.getFirstName()) ||
+                ValidationUtils.isStringNullOrEmpty(request.getLastName()) ||
+                ValidationUtils.isStringNullOrEmpty(request.getStreet()) ||
+                ValidationUtils.isStringNullOrEmpty(request.getCity()) ||
+                ValidationUtils.isStringNullOrEmpty(request.getCountry()) ||
+                ValidationUtils.isStringNullOrEmpty(request.getPhoneNumber()) ||
+                ValidationUtils.isStringNullOrEmpty(request.getGender()) ||
+                ValidationUtils.isAgeInvalid(request.getAge());
+    }
+
+    @Transactional
+    @Override
+    public void updateCoach(UUID coachId, UpdateCoachDTO updateCoachDTO) {
+
+        if (areInputsInvalid(updateCoachDTO)) {
+            throw new RuntimeException("Invalid coach input");
+        }
+        Coach coach = coachRepository.findById(coachId)
+                .orElseThrow(() -> new EntityNotFoundException("Coach not found with ID: " + coachId));
+
+        CoachMapper.INSTANCE.updateCoachFromDTO(updateCoachDTO, coach);
+
+        coachRepository.save(coach);
+    }
+
+
 }
