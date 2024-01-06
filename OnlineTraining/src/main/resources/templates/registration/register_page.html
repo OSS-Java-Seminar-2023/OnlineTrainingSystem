@@ -7,6 +7,8 @@
     <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
     <link rel="stylesheet" th:href="@{/css/login.css}">
     <link rel="stylesheet" th:href="@{/css/navigation.css}">
+    <link rel="stylesheet" th:href="@{/css/passwordValidation.css}">
+
 </head>
 <body>
 <div th:insert="~{fragments/navigation :: navigation('/register')}"></div>
@@ -51,10 +53,29 @@
         <input type="number" id="age" name="age" th:value="${registerRequest.age}" required min="1" placeholder="Enter your age">
 
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required placeholder="Enter your password">
+        <div class="password-container">
+            <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                   required placeholder="Enter your password">
+            <div class="eye-icon" id="showPassword" onclick="togglePasswordVisibility()"></div>
+        </div>
+
+
+        <div id="message">
+            <h3>Password must contain the following:</h3>
+            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+            <p id="capital" class="invalid">A <b>uppercase</b> letter</p>
+            <p id="number" class="invalid">A <b>number</b></p>
+            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+        </div>
 
         <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+        <div class="password-container">
+        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password"
+               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+               title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+            <div class="eye-icon" id="showConfirmPassword" onclick="toggleConfirmPasswordVisibility()"></div>
+        </div>
 
         <div th:if="${error}" class="error" style="color: red;">
             <p th:text="${error}"></p>
@@ -62,8 +83,13 @@
         <div>
             <input class="button" type="submit" value="Register">
         </div>
+
     </form>
 </div>
+
+
 </main>
+<script th:src="@{/js/passwordValidation.js}"></script>
+
 </body>
 </html>
