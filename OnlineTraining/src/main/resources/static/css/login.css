@@ -130,3 +130,18 @@ select {
   display: block;
   margin: 0 auto;
 }
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+
+.register{
+  color: #04AA6D;
+  text-decoration: none;
+}
+
+.register:hover {
+  color: #111;
+}

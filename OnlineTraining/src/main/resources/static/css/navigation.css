@@ -15,7 +15,6 @@ ul {
   width: 100%;
   z-index: 1000;
 }
-
 li {
   float: left;
 }
@@ -29,6 +28,17 @@ li a {
   font-family: 'Varela Round', sans-serif;
 }
 
+li img {
+  width: 17px;
+  height: 17px;
+  vertical-align: middle;
+  margin-top: -3px;
+}
+
+li {
+  line-height: 20px;
+}
+
 li a:hover:not(.active) {
   background-color: #111;
   text-decoration: none;
@@ -39,11 +49,11 @@ li a:hover:not(.active) {
   background-color: #04AA6D;
 }
 
-.active:hover{
+.active:hover {
   text-decoration: none;
-  color:white;
+  color: white;
 }
 
-.margin{
-    margin-left:10px;
+.margin {
+  margin-left: 10px;
 }

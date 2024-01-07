@@ -29,9 +29,6 @@
     <a th:href="@{/exercise}" class="become-link" style="width: 150px;">Go to Exercise Page</a>
 </div>
 <br>
-<div> <a th:href="@{'/coaches/settings'}" class="become-link" style="width: 150px;">Settings</a>
-</div>
-
 <h1 class="margin">Contracts</h1>
 <table th:if="${coachesListContracts != null and not #lists.isEmpty(coachesListContracts)}">
     <thead>

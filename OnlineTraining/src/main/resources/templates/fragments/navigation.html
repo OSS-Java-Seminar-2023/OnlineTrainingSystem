@@ -2,17 +2,21 @@
     <li th:class="${currentUrl == '/' ? 'active' : ''}">
         <a href="/">Home</a>
     </li>
-    <li th:class="${currentUrl == '/register' ? 'active' : ''}">
-        <a href="/register">Register</a>
-    </li>
     <li th:if="${clientId != null}" th:class="${currentUrl == '/clients/client-page' ? 'active' : ''}">
         <a th:href="@{/clients/client-page}">Client Page</a>
     </li>
     <li  th:class="${currentUrl == '/coaches/coach-page' ? 'active' : ''}">
         <a th:href="@{/coaches/coach-page}">Coach Page</a>
     </li>
+    <li style="float:right">
+        <a href=/clients/settings><img src="/images/settings.png" alt="Settings"></a>
+    </li>
+    <li style="float:right">
+        <a href=/coaches/settings><img src="/images/settings.png" alt="Settings"></a>
+    </li>
     <li style="float:right" th:class="${currentUrl == '/login' ? 'active' : ''}">
         <a href="/login">Login</a>
     </li>
     <li style="float:right"><a href="/logout" >Logout</a></li>
+
 </ul>

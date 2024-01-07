@@ -33,7 +33,10 @@
         <div th:if="${error}" class="error" style="color: red;">
             <p th:text="${error}"></p>
         </div>
+        <hr style="color: #dfdfdf; background-color: #dfdfdf; height: 2px; margin: 3px 0;">
+        <span class="center-container"> New User?&nbsp;<a th:href="@{/register}" class="register">Register</a></span>
     </form>
+
 </div>
 <svg xmlns="http://www.w3.org/2000/svg" class="icons">
     <symbol id="icon-lock" viewBox="0 0 448 512">
