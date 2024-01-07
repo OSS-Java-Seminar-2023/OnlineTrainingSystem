@@ -37,7 +37,11 @@
         <input type="text" id="city" name="city" th:value="${registerRequest.city}" required placeholder="Enter your city">
 
         <label for="country">Country:</label>
-        <input type="text" id="country" name="country" th:value="${registerRequest.country}" required placeholder="Enter your country">
+        <select id="country" name="country" required>
+            <option th:each="c : ${T(com.training.OnlineTraining.model.enums.Country).values()}"
+                    th:value="${c}" th:text="${c.country}" th:selected="${registerRequest.country == c}">
+            </option>
+        </select>
 
 
         <label for="phoneNumber">Phone Number:</label>
@@ -47,7 +51,7 @@
         <select id="gender" name="gender" required>
             <option value="Male" th:selected="${registerRequest.gender == 'Male'}">Male</option>
             <option value="Female" th:selected="${registerRequest.gender == 'Female'}">Female</option>
-        </select><br>
+        </select>
 
         <label for="age">Age:</label>
         <input type="number" id="age" name="age" th:value="${registerRequest.age}" required min="1" placeholder="Enter your age">
@@ -64,7 +68,7 @@
         <div id="message">
             <h3>Password must contain the following:</h3>
             <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-            <p id="capital" class="invalid">A <b>uppercase</b> letter</p>
+            <p id="capital" class="invalid">An <b>uppercase</b> letter</p>
             <p id="number" class="invalid">A <b>number</b></p>
             <p id="length" class="invalid">Minimum <b>8 characters</b></p>
         </div>

@@ -114,10 +114,10 @@
         </li>
 
         <!-- Dynamic sequence based on current page -->
-        <!-- Dynamic sequence based on current page -->
         <li th:each="pageNum : ${totalPages != null ? #numbers.sequence((currentPage != null && currentPage - 1 > 0) ? currentPage - 1 : 1,
                                                                (currentPage != null && currentPage + 1 < totalPages) ? currentPage + 1 : totalPages) : {}}">
-            <a th:href="@{/clients/client-page(page=${pageNum})}" th:text="${pageNum}" class="pagination-link" th:class="${pageNum == currentPage} ? 'active'"></a>
+            <a th:href="@{/clients/client-page(page=${pageNum})}" th:text="${pageNum}" style="color:gray;"
+               class="pagination-link" th:class="${pageNum == currentPage} ? 'active'"></a>
         </li>
 
         <li th:unless="${currentPage == totalPages}" class="pagination-item">
