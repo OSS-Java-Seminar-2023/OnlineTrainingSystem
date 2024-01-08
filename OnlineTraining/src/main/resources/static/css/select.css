@@ -8,7 +8,7 @@
     overflow: hidden;
     border-radius: .25em;
     margin-right: 5px;
-    margin-left:10px;
+    margin-left: 20px;
 }
 
 select {
@@ -44,6 +44,7 @@ select {
 
 .select:hover::after {
     color: #23b499;
+    transform: scale(1.1);
 }
 
 .become-link {
@@ -55,11 +56,12 @@ select {
     border-radius: 5px;
     transition: background-color 0.3s ease;
     text-align: center;
-    margin-left:10px;
+    margin-left: 20px;
 }
 
 .become-link:hover {
     background-color: #2980b9;
+    transform: scale(1.1);
 }
 
 .links {
@@ -71,15 +73,17 @@ select {
     border-radius: 5px;
     transition: background-color 0.3s ease;
     text-align: center;
-     width: 150px;
+    width: 150px;
+    margin-left:20px;
 }
 
 .links:hover {
     background-color: #2980b9;
+    transform: scale(1.1);
 }
 
 .margin{
-    margin-left:10px;
+    margin-left:20px;
 }
 
 
