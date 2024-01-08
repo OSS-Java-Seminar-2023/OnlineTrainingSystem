@@ -29,14 +29,14 @@ li a {
 }
 
 li img {
-  width: 17px;
-  height: 17px;
+  width: 25px;
+  height: 23px;
   vertical-align: middle;
   margin-top: -3px;
 }
 
 li {
-  line-height: 20px;
+  line-height: 23px;
 }
 
 li a:hover:not(.active) {

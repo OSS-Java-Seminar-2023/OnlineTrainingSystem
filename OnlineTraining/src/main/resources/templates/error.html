@@ -15,6 +15,31 @@
 <br>
 <br>
 <h1 class="margin">An error occurred!</h1>
-<p>Sorry, something went wrong. Please try again later.</p>
+<table>
+    <tr>
+        <td>Date:</td>
+        <td th:text="${timestamp}"/>
+    </tr>
+    <tr>
+        <td>Path:</td>
+        <td th:text="${path}"/>
+    </tr>
+    <tr>
+        <td>Error:</td>
+        <td th:text="${error}"/>
+    </tr>
+    <tr>
+        <td>Status:</td>
+        <td th:text="${status}"/>
+    </tr>
+    <tr th:if="${message != null}">
+        <td>Message:</td>
+        <td th:text="${message}"/>
+    </tr>
+    <tr th:if="${exception != null}">
+        <td>Exception:</td>
+        <td th:text="${exception}"/>
+    </tr>
+</table>
 </body>
 </html>
