@@ -1,11 +1,11 @@
 package com.training.OnlineTraining.dto.output;
 
-import com.training.OnlineTraining.converter.WorkoutStatusConverter;
-import com.training.OnlineTraining.model.Workout;
 import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.model.additional.Duration;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import jakarta.persistence.Convert;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,7 +33,7 @@ public class WorkoutOutputDTO {
 	private Integer selfRating;
 	private Boolean isFinished;
 
-	@Convert(converter = WorkoutStatusConverter.class)
+	@Enumerated(EnumType.STRING)
 	private WorkoutStatus workoutStatus = WorkoutStatus.WAITING;
 
 	private List<WorkoutSession> workoutSessions;

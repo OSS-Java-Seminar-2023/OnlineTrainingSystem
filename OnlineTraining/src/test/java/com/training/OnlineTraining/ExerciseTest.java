@@ -79,10 +79,10 @@ public class ExerciseTest {
 	public void testGetExerciseById() {
 		ExerciseOutputDTO newExercise = exerciseService.createExercise(exerciseInputDTO);
 
-		Optional<ExerciseOutputDTO> gotExercise = exerciseService.getExerciseById(newExercise.getId());
+		ExerciseOutputDTO gotExercise = exerciseService.getExerciseById(newExercise.getId());
 
 		assertNotNull(gotExercise);
-		assertEquals("Exercise 1", gotExercise.get().getName());
+		assertEquals("Exercise 1", gotExercise.getName());
 	}
 
 	@Test

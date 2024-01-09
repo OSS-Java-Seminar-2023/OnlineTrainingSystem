@@ -31,8 +31,7 @@ public class WorkoutSessionController {
 	public String showCreateWorkoutSessionForm(@RequestParam UUID workoutID, Model model) {
 		logger.info("Displaying create workout session form.");
 
-		WorkoutSessionInputDTO workoutSessionInputDTO = new WorkoutSessionInputDTO();
-		workoutSessionInputDTO.setWorkoutId(workoutID);
+		WorkoutSessionInputDTO workoutSessionInputDTO = new WorkoutSessionInputDTO(workoutID);
 
 		model.addAttribute("workoutSessionInputDTO", workoutSessionInputDTO);
 		model.addAttribute("listExercises", exerciseService.getAllExercises());

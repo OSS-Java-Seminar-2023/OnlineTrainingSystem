@@ -28,7 +28,7 @@ public class TestDTOUtils {
 	}
 
 	public static WorkoutSessionInputDTO getWorkoutSessionDTO(UUID workoutId, UUID exerciseId){
-		WorkoutSessionInputDTO workoutSessionInputDTO = new WorkoutSessionInputDTO();
+		WorkoutSessionInputDTO workoutSessionInputDTO = new WorkoutSessionInputDTO(workoutId);
 
 		workoutSessionInputDTO.setWorkoutId(workoutId);
 		workoutSessionInputDTO.setExerciseId(exerciseId);
