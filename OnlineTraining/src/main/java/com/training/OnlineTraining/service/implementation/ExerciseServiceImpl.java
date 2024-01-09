@@ -5,8 +5,10 @@ import com.training.OnlineTraining.dto.output.ExerciseOutputDTO;
 import com.training.OnlineTraining.exceptions.ExerciseNotFoundException;
 import com.training.OnlineTraining.mapper.ExerciseMapper;
 import com.training.OnlineTraining.model.Exercise;
+import com.training.OnlineTraining.model.Workout;
 import com.training.OnlineTraining.repository.ExerciseRepository;
 import com.training.OnlineTraining.service.ExerciseService;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,17 +19,12 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class ExerciseServiceImpl implements ExerciseService {
 
     private final ExerciseRepository exerciseRepository;
     private final ExerciseMapper exerciseMapper;
     private static final Logger logger = LoggerFactory.getLogger(ExerciseServiceImpl.class);
-
-    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, ExerciseMapper exerciseMapper) {
-        this.exerciseRepository = exerciseRepository;
-        this.exerciseMapper = exerciseMapper;
-        logger.info("ExerciseServiceImpl constructed.");
-    }
 
     @Override
     public ExerciseOutputDTO createExercise(ExerciseInputDTO exerciseInputDTO) {
@@ -42,14 +39,17 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public Optional<ExerciseOutputDTO> getExerciseById(UUID id) {
+    public ExerciseOutputDTO getExerciseById(UUID id) {
         logger.info("Getting exercise by ID: {}", id);
 
+        return exerciseMapper.toExerciseOutputDTO(requireExercise(id));
+    }
+
+    private Exercise requireExercise(UUID id){
         return exerciseRepository.findById(id)
-                .map(exerciseMapper::toExerciseOutputDTO)
-                .or(() -> {
+                .orElseThrow(() -> {
                     logger.error("Exercise with ID {} not found.", id);
-                    throw new ExerciseNotFoundException("Exercise with ID " + id + " not found");
+	                return new ExerciseNotFoundException("Exercise with ID " + id + " not found");
                 });
     }
 
@@ -69,29 +69,21 @@ public class ExerciseServiceImpl implements ExerciseService {
     public ExerciseOutputDTO updateExercise(UUID id, ExerciseInputDTO exerciseDetails) {
         logger.info("Updating exercise with ID: {}", id);
 
-        return exerciseRepository.findById(id)
-                .map(exercise -> {
-                    exercise.updateValues(exerciseDetails);
-                    return exerciseMapper.toExerciseOutputDTO(exerciseRepository.save(exercise));
-                })
-                .orElseThrow(() -> {
-                    logger.error("Exercise with ID {} not found.", id);
-                    return new ExerciseNotFoundException("Exercise with ID " + id + " not found");
-                });
+        Exercise existingExercise = requireExercise(id);
+
+        Exercise updatedExercise = exerciseMapper.toExercise(exerciseDetails);
+        updatedExercise.setId(existingExercise.getId()); // Ensure the ID is preserved
+
+        return exerciseMapper.toExerciseOutputDTO(exerciseRepository.save(updatedExercise));
+
     }
 
     @Override
     public void deleteExercise(UUID id) {
         logger.info("Deleting exercise with ID: {}", id);
 
-        exerciseRepository.findById(id)
-                .ifPresentOrElse(
-                        exerciseRepository::delete,
-                        () -> {
-                            logger.error("Exercise with ID {} not found.", id);
-                            throw new ExerciseNotFoundException("Exercise with ID " + id + " not found");
-                        }
-                );
+        Exercise existingExercise = requireExercise(id);
+        exerciseRepository.deleteById(existingExercise.getId());
     }
 
     @Override

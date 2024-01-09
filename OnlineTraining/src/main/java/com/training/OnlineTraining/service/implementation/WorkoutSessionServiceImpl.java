@@ -8,6 +8,7 @@ import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.repository.WorkoutSessionRepository;
 import com.training.OnlineTraining.service.WorkoutService;
 import com.training.OnlineTraining.service.WorkoutSessionService;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +21,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 
 	private final WorkoutSessionRepository workoutSessionRepository;
 	private final WorkoutSessionMapper workoutSessionMapper;
 	private WorkoutService workoutService;
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutSessionServiceImpl.class);
-
-	public WorkoutSessionServiceImpl(WorkoutSessionRepository workoutSessionRepository, WorkoutSessionMapper workoutSessionMapper) {
-		this.workoutSessionRepository = workoutSessionRepository;
-		this.workoutSessionMapper = workoutSessionMapper;
-
-		logger.info("WorkoutSessionServiceImpl constructed.");
-	}
 
 	@Autowired
 	public void setWorkoutService(WorkoutService workoutService) {
@@ -58,9 +53,12 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 	public WorkoutSessionOutputDTO getWorkoutSessionById(UUID id) {
 		logger.info("Getting workout session by ID: {}", id);
 
+		return workoutSessionMapper.toWorkoutSessionOutputDTO(requireWorkoutSession(id));
+	}
+
+	private WorkoutSession requireWorkoutSession(UUID id){
 		return workoutSessionRepository
 				.findById(id)
-				.map(workoutSessionMapper::toWorkoutSessionOutputDTO)
 				.orElseThrow(() -> {
 					logger.error("Workout session with ID {} not found.", id);
 					return new WorkoutSessionNotFoundException(id);
@@ -91,31 +89,9 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 	public WorkoutSessionOutputDTO updateWorkoutSession(UUID id, WorkoutSessionInputDTO workoutSessionDetails) {
 		logger.info("Updating workout session with ID: {}", id);
 
-		WorkoutSession existingWorkoutSession = workoutSessionRepository.findById(id)
-				.orElseThrow(() -> {
-					logger.error("Workout session with ID {} not found.", id);
-					return new WorkoutSessionNotFoundException(id);
-				});
+		WorkoutSession existingWorkoutSession = requireWorkoutSession(id);
 
 		WorkoutSession updatedWorkoutSession = workoutSessionMapper.toWorkoutSession(workoutSessionDetails);
-		updatedWorkoutSession.setId(existingWorkoutSession.getId()); // Ensure the ID is preserved
-
-		return workoutSessionMapper.toWorkoutSessionOutputDTO(workoutSessionRepository.save(updatedWorkoutSession));
-	}
-
-	@Override
-	public WorkoutSessionOutputDTO updateWorkoutSession(WorkoutSessionOutputDTO workoutSessionOutputDTO) {
-		UUID id = workoutSessionOutputDTO.getId();
-
-		logger.info("Updating workout session with ID: {}", id);
-
-		WorkoutSession existingWorkoutSession = workoutSessionRepository.findById(id)
-				.orElseThrow(() -> {
-					logger.error("Workout session with ID {} not found.", id);
-					return new WorkoutSessionNotFoundException(id);
-				});
-
-		WorkoutSession updatedWorkoutSession = workoutSessionMapper.toWorkoutSession(workoutSessionOutputDTO);
 		updatedWorkoutSession.setId(existingWorkoutSession.getId()); // Ensure the ID is preserved
 
 		return workoutSessionMapper.toWorkoutSessionOutputDTO(workoutSessionRepository.save(updatedWorkoutSession));

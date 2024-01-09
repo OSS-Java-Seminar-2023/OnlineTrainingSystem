@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface ExerciseService {
     ExerciseOutputDTO createExercise(ExerciseInputDTO exerciseInputDTO);
-    Optional<ExerciseOutputDTO> getExerciseById(UUID id);
+    ExerciseOutputDTO getExerciseById(UUID id);
     List<ExerciseOutputDTO> getAllExercises();
     ExerciseOutputDTO updateExercise(UUID id, ExerciseInputDTO exerciseDetails);
     void deleteExercise(UUID id);
