@@ -1,6 +1,5 @@
 package com.training.OnlineTraining.dto.input;
 
-import com.training.OnlineTraining.converter.WorkoutStatusConverter;
 import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import jakarta.persistence.Convert;
@@ -30,7 +29,7 @@ public class WorkoutInputDTO {
 	private Integer selfRating;
 	private Boolean isFinished;
 
-	@Convert(converter = WorkoutStatusConverter.class)
+
 	private WorkoutStatus workoutStatus = WorkoutStatus.WAITING;
 
 	private List<WorkoutSession> workoutSessions;

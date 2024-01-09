@@ -1,9 +1,6 @@
 package com.training.OnlineTraining.model;
 
-import com.training.OnlineTraining.converter.ExerciseEquipmentConverter;
-import com.training.OnlineTraining.converter.WorkoutStatusConverter;
 import com.training.OnlineTraining.model.additional.Duration;
-import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import lombok.*;
 
@@ -56,7 +53,7 @@ public class Workout {
     private Integer selfRating;
 
     @Column(name = "workout_status")
-    @Convert(converter = WorkoutStatusConverter.class)
+    @Enumerated(EnumType.STRING)
     private WorkoutStatus workoutStatus = WorkoutStatus.WAITING;
 
     public Duration getDuration() {

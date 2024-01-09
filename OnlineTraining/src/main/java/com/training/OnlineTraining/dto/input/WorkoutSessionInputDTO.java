@@ -2,11 +2,13 @@ package com.training.OnlineTraining.dto.input;
 
 import com.training.OnlineTraining.model.Workout;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
+@NoArgsConstructor
 public class WorkoutSessionInputDTO {
 	private UUID workoutId = null;
 	private UUID exerciseId = null;
@@ -16,6 +18,10 @@ public class WorkoutSessionInputDTO {
 
 	public WorkoutSessionInputDTO(Workout workout){
 		this.workoutId = workout.getId();
+	}
+
+	public WorkoutSessionInputDTO(UUID workoutID){
+		this.workoutId = workoutID;
 	}
 
 }

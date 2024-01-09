@@ -1,6 +1,5 @@
 package com.training.OnlineTraining.model;
 
-import com.training.OnlineTraining.converter.ExerciseEquipmentConverter;
 import com.training.OnlineTraining.dto.input.ExerciseInputDTO;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.model.enums.ExerciseEquipment;
@@ -25,18 +24,13 @@ public class Exercise {
     @Column
     private String description;
 
+
     @Column(name = "exercise_equipment")
-    @Convert(converter = ExerciseEquipmentConverter.class)
+    @Enumerated(EnumType.STRING)
     private ExerciseEquipment exerciseEquipment;
 
     @Column(name = "difficulty_level")
     @Enumerated(EnumType.STRING)
     private ExerciseDifficultyLevel exerciseDifficultyLevel;
 
-    public void updateValues(ExerciseInputDTO exerciseDetails){
-        this.setName(exerciseDetails.getName());
-        this.setDescription(exerciseDetails.getDescription());
-        this.setExerciseEquipment(exerciseDetails.getExerciseEquipment());
-        this.setExerciseDifficultyLevel(exerciseDetails.getExerciseDifficultyLevel());
-    }
 }

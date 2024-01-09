@@ -1,6 +1,5 @@
 package com.training.OnlineTraining.dto.output;
 
-import com.training.OnlineTraining.converter.ExerciseEquipmentConverter;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.model.enums.ExerciseEquipment;
 import jakarta.persistence.Convert;
@@ -20,7 +19,7 @@ public class ExerciseOutputDTO {
 	private String name;
 	private String description;
 
-	@Convert(converter = ExerciseEquipmentConverter.class)
+	//@Convert(converter = ExerciseEquipmentConverter.class)
 	private ExerciseEquipment exerciseEquipment;
 
 	private ExerciseDifficultyLevel exerciseDifficultyLevel;
