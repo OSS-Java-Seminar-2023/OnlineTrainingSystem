@@ -4,23 +4,24 @@ import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
 import com.training.OnlineTraining.dto.output.WorkoutOutputDTO;
 import com.training.OnlineTraining.exceptions.WorkoutNotFoundException;
-import com.training.OnlineTraining.exceptions.WorkoutSessionNotFoundException;
 import com.training.OnlineTraining.mapper.WorkoutMapper;
 import com.training.OnlineTraining.mapper.WorkoutSessionMapper;
 import com.training.OnlineTraining.model.Workout;
 import com.training.OnlineTraining.repository.WorkoutRepository;
 import com.training.OnlineTraining.repository.WorkoutSessionRepository;
 import com.training.OnlineTraining.service.WorkoutService;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
+@AllArgsConstructor
 public class WorkoutServiceImpl implements WorkoutService {
 
 	private final WorkoutRepository workoutRepository;
@@ -31,42 +32,34 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutServiceImpl.class);
 
-	public WorkoutServiceImpl(WorkoutRepository workoutRepository, WorkoutMapper workoutMapper, WorkoutSessionRepository workoutSessionRepository, WorkoutSessionMapper workoutSessionMapper) {
-		logger.info("WorkoutServiceImpl constructed.");
-
-		this.workoutSessionRepository = workoutSessionRepository;
-		this.workoutSessionMapper = workoutSessionMapper;
-		this.workoutRepository = workoutRepository;
-		this.workoutMapper = workoutMapper;
-	}
-
 	@Override
 	public void createWorkout(WorkoutInputDTO workoutInputDTO, UUID contractID) {
 		logger.info("Creating new workout.");
 
-		int ordinalNumberOfLastWorkout = 0;
-
-		Workout lastWorkout = workoutRepository.findTopByContractIdOrderByOrdinalNumberOfWorkoutDesc(contractID);
-
-		if(lastWorkout != null) ordinalNumberOfLastWorkout = lastWorkout.getOrdinalNumberOfWorkout();
-
-
 		workoutInputDTO.setDateOfWorkout(null);
 		workoutInputDTO.setContractId(contractID);
-		workoutInputDTO.setOrdinalNumberOfWorkout(++ordinalNumberOfLastWorkout);
+		workoutInputDTO.setOrdinalNumberOfWorkout(getOrdinalNumberOfNextWorkout(contractID));
 
 		Workout savedWorkout = workoutRepository.save(workoutMapper.toWorkout(workoutInputDTO));
 
-		for(int i = 0; i < workoutInputDTO.getNumberOfExercises(); ++i){
-			WorkoutSessionInputDTO workoutSessionInputDTO = WorkoutSessionInputDTO.createEmptyWorkoutSessionDTO();
-			workoutSessionInputDTO.setWorkoutId(savedWorkout.getId());
 
-			workoutSessionRepository.save(workoutSessionMapper.toWorkoutSession(workoutSessionInputDTO));
-		}
+		IntStream.range(0, workoutInputDTO.getNumberOfExercises())
+				.mapToObj(i -> {
+					WorkoutSessionInputDTO workoutSessionInputDTO = new WorkoutSessionInputDTO(savedWorkout);
+					return workoutSessionMapper.toWorkoutSession(workoutSessionInputDTO);
+				})
+				.forEach(workoutSessionRepository::save);
+
 
 		logger.info("New workout created.");
 
 	}
+
+	private int getOrdinalNumberOfNextWorkout(UUID contractID){
+		Workout lastWorkout = workoutRepository.findTopByContractIdOrderByOrdinalNumberOfWorkoutDesc(contractID);
+		return (lastWorkout != null) ? lastWorkout.getOrdinalNumberOfWorkout() + 1 : 1;
+	}
+
 	@Override
 	public WorkoutOutputDTO createWorkout(WorkoutInputDTO workoutInputDTO) {
 		logger.info("Creating new workout. {}", workoutInputDTO);
@@ -83,10 +76,12 @@ public class WorkoutServiceImpl implements WorkoutService {
 	public WorkoutOutputDTO getWorkoutById(UUID id) {
 		logger.info("Getting workout by ID: {}", id);
 
+		return workoutMapper.toWorkoutOutputDTO(requireWorkout(id));
+	}
 
+	private Workout requireWorkout(UUID id){
 		return workoutRepository
 				.findById(id)
-				.map(workoutMapper::toWorkoutOutputDTO)
 				.orElseThrow(() -> {
 					logger.error("Workout with ID {} not found.", id);
 					return new WorkoutNotFoundException(id);
@@ -108,11 +103,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 	public WorkoutOutputDTO updateWorkout(UUID id, WorkoutInputDTO workoutDetails) {
 		logger.info("Updating workout with ID: {}", id);
 
-		Workout existingWorkout = workoutRepository.findById(id)
-				.orElseThrow(() -> {
-					logger.error("Workout with ID {} not found.", id);
-					return new WorkoutNotFoundException(id);
-				});
+		Workout existingWorkout = requireWorkout(id);
 
 		Workout updatedWorkout = workoutMapper.toWorkout(workoutDetails);
 		updatedWorkout.setId(existingWorkout.getId()); // Ensure the ID is preserved
@@ -140,19 +131,15 @@ public class WorkoutServiceImpl implements WorkoutService {
 	}
 
 	@Override
-	public void updateWorkout(UUID id, WorkoutInputDTO workoutDetails, UUID contractID) {
+	public void updateWorkout(UUID id, WorkoutInputDTO workoutInputDTO, UUID contractID) {
 		logger.info("Updating workout with ID: {}", id);
 
-		workoutDetails.setContractId(contractID);
+		Workout existingWorkout = requireWorkout(id);
 
-		Workout existingWorkout = workoutRepository.findById(id)
-				.orElseThrow(() -> {
-					logger.error("Workout with ID {} not found.", id);
-					return new WorkoutNotFoundException(id);
-				});
-
-		Workout updatedWorkout = workoutMapper.toWorkout(workoutDetails);
+		workoutInputDTO.setContractId(contractID);
+		Workout updatedWorkout = workoutMapper.toWorkout(workoutInputDTO);
 		updatedWorkout.setId(existingWorkout.getId()); // Ensure the ID is preserved
+
 		workoutRepository.save(updatedWorkout);
 	}
 

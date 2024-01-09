@@ -15,9 +15,6 @@ public interface WorkoutSessionService {
     List<WorkoutSessionOutputDTO> getAllWorkoutSessions();
     List<WorkoutSessionOutputDTO> getAllByWorkoutId(UUID workoutID);
     WorkoutSessionOutputDTO updateWorkoutSession(UUID id, WorkoutSessionInputDTO workoutSessionDetails);
-
-    WorkoutSessionOutputDTO updateWorkoutSession(WorkoutSessionOutputDTO workoutSessionOutputDTO);
-
     void updateWorkoutSessions(List<WorkoutSession> workoutSessionList);
     void deleteWorkoutSession(UUID id);
     void deleteAllWorkoutSessions();
