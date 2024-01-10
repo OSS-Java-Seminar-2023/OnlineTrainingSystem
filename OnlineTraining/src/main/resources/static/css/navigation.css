@@ -29,14 +29,14 @@ li a {
 }
 
 li img {
-  width: 25px;
-  height: 23px;
+  width: 23px;
+  height: 22px;
   vertical-align: middle;
   margin-top: -3px;
 }
 
 li {
-  line-height: 23px;
+  line-height: 10px;
 }
 
 li a:hover:not(.active) {
@@ -56,4 +56,9 @@ li a:hover:not(.active) {
 
 .margin {
   margin-left: 20px;
+}
+
+.small-text {
+    font-size: x-small;
+    font-family: 'Varela Round', sans-serif;
 }
