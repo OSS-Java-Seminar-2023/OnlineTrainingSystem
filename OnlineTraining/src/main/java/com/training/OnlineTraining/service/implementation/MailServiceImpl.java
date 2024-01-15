@@ -10,19 +10,16 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.CompletableFuture;
-
 @Service
 @AllArgsConstructor
 public class MailServiceImpl implements MailService {
     private final JavaMailSender javaMailSender;
 
-    @Async
+    @Async("mailThreadPoolTaskExecutor")
     @Override
-    public CompletableFuture<Void> sendEmailAsync(String toEmail, String body, String subject) throws MessagingException {
+    public void sendEmailAsync(String toEmail, String body, String subject) throws MessagingException {
         sendEmail(toEmail, body, subject);
         System.out.println("Sent email asynchronously");
-        return CompletableFuture.completedFuture(null); // or simply return new CompletableFuture<>();
     }
 
     @Override

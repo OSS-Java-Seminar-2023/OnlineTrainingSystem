@@ -40,7 +40,7 @@
         <td th:text="${#dates.format(contract.endDate, 'dd-MM-yyyy')}"></td>
         <td th:text="${contract.monthlyPrice}"></td>
         <td>
-            <a th:href="@{'/measurements/personal/' + ${contract.id}}" class="become-link">measurement</a>
+            <a th:href="@{'/measurements/personal/' + ${contract.id}}" class="become-link">Measurement</a>
         </td>
         <td>
             <form th:action="@{/workout}" method="get">

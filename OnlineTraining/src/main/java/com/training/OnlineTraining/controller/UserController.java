@@ -48,7 +48,7 @@ public class UserController {
             }
 
             User registeredUser = userService.registerUser(request);
-            CompletableFuture<Void> emailFuture = mailService.sendEmailAsync(
+            mailService.sendEmailAsync(
                     registeredUser.getEmail(),
                     "Welcome to OnlineTrainingSystem!",
                     " Registration Confirmation"
