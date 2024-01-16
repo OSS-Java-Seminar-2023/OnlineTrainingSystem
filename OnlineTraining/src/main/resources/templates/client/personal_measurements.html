@@ -11,6 +11,9 @@
     <link rel="stylesheet" th:href="@{/css/confirmation.css}">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
 <div th:insert="~{fragments/navigation :: navigation('/measurements/personal')}"></div>
@@ -70,7 +73,56 @@
     </div>
 </div>
 
-<script th:src="@{/js/confirmation.js}"></script>
 
+
+<canvas id="bodyWeightChart" width="400" height="200"></canvas>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('bodyWeightChart').getContext('2d');
+        var measurements = /*[[${measurements}]]*/;
+
+        if (measurements) {
+            var bodyWeightData = measurements.map(function (measurement, index) {
+                return {
+                    x: index + 1,
+                    y: measurement.bodyWeight
+                };
+            });
+
+            var bodyWeightChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    datasets: [{
+                        label: 'Body Weight',
+                        data: bodyWeightData,
+                        backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    });
+    /*]]>*/
+</script>
+
+
+
+<script th:src="@{/js/confirmation.js}"></script>
 </body>
 </html>

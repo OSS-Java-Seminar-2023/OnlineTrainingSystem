@@ -10,8 +10,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -40,12 +42,12 @@ public class MeasurementController {
 		return "index";
 	}
 
-
 	@GetMapping("/personal/{contractId}")
 	public String getPersonalMeasurements(@PathVariable UUID contractId, Model model) {
 		List<Measurement> measurements = measurementService.getMeasurementsByContractIdSortedByDate(contractId);
 
 		model.addAttribute("measurements", measurements);
+
 		return "client/personal_measurements";
 	}
 
