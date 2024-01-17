@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphs</title>
+    <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
+    <link rel="stylesheet" th:href="@{/css/table.css}">
+    <link rel="stylesheet" th:href="@{/css/select.css}">
+    <link rel="stylesheet" th:href="@{/css/confirmation.css}">
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div th:insert="~{fragments/navigation :: navigation('/measurements/personal')}"></div>
+<br>
+<br>
+<br>
+<br>
+
+<canvas id="bodyWeightChart" width="330" height="130"></canvas>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener('DOMContentLoaded', function () {
+        let ctx = document.getElementById('bodyWeightChart').getContext('2d');
+        let measurements = /*[[${measurements}]]*/;
+
+        if (measurements) {
+            var bodyWeightData = measurements.map(function (measurement, index) {
+                return {
+                    x: index + 1,
+                    y: measurement.bodyWeight
+                };
+            });
+
+            let bodyFatData = measurements.map(function (measurement, index) {
+                return {
+                    x: index + 1,
+                    y: measurement.bodyFat
+                };
+            });
+
+            let waistCircumferenceData = measurements.map(function (measurement, index) {
+                return {
+                    x: index + 1,
+                    y: measurement.waistCircumference
+                };
+            });
+
+            let chestCircumferenceData = measurements.map(function (measurement, index) {
+                return {
+                    x: index + 1,
+                    y: measurement.chestCircumference
+                };
+            });
+
+            let armCircumferenceData = measurements.map(function (measurement, index) {
+                return {
+                    x: index + 1,
+                    y: measurement.armCircumference
+                };
+            });
+
+            let legCircumferenceData = measurements.map(function (measurement, index) {
+                return {
+                    x: index + 1,
+                    y: measurement.legCircumference
+                };
+            });
+
+            let bodyWeightChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Body Weight',
+                            data: bodyWeightData,
+                            backgroundColor: '#33cc77',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Body Fat',
+                            data: bodyFatData,
+                            backgroundColor: '#6fa8dc',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Waist Circumference',
+                            data: waistCircumferenceData,
+                            backgroundColor: '#ffcc00',
+                            borderWidth: 2,
+                            hidden: true
+                        },
+                        {
+                            label: 'Chest Circumference',
+                            data: chestCircumferenceData,
+                            backgroundColor: '#ff6666',
+                            borderWidth: 2,
+                            hidden: true
+                        },
+                        {
+                            label: 'Arm Circumference',
+                            data: armCircumferenceData,
+                            backgroundColor: '#9966ff',
+                            borderWidth: 2,
+                            hidden: true
+                        },
+                        {
+                            label: 'Leg Circumference',
+                            data: legCircumferenceData,
+                            backgroundColor: '#ff9900',
+                            borderWidth: 2,
+                            hidden: true
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            ticks: {
+                                stepSize: 1
+                            },
+                            title: {
+                                display: true,
+                                text: 'Measurement'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'kg/cm'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+    /*]]>*/
+</script>
+
+
+
+
+<script th:src="@{/js/confirmation.js}"></script>
+</body>
+</html>

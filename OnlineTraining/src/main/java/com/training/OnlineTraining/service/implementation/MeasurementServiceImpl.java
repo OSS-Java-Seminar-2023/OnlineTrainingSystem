@@ -39,6 +39,13 @@ public class MeasurementServiceImpl implements MeasurementService {
 	}
 
 	@Override
+	public List<Measurement> getMeasurementsByContractIdSortedByDateAsc(UUID contractId) {
+
+
+		return measurementRepository.findByContractIdOrderByMeasurementDateAsc(contractId);
+	}
+
+	@Override
 	public MeasurementDTO getMeasurementById(UUID measurementId) {
 		Measurement measurement = measurementRepository.findById(measurementId)
 				.orElseThrow(() -> new MeasurementNotFoundException(measurementId));

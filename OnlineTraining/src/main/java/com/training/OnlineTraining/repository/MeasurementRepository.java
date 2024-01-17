@@ -9,4 +9,6 @@ import java.util.UUID;
 @Repository
 public interface MeasurementRepository extends JpaRepository<Measurement, UUID> {
     List<Measurement> findByContractIdOrderByMeasurementDateDesc(UUID contractId);
+
+    List<Measurement> findByContractIdOrderByMeasurementDateAsc(UUID contractId);
 }
