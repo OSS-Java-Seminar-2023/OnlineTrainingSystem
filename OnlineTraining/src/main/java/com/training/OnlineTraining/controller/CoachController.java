@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/coach")
+@RequestMapping("/coaches")
 public class CoachController {
 
     private final CoachService coachService;
