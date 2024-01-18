@@ -80,9 +80,9 @@ public class SecurityConfig {
 			if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
 				response.sendRedirect("/admin");
 			} else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("CLIENT"))) {
-				response.sendRedirect("/clients");
+				response.sendRedirect("/clients/client-page");
 			} else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("COACH"))) {
-				response.sendRedirect("/coaches");
+				response.sendRedirect("/coaches/coach-page");
 			}
 		};
 	}
