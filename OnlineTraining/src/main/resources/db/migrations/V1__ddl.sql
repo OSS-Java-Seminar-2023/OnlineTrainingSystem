@@ -1,3 +1,8 @@
+CREATE TABLE role (
+    id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE User_table (
     id UUID PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
@@ -10,8 +15,9 @@ CREATE TABLE User_table (
     gender VARCHAR(10) NOT NULL,
     age INTEGER NOT NULL,
     password VARCHAR(100) NOT NULL,
-    role VARCHAR(20)
+    role_id INT REFERENCES role(id)
 );
+
 
 CREATE TABLE Coach (
     id UUID PRIMARY KEY,
