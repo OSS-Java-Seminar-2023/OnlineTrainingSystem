@@ -49,7 +49,7 @@ public class User {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
+    @JoinColumn(name = "role_id")
     private Role role;
 
     public User(UUID id) {

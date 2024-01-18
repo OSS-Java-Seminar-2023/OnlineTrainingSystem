@@ -28,6 +28,7 @@ public class ClientServiceImpl implements ClientService {
     private final UserRepository userRepository;
 
 
+    @Transactional
     @Override
     public void registerClient(ClientDto clientDto, UUID userId) {
         Optional<User> optionalUser = Optional.ofNullable(userService.getUserById(userId));
@@ -39,8 +40,10 @@ public class ClientServiceImpl implements ClientService {
                     client.setMedicalCondition(clientDto.getMedicalCondition());
                     client.setInjuries(clientDto.getInjuries());
                     clientRepository.save(client);
-                    user.setRole(Role.RoleFactory.getClientRole());
-                    userRepository.save(user);
+                    if (user.getRole() == null) {
+                        user.setRole(Role.RoleFactory.getClientRole());
+                        userRepository.save(user);
+                    }
 
                 },
                 () -> {

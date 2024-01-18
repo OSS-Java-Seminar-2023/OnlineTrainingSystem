@@ -65,7 +65,8 @@ public class LoginServiceImpl implements LoginService {
 
 			//model.addAttribute("userId", authenticated.getId());
 			logger.info("User with ID {} is not a client or coach. Redirecting to become_client_or_coach_page.", userID);
-			return "/auth/become_client_or_coach_page"; // Return the redirect URL
+			// za pocetak ovo pa cemo admina ukomponirati
+			return "/auth/login_page";
 
 		} catch (RuntimeException e) {
 			logger.error("Login failed. Error: {}", e.getMessage());

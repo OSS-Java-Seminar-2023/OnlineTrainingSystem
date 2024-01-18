@@ -13,16 +13,13 @@
 <main>
 
 <h1>Welcome!</h1>
+    <p th:text="'Client ID: ' + ${userId}"> hello</p>
 
 <p>You are not currently registered as a client or coach.</p>
 
 <div class="link-container">
-    <th:unless="${isClient}">
     <a class="become-link" th:href="@{'/clients/register?userId=' + ${userId}}">Become a Client</a>
-    </th:unless>
-    <th:unless="${isCoach}">
     <a class="become-link" th:href="@{'/coaches/register?userId=' + ${userId}}">Become a Coach</a>
-    </th:unless>
 </div>
 </main>
 </body>
