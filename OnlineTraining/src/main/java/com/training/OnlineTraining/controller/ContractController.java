@@ -54,8 +54,13 @@ public class ContractController {
         if (clientId == null) {
             return "auth/login_page";
         }
+
+        String clientName = (String) session.getAttribute("clientName");
+
+
         List<Contract> contracts = contractService.getContractsByClientId(clientId);
         model.addAttribute("contracts", contracts);
+        model.addAttribute("clientName", clientName);
 
         return "client/personal_contracts";
     }

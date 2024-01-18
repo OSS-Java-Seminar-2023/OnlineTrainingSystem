@@ -2,14 +2,14 @@
     <li th:class="${currentUrl == '/' ? 'active' : ''}">
         <a href="/"><img src="/images/home.png" alt="Home"><br> <span class="small-text">Home</span></a>
     </li>
-    <li th:class="${currentUrl == '/clients/client-page' ? 'active' : ''}">
-        <a href="/clients/client-page"><img src="/images/client.png" alt="Client page"> <br> <span class="small-text">Client</span></a>
+    <li  th:class="${currentUrl == '/contracts/personal' ? 'active' : ''}">
+        <a href="/contracts/personal"><img src="/images/client.png" alt="Contract"> <br> <span class="small-text">Client</span></a>
     </li>
     <li  th:class="${currentUrl == '/coaches/coach-page' ? 'active' : ''}">
         <a href="/coaches/coach-page"><img src="/images/coach.png" alt="Coach page"> <br> <span class="small-text">Coach</span></a>
     </li>
-    <li  th:class="${currentUrl == '/contracts/personal' ? 'active' : ''}">
-        <a href="/contracts/personal"><img src="/images/contract.png" alt="Contract"> <br> <span class="small-text">Contract</span></a>
+    <li th:class="${currentUrl == '/clients/client-page' ? 'active' : ''}">
+        <a href="/clients/client-page"><img src="/images/contract.png" alt="Client page"> <br> <span class="small-text">Contracts</span></a>
     </li>
     <li style="float:right" th:class="${currentUrl == '/clients/settings' ? 'active' : ''}">
         <a href="/clients/settings"><img src="/images/settings.png" alt="Settings"><br> <span class="small-text">Settings</span></a>
