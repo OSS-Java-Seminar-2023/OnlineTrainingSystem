@@ -44,4 +44,12 @@ public class Role {
 			return  new Role("COACH");
 		}
 	}
+
+	public static Role getClientsRole(EntityManager entityManager, int roleId) {
+		return entityManager.find(Role.class, roleId);
+	}
+
+	public static Role getCoachesRole(EntityManager entityManager, int roleId) {
+		return entityManager.find(Role.class, roleId);
+	}
 }
