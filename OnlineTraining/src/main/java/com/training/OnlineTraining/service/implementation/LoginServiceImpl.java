@@ -38,16 +38,18 @@ public class LoginServiceImpl implements LoginService {
 	private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 
 	@Override
-	public String processLogin(String username, HttpSession session, Model model, Role role) {
+	public String processLogin(String email, HttpSession session, Model model, Role role) {
 		try {
-			logger.info("Attempting login for user : {}", username);
+			logger.info("Attempting login for user : {}", email);
 
-			UUID userID = userRepository.findUserIdByEmail(username);
+			UUID userID = userRepository.findUserIdByEmail(email);
+
+			String firstName = userRepository.findFirstNameByEmail(email).get();
 
 			if (role.getName().equals("CLIENT")) {
 				Client client = clientService.getClientByUserId(userID);
 				session.setAttribute("clientId", client.getId());
-				session.setAttribute("clientName", username);
+				session.setAttribute("clientName", firstName);
 				logger.info("Login successful. Redirecting to client page for user ID: {}", userID);
 				return "/clients/client-page"; // Return the redirect URL
 			}
@@ -56,7 +58,7 @@ public class LoginServiceImpl implements LoginService {
 				Coach coach = coachService.findByUserId(userID);
 				session.setAttribute("userId", userID);
 				session.setAttribute("coachId", coach.getId());
-				session.setAttribute("coachName", username);
+				session.setAttribute("coachName", firstName);
 				logger.info("Login successful. Redirecting to coach page for user ID: {}", userID);
 				return "/coaches/coach-page"; // Return the redirect URL
 			}

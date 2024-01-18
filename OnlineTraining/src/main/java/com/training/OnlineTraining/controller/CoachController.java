@@ -36,6 +36,12 @@ public class CoachController {
         logger.info("Fetching coach page.");
 
         UUID coachID = (UUID) session.getAttribute("coachId");
+
+        if (coachID == null) {
+            logger.warn("Coach ID is null. Redirecting to login page.");
+            return "auth/login_page";
+        }
+
         String coachName = (String) session.getAttribute("coachName");
         List<Contract> contractList = contractService.getAllContractsForCoach(coachID);
 
