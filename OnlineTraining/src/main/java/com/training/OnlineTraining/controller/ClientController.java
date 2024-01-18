@@ -5,9 +5,12 @@ import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.dto.CoachFilterParams;
 import com.training.OnlineTraining.dto.UpdateClientDTO;
 import com.training.OnlineTraining.model.Client;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import com.training.OnlineTraining.service.ClientService;
 import com.training.OnlineTraining.service.CoachService;
@@ -32,30 +35,41 @@ public class ClientController {
     private final CoachService coachService;
     private final UserService userService;
 
+    private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
+
+
     @GetMapping("/client-page")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     public String getClientPage(Model model,
                                 @ModelAttribute CoachFilterParams filterParams,
                                 HttpSession session,
                                 @RequestParam(defaultValue = "1") int page,
-                                //ne zaboraviti prominiti u visu defaultnu vrijednost kad se seeda vise coacheva!
                                 @RequestParam(defaultValue = "2") int size) {
+
         UUID clientId = (UUID) session.getAttribute("clientId");
         if (clientId == null) {
+            logger.warn("Client ID is null. Redirecting to login page.");
             return "auth/login_page";
         }
+
+
+        logger.info("Fetching coaches for client ID: {}", clientId);
 
         List<CoachDto> filteredCoaches;
         if (filterParams.isNotEmpty()) {
             filteredCoaches = coachService.filterCoaches(filterParams);
+            logger.debug("Filtered coaches based on filter parameters.");
         } else {
             Pageable pageable = PageRequest.of(page - 1, size);
             Page<CoachDto> coachesPage = coachService.coachesWithPagination(filterParams, pageable);
             filteredCoaches = coachesPage.getContent();
             model.addAttribute("currentPage", coachesPage.getNumber() + 1);
             model.addAttribute("totalPages", coachesPage.getTotalPages());
-
+            logger.debug("Fetched coaches with pagination. Page: {}, Size: {}", page, size);
         }
+
         model.addAttribute("coaches", filteredCoaches);
+
         return "client/client_page";
     }
 
