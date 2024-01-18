@@ -72,7 +72,7 @@ public class UserController {
                 Client client = clientService.getClientByUserId(authenticated.getId());
                 session.setAttribute("clientId", client.getId());
                 session.setAttribute("clientName", authenticated.getFirstName());
-                return "redirect:clients/client-page";
+                return "redirect:contracts/personal";
             }
             if (isCoach) {
                 Coach coach = coachService.findByUserId(authenticated.getId());
