@@ -14,7 +14,7 @@
 <main class="align">
     <div class="login">
         <header class="login__header">
-            <h2>Make a contract</h2>
+            <h2 class="align">Make a contract</h2>
         </header>
 
 <form th:action="@{'/contracts/' + ${coachId}}" th:object="${contract}" method="post" class="login__form">
@@ -37,5 +37,7 @@
 </form>
     </div>
 </main>
+
+<script th:src="@{/js/date.js}"></script>
 </body>
 </html>

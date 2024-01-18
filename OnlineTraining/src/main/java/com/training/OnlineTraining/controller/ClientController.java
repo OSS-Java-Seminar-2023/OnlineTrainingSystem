@@ -43,7 +43,6 @@ public class ClientController {
         if (clientId == null) {
             return "auth/login_page";
         }
-        String clientName = (String) session.getAttribute("clientName");
 
         List<CoachDto> filteredCoaches;
         if (filterParams.isNotEmpty()) {
@@ -57,9 +56,6 @@ public class ClientController {
 
         }
         model.addAttribute("coaches", filteredCoaches);
-        model.addAttribute("clientId", clientId);
-        model.addAttribute("clientName", clientName);
-
         return "client/client_page";
     }
 
