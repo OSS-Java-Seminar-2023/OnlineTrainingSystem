@@ -1,5 +1,4 @@
-    /*<![CDATA[*/
-    document.addEventListener('DOMContentLoaded', function () {
+   document.addEventListener('DOMContentLoaded', function () {
         let ctx = document.getElementById('bodyWeightChart').getContext('2d');
 
         if (measurements) {
@@ -116,4 +115,3 @@
             });
         }
     });
-    /*]]>*/

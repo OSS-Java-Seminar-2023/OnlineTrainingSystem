@@ -52,7 +52,6 @@ public class ClientController {
             return "auth/login_page";
         }
 
-        String clientName = (String) session.getAttribute("clientName");
 
         logger.info("Fetching coaches for client ID: {}", clientId);
 
@@ -70,10 +69,7 @@ public class ClientController {
         }
 
         model.addAttribute("coaches", filteredCoaches);
-        model.addAttribute("clientId", clientId);
-        model.addAttribute("clientName", clientName);
 
-        logger.info("Returning client page view.");
         return "client/client_page";
     }
 
