@@ -1,6 +1,10 @@
 package com.training.OnlineTraining.security;
 
 
+import com.training.OnlineTraining.dto.UserDto;
+import com.training.OnlineTraining.model.Role;
+import com.training.OnlineTraining.service.LoginService;
+import com.training.OnlineTraining.service.implementation.LoginServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,7 +14,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,6 +34,12 @@ public class SecurityConfig {
 	public UserDetailsService userDetailsService() {
 
 		return new UserDetailsServiceImpl();
+	}
+
+	@Bean
+	public LoginService loginService() {
+
+		return new LoginServiceImpl();
 	}
 
 	@Bean
@@ -60,10 +72,10 @@ public class SecurityConfig {
 
 		http.formLogin(form -> form
 				.loginPage("/login")
-				.loginProcessingUrl("/login")
+				.loginProcessingUrl("/login-user")
 				.usernameParameter("email")
 				.permitAll()
-				.successHandler(successHandler())
+				.successHandler(successHandler(loginService()))
 		);
 
 		http.csrf(AbstractHttpConfigurer::disable);
@@ -72,19 +84,24 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public AuthenticationSuccessHandler successHandler() {
-
+	public AuthenticationSuccessHandler successHandler(LoginService loginService) {
 		return (request, response, authentication) -> {
 			Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+			MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
 
 			if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
 				response.sendRedirect("/admin");
 			} else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("CLIENT"))) {
-				response.sendRedirect("/clients/client-page");
+				loginService.processLogin(getData(userDetails), request.getSession(), null, Role.RoleFactory.getClientRole());
 			} else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("COACH"))) {
-				response.sendRedirect("/coaches/coach-page");
+				loginService.processLogin(getData(userDetails), request.getSession(), null, Role.RoleFactory.getCoachRole());
 			}
 		};
+	}
+
+	private String getData(MyUserDetails userDetails){
+		return userDetails.getUsername();
 	}
 
 

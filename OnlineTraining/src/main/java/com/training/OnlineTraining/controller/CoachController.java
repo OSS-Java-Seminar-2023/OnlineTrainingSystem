@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,7 @@ public class CoachController {
     private final ContractService contractService;
     private static final Logger logger = LoggerFactory.getLogger(CoachController.class);
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
     @GetMapping("/coach-page")
     public String getCoachPage(Model model, HttpSession session) {
         logger.info("Fetching coach page.");

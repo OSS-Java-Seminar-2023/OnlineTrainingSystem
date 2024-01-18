@@ -73,7 +73,7 @@ public class ExerciseController {
     }
 
     @GetMapping()
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
     public String getAllExercises(Model model) {
         logger.info("Fetching all exercises.");
 
