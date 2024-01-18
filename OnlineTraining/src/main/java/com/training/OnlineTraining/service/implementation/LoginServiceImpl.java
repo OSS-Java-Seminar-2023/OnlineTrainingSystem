@@ -51,7 +51,7 @@ public class LoginServiceImpl implements LoginService {
 				session.setAttribute("clientId", client.getId());
 				session.setAttribute("clientName", firstName);
 				logger.info("Login successful. Redirecting to client page for user ID: {}", userID);
-				return "/clients/client-page"; // Return the redirect URL
+				return "redirect:contracts/personal";
 			}
 
 			if (role.getName().equals("COACH")) {
