@@ -2,9 +2,9 @@ package com.training.OnlineTraining.service.implementation;
 
 import com.training.OnlineTraining.dto.ClientDto;
 import com.training.OnlineTraining.dto.UpdateClientDTO;
-import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.mapper.ClientMapper;
 import com.training.OnlineTraining.model.Client;
+import com.training.OnlineTraining.model.Role;
 import com.training.OnlineTraining.model.User;
 import com.training.OnlineTraining.repository.ClientRepository;
 import com.training.OnlineTraining.repository.UserRepository;
@@ -39,7 +39,7 @@ public class ClientServiceImpl implements ClientService {
                     client.setMedicalCondition(clientDto.getMedicalCondition());
                     client.setInjuries(clientDto.getInjuries());
                     clientRepository.save(client);
-                    user.setRole("CLIENT");
+                    user.setRole(Role.getClientRole());
                     userRepository.save(user);
 
                 },

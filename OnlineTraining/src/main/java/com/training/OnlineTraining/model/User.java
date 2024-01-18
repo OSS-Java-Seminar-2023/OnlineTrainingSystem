@@ -48,8 +48,9 @@ public class User {
     @Column
     private String password;
 
-    @Column
-    private String role;
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
     public User(UUID id) {
         this.id = id;

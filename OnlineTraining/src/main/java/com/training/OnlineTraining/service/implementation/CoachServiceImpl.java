@@ -2,12 +2,12 @@ package com.training.OnlineTraining.service.implementation;
 
 import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.dto.CoachFilterParams;
-import com.training.OnlineTraining.dto.UpdateClientDTO;
 import com.training.OnlineTraining.dto.UpdateCoachDTO;
 import com.training.OnlineTraining.exceptions.UserNotFoundException;
 import com.training.OnlineTraining.mapper.CoachMapper;
 import com.training.OnlineTraining.mapper.CoachUserMapper;
 import com.training.OnlineTraining.model.Coach;
+import com.training.OnlineTraining.model.Role;
 import com.training.OnlineTraining.model.User;
 import com.training.OnlineTraining.repository.CoachRepository;
 import com.training.OnlineTraining.repository.UserRepository;
@@ -21,7 +21,6 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -54,7 +53,7 @@ public class CoachServiceImpl implements CoachService {
         optionalUser.ifPresentOrElse(
                 user -> {
                     coachRepository.save(coachMapper.coachDtoToCoach(coachDto));
-                    user.setRole("COACH");
+                    user.setRole(Role.getCoachRole());
                     userRepository.save(user);
 
                 },
