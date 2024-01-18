@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 
 @Entity
 @Table(name = "role")
@@ -34,6 +36,7 @@ public class Role {
 	}
 
 	public static class RoleFactory {
+
 		public static Role getClientRole(){
 			return  new Role("CLIENT");
 		}
