@@ -28,17 +28,17 @@ public class Role {
 		this.name = name;
 	}
 
-	public static Role getClientRole(){
-		return  new Role("CLIENT");
-	}
-
-	public static Role getCoachRole(){
-		return  new Role("COACH");
-	}
-
 	@Override
 	public String toString() {
 		return name;
 	}
 
+	public static class RoleFactory {
+		public static Role getClientRole(){
+			return  new Role("CLIENT");
+		}
+		public static Role getCoachRole(){
+			return  new Role("COACH");
+		}
+	}
 }

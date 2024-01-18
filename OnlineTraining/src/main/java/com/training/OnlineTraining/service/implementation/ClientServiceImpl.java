@@ -39,7 +39,7 @@ public class ClientServiceImpl implements ClientService {
                     client.setMedicalCondition(clientDto.getMedicalCondition());
                     client.setInjuries(clientDto.getInjuries());
                     clientRepository.save(client);
-                    user.setRole(Role.getClientRole());
+                    user.setRole(Role.RoleFactory.getClientRole());
                     userRepository.save(user);
 
                 },

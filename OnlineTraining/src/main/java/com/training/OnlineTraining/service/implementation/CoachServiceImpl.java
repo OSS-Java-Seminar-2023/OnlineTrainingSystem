@@ -53,7 +53,7 @@ public class CoachServiceImpl implements CoachService {
         optionalUser.ifPresentOrElse(
                 user -> {
                     coachRepository.save(coachMapper.coachDtoToCoach(coachDto));
-                    user.setRole(Role.getCoachRole());
+                    user.setRole(Role.RoleFactory.getCoachRole());
                     userRepository.save(user);
 
                 },
