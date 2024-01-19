@@ -1,8 +1,7 @@
 package com.training.OnlineTraining.security;
 
 
-import com.training.OnlineTraining.dto.UserDto;
-import com.training.OnlineTraining.model.Role;
+import com.training.OnlineTraining.model.enums.Role;
 import com.training.OnlineTraining.service.LoginService;
 import com.training.OnlineTraining.service.implementation.LoginServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +13,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -93,9 +90,9 @@ public class SecurityConfig {
 			if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
 				response.sendRedirect("/admin");
 			} else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("CLIENT"))) {
-				loginService.processLogin(getData(userDetails), request.getSession(), null, Role.RoleFactory.getClientRole());
+				loginService.processLogin(getData(userDetails), request.getSession(), null, Role.CLIENT);
 			} else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("COACH"))) {
-				loginService.processLogin(getData(userDetails), request.getSession(), null, Role.RoleFactory.getCoachRole());
+				loginService.processLogin(getData(userDetails), request.getSession(), null, Role.COACH);
 			}
 		};
 	}

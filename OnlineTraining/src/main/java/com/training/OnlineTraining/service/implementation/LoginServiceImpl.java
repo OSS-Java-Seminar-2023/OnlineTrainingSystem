@@ -1,11 +1,8 @@
 package com.training.OnlineTraining.service.implementation;
 
-import com.training.OnlineTraining.controller.UserController;
-import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.model.Client;
 import com.training.OnlineTraining.model.Coach;
-import com.training.OnlineTraining.model.Role;
-import com.training.OnlineTraining.model.User;
+import com.training.OnlineTraining.model.enums.Role;
 import com.training.OnlineTraining.repository.UserRepository;
 import com.training.OnlineTraining.service.ClientService;
 import com.training.OnlineTraining.service.CoachService;
@@ -46,7 +43,8 @@ public class LoginServiceImpl implements LoginService {
 
 			String firstName = userRepository.findFirstNameByEmail(email).get();
 
-			if (role.getName().equals("CLIENT")) {
+
+			if (role == Role.CLIENT) {
 				Client client = clientService.getClientByUserId(userID);
 				session.setAttribute("clientId", client.getId());
 				session.setAttribute("clientName", firstName);
@@ -54,7 +52,7 @@ public class LoginServiceImpl implements LoginService {
 				return "redirect:contracts/personal";
 			}
 
-			if (role.getName().equals("COACH")) {
+			if (role == Role.COACH) {
 				Coach coach = coachService.findByUserId(userID);
 				session.setAttribute("userId", userID);
 				session.setAttribute("coachId", coach.getId());

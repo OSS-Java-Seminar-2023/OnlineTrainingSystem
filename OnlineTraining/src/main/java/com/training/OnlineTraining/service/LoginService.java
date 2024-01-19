@@ -1,7 +1,6 @@
 package com.training.OnlineTraining.service;
 
-import com.training.OnlineTraining.dto.UserDto;
-import com.training.OnlineTraining.model.Role;
+import com.training.OnlineTraining.model.enums.Role;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
