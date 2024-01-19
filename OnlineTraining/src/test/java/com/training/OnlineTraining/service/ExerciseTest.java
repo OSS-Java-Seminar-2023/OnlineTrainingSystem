@@ -1,5 +1,6 @@
-package com.training.OnlineTraining;
+package com.training.OnlineTraining.service;
 
+import com.training.OnlineTraining.OnlineTrainingApplication;
 import com.training.OnlineTraining.controller.ExerciseController;
 import com.training.OnlineTraining.dto.input.ExerciseInputDTO;
 import com.training.OnlineTraining.dto.output.ExerciseOutputDTO;

@@ -1,5 +1,6 @@
 package com.training.OnlineTraining.utils;
 
+import com.training.OnlineTraining.dto.MeasurementDTO;
 import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
@@ -39,6 +40,21 @@ public class TestDTOUtils {
 
 		return workoutSessionInputDTO;
 	}
+
+
+	public static MeasurementDTO getMeasurementDTO(UUID contractId) {
+		MeasurementDTO measurementDTO = new MeasurementDTO();
+		measurementDTO.setContractId(contractId);
+		measurementDTO.setMeasurementDate(DateUtils.getTodayDate());
+		measurementDTO.setBodyWeight(getRandomDecimalNumber());
+		measurementDTO.setBodyFat(getRandomDecimalNumber());
+		measurementDTO.setWaistCircumference(getRandomDecimalNumber());
+		measurementDTO.setChestCircumference(getRandomDecimalNumber());
+		measurementDTO.setArmCircumference(getRandomDecimalNumber());
+		measurementDTO.setLegCircumference(getRandomDecimalNumber());
+		return measurementDTO;
+	}
+
 
 	private static int getRandomNumber(){
 		return new Random().nextInt(1000);

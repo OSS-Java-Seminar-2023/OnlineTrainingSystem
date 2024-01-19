@@ -26,9 +26,9 @@ public class MeasurementServiceImpl implements MeasurementService {
 
 
 	@Override
-	public void createMeasurement(MeasurementDTO measurementDto) {
+	public Measurement createMeasurement(MeasurementDTO measurementDto) {
 		Measurement measurement = measurementMapper.toMeasurement(measurementDto);
-		measurementRepository.save(measurement);
+		return measurementRepository.save(measurement);
 	}
 
 	@Override
@@ -52,8 +52,16 @@ public class MeasurementServiceImpl implements MeasurementService {
 		return measurementMapper.toMeasurementDTO(measurement);
 	}
 
+	public List<Measurement> getAllMeasurements(){
+		return measurementRepository.findAll();
+	}
+
+	public int countMeasurements(){
+		return measurementRepository.countMeasurements();
+	}
+
 	@Override
-	public void updateMeasurement(UUID measurementId, MeasurementDTO measurementDto) {
+	public MeasurementDTO updateMeasurement(UUID measurementId, MeasurementDTO measurementDto) {
 
 		Measurement existingMeasurement = measurementRepository.findById(measurementId)
 				.orElseThrow(() -> new MeasurementNotFoundException(measurementId));
@@ -61,7 +69,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 		Measurement updatedMeasurement = measurementMapper.toMeasurement(measurementDto);
 		updatedMeasurement.setId(existingMeasurement.getId());
 
-		measurementRepository.save(updatedMeasurement);
+		return measurementMapper.toMeasurementDTO(measurementRepository.save(updatedMeasurement));
 	}
 
 	public void deleteMeasurement(UUID measurementId) {
