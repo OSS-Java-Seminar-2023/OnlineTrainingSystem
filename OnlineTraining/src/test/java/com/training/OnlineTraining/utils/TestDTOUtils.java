@@ -1,9 +1,11 @@
 package com.training.OnlineTraining.utils;
 
 import com.training.OnlineTraining.dto.MeasurementDTO;
+import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
+import com.training.OnlineTraining.util.PasswordUtils;
 
 import java.math.BigDecimal;
 import java.util.Random;
@@ -55,6 +57,24 @@ public class TestDTOUtils {
 		return measurementDTO;
 	}
 
+	public static UserDto getUserDTO() {
+		UserDto userDto = new UserDto();
+
+		int randomNumber = getRandomNumber();
+
+		userDto.setFirstName("FirstName" + randomNumber);
+		userDto.setLastName("LastName" + randomNumber);
+		userDto.setEmail("Email" + randomNumber);
+		userDto.setStreet("Street" + randomNumber);
+		userDto.setCity("City" + randomNumber);
+		userDto.setCountry("Country" + randomNumber);
+		userDto.setPhoneNumber("PhoneNumber" +randomNumber);
+		userDto.setGender("Gender" + randomNumber);
+		userDto.setPassword("Password " + randomNumber);
+
+
+		return userDto;
+	}
 
 	private static int getRandomNumber(){
 		return new Random().nextInt(1000);
