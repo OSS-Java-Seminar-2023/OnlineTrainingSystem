@@ -46,6 +46,7 @@ public class LoginServiceImpl implements LoginService {
 
 			String firstName = userRepository.findFirstNameByEmail(email).get();
 
+
 			if (role.getName().equals("CLIENT")) {
 				Client client = clientService.getClientByUserId(userID);
 				session.setAttribute("clientId", client.getId());
