@@ -2,13 +2,14 @@ package com.training.OnlineTraining.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 public class DateUtils {
 
 	public static Date getDateFromString(String dateString) throws ParseException {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		return formatter.parse(dateString);
+		java.util.Date utilDate = formatter.parse(dateString);
+		return new Date(utilDate.getTime());
 	}
 
 	public static String getStringFromDate(Date date) {
@@ -17,6 +18,7 @@ public class DateUtils {
 	}
 
 	public static Date getTodayDate() {
-		return new Date(); // This will return the current date and time
+		long currentTimeMillis = System.currentTimeMillis();
+		return new Date(currentTimeMillis);
 	}
 }

@@ -1,5 +1,6 @@
-package com.training.OnlineTraining;
+package com.training.OnlineTraining.service;
 
+import com.training.OnlineTraining.OnlineTrainingApplication;
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
