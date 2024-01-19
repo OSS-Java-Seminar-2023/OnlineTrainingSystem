@@ -84,18 +84,20 @@ public class SecurityConfig {
 	public AuthenticationSuccessHandler successHandler(LoginService loginService) {
 		return (request, response, authentication) -> {
 			Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-
 			MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
 
 			if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
 				response.sendRedirect("/admin");
 			} else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("CLIENT"))) {
 				loginService.processLogin(getData(userDetails), request.getSession(), null, Role.CLIENT);
+				response.sendRedirect("/clients/client-page"); // specify the URL for CLIENT
 			} else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("COACH"))) {
 				loginService.processLogin(getData(userDetails), request.getSession(), null, Role.COACH);
+				response.sendRedirect("/coaches/coach-page"); // specify the URL for COACH
 			}
 		};
 	}
+
 
 	private String getData(MyUserDetails userDetails){
 		return userDetails.getUsername();
