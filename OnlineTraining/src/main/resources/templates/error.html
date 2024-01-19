@@ -15,20 +15,20 @@
 <br>
 <br>
 <h1 class="margin">An error occurred!</h1>
-<table>
-    <tr>
+<table class="margin">
+    <tr th:if="${timestamp != null}">
         <td>Date:</td>
         <td th:text="${timestamp}"/>
     </tr>
-    <tr>
+    <tr th:if="${path != null}">
         <td>Path:</td>
         <td th:text="${path}"/>
     </tr>
-    <tr>
+    <tr  th:if="${error != null}">
         <td>Error:</td>
         <td th:text="${error}"/>
     </tr>
-    <tr>
+    <tr th:if="${status != null}">
         <td>Status:</td>
         <td th:text="${status}"/>
     </tr>

@@ -4,6 +4,8 @@ import com.training.OnlineTraining.dto.MeasurementDTO;
 import com.training.OnlineTraining.model.Measurement;
 import com.training.OnlineTraining.service.MeasurementService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,10 +45,17 @@ public class MeasurementController {
 	}
 
 	@GetMapping("/personal/{contractId}")
-	public String getPersonalMeasurements(@PathVariable UUID contractId, Model model) {
-		List<Measurement> measurements = measurementService.getMeasurementsByContractIdSortedByDate(contractId);
+	public String getPersonalMeasurements(@PathVariable UUID contractId, Model model,
+										  @RequestParam(defaultValue = "1") int page,
 
-		model.addAttribute("measurements", measurements);
+										  @RequestParam(defaultValue = "10") int size) {
+		PageRequest pageRequest = PageRequest.of(page - 1, size);
+
+		Page<Measurement> measurementPage = measurementService.getMeasurementsByContractIdSortedByDatePageable(contractId, pageRequest);
+
+		model.addAttribute("measurements", measurementPage);
+		model.addAttribute("currentPage", measurementPage.getNumber() + 1);
+		model.addAttribute("totalPages", measurementPage.getTotalPages());
 
 		return "client/personal_measurements";
 	}

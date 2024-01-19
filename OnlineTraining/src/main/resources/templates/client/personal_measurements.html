@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal measurements</title>
     <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
+    <link rel="stylesheet" th:href="@{/css/pagination.css}">
     <link rel="stylesheet" th:href="@{/css/navigation.css}">
     <link rel="stylesheet" th:href="@{/css/table.css}">
     <link rel="stylesheet" th:href="@{/css/select.css}">
@@ -15,6 +16,7 @@
 </head>
 <body>
 <div th:insert="~{fragments/navigation :: navigation('/measurements/personal')}"></div>
+<br>
 <br>
 <br>
 <h1 class="margin">Personal Measurements</h1>
@@ -65,6 +67,33 @@
     </tr>
     </tbody>
 </table>
+
+<div class="pagination-container">
+    <ol class="pagination-list">
+        <li th:unless="${currentPage == 1}" class="pagination-item">
+            <a th:href="@{/measurements/personal/{contractId}(page=1,contractId=${contractId})}" class="pagination-link">First</a>
+        </li>
+        <li th:unless="${currentPage == 1}" class="pagination-item">
+            <a th:href="@{/measurements/personal/{contractId}(page=${currentPage != null ? currentPage - 1 : 1},contractId=${contractId})}" class="pagination-link">Previous</a>
+        </li>
+
+        <!-- Dynamic sequence based on current page -->
+        <li th:each="pageNum : ${totalPages != null ? #numbers.sequence((currentPage != null && currentPage - 1 > 0) ? currentPage - 1 : 1,
+                                                               (currentPage != null && currentPage + 1 < totalPages) ? currentPage + 1 : totalPages) : {}}">
+            <a th:href="@{/measurements/personal/{contractId}(page=${pageNum},contractId=${contractId})}"
+               th:text="${pageNum}" style="color:gray;" class="pagination-link" th:class="${pageNum == currentPage} ? 'active'"></a>
+        </li>
+
+        <li th:unless="${currentPage == totalPages}" class="pagination-item">
+            <a th:href="@{/measurements/personal/{contractId}(page=${currentPage != null ? currentPage + 1 : 1},contractId=${contractId})}" class="pagination-link">Next</a>
+        </li>
+        <li th:unless="${currentPage == totalPages}" class="pagination-item">
+            <a th:href="@{/measurements/personal/{contractId}(page=${totalPages},contractId=${contractId})}" class="pagination-link">Last</a>
+        </li>
+    </ol>
+</div>
+
+
 
 <div id="confirmation-dialog" class="confirmation-dialog">
     <div class="confirmation-content">

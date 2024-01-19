@@ -1,6 +1,6 @@
 .greeting p {
     display: inline;
-    margin: 0;
+    margin-left:20px;
     padding: 5px;
     font-family: 'Varela Round', sans-serif;
     font-size: 1.7em;

@@ -10,6 +10,8 @@ import com.training.OnlineTraining.repository.ContractRepository;
 import com.training.OnlineTraining.repository.MeasurementRepository;
 import com.training.OnlineTraining.service.MeasurementService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 
@@ -32,15 +34,12 @@ public class MeasurementServiceImpl implements MeasurementService {
 	}
 
 	@Override
-	public List<Measurement> getMeasurementsByContractIdSortedByDate(UUID contractId) {
-
-
-        return measurementRepository.findByContractIdOrderByMeasurementDateDesc(contractId);
+	public Page<Measurement> getMeasurementsByContractIdSortedByDatePageable(UUID contractId, PageRequest pageRequest) {
+		return measurementRepository.findByContractIdOrderByMeasurementDateDesc(contractId, pageRequest);
 	}
 
 	@Override
 	public List<Measurement> getMeasurementsByContractIdSortedByDateAsc(UUID contractId) {
-
 
 		return measurementRepository.findByContractIdOrderByMeasurementDateAsc(contractId);
 	}
