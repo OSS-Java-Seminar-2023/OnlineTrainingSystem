@@ -1,6 +1,5 @@
 package com.training.OnlineTraining.security;
 
-import com.training.OnlineTraining.model.Role;
 import com.training.OnlineTraining.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

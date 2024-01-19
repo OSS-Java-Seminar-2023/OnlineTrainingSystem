@@ -4,7 +4,7 @@ import com.training.OnlineTraining.dto.ClientDto;
 import com.training.OnlineTraining.dto.UpdateClientDTO;
 import com.training.OnlineTraining.mapper.ClientMapper;
 import com.training.OnlineTraining.model.Client;
-import com.training.OnlineTraining.model.Role;
+import com.training.OnlineTraining.model.enums.Role;
 import com.training.OnlineTraining.model.User;
 import com.training.OnlineTraining.repository.ClientRepository;
 import com.training.OnlineTraining.repository.UserRepository;
@@ -39,7 +39,7 @@ public class ClientServiceImpl implements ClientService {
                 user -> {
                     Client client = new Client();
                     client.setUser(user);
-                    user.setRole(Role.getClientsRole(entityManager, 3));
+                    user.setRole(Role.CLIENT);
                     client.setMedicalCondition(clientDto.getMedicalCondition());
                     client.setInjuries(clientDto.getInjuries());
                     clientRepository.save(client);

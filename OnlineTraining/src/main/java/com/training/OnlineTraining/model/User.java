@@ -1,9 +1,9 @@
 package com.training.OnlineTraining.model;
 
+import com.training.OnlineTraining.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -48,8 +48,8 @@ public class User {
     @Column
     private String password;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id")
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     public User(UUID id) {
