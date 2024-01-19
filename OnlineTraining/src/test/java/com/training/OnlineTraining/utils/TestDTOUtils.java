@@ -43,6 +43,7 @@ public class TestDTOUtils {
 		return workoutSessionInputDTO;
 	}
 
+	private static int userNumber = 0;
 
 	public static MeasurementDTO getMeasurementDTO(UUID contractId) {
 		MeasurementDTO measurementDTO = new MeasurementDTO();
@@ -60,18 +61,18 @@ public class TestDTOUtils {
 	public static UserDto getUserDTO() {
 		UserDto userDto = new UserDto();
 
-		int randomNumber = getRandomNumber();
+		userDto.setFirstName("FirstName" + userNumber);
+		userDto.setLastName("LastName" + userNumber);
+		userDto.setEmail("Email" + userNumber);
+		userDto.setStreet("Street" + userNumber);
+		userDto.setCity("City" + userNumber);
+		userDto.setCountry("Country" + userNumber);
+		userDto.setPhoneNumber("PhoneNumber" +userNumber);
+		userDto.setGender("Gender" + userNumber);
+		userDto.setPassword("Password " + userNumber);
+		userDto.setAge(50);
 
-		userDto.setFirstName("FirstName" + randomNumber);
-		userDto.setLastName("LastName" + randomNumber);
-		userDto.setEmail("Email" + randomNumber);
-		userDto.setStreet("Street" + randomNumber);
-		userDto.setCity("City" + randomNumber);
-		userDto.setCountry("Country" + randomNumber);
-		userDto.setPhoneNumber("PhoneNumber" +randomNumber);
-		userDto.setGender("Gender" + randomNumber);
-		userDto.setPassword("Password " + randomNumber);
-
+		++userNumber;
 
 		return userDto;
 	}

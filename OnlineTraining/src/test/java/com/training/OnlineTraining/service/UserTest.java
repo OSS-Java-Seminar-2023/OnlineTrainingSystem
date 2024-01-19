@@ -5,6 +5,7 @@ import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.output.WorkoutOutputDTO;
 import com.training.OnlineTraining.model.User;
+import com.training.OnlineTraining.repository.UserRepository;
 import com.training.OnlineTraining.utils.TestDTOUtils;
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,8 +24,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest(classes = OnlineTrainingApplication.class)
@@ -74,6 +74,39 @@ public class UserTest {
 
 		assertNotNull(retreivedUser);
 		assertEquals(10, retreivedUser.getAge());
+	}
+
+	@Test
+	public void testAreInputsInvalid() {
+		assertFalse(userService.areInputsInvalid(userDto));
+	}
+
+	@Test
+	public void testAreInputsInvalid_Exception_Email() {
+		userDto.setEmail("");
+
+		assertThrows(RuntimeException.class, () -> {
+			userService.registerUser(userDto);
+		});
+	}
+
+	@Test
+	public void testAreInputsInvalid_Exception_Age() {
+		userDto.setAge(500);
+
+		assertThrows(RuntimeException.class, () -> {
+			userService.registerUser(userDto);
+		});
+	}
+
+	@Test
+	public void testDuplicateEmail_Exception() {
+		userDto.setEmail("test@test.com");
+		userService.registerUser(userDto);
+
+		assertThrows(RuntimeException.class, () -> {
+			userService.registerUser(userDto);
+		});
 	}
 
 
