@@ -87,7 +87,7 @@ public class ClientController {
             return "redirect:/login";
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
-            return "error_page";
+            return "error";
         }
     }
 

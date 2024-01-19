@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -58,13 +59,17 @@ public class UserController {
                     "Welcome to OnlineTrainingSystem!",
                     " Registration Confirmation"
             );
-            return "auth/login_page";
+
+            model.addAttribute("userId", registeredUser.getId());
+            return "/auth/become_client_or_coach_page";
+
         } catch (RuntimeException | MessagingException e){
             model.addAttribute("error", e.getMessage());
             model.addAttribute("registerRequest", request);
             return "registration/register_page";
         }
     }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session){

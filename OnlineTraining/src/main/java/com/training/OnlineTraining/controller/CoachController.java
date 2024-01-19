@@ -71,10 +71,8 @@ public class CoachController {
 
         } catch (RuntimeException e) {
             logger.error("Error during coach registration: {}", e.getMessage());
-
             model.addAttribute("error", e.getMessage());
-
-            return "error_page";
+            return "error";
         }
     }
 

@@ -52,7 +52,7 @@ public class LoginServiceImpl implements LoginService {
 				session.setAttribute("clientId", client.getId());
 				session.setAttribute("clientName", firstName);
 				logger.info("Login successful. Redirecting to client page for user ID: {}", userID);
-				return "/clients/client-page"; // Return the redirect URL
+				return "redirect:contracts/personal";
 			}
 
 			if (role.getName().equals("COACH")) {
@@ -63,10 +63,10 @@ public class LoginServiceImpl implements LoginService {
 				logger.info("Login successful. Redirecting to coach page for user ID: {}", userID);
 				return "/coaches/coach-page"; // Return the redirect URL
 			}
-
 			//model.addAttribute("userId", authenticated.getId());
 			logger.info("User with ID {} is not a client or coach. Redirecting to become_client_or_coach_page.", userID);
-			return "/auth/become_client_or_coach_page"; // Return the redirect URL
+			// za pocetak ovo pa cemo admina ukomponirati
+			return "/auth/login_page";
 
 		} catch (RuntimeException e) {
 			logger.error("Login failed. Error: {}", e.getMessage());

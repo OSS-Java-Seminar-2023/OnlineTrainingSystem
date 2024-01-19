@@ -48,8 +48,8 @@ public class User {
     @Column
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
     private Role role;
 
     public User(UUID id) {
