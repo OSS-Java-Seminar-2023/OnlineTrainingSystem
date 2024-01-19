@@ -10,4 +10,6 @@ public interface UserService {
     User registerUser(UserDto request);
     User authenticate(String email, String enteredPassword);
     User getUserById(UUID userId);
+
+    int countUsers();
 }

@@ -59,6 +59,10 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RuntimeException("Authentication failed"));
     }
 
+    public int countUsers() {
+        return userRepository.countUsers();
+    }
+
     @Override
     public User getUserById(UUID userId) {
         return userRepository.findById(userId).orElse(null);
