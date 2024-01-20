@@ -84,14 +84,11 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/logout")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT', 'USER')")
     public String logout(HttpSession session){
         session.invalidate();
         return "index";
     }
-
-
 }
 
