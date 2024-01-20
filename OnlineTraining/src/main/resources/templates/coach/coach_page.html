@@ -39,6 +39,8 @@
         <th>Start Date</th>
         <th>End Date</th>
         <th>Monthly Price</th>
+        <th>Medical Condition</th>
+        <th>Injuries</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -49,6 +51,8 @@
         <td th:text="${#dates.format(contract.startDate, 'dd-MM-yyyy')}"></td>
         <td th:text="${#dates.format(contract.endDate, 'dd-MM-yyyy')}"></td>
         <td th:text="${contract.monthlyPrice}"></td>
+        <td th:text="${contract.client.medicalCondition}"></td>
+        <td th:text="${contract.client.injuries}"></td>
         <td>
             <!-- Button to call the /workout endpoint with contract-id -->
             <form th:action="@{/workout}" method="get">
