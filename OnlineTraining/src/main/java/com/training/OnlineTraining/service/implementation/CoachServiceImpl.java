@@ -48,14 +48,16 @@ public class CoachServiceImpl implements CoachService {
 
     @Transactional
     @Override
-    public void registerCoach(CoachDto coachDto, UUID userId) {
+    public Coach registerCoach(CoachDto coachDto, UUID userId) {
         Optional<User> optionalUser = Optional.ofNullable(userService.getUserById(userId));
 
         coachDto.setCoachUserDTO(coachUserMapper.toCoachUserDTO(optionalUser.get()));
 
+        Coach coachForSaving = coachMapper.coachDtoToCoach(coachDto);
+
         optionalUser.ifPresentOrElse(
                 user -> {
-                    coachRepository.save(coachMapper.coachDtoToCoach(coachDto));
+                    coachRepository.save(coachForSaving);
                     user.setRole(Role.COACH);
                     userRepository.save(user);
 
@@ -64,6 +66,8 @@ public class CoachServiceImpl implements CoachService {
                     throw new UserNotFoundException(userId);
                 }
         );
+
+        return coachForSaving;
     }
 
     @Override
