@@ -38,7 +38,7 @@
     <tr th:each="exercise : ${exercises}">
         <td th:text="${exercise.name}"></td>
         <td th:text="${exercise.description}"></td>
-        <td th:text="${exercise.exerciseEquipment.displayName}"></td>
+        <td th:text="${exercise.exerciseEquipment?.displayName}"></td>
         <td th:text="${exercise.exerciseDifficultyLevel}"></td>
         <td>
             <form id="deleteForm" th:action="@{/exercise/delete/{id}(id=${exercise.id})}"
