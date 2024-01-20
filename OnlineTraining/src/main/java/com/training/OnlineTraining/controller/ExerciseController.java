@@ -2,15 +2,12 @@ package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.dto.input.ExerciseInputDTO;
 import com.training.OnlineTraining.dto.output.ExerciseOutputDTO;
-import com.training.OnlineTraining.mapper.ExerciseMapper;
-import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.model.enums.ExerciseEquipment;
 import com.training.OnlineTraining.service.ExerciseService;
-import com.training.OnlineTraining.service.WorkoutSessionService;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,26 +15,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
 @RequestMapping("/exercise")
+@AllArgsConstructor
 public class ExerciseController {
 
     private final ExerciseService exerciseService;
-    private final ExerciseMapper exerciseMapper;
-
-    private final WorkoutSessionService workoutSessionService;
     private static final Logger logger = LoggerFactory.getLogger(ExerciseController.class);
-
-    @Autowired
-    public ExerciseController(ExerciseService exerciseService, ExerciseMapper exerciseMapper, WorkoutSessionService workoutSessionService) {
-        this.exerciseService = exerciseService;
-        this.exerciseMapper = exerciseMapper;
-        this.workoutSessionService = workoutSessionService;
-        logger.info("ExerciseController initialized.");
-    }
 
     @GetMapping("/create")
     public String showAddExerciseForm(Model model) {

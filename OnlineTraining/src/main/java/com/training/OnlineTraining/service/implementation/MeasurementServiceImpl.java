@@ -23,8 +23,8 @@ import java.util.UUID;
 public class MeasurementServiceImpl implements MeasurementService {
 
 	private final MeasurementRepository measurementRepository;
-	private MeasurementMapper measurementMapper;
-	private ContractRepository contractRepository;
+	private final MeasurementMapper measurementMapper;
+	//private final ContractRepository contractRepository;
 
 
 	@Override
