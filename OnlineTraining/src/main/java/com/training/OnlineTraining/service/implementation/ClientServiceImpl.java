@@ -32,12 +32,12 @@ public class ClientServiceImpl implements ClientService {
 
     @Transactional
     @Override
-    public void registerClient(ClientDto clientDto, UUID userId) {
+    public Client registerClient(ClientDto clientDto, UUID userId) {
         Optional<User> optionalUser = Optional.ofNullable(userService.getUserById(userId));
+        Client client = new Client();
 
         optionalUser.ifPresentOrElse(
                 user -> {
-                    Client client = new Client();
                     client.setUser(user);
                     user.setRole(Role.CLIENT);
                     client.setMedicalCondition(clientDto.getMedicalCondition());
@@ -51,6 +51,8 @@ public class ClientServiceImpl implements ClientService {
                     throw new RuntimeException("User not found");
                 }
         );
+
+        return client;
     }
     @Override
     public boolean isClient(User user) {
@@ -66,6 +68,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client getClientsById(UUID clientId) {
         return clientRepository.findById(clientId).orElse(null);
+    }
+
+    public int countClients(){
+        return clientRepository.countClients();
     }
 
     @Override

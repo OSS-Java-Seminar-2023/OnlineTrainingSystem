@@ -1,11 +1,14 @@
 package com.training.OnlineTraining.utils;
 
+import com.training.OnlineTraining.dto.ClientDto;
 import com.training.OnlineTraining.dto.MeasurementDTO;
+import com.training.OnlineTraining.dto.UpdateClientDTO;
 import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import com.training.OnlineTraining.util.PasswordUtils;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Random;
@@ -44,6 +47,7 @@ public class TestDTOUtils {
 	}
 
 	private static int userNumber = 0;
+	private static int clientNumber = 0;
 
 	public static MeasurementDTO getMeasurementDTO(UUID contractId) {
 		MeasurementDTO measurementDTO = new MeasurementDTO();
@@ -77,6 +81,22 @@ public class TestDTOUtils {
 		return userDto;
 	}
 
+	public static UpdateClientDTO getUpdateClientDTO(){
+		UpdateClientDTO updateClientDTO = new UpdateClientDTO();
+		updateClientDTO.setMedicalCondition("Medical Condition");
+		updateClientDTO.setInjuries("Injuries");
+		updateClientDTO.setFirstName("First Name");
+		updateClientDTO.setLastName("Last Name");
+		updateClientDTO.setStreet("Street");
+		updateClientDTO.setCity("City");
+		updateClientDTO.setCountry("Country");
+		updateClientDTO.setPhoneNumber("Phone Number");
+		updateClientDTO.setGender("Gender");
+		updateClientDTO.setAge(40);
+
+		return updateClientDTO;
+	}
+
 	private static int getRandomNumber(){
 		return new Random().nextInt(1000);
 	}
@@ -84,5 +104,16 @@ public class TestDTOUtils {
 	private static double getRandomDecimalNumber(){
 		return new Random().nextDouble(1000.0);
 	}
+
+	public static ClientDto getClientDTO() {
+		ClientDto clientDto = new ClientDto();
+
+		clientDto.setMedicalCondition("Medical condition " + clientNumber);
+		clientDto.setInjuries("Injuries " + clientNumber);
+		++clientNumber;
+
+		return clientDto;
+	}
+
 }
 
