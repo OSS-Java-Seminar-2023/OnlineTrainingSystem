@@ -1,14 +1,13 @@
 package com.training.OnlineTraining.utils;
 
-import com.training.OnlineTraining.dto.ClientDto;
-import com.training.OnlineTraining.dto.MeasurementDTO;
-import com.training.OnlineTraining.dto.UpdateClientDTO;
-import com.training.OnlineTraining.dto.UserDto;
+import com.training.OnlineTraining.dto.*;
 import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
+import com.training.OnlineTraining.model.enums.Education;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import com.training.OnlineTraining.util.PasswordUtils;
 import lombok.Data;
+import org.checkerframework.checker.units.qual.C;
 
 import java.math.BigDecimal;
 import java.util.Random;
@@ -113,6 +112,36 @@ public class TestDTOUtils {
 		++clientNumber;
 
 		return clientDto;
+	}
+
+	public static CoachDto getCoachDTO() {
+		CoachDto coachDto = new CoachDto();
+		
+		coachDto.setCoachUserDTO(null);
+		coachDto.setYearsOfExperience(10.0);
+		coachDto.setEducation(Education.BACHELORS);
+		coachDto.setYearsOfExperience(20.0);
+		coachDto.setMonthlyPrice(100.0);
+		
+		return coachDto;
+	}
+
+
+	public static UpdateCoachDTO getUpdateCoachDTO() {
+		UpdateCoachDTO updateCoachDTO = new UpdateCoachDTO();
+		updateCoachDTO.setYearsOfExperience(new BigDecimal("1.5")); // Set a sample value for BigDecimal
+		updateCoachDTO.setEducation(String.valueOf(Education.BACHELORS));
+		updateCoachDTO.setMonthlyPrice(new BigDecimal("1000.00")); // Set a sample value for BigDecimal
+		updateCoachDTO.setFirstName("SampleFirstName");
+		updateCoachDTO.setLastName("SampleLastName");
+		updateCoachDTO.setStreet("SampleStreet");
+		updateCoachDTO.setCity("SampleCity");
+		updateCoachDTO.setCountry("SampleCountry");
+		updateCoachDTO.setPhoneNumber("1234567890");
+		updateCoachDTO.setGender("M");
+		updateCoachDTO.setAge(25); // Set a sample value for Integer
+
+		return updateCoachDTO;
 	}
 
 }

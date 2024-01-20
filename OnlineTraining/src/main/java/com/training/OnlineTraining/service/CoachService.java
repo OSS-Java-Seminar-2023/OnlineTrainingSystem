@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public interface CoachService {
 
-   void registerCoach(CoachDto coachDto, UUID userId);
+   Coach registerCoach(CoachDto coachDto, UUID userId);
    boolean isCoach(User user);
    List<CoachDto> getAllCoaches();
    List<CoachDto> filterCoaches(CoachFilterParams filterParams);
