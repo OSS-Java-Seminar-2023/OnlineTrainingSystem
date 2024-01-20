@@ -76,6 +76,7 @@ public class CoachController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
     @GetMapping("/settings")
     public String getSettings(Model model, HttpSession session) {
         UUID coachId = (UUID) session.getAttribute("coachId");
@@ -89,6 +90,7 @@ public class CoachController {
         return "coach/settings";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
     @PutMapping("/update")
     public String updateCoach(@ModelAttribute UpdateCoachDTO updateCoachDTO,
                               HttpSession session, Model model) {

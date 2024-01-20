@@ -7,6 +7,7 @@ import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutSessionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class WorkoutSessionController {
 	}
 
 	@GetMapping("/create")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String showCreateWorkoutSessionForm(@RequestParam UUID workoutID, Model model) {
 		logger.info("Displaying create workout session form.");
 
@@ -40,6 +42,7 @@ public class WorkoutSessionController {
 	}
 
 	@PostMapping("/create")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String createWorkout(@ModelAttribute("workoutDTO") WorkoutSessionInputDTO workoutSessionInputDTO) {
 		logger.info("Creating a new workout session. {}", workoutSessionInputDTO);
 
@@ -52,6 +55,7 @@ public class WorkoutSessionController {
 	}
 
 	@PostMapping("/update/{workoutID}")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String updateWorkoutAndSessions(
 			@PathVariable UUID workoutID,
 			@ModelAttribute("workout") WorkoutInputDTO workoutInputDTO) {
@@ -66,6 +70,7 @@ public class WorkoutSessionController {
 	}
 
 	@PostMapping("/delete/{workoutID}/{workoutSessionID}")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String deleteWorkoutSession(
 			@PathVariable UUID workoutID,
 			@PathVariable UUID workoutSessionID
@@ -79,8 +84,6 @@ public class WorkoutSessionController {
 		// Redirect to the appropriate page after deletion
 		return "redirect:/workout/details/" + workoutID;
 	}
-
-
 
 
 }

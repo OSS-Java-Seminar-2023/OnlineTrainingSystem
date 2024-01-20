@@ -10,6 +10,7 @@ import com.training.OnlineTraining.service.WorkoutSessionService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,7 @@ public class WorkoutController {
 	}
 
 	@GetMapping("/create")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String showCreateWorkoutForm(Model model) {
 		logger.info("Displaying create workout form.");
 
@@ -43,6 +45,7 @@ public class WorkoutController {
 	}
 
 	@PostMapping("/create")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String createWorkout(@ModelAttribute("workoutDTO") WorkoutInputDTO workoutInputDTO, HttpSession session) {
 		logger.info("Creating a new workout.");
 
@@ -54,6 +57,7 @@ public class WorkoutController {
 	}
 
 	@GetMapping()
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT')")
 	public String getAllWorkoutsForContract(@RequestParam(value = "contractID", required = false) String passedContractID, HttpSession session, Model model) {
 		logger.info("Fetching all workouts for a contract.");
 
@@ -76,6 +80,7 @@ public class WorkoutController {
 	}
 
 	@GetMapping("/details/{id}")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT')")
 	public String showWorkoutDetails(@PathVariable UUID id, Model model, HttpSession session) {
 		logger.info("Displaying workout details for ID: {}", id);
 
@@ -94,6 +99,7 @@ public class WorkoutController {
 	}
 
 	@GetMapping("/update/{id}")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT')")
 	public String showUpdateWorkoutForm(@PathVariable UUID id, Model model, HttpSession session) {
 		logger.info("Displaying update workout form for ID: {}", id);
 
@@ -114,6 +120,7 @@ public class WorkoutController {
 	}
 
 	@PostMapping("/update/{id}")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String updateWorkout(@PathVariable UUID id, @ModelAttribute("workout") WorkoutInputDTO workoutInputDTO, HttpSession session) {
 		logger.info("Updating workout for ID: {}", id);
 
@@ -126,6 +133,7 @@ public class WorkoutController {
 	}
 
 	@PostMapping("/delete/{id}")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String deleteWorkout(@PathVariable UUID id) {
 		logger.info("Deleting workout for ID: {}", id);
 

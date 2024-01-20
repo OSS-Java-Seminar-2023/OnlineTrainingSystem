@@ -7,6 +7,7 @@ import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.ContractService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -26,6 +27,7 @@ public class ContractController {
     private CoachService coachService;
 
     @GetMapping("/{coachId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     public String viewContract(@PathVariable UUID coachId, Model model, HttpSession session) {
 
         UUID clientId = (UUID) session.getAttribute("clientId");
@@ -40,6 +42,7 @@ public class ContractController {
     }
 
     @PostMapping("/{coachId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     public String createContract(@PathVariable UUID coachId, @ModelAttribute ContractDto contractDto, Model model) {
         Contract savedContract = contractService.createContract(contractDto);
         UUID contractId = savedContract.getId();
@@ -48,6 +51,7 @@ public class ContractController {
     }
 
     @GetMapping("/personal")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     public String getPersonalContracts(Model model, HttpSession session) {
         UUID clientId = (UUID) session.getAttribute("clientId");
 
@@ -64,6 +68,5 @@ public class ContractController {
 
         return "client/personal_contracts";
     }
-
 
 }

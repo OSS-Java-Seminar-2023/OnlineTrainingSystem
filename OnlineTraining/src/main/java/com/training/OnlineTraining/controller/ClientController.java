@@ -92,6 +92,7 @@ public class ClientController {
     }
 
     @GetMapping("/settings")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     public String getSettings(Model model, HttpSession session) {
         UUID clientId = (UUID) session.getAttribute("clientId");
         if (clientId == null) {
@@ -106,6 +107,7 @@ public class ClientController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     public String updateClient(@ModelAttribute UpdateClientDTO updateClientDTO,
                                HttpSession session, Model model,
                                BindingResult bindingResult) {

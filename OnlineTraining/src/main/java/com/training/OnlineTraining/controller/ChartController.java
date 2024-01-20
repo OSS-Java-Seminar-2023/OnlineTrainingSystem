@@ -3,6 +3,7 @@ package com.training.OnlineTraining.controller;
 import com.training.OnlineTraining.model.Measurement;
 import com.training.OnlineTraining.service.MeasurementService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class ChartController {
 
     private final MeasurementService measurementService;
 
-
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     @GetMapping("/{contractId}")
     public String getPersonalMeasurementsAsc(@PathVariable UUID contractId, Model model) {
         List<Measurement> measurements = measurementService.getMeasurementsByContractIdSortedByDateAsc(contractId);

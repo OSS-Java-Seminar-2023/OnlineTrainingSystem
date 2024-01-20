@@ -26,6 +26,7 @@ public class ExerciseController {
     private static final Logger logger = LoggerFactory.getLogger(ExerciseController.class);
 
     @GetMapping("/create")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
     public String showAddExerciseForm(Model model) {
         logger.info("Displaying add exercise form.");
 
@@ -40,6 +41,7 @@ public class ExerciseController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
     public String createExercise(@ModelAttribute ExerciseInputDTO exerciseInputDTO, Model model) {
         logger.info("Creating a new exercise.");
 
@@ -49,6 +51,7 @@ public class ExerciseController {
     }
 
     @GetMapping("/details/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
     public String showExerciseDetails(@PathVariable UUID id, Model model) {
         logger.info("Displaying exercise details for ID: {}", id);
 

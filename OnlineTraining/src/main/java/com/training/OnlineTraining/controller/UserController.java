@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.hibernate.cfg.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/additions")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public String getBecomeClientOrCoachPage(Model model, HttpSession session) {
 
         UUID userId = (UUID) session.getAttribute("userId");
@@ -84,6 +86,7 @@ public class UserController {
 
 
     @GetMapping("/logout")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT', 'USER')")
     public String logout(HttpSession session){
         session.invalidate();
         return "index";
