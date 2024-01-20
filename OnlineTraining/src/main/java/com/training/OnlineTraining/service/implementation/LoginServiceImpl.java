@@ -60,6 +60,12 @@ public class LoginServiceImpl implements LoginService {
 				logger.info("Login successful. Redirecting to coach page for user ID: {}", userID);
 				return "/coaches/coach-page"; // Return the redirect URL
 			}
+
+			if (role == Role.USER) {
+				session.setAttribute("userId", userID);
+				logger.info("Login successful. Redirecting to user page for user ID: {}", userID);
+				return "/additions"; // Return the redirect URL
+			}
 			//model.addAttribute("userId", authenticated.getId());
 			logger.info("User with ID {} is not a client or coach. Redirecting to become_client_or_coach_page.", userID);
 			// za pocetak ovo pa cemo admina ukomponirati

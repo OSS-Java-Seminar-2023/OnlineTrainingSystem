@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @Controller
@@ -36,6 +37,17 @@ public class UserController {
 
         model.addAttribute("registerRequest", new UserDto());
         return "registration/register_page";
+    }
+
+    @GetMapping("/additions")
+    public String getBecomeClientOrCoachPage(Model model, HttpSession session) {
+
+        UUID userId = (UUID) session.getAttribute("userId");
+        if (userId == null) {
+            return "auth/login_page";
+        }
+        model.addAttribute("userId", userId);
+        return "auth/become_client_or_coach_page";
     }
 
 

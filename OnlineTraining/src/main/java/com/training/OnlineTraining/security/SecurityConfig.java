@@ -94,6 +94,9 @@ public class SecurityConfig {
 			} else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("COACH"))) {
 				loginService.processLogin(getData(userDetails), request.getSession(), null, Role.COACH);
 				response.sendRedirect("/coaches/coach-page"); // specify the URL for COACH
+			} else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("USER"))) {
+				loginService.processLogin(getData(userDetails), request.getSession(), null, Role.USER);
+				response.sendRedirect("/additions");
 			}
 		};
 	}

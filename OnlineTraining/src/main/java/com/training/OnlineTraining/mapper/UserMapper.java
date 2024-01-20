@@ -26,6 +26,7 @@ public class UserMapper {
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setGender(userDto.getGender());
         user.setAge(userDto.getAge());
+        user.setRole(userDto.getRole());
         user.setPassword(PasswordUtils.hashPassword(userDto.getPassword())); // Call hashPassword from PasswordUtils
         return user;
     }

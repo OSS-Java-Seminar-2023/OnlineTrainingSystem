@@ -18,12 +18,13 @@
 
     <div class="link-container">
         <th:unless="${isClient}">
-        <a class="become-link" th:href="@{'/clients/register?userId=' + ${userId}}">Become a Client</a>
+        <a class="become-link" th:href="@{/clients/register(userId=${userId})}">Become a Client</a>
         </th:unless>
         <th:unless="${isCoach}">
-        <a class="become-link" th:href="@{'/coaches/register?userId=' + ${userId}}">Become a Coach</a>
+        <a class="become-link" th:href="@{/coaches/register(userId=${userId})}">Become a Coach</a>
         </th:unless>
     </div>
+
 </main>
 <script th:src="@{/js/noBack.js}"></script>
 </body>
