@@ -3,6 +3,8 @@ package com.training.OnlineTraining.utils;
 import com.training.OnlineTraining.dto.*;
 import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
+import com.training.OnlineTraining.model.Client;
+import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.enums.Education;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import com.training.OnlineTraining.util.PasswordUtils;
@@ -10,6 +12,7 @@ import lombok.Data;
 import org.checkerframework.checker.units.qual.C;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.Random;
 import java.util.UUID;
 
@@ -142,6 +145,18 @@ public class TestDTOUtils {
 		updateCoachDTO.setAge(25); // Set a sample value for Integer
 
 		return updateCoachDTO;
+	}
+
+	public static ContractDto getContractDTO(Coach coach, Client client) {
+		ContractDto contractDto = new ContractDto();
+
+		contractDto.setClient(client);
+		contractDto.setCoach(coach);
+		contractDto.setStartDate(DateUtils.getTodayDate());
+		contractDto.setEndDate(DateUtils.getTodayDate());
+		contractDto.setMonthlyPrice(100.00);
+
+		return contractDto;
 	}
 
 }
