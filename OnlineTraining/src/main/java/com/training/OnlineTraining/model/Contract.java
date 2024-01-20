@@ -3,6 +3,8 @@ package com.training.OnlineTraining.model;
 import lombok.*;
 
 import jakarta.persistence.*;
+
+import java.util.Objects;
 import java.util.UUID;
 import java.sql.Date;
 
@@ -34,5 +36,21 @@ public class Contract {
 
     @Column(name = "monthly_price")
     private Double monthlyPrice;
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contract contract = (Contract) o;
+        return Objects.equals(id, contract.id) ||
+                (Objects.equals(coach, contract.coach) && Objects.equals(client, contract.client) && Objects.equals(startDate, contract.startDate) && Objects.equals(endDate, contract.endDate) && Objects.equals(monthlyPrice, contract.monthlyPrice));
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, coach, client, startDate, endDate, monthlyPrice);
+    }
 
 }

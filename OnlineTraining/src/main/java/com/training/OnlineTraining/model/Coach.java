@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import com.training.OnlineTraining.model.enums.Education;
 
@@ -31,4 +32,21 @@ public class Coach {
 
     @Column(name = "monthly_price")
     private Double monthlyPrice;
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coach coach = (Coach) o;
+        return Objects.equals(id, coach.id) ||
+                (Objects.equals(user, coach.user) && Objects.equals(yearsOfExperience, coach.yearsOfExperience) && education == coach.education && Objects.equals(monthlyPrice, coach.monthlyPrice));
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, user, yearsOfExperience, education, monthlyPrice);
+    }
+
 }
