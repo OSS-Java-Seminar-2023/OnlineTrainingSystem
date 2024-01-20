@@ -10,11 +10,13 @@ import com.training.OnlineTraining.model.User;
 import java.util.UUID;
 
 public interface ClientService {
-    void registerClient(ClientDto clientDto, UUID userId);
+    Client registerClient(ClientDto clientDto, UUID userId);
     boolean isClient(User user);
     Client getClientByUserId(UUID userId);
     Client getClientsById(UUID clientId);
     void updateClient(UUID clientId, UpdateClientDTO updateClientDTO);
     boolean areInputsInvalid(UpdateClientDTO request);
+
+    int countClients();
 
 }

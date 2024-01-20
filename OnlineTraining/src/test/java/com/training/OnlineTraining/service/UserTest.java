@@ -48,7 +48,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void testCreateWorkout() {
+	public void testCreateUser() {
 		userDto.setAge(10);
 
 		System.out.println(userDto);
@@ -63,7 +63,7 @@ public class UserTest {
 
 
 	@Test
-	public void testGetExerciseById() {
+	public void testGetUserById() {
 		userDto.setAge(10);
 
 		System.out.println(userDto);
