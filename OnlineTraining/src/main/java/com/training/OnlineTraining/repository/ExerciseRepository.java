@@ -1,6 +1,8 @@
 package com.training.OnlineTraining.repository;
 
 import com.training.OnlineTraining.model.Exercise;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -11,6 +11,8 @@ import com.training.OnlineTraining.service.ExerciseService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,6 +55,14 @@ public class ExerciseServiceImpl implements ExerciseService {
                 });
     }
 
+    @Override
+    public Page<ExerciseOutputDTO> getAllExercisesPageable(Pageable pageable) {
+        logger.info("Getting all exercises (pageable).");
+
+        return exerciseRepository.findAll(pageable)
+                .map(exerciseMapper::toExerciseOutputDTO);
+    }
+
 
     @Override
     public List<ExerciseOutputDTO> getAllExercises() {
@@ -64,6 +74,7 @@ public class ExerciseServiceImpl implements ExerciseService {
                 .map(exerciseMapper::toExerciseOutputDTO)
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public ExerciseOutputDTO updateExercise(UUID id, ExerciseInputDTO exerciseDetails) {

@@ -8,6 +8,8 @@ import com.training.OnlineTraining.service.ExerciseService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,14 +65,20 @@ public class ExerciseController {
 
     @GetMapping()
     @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
-    public String getAllExercises(Model model) {
-        logger.info("Fetching all exercises.");
+    public String getAllExercises(Model model,
+                                  @RequestParam(defaultValue = "1") int page,
+                                  @RequestParam(defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size);
 
-        List<ExerciseOutputDTO> exercises = exerciseService.getAllExercises();
+        Page<ExerciseOutputDTO> exercisePage = exerciseService.getAllExercisesPageable(pageRequest);
 
-        model.addAttribute("exercises", exercises);
+        model.addAttribute("exercises", exercisePage);
+        model.addAttribute("currentPage", exercisePage.getNumber() + 1);
+        model.addAttribute("totalPages", exercisePage.getTotalPages());
+
         return "exercise/exerciseList";
     }
+
 
     @GetMapping("/update/{id}")
     public String getUpdateFormForExercise(@PathVariable UUID id, Model model) {

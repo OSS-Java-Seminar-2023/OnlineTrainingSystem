@@ -1,3 +1,4 @@
+<th:block  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -30,8 +31,8 @@
             <th>Description</th>
             <th>Equipment needed</th>
             <th>Difficulty Level</th>
-            <th>Delete</th>
-            <th>Update</th>
+            <th sec:authorize="hasAuthority('ADMIN')">Delete</th>
+            <th sec:authorize="hasAuthority('ADMIN')">Update</th>
         </tr>
     </thead>
     <tr>
@@ -46,14 +47,14 @@
 
         <td th:text="${exercise.exerciseDifficultyLevel}"></td>
 
-        <td>
+        <td sec:authorize="hasAuthority('ADMIN')">
             <form  th:action="@{/exercise/delete/{id}(id=${exercise.id})}"
                    method="post"
                    onsubmit="return showConfirmation(this)">
                 <button type="submit" class="become-link">Delete</button>
             </form>
         </td>
-        <td>
+        <td sec:authorize="hasAuthority('ADMIN')">
             <a th:href="@{/exercise/update/{id}(id=${exercise.id})}" class="become-link">Update</a>
         </td>
     </table>
@@ -69,3 +70,4 @@
 
 </body>
 </html>
+</th:block>
