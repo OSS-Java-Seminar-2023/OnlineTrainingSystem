@@ -37,11 +37,6 @@ public class CoachController {
 
         UUID coachID = (UUID) session.getAttribute("coachId");
 
-        if (coachID == null) {
-            logger.warn("Coach ID is null. Redirecting to login page.");
-            return "auth/login_page";
-        }
-
         String coachName = (String) session.getAttribute("coachName");
         List<Contract> contractList = contractService.getAllContractsForCoach(coachID);
 
@@ -76,13 +71,10 @@ public class CoachController {
         }
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
+    @PreAuthorize("hasAuthority('COACH')")
     @GetMapping("/settings")
     public String getSettings(Model model, HttpSession session) {
         UUID coachId = (UUID) session.getAttribute("coachId");
-        if (coachId == null) {
-            return "auth/login_page";
-        }
         Coach coach = coachService.getCoachById(coachId);
         model.addAttribute("coach", coach);
         model.addAttribute("genderOptions", Arrays.asList("Male", "Female"));
@@ -95,10 +87,6 @@ public class CoachController {
     public String updateCoach(@ModelAttribute UpdateCoachDTO updateCoachDTO,
                               HttpSession session, Model model) {
         UUID coachId = (UUID) session.getAttribute("coachId");
-
-        if (coachId == null) {
-            return "auth/login_page";
-        }
         try {
             coachService.updateCoach(coachId, updateCoachDTO);
             return "index";
@@ -107,6 +95,5 @@ public class CoachController {
             return "coach/settings";
         }
     }
-
 
 }

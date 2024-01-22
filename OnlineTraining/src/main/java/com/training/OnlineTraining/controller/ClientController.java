@@ -46,14 +46,6 @@ public class ClientController {
                                 @RequestParam(defaultValue = "1") int page,
                                 @RequestParam(defaultValue = "2") int size) {
 
-        UUID clientId = (UUID) session.getAttribute("clientId");
-        if (clientId == null) {
-            logger.warn("Client ID is null. Redirecting to login page.");
-            return "auth/login_page";
-        }
-
-
-        logger.info("Fetching coaches for client ID: {}", clientId);
 
         List<CoachDto> filteredCoaches;
         if (filterParams.isNotEmpty()) {
@@ -92,12 +84,10 @@ public class ClientController {
     }
 
     @GetMapping("/settings")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
+    @PreAuthorize("hasAuthority('CLIENT')")
     public String getSettings(Model model, HttpSession session) {
+
         UUID clientId = (UUID) session.getAttribute("clientId");
-        if (clientId == null) {
-            return "auth/login_page";
-        }
         Client client = clientService.getClientsById(clientId);
         model.addAttribute("client", client);
         model.addAttribute("genderOptions", Arrays.asList("Male", "Female"));
@@ -113,9 +103,6 @@ public class ClientController {
                                BindingResult bindingResult) {
         UUID clientId = (UUID) session.getAttribute("clientId");
 
-        if (clientId == null) {
-            return "auth/login_page";
-        }
         try {
             clientService.updateClient(clientId, updateClientDTO);
             return "index";
@@ -125,5 +112,4 @@ public class ClientController {
             return "client/settings";
         }
     }
-
 }

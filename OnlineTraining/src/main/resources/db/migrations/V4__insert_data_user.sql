@@ -9,4 +9,6 @@ VALUES
 ('7d3e4c58-2c5f-4fe1-9a08-1b5b6c7d8e9f', 'Emma', 'White', 'emmawhite@example.com', '777 Cedar St', 'Villagetown', 'USA', '+112233445566', 'Female', 40, '$2a$10$DDS5i7vEIt9fN6EFmNc3HOaJLKhqUIn8TGhs/BN2gQxnaDMKuIOCi',  'COACH'),
 ('8b0a1f22-685f-4a63-8c47-20c2a74392f1', 'Daniel', 'Taylor', 'danieltaylor@example.com', '888 Birch St', 'Cityville', 'Canada', '+17778889999', 'Male', 33, '$2a$10$DDS5i7vEIt9fN6EFmNc3HOaJLKhqUIn8TGhs/BN2gQxnaDMKuIOCi',  'COACH'),
 ('9e6b5487-3e5b-4912-aa01-6b56f64cb66f', 'Olivia', 'Anderson', 'oliviaa@example.com', '999 Pine St', 'Mountainview', 'UK', '+440987654321', 'Female', 28, '$2a$10$DDS5i7vEIt9fN6EFmNc3HOaJLKhqUIn8TGhs/BN2gQxnaDMKuIOCi',  'COACH'),
-('a1c3e9b4-17d7-44da-96f2-25e21f7a781b', 'Matthew', 'Miller', 'matthewm@example.com', '1212 Oak Ave', 'Largetown', 'Australia', '+612345678901', 'Male', 38, '$2a$10$DDS5i7vEIt9fN6EFmNc3HOaJLKhqUIn8TGhs/BN2gQxnaDMKuIOCi',  'ADMIN');
+('a1c3e9b4-17d7-44da-96f2-25e21f7a781b', 'Matthew', 'Miller', 'matthewm@example.com', '1212 Oak Ave', 'Largetown', 'Australia', '+612345678901', 'Male', 38, '$2a$10$DDS5i7vEIt9fN6EFmNc3HOaJLKhqUIn8TGhs/BN2gQxnaDMKuIOCi',  'ADMIN'),
+('1f0ae8e6-50b4-4c9c-9cf3-8424a5e6d7a1', 'OnlineTraining', 'System', 'admin@example.com', '1212 Oak Ave', 'Largetown', 'Australia', '+578377623411', 'Male', 38, '$2a$10$DDS5i7vEIt9fN6EFmNc3HOaJLKhqUIn8TGhs/BN2gQxnaDMKuIOCi',  'ADMIN');
+

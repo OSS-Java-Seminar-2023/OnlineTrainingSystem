@@ -1,3 +1,4 @@
+<th:block  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -29,8 +30,8 @@
         <th>Description</th>
         <th>Equipment Needed</th>
         <th>Difficulty Level</th>
-        <th>Delete</th>
-        <th>Update</th>
+        <th sec:authorize="hasAnyAuthority('ADMIN')" >Delete</th>
+        <th sec:authorize="hasAnyAuthority('ADMIN')">Update</th>
         <th>Details</th>
     </tr>
     </thead>
@@ -40,18 +41,17 @@
         <td th:text="${exercise.description}"></td>
         <td th:text="${exercise.exerciseEquipment?.displayName}"></td>
         <td th:text="${exercise.exerciseDifficultyLevel}"></td>
-        <td>
+        <td sec:authorize="hasAnyAuthority('ADMIN')">
             <form id="deleteForm" th:action="@{/exercise/delete/{id}(id=${exercise.id})}"
                   method="post"
                   onsubmit="return showConfirmation(this)">
                 <button type="submit" class="become-link">Delete</button>
             </form>
         </td>
-        <td>
-            <a th:href="@{/exercise/update/{id}(id=${exercise.id})}" class="become-link">Update</a>
+        <td sec:authorize="hasAnyAuthority('ADMIN')">
+            <a th:href="@{/exercise/update/{id}(id=${exercise.id})}" class="become-link" >Update</a>
         </td>
         <td>
-
             <a th:href="@{/exercise/details/{id}(id=${exercise.id})}" class="become-link">Details</a>
         </td>
     </tr>
@@ -70,3 +70,4 @@
 
 </body>
 </html>
+</th:block>

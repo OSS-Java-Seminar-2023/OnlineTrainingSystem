@@ -55,12 +55,7 @@ public class ContractController {
     public String getPersonalContracts(Model model, HttpSession session) {
         UUID clientId = (UUID) session.getAttribute("clientId");
 
-        if (clientId == null) {
-            return "auth/login_page";
-        }
-
         String clientName = (String) session.getAttribute("clientName");
-
 
         List<Contract> contracts = contractService.getContractsByClientId(clientId);
         model.addAttribute("contracts", contracts);

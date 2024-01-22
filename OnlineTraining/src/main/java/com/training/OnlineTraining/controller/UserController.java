@@ -45,9 +45,7 @@ public class UserController {
     public String getBecomeClientOrCoachPage(Model model, HttpSession session) {
 
         UUID userId = (UUID) session.getAttribute("userId");
-        if (userId == null) {
-            return "auth/login_page";
-        }
+
         model.addAttribute("userId", userId);
         return "auth/become_client_or_coach_page";
     }

@@ -87,7 +87,7 @@ public class SecurityConfig {
 			MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
 
 			if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
-				response.sendRedirect("/admin");
+				response.sendRedirect("/admins");
 			} else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("CLIENT"))) {
 				loginService.processLogin(getData(userDetails), request.getSession(), null, Role.CLIENT);
 				response.sendRedirect("/contracts/personal"); // specify the URL for CLIENT
