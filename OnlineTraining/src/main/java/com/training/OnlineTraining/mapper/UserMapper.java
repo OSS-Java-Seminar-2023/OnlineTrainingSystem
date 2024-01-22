@@ -30,4 +30,23 @@ public class UserMapper {
         user.setPassword(PasswordUtils.hashPassword(userDto.getPassword())); // Call hashPassword from PasswordUtils
         return user;
     }
+
+    public UserDto convertToDto(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setEmail(user.getEmail());
+        userDto.setStreet(user.getStreet());
+        userDto.setCity(user.getCity());
+        userDto.setCountry(user.getCountry());
+        userDto.setPhoneNumber(user.getPhoneNumber());
+        userDto.setGender(user.getGender());
+        userDto.setAge(user.getAge());
+        userDto.setRole(user.getRole());
+        return userDto;
+    }
+
+
+
 }

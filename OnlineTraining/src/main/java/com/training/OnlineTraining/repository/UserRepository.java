@@ -1,11 +1,15 @@
 package com.training.OnlineTraining.repository;
 
 import com.training.OnlineTraining.model.User;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+
+import java.util.List;
 import java.util.UUID;
 import java.util.Optional;
 
@@ -24,4 +28,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Query("SELECT COUNT(u) FROM User u")
     int countUsers();
+
+    List<User> findAll(Specification<User> spec, Sort sort);
 }

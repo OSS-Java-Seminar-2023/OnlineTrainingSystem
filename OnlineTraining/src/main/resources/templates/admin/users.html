@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
+    <link rel="stylesheet" th:href="@{/css/pagination.css}">
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
+    <link rel="stylesheet" th:href="@{/css/table.css}">
+    <link rel="stylesheet" th:href="@{/css/select.css}">
+    <link rel="stylesheet" th:href="@{/css/hand.css}">
+    <script th:src="@{/js/filterUsers.js}"></script>
+</head>
+<body>
+
+<div th:insert="~{fragments/navigation :: navigation('/admins')}"></div>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<form th:action="@{/admins/users}" method="get" onsubmit="filterUsers(); return false;">
+    <div class="select">
+        <select id="roleFilter" name="roleFilter">
+            <option value="">Select role</option>
+            <option th:each="role : ${availableRoles}"
+                    th:value="${role.name()}" th:text="${role.name()}"></option>
+        </select>
+    </div>
+    <br>
+    <button type="submit" class="become-link">Apply Filters</button>
+    <br>
+
+
+<br>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Phone Number</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Role</th>
+
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.street}"></td>
+        <td th:text="${user.city}"></td>
+        <td th:text="${user.country}"></td>
+        <td th:text="${user.phoneNumber}"></td>
+        <td th:text="${user.gender}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.role}"></td>
+
+    </tr>
+</table>
+
+
+</body>
+</html>
