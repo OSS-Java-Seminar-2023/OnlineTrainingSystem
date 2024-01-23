@@ -19,11 +19,11 @@ public class WorkoutSession {
     @Column(name = "id")
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "workout_id", referencedColumnName = "id", nullable = false)
     private Workout workout;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "exercise_id", referencedColumnName = "id", nullable = true)
     private Exercise exercise;
 

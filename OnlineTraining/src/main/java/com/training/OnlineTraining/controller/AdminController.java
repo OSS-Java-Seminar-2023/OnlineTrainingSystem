@@ -10,11 +10,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Controller
@@ -42,5 +41,13 @@ public class AdminController {
         model.addAttribute("availableRoles", Role.values());
         return "admin/users";
     }
+
+    @DeleteMapping("/users/delete/{userId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteUser(@PathVariable UUID userId) {
+        adminService.deleteUser(userId);
+        return "/admin/admin_page";
+    }
+
 
 }

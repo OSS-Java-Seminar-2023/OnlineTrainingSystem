@@ -16,7 +16,7 @@ public class Client {
     @Column(name = "id")
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 

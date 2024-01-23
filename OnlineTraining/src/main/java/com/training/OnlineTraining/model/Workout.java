@@ -22,7 +22,7 @@ public class Workout {
     @Column(name = "id")
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "contract_id", referencedColumnName = "id")
     private Contract contract;
 

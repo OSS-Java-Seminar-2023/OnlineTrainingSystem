@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/table.css}">
     <link rel="stylesheet" th:href="@{/css/select.css}">
     <link rel="stylesheet" th:href="@{/css/hand.css}">
+    <link rel="stylesheet" th:href="@{/css/confirmation.css}">
     <script th:src="@{/js/filterUsers.js}"></script>
 </head>
 <body>
@@ -30,42 +31,60 @@
         </select>
     </div>
     <br>
-    <button type="submit" class="become-link">Apply Filters</button>
+    <button type="submit" class="become-link">Apply Filter</button>
+</form>
     <br>
 
 
-<br>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Street</th>
-        <th>City</th>
-        <th>Country</th>
-        <th>Phone Number</th>
-        <th>Gender</th>
-        <th>Age</th>
-        <th>Role</th>
+    <br>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Street</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Phone Number</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Role</th>
+            <th>Delete</th>
 
-    </tr>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.firstName}"></td>
-        <td th:text="${user.lastName}"></td>
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.street}"></td>
-        <td th:text="${user.city}"></td>
-        <td th:text="${user.country}"></td>
-        <td th:text="${user.phoneNumber}"></td>
-        <td th:text="${user.gender}"></td>
-        <td th:text="${user.age}"></td>
-        <td th:text="${user.role}"></td>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.street}"></td>
+            <td th:text="${user.city}"></td>
+            <td th:text="${user.country}"></td>
+            <td th:text="${user.phoneNumber}"></td>
+            <td th:text="${user.gender}"></td>
+            <td th:text="${user.age}"></td>
+            <td th:text="${user.role}"></td>
+            <td >
+                <form th:action="@{/admins/users/delete/{id}(id=${user.id})}"
+                      th:if="${#strings.trim(user.role) != 'ADMIN'}"
+                      method="post"
+                      onsubmit="return showConfirmation(this);">
+                    <input type="hidden" name="_method" value="delete" />
+                    <button type="submit" class="become-link">Delete</button>
+                </form>
+            </td>
 
-    </tr>
-</table>
-
+        </tr>
+    </table>
+<div id="confirmation-dialog" class="confirmation-dialog">
+    <div class="confirmation-content">
+        <p>Are you sure you want to delete this user?</p>
+        <button onclick="confirmDelete()">Yes</button>
+        <button onclick="cancelDelete()">No</button>
+    </div>
+</div>
+<script th:src="@{/js/confirmation.js}"></script>
 
 </body>
 </html>

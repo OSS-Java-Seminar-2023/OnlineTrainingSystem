@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +38,11 @@ public class AdminServiceImpl implements AdminService {
         return filteredUsers.stream()
                 .map(userMapper::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteUser(UUID userId) {
+        userRepository.deleteById(userId);
     }
 
 }
