@@ -48,7 +48,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -69,6 +68,7 @@ class ExerciseControllerTest {
 	@Test
 	@WithMockUser(authorities = {"ADMIN", "COACH"})
 	void showAddExerciseForm() throws Exception {
+
 		mockMvc.perform(MockMvcRequestBuilders.get("/exercise/create"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("exercise/exerciseCreateForm"))
@@ -80,6 +80,7 @@ class ExerciseControllerTest {
 	@Test
 	@WithMockUser(authorities = {"ADMIN", "COACH"})
 	void createExercise() throws Exception {
+
 		ExerciseInputDTO inputDTO = new ExerciseInputDTO();
 		ExerciseOutputDTO outputDTO = new ExerciseOutputDTO();
 		when(exerciseService.createExercise(any())).thenReturn(outputDTO);
@@ -96,6 +97,7 @@ class ExerciseControllerTest {
 	@Test
 	@WithMockUser(authorities = {"ADMIN", "COACH"})
 	void showExerciseDetails() throws Exception {
+
 		UUID exerciseId = UUID.randomUUID();
 		ExerciseOutputDTO outputDTO = new ExerciseOutputDTO();
 		when(exerciseService.getExerciseById(exerciseId)).thenReturn(outputDTO);
@@ -109,6 +111,7 @@ class ExerciseControllerTest {
 	@Test
 	@WithMockUser(authorities = {"ADMIN", "COACH"})
 	void getAllExercises() throws Exception {
+
 		List<ExerciseOutputDTO> exercises = Arrays.asList(new ExerciseOutputDTO(), new ExerciseOutputDTO());
 		PageImpl<ExerciseOutputDTO> exercisePage = new PageImpl<>(exercises);
 
@@ -125,9 +128,9 @@ class ExerciseControllerTest {
 	}
 
 
-
 	@Test
 	void getUpdateFormForExercise() throws Exception {
+
 		UUID exerciseId = UUID.randomUUID();
 		ExerciseOutputDTO outputDTO = new ExerciseOutputDTO();
 		List<ExerciseDifficultyLevel> difficultyLevels = Arrays.asList(ExerciseDifficultyLevel.values());
@@ -145,6 +148,7 @@ class ExerciseControllerTest {
 
 	@Test
 	void updateExercise() throws Exception {
+
 		UUID exerciseId = UUID.randomUUID();
 		ExerciseInputDTO inputDTO = new ExerciseInputDTO();
 
@@ -159,6 +163,7 @@ class ExerciseControllerTest {
 
 	@Test
 	void deleteExercise() throws Exception {
+
 		UUID exerciseId = UUID.randomUUID();
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/exercise/delete/{id}", exerciseId))
@@ -170,6 +175,7 @@ class ExerciseControllerTest {
 
 	@Test
 	void showClientExerciseDetails() throws Exception {
+
 		UUID exerciseId = UUID.randomUUID();
 		ExerciseOutputDTO outputDTO = new ExerciseOutputDTO();
 		when(exerciseService.getExerciseById(exerciseId)).thenReturn(outputDTO);
@@ -182,6 +188,7 @@ class ExerciseControllerTest {
 
 	@Test
 	void showError() throws Exception {
+
 		mockMvc.perform(MockMvcRequestBuilders.get("/exercise/progress"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("client/no_exercise_found"));
