@@ -1,5 +1,6 @@
 package com.training.OnlineTraining.controller;
 
+import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.input.WorkoutSessionInputDTO;
 import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutSessionService;
@@ -74,7 +75,7 @@ class WorkoutSessionControllerTest {
 	@WithMockUser(authorities = {"ADMIN", "COACH"})
 	void updateWorkoutAndSessions() throws Exception {
 		UUID workoutId = UUID.randomUUID();
-		WorkoutSessionInputDTO inputDTO = new WorkoutSessionInputDTO(workoutId);
+		WorkoutInputDTO inputDTO = new WorkoutInputDTO(workoutId);
 
 
 

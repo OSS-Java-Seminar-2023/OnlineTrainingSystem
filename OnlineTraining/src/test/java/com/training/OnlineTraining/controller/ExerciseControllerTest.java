@@ -86,7 +86,7 @@ class ExerciseControllerTest {
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/exercise/create")
 						.contentType(MediaType.APPLICATION_FORM_URLENCODED)
-						.flashAttr("exercise", inputDTO))
+						.flashAttr("exerciseInputDTO", inputDTO))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/exercise"));
 
