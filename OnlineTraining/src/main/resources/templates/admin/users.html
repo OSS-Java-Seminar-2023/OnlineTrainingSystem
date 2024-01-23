@@ -50,6 +50,7 @@
             <th>Gender</th>
             <th>Age</th>
             <th>Role</th>
+            <th>Update</th>
             <th>Delete</th>
 
         </tr>
@@ -65,13 +66,17 @@
             <td th:text="${user.gender}"></td>
             <td th:text="${user.age}"></td>
             <td th:text="${user.role}"></td>
+            <td>
+                <a th:if="${#strings.trim(user.role) != 'ADMIN'}" th:href="@{/admins/users/update/{id}(id=${user.id})}" class="become-link">Update</a>
+            </td>
+
             <td >
                 <form th:action="@{/admins/users/delete/{id}(id=${user.id})}"
                       th:if="${#strings.trim(user.role) != 'ADMIN'}"
                       method="post"
                       onsubmit="return showConfirmation(this);">
                     <input type="hidden" name="_method" value="delete" />
-                    <button type="submit" class="become-link">Delete</button>
+                    <button type="submit" class="become-link" style="height: 42px;">Delete</button>
                 </form>
             </td>
 

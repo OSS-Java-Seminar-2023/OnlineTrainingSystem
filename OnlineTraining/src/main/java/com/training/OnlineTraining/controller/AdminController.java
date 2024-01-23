@@ -49,5 +49,19 @@ public class AdminController {
         return "/admin/admin_page";
     }
 
+    @GetMapping("/users/update/{userId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String getUpdateUserPage(@PathVariable UUID userId, Model model) {
+        UserDto user = adminService.getUserById(userId);
+        model.addAttribute("user", user);
+        return "admin/update_user";
+    }
+
+    @PostMapping("/users/update")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String updateUser(@ModelAttribute("user") UserDto userDto) {
+        adminService.updateUser(userDto.getId(), userDto);
+        return "redirect:/admins/users";
+    }
 
 }

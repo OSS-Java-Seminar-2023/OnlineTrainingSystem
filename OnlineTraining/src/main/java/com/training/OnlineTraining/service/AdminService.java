@@ -9,5 +9,7 @@ public interface AdminService {
     List<UserDto> getAllUsers();
     List<UserDto> filterUsersByRole(String role);
     void deleteUser(UUID userId);
+    void updateUser(UUID userId, UserDto userDto);
+    UserDto getUserById(UUID userId);
 
 }
