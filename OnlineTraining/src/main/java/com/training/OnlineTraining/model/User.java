@@ -55,4 +55,11 @@ public class User {
     public User(UUID id) {
         this.id = id;
     }
+
+    public User(UUID id, String email, String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
+
 }
