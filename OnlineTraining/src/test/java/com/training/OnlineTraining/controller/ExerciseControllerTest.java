@@ -25,6 +25,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
@@ -37,9 +39,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -63,6 +67,7 @@ class ExerciseControllerTest {
 	private ObjectMapper objectMapper;
 
 	@Test
+	@WithMockUser(authorities = {"ADMIN", "COACH"})
 	void showAddExerciseForm() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/exercise/create"))
 				.andExpect(status().isOk())
@@ -73,6 +78,7 @@ class ExerciseControllerTest {
 	}
 
 	@Test
+	@WithMockUser(authorities = {"ADMIN", "COACH"})
 	void createExercise() throws Exception {
 		ExerciseInputDTO inputDTO = new ExerciseInputDTO();
 		ExerciseOutputDTO outputDTO = new ExerciseOutputDTO();
@@ -88,6 +94,7 @@ class ExerciseControllerTest {
 	}
 
 	@Test
+	@WithMockUser(authorities = {"ADMIN", "COACH"})
 	void showExerciseDetails() throws Exception {
 		UUID exerciseId = UUID.randomUUID();
 		ExerciseOutputDTO outputDTO = new ExerciseOutputDTO();
@@ -103,13 +110,20 @@ class ExerciseControllerTest {
 	@WithMockUser(authorities = {"ADMIN", "COACH"})
 	void getAllExercises() throws Exception {
 		List<ExerciseOutputDTO> exercises = Arrays.asList(new ExerciseOutputDTO(), new ExerciseOutputDTO());
-		when(exerciseService.getAllExercises()).thenReturn(exercises);
+		PageImpl<ExerciseOutputDTO> exercisePage = new PageImpl<>(exercises);
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/exercise"))
+		when(exerciseService.getAllExercisesPageable(PageRequest.of(0, 10))).thenReturn(exercisePage);
+
+		mockMvc.perform(get("/exercise").with(user("user")))
 				.andExpect(status().isOk())
 				.andExpect(view().name("exercise/exerciseList"))
-				.andExpect(model().attribute("exercises", hasSize(2)));
+				.andExpect(model().attribute("currentPage", 1)) // Adjust index to start from 0
+				.andExpect(model().attribute("totalPages", 1));
+
+		List<ExerciseOutputDTO> content = exercisePage.getContent();
+		assertThat(content, hasSize(2));
 	}
+
 
 
 	@Test
