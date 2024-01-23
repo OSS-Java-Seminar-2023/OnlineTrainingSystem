@@ -8,6 +8,7 @@ import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutService;
 import com.training.OnlineTraining.service.WorkoutSessionService;
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,20 +20,13 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/workout")
+@AllArgsConstructor
 public class WorkoutController {
 
 	private final WorkoutService workoutService;
 	private final ExerciseService exerciseService;
 	private final WorkoutSessionService workoutSessionService;
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutController.class);
-
-	public WorkoutController(WorkoutService workoutService, ExerciseService exerciseService, WorkoutSessionService workoutSessionService) {
-		logger.info("WorkoutController initialized.");
-
-		this.workoutService = workoutService;
-		this.exerciseService = exerciseService;
-		this.workoutSessionService = workoutSessionService;
-	}
 
 	@GetMapping("/create")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
@@ -72,11 +66,8 @@ public class WorkoutController {
 		model.addAttribute("workoutsList", workouts);
 
 		UUID clientId = (UUID) session.getAttribute("clientId");
-		if (clientId == null){
 
-			return "workout/workoutList";
-		}
-		return "workout/workoutClientList";
+		return clientId == null ? "workout/workoutList" : "workout/workoutClientList";
 	}
 
 	@GetMapping("/details/{id}")
@@ -90,12 +81,8 @@ public class WorkoutController {
 		model.addAttribute("listExercises", exerciseService.getAllExercises());
 
 		UUID clientId = (UUID) session.getAttribute("clientId");
-		if (clientId == null){
 
-			return "workout/workoutDetails";
-		}
-
-		return "workout/workoutClientDetails";
+		return clientId == null ? "workout/workoutDetails" : "workout/workoutClientDetails";
 	}
 
 	@GetMapping("/update/{id}")
@@ -110,12 +97,9 @@ public class WorkoutController {
 		model.addAttribute("workout", workout);
 
 		UUID clientId = (UUID) session.getAttribute("clientId");
-		if (clientId == null){
 
-			return "workout/updateWorkout";
-		}
-		return "workout/updateClientWorkout";
 
+		return clientId == null ? "workout/updateWorkout" : "workout/updateClientWorkout";
 
 	}
 
