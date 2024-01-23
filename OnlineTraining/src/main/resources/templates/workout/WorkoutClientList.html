@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/hand.css}">
     <link rel="stylesheet" th:href="@{/css/choosing.css}">
     <link rel="stylesheet" th:href="@{/css/confirmation.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -18,8 +19,9 @@
 <br>
 <br>
 <br>
-<h1 class="margin">Workout List</h1>
-
+<header>
+    <h1 class="header-1">Workout List</h1>
+</header>
 <br>
 
 <table th:if="${workoutsList != null and not #lists.isEmpty(workoutsList)}">

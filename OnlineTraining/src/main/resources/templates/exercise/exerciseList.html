@@ -11,6 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/table.css}">
     <link rel="stylesheet" th:href="@{/css/select.css}">
     <link rel="stylesheet" th:href="@{/css/confirmation.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -19,10 +20,11 @@
 <br>
 <br>
 <br>
-<h1 class="margin">List of Exercises</h1>
+<header>
+    <h1 class="header-1">List of Exercises</h1>
+</header>
 <br>
 <div> <a th:href="@{/exercise/create}" class="become-link" sec:authorize="hasAuthority('ADMIN')">Create New Exercise</a></div>
-<br>
 <br>
 <table>
     <thead>
@@ -46,7 +48,7 @@
             <form id="deleteForm" th:action="@{/exercise/delete/{id}(id=${exercise.id})}"
                   method="post"
                   onsubmit="return showConfirmation(this)">
-                <button type="submit" class="become-link">Delete</button>
+                <button type="submit" class="become-link"  style="height: 42px;">Delete</button>
             </form>
         </td>
         <td sec:authorize="hasAuthority('ADMIN')">

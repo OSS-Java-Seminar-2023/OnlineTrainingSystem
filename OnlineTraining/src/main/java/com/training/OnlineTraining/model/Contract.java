@@ -19,11 +19,11 @@ public class Contract {
     @Column(name = "id")
     private UUID id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "coach_id", referencedColumnName = "id")
     private Coach coach;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 

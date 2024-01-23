@@ -30,8 +30,8 @@ CREATE TABLE Client (
 
 CREATE TABLE Contract (
     id UUID PRIMARY KEY,
-    coach_id UUID REFERENCES Coach(id) ON DELETE CASCADE,
-    client_id UUID REFERENCES Client(id) ON DELETE CASCADE,
+    coach_id UUID REFERENCES Coach(id),
+    client_id UUID REFERENCES Client(id),
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     monthly_price NUMERIC(10, 2) NOT NULL
@@ -39,7 +39,7 @@ CREATE TABLE Contract (
 
 CREATE TABLE Measurement (
     id UUID PRIMARY KEY,
-    contract_id UUID REFERENCES Contract(id) ON DELETE CASCADE,
+    contract_id UUID REFERENCES Contract(id),
     measurement_date DATE NOT NULL,
     body_weight NUMERIC(6, 2) NOT NULL,
     body_fat NUMERIC(5, 2) NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE Measurement (
 
 CREATE TABLE Workout (
     id UUID PRIMARY KEY,
-    contract_id UUID REFERENCES Contract(id) ON DELETE CASCADE,
+    contract_id UUID REFERENCES Contract(id),
     date_of_workout DATE,
     number_of_exercises INTEGER NOT NULL,
     warming_up_time_in_seconds INTEGER NOT NULL,
@@ -73,8 +73,8 @@ CREATE TABLE Exercise (
 
 CREATE TABLE workout_session (
     id UUID PRIMARY KEY,
-    workout_id UUID REFERENCES Workout(id) ON DELETE CASCADE,
-    exercise_id UUID REFERENCES Exercise(id) ON DELETE CASCADE,
+    workout_id UUID REFERENCES Workout(id),
+    exercise_id UUID REFERENCES Exercise(id),
     number_of_reps INTEGER NOT NULL,
     pause_after_exercise_in_seconds INTEGER NOT NULL,
     weight NUMERIC(6, 2) NOT NULL,

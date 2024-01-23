@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/table.css}">
     <link rel="stylesheet" th:href="@{/css/select.css}">
     <link rel="stylesheet" th:href="@{/css/confirmation.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -19,10 +20,12 @@
 <br>
 <br>
 <br>
-<h1 class="margin">Personal Measurements</h1>
+<header>
+    <h1 class="header-1">Personal Measurements</h1>
+</header>
 
-<a th:href="@{'/measurements/' + ${contractId}}" class="become-link">Create Measurement</a>
-<a th:href="@{'/charts/' + ${contractId}}" class="become-link">Review Your Charts</a>
+<a th:href="@{'/measurements/' + ${contractId}}" class="link-border">Create Measurement</a>
+<a th:href="@{'/charts/' + ${contractId}}" class="link-border">Review Your Charts</a>
 <br>
 <br>
 <br>
@@ -61,7 +64,7 @@
                   method="post"
                   onsubmit="return showConfirmation(this)">
                 <input type="hidden" name="_method" value="delete" />
-                <button type="submit" class="become-link">Delete</button>
+                <button type="submit" class="become-link" style="height: 42px;">Delete</button>
             </form>
         </td>
     </tr>

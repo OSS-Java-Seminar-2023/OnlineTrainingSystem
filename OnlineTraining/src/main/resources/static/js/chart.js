@@ -107,7 +107,7 @@
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'kg/cm'
+                                text: 'kg,kg/cm'
                             }
                         }
                     }

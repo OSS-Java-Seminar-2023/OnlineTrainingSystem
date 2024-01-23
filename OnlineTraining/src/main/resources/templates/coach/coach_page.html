@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/table.css}">
     <link rel="stylesheet" th:href="@{/css/select.css}">
     <link rel="stylesheet" th:href="@{/css/hand.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -20,17 +21,19 @@
 <br>
 
 <div class="greeting" style="display: inline-block;">
-    <p th:if="${coachName != null}" th:text="'Hello Coach ' + ${coachName} + '. Let\'s start coaching on OnlineTrainingSystem!'"></p>
+    <p th:if="${coachName != null}" class="header-2" th:text="'Hello Coach ' + ${coachName} + '. Let\'s start coaching on OnlineTrainingSystem!'"></p>
     <span th:if="${coachName != null}" class="hand">💪</span>
 </div>
 <br>
 <br>
 
 
-    <a th:href="@{/exercise}" class="become-link">Go to Exercise Page</a>
+    <a th:href="@{/exercise}" class="link-border">Go to Exercise Page</a>
 
 <br>
-<h1 class="margin">Contracts</h1>
+<header>
+    <h1 class="header-1">Contracts</h1>
+</header>
 <table th:if="${coachesListContracts != null and not #lists.isEmpty(coachesListContracts)}">
     <thead>
     <tr>

@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/hand.css}">
     <link rel="stylesheet" th:href="@{/css/choosing.css}">
     <link rel="stylesheet" th:href="@{/css/confirmation.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -18,9 +19,11 @@
 <br>
 <br>
 <br>
-<h1 class="margin">Workout List</h1>
+<header>
+    <h1 class="header-1">Workout List</h1>
+</header>
 
-<a th:href="@{/workout/create}" class="become-link" >Create New Workout</a>
+<a th:href="@{/workout/create}" class="link-border">Create New Workout</a>
 <br>
 <br>
 
@@ -37,8 +40,8 @@
         <th>Client's Self Rating</th>
         <th>Client's Status</th>
         <th>Details</th>
-        <th>Delete</th>
         <th>Update</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -57,14 +60,14 @@
         </td>
 
         <td>
-            <!-- Delete button with confirmation -->
-            <form th:action="@{/workout/delete/{id}(id=${workout.id})}" method="post" onsubmit="return showConfirmation(this)">
-                <button type="submit" class="become-link">Delete</button>
-            </form>
+            <a th:href="@{/workout/update/{id}(id=${workout.id})}" class="become-link">Update</a>
         </td>
 
         <td>
-            <a th:href="@{/workout/update/{id}(id=${workout.id})}" class="become-link">Update</a>
+            <!-- Delete button with confirmation -->
+            <form th:action="@{/workout/delete/{id}(id=${workout.id})}" method="post" onsubmit="return showConfirmation(this)">
+                <button type="submit" class="become-link"  style="height: 42px;">Delete</button>
+            </form>
         </td>
 
     </tr>

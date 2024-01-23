@@ -11,6 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/hand.css}">
     <link rel="stylesheet" th:href="@{/css/choosing.css}">
     <link rel="stylesheet" th:href="@{/css/confirmation.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -19,7 +20,10 @@
 <br>
 <br>
 <br>
-<h1 class="margin">Workout Details</h1>
+
+<header>
+    <h1 class="header-1">Workout Details </h1>
+</header>
 <br>
 <div>
     <a th:href="@{/workoutSession/create(workoutID=${workout.id})}">
@@ -39,8 +43,8 @@
         <th>Pause Between Sets (in seconds)</th>
         <th>Duration of the Workout</th>
         <th>Client's Self Rating</th>
-        <th>Delete</th>
         <th>Update</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -54,17 +58,20 @@
         <td th:text="${workout.pauseBetweenSetsInSeconds}"></td>
         <td th:text="${workout.getDuration}"></td>
         <td th:text="${workout.selfRating}"></td>
+
+        <td> <a th:href="@{/workout/update/{id}(id=${workout.id})}" class="become-link">Update</a></td>
         <td>
             <form th:action="@{/workout/delete/{id}(id=${workout.id})}" method="post" onsubmit="return confirmDeleteWorkout()">
-                <button type="submit" class="become-link" >Delete</button>
+                <button type="submit" class="become-link"  style="height: 42px;">Delete</button>
             </form>
         </td>
-        <td> <a th:href="@{/workout/update/{id}(id=${workout.id})}" class="become-link">Update</a></td>
     </tr>
     </tbody>
 </table>
 <br>
-<h1 class="margin">Exercises</h1>
+<header>
+    <h1 class="header-1">Exercises</h1>
+</header>
 <br>
 <!-- Form for Workout Details with Workout Sessions -->
 <form th:action="@{/workoutSession/update/{workoutID}(workoutID=${workout.id})}" method="post">
@@ -119,7 +126,7 @@
                 <form id="deleteForm" method="post">
                     <input type="hidden" name="workoutID" th:value="${workout.id}" />
                     <input type="hidden" name="workoutSessionID" th:value="${workout.workoutSessions[__${rowStat.index}__].id}" />
-                    <button type="button" onclick="confirmDelete(this)" class="become-link">Delete</button>
+                    <button type="button" onclick="confirmDelete(this)" class="become-link"  style="height: 42px;">Delete</button>
                 </form>
             </td>
             <td></td>
