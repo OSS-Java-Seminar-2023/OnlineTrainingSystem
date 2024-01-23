@@ -33,9 +33,10 @@
         <th>Description</th>
         <th>Equipment Needed</th>
         <th>Difficulty Level</th>
-        <th sec:authorize="hasAuthority('ADMIN')" >Delete</th>
-        <th sec:authorize="hasAuthority('ADMIN')">Update</th>
         <th>Details</th>
+        <th sec:authorize="hasAuthority('ADMIN')">Update</th>
+        <th sec:authorize="hasAuthority('ADMIN')" >Delete</th>
+
     </tr>
     </thead>
     <tbody>
@@ -44,18 +45,18 @@
         <td th:text="${exercise.description}"></td>
         <td th:text="${exercise.exerciseEquipment?.displayName}"></td>
         <td th:text="${exercise.exerciseDifficultyLevel}"></td>
+        <td>
+            <a th:href="@{/exercise/details/{id}(id=${exercise.id})}" class="become-link">Details</a>
+        </td>
+        <td sec:authorize="hasAuthority('ADMIN')">
+            <a th:href="@{/exercise/update/{id}(id=${exercise.id})}" class="become-link" >Update</a>
+        </td>
         <td sec:authorize="hasAnyAuthority('ADMIN')">
             <form id="deleteForm" th:action="@{/exercise/delete/{id}(id=${exercise.id})}"
                   method="post"
                   onsubmit="return showConfirmation(this)">
                 <button type="submit" class="become-link"  style="height: 42px;">Delete</button>
             </form>
-        </td>
-        <td sec:authorize="hasAuthority('ADMIN')">
-            <a th:href="@{/exercise/update/{id}(id=${exercise.id})}" class="become-link" >Update</a>
-        </td>
-        <td>
-            <a th:href="@{/exercise/details/{id}(id=${exercise.id})}" class="become-link">Details</a>
         </td>
     </tr>
     </tbody>
