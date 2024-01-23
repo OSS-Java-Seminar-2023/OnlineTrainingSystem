@@ -19,34 +19,34 @@ public class User {
     private UUID id;
 
     @Column(name = "first_name")
-    private String firstName;
+    private String firstName = "";
 
     @Column(name = "last_name")
-    private String lastName;
+    private String lastName = "";
 
     @Column
-    private String email;
+    private String email = "";
 
     @Column
-    private String street;
+    private String street = "";
 
     @Column
-    private String city;
+    private String city = "";
 
     @Column
-    private String country;
+    private String country = "";
 
     @Column(name = "phone_number")
-    private String phoneNumber;
+    private String phoneNumber = "";
 
     @Column
-    private String gender;
+    private String gender = "";
 
     @Column
-    private Integer age;
+    private Integer age = 1;
 
     @Column
-    private String password;
+    private String password = "";
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)

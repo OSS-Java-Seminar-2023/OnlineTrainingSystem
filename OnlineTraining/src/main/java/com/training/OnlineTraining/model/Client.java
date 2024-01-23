@@ -21,10 +21,10 @@ public class Client {
     private User user;
 
     @Column(name = "medical_condition", columnDefinition = "TEXT")
-    private String medicalCondition;
+    private String medicalCondition = "";
 
     @Column(name = "injuries", columnDefinition = "TEXT")
-    private String injuries;
+    private String injuries = "";
 
     @Override
     public boolean equals(Object o) {
