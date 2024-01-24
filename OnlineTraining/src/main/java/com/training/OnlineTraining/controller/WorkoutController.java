@@ -129,7 +129,7 @@ public class WorkoutController {
 	}
 
 	@PostMapping("/update/{id}")
-	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT')")
 	public String updateWorkout(@PathVariable UUID id, @ModelAttribute("workout") WorkoutInputDTO workoutInputDTO, HttpSession session) {
 		logger.info("Updating workout for ID: {}", id);
 
