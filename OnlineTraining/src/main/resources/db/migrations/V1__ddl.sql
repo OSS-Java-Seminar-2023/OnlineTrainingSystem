@@ -68,7 +68,8 @@ CREATE TABLE Exercise (
     name VARCHAR(30) NOT NULL,
     description TEXT NOT NULL,
     exercise_equipment VARCHAR(30) NOT NULL,
-    difficulty_level VARCHAR(30) NOT NULL
+    difficulty_level VARCHAR(30) NOT NULL,
+    workout_type VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE workout_session (
