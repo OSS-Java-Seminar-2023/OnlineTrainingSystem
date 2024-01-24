@@ -31,7 +31,7 @@ public class Coach {
     private Education education;
 
     @Column(name = "monthly_price")
-    private Double monthlyPrice;
+    private Double monthlyPrice = 0.0;
 
     @Override
     public boolean equals(Object o) {
