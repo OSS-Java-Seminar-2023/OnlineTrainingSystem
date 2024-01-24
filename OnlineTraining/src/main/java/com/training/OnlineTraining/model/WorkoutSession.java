@@ -12,6 +12,9 @@ import static com.training.OnlineTraining.util.WorkoutConstants.DURATION_OF_ONE_
 @Entity
 @Data
 @Table(name = "workout_session")
+@NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class WorkoutSession {
 
     @Id
@@ -50,8 +53,9 @@ public class WorkoutSession {
         return "WorkoutSession{" +
                 "id=" + id +
                 ", numberOfReps=" + numberOfReps +
+                ", exercise =" + exercise +
                 ", pauseAfterExerciseInSeconds=" + pauseAfterExerciseInSeconds +
                 ", weight=" + weight +
-                '}';
+                '}' + '\n';
     }
 }

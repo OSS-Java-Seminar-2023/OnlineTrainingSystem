@@ -38,5 +38,14 @@ public class Exercise {
     @Enumerated(EnumType.STRING)
     private WorkoutType workoutType;
 
+    @Override
+    public String toString() {
+
+        return "Exercise{" +
+                "name='" + name + '\'' +
+                ", exerciseDifficultyLevel=" + exerciseDifficultyLevel +
+                ", workoutType=" + workoutType +
+                '}';
+    }
 
 }

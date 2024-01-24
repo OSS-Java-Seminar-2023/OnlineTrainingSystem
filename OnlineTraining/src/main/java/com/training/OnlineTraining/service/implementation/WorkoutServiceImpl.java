@@ -33,7 +33,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutServiceImpl.class);
 
 	@Override
-	public void createWorkout(WorkoutInputDTO workoutInputDTO, UUID contractID) {
+	public WorkoutOutputDTO createWorkout(WorkoutInputDTO workoutInputDTO, UUID contractID) {
 		logger.info("Creating new workout.");
 
 		workoutInputDTO.setDateOfWorkout(null);
@@ -53,23 +53,12 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 		logger.info("New workout created.");
 
+		return workoutMapper.toWorkoutOutputDTO(savedWorkout);
 	}
 
 	private int getOrdinalNumberOfNextWorkout(UUID contractID){
 		Workout lastWorkout = workoutRepository.findTopByContractIdOrderByOrdinalNumberOfWorkoutDesc(contractID);
 		return (lastWorkout != null) ? lastWorkout.getOrdinalNumberOfWorkout() + 1 : 1;
-	}
-
-	@Override
-	public WorkoutOutputDTO createWorkout(WorkoutInputDTO workoutInputDTO) {
-		logger.info("Creating new workout. {}", workoutInputDTO);
-
-		Workout workout = workoutMapper.toWorkout(workoutInputDTO);
-		Workout savedWorkout = workoutRepository.save(workout);
-
-		logger.info("New workout created.");
-
-		return workoutMapper.toWorkoutOutputDTO(savedWorkout);
 	}
 
 	@Override
