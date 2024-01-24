@@ -62,7 +62,8 @@ public class WorkoutInputDTO {
 				", isFinished=" + isFinished +
 				", workoutStatus=" + workoutStatus + "\n");
 
-		workoutSessions.forEach(output::append);
+		if(workoutSessions != null)
+			workoutSessions.forEach(output::append);
 
 		return output.toString();
 	}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Template Form</title>
+</head>
+<body>
+
+<form th:action="@{/workout/create-template}" th:object="${workoutTemplate}" method="post">
+    <label for="workoutType">Workout Type:</label>
+    <select th:field="*{workoutType}">
+        <option th:each="type : ${T(com.training.OnlineTraining.model.enums.WorkoutType).values()}" th:value="${type}" th:text="${type}"></option>
+    </select><br>
+
+    <label for="workoutGoal">Workout Goal:</label>
+    <select th:field="*{workoutGoal}">
+        <option th:each="goal : ${T(com.training.OnlineTraining.model.enums.WorkoutGoal).values()}" th:value="${goal}" th:text="${goal}"></option>
+    </select><br>
+
+    <label for="numberOfExercises">Number of Exercises:</label>
+    <input type="number" th:field="*{numberOfExercises}" /><br>
+
+    <input type="submit" value="Create Workout Template" />
+</form>
+
+</body>
+</html>

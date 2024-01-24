@@ -14,5 +14,5 @@ public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
 
 	List<Exercise> findAllByWorkoutType(WorkoutType workoutType);
 
-	long countByWorkoutType(WorkoutType workoutType);
+	int countByWorkoutType(WorkoutType workoutType);
 }

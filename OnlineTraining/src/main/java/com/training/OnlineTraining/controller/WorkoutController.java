@@ -1,12 +1,13 @@
 package com.training.OnlineTraining.controller;
 
+import com.training.OnlineTraining.dto.WorkoutTemplate;
 import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.output.WorkoutOutputDTO;
-import com.training.OnlineTraining.model.Workout;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutService;
 import com.training.OnlineTraining.service.WorkoutSessionService;
+import com.training.OnlineTraining.service.WorkoutTemplateCreatorService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ public class WorkoutController {
 	private final WorkoutService workoutService;
 	private final ExerciseService exerciseService;
 	private final WorkoutSessionService workoutSessionService;
+	private final WorkoutTemplateCreatorService workoutTemplateCreatorService;
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutController.class);
 
 	@GetMapping("/create")
@@ -43,9 +45,22 @@ public class WorkoutController {
 	public String showCreateWorkoutUsingTemplateForm(Model model) {
 		logger.info("Displaying create workout using template form.");
 
+		model.addAttribute("workoutTemplate", new WorkoutTemplate());
+
+		return "workout/workout-template-form.html";
+	}
 
 
-		return "workout/createWorkout-using-template";
+	@PostMapping("/create-template")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
+	public String createWorkoutUsingTemplateForm(@ModelAttribute("workoutTemplate") WorkoutTemplate workoutTemplate, HttpSession session) {
+		logger.info("Displaying create workout using template form.");
+
+		UUID contractID = (UUID) session.getAttribute("contractID");
+		WorkoutInputDTO workoutInputDTO = workoutTemplateCreatorService.createWorkoutInputDTO(workoutTemplate);
+		workoutService.createWorkout(workoutInputDTO, contractID);
+
+		return "redirect:/workout";
 	}
 
 	@PostMapping("/create")
