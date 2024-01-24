@@ -38,6 +38,16 @@ public class WorkoutController {
 		return "workout/createWorkout";
 	}
 
+	@GetMapping("/create-template")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
+	public String showCreateWorkoutUsingTemplateForm(Model model) {
+		logger.info("Displaying create workout using template form.");
+
+
+
+		return "workout/createWorkout-using-template";
+	}
+
 	@PostMapping("/create")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String createWorkout(@ModelAttribute("workoutDTO") WorkoutInputDTO workoutInputDTO, HttpSession session) {

@@ -2,6 +2,7 @@ package com.training.OnlineTraining.dto.input;
 
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.model.enums.ExerciseEquipment;
+import com.training.OnlineTraining.model.enums.WorkoutType;
 import jakarta.persistence.Convert;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,8 @@ public class ExerciseInputDTO {
     private ExerciseEquipment exerciseEquipment;
 
     private ExerciseDifficultyLevel exerciseDifficultyLevel;
+
+    private WorkoutType workoutType;
 
     public ExerciseInputDTO(String name, String description, ExerciseEquipment exerciseEquipment, ExerciseDifficultyLevel exerciseDifficultyLevel) {
         this.name = name;

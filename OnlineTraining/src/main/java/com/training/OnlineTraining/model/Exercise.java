@@ -3,6 +3,7 @@ package com.training.OnlineTraining.model;
 import com.training.OnlineTraining.dto.input.ExerciseInputDTO;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.model.enums.ExerciseEquipment;
+import com.training.OnlineTraining.model.enums.WorkoutType;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -32,5 +33,10 @@ public class Exercise {
     @Column(name = "difficulty_level")
     @Enumerated(EnumType.STRING)
     private ExerciseDifficultyLevel exerciseDifficultyLevel;
+
+    @Column(name = "workout_type")
+    @Enumerated(EnumType.STRING)
+    private WorkoutType workoutType;
+
 
 }
