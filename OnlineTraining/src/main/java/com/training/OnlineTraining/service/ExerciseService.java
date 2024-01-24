@@ -21,4 +21,6 @@ public interface ExerciseService {
     List<ExerciseOutputDTO> getAllExercises();
 
     List<Exercise> getAllExercisesForWorkoutType(WorkoutType workoutType);
+
+    int countByWorkoutType(WorkoutType workoutType);
 }

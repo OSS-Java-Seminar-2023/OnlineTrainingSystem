@@ -42,18 +42,29 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 		Workout savedWorkout = workoutRepository.save(workoutMapper.toWorkout(workoutInputDTO));
 
+		if(savedWorkout.getWorkoutSessions() == null)
+			createEmptyWorkoutSessions(workoutInputDTO, savedWorkout);
 
+		else
+			updateCreatedWorkoutSessions(savedWorkout);
+
+		logger.info("New workout created.");
+
+		return workoutMapper.toWorkoutOutputDTO(savedWorkout);
+	}
+
+	private void createEmptyWorkoutSessions(WorkoutInputDTO workoutInputDTO, Workout savedWorkout){
 		IntStream.range(0, workoutInputDTO.getNumberOfExercises())
 				.mapToObj(i -> {
 					WorkoutSessionInputDTO workoutSessionInputDTO = new WorkoutSessionInputDTO(savedWorkout);
 					return workoutSessionMapper.toWorkoutSession(workoutSessionInputDTO);
 				})
 				.forEach(workoutSessionRepository::save);
+	}
 
-
-		logger.info("New workout created.");
-
-		return workoutMapper.toWorkoutOutputDTO(savedWorkout);
+	private void updateCreatedWorkoutSessions(Workout savedWorkout){
+		savedWorkout.getWorkoutSessions().forEach(workoutSession -> workoutSession.setWorkout(savedWorkout));
+		workoutSessionRepository.saveAll(savedWorkout.getWorkoutSessions());
 	}
 
 	private int getOrdinalNumberOfNextWorkout(UUID contractID){

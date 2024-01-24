@@ -81,6 +81,11 @@ public class ExerciseServiceImpl implements ExerciseService {
         return exerciseRepository.findAllByWorkoutType(workoutType);
     }
 
+    @Override
+    public int countByWorkoutType(WorkoutType workoutType) {
+        return exerciseRepository.countByWorkoutType(workoutType);
+    }
+
 
     @Override
     public ExerciseOutputDTO updateExercise(UUID id, ExerciseInputDTO exerciseDetails) {
