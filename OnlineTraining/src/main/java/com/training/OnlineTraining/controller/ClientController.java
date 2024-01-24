@@ -44,7 +44,7 @@ public class ClientController {
                                 @ModelAttribute CoachFilterParams filterParams,
                                 HttpSession session,
                                 @RequestParam(defaultValue = "1") int page,
-                                @RequestParam(defaultValue = "2") int size) {
+                                @RequestParam(defaultValue = "10") int size) {
 
 
         List<CoachDto> filteredCoaches;
