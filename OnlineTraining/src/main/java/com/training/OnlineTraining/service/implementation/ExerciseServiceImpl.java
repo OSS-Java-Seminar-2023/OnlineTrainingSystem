@@ -6,6 +6,7 @@ import com.training.OnlineTraining.exceptions.ExerciseNotFoundException;
 import com.training.OnlineTraining.mapper.ExerciseMapper;
 import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.Workout;
+import com.training.OnlineTraining.model.enums.WorkoutType;
 import com.training.OnlineTraining.repository.ExerciseRepository;
 import com.training.OnlineTraining.service.ExerciseService;
 import lombok.AllArgsConstructor;
@@ -73,6 +74,11 @@ public class ExerciseServiceImpl implements ExerciseService {
                 .stream()
                 .map(exerciseMapper::toExerciseOutputDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Exercise> getAllExercisesForWorkoutType(WorkoutType workoutType) {
+        return exerciseRepository.findAllByWorkoutType(workoutType);
     }
 
 

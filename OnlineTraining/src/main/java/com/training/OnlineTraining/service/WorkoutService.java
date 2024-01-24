@@ -9,8 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface WorkoutService {
-	void createWorkout(WorkoutInputDTO workoutInputDTO, UUID contractID);
-	WorkoutOutputDTO createWorkout(WorkoutInputDTO workoutInputDTO);
+	WorkoutOutputDTO createWorkout(WorkoutInputDTO workoutInputDTO, UUID contractID);
 	WorkoutOutputDTO getWorkoutById(UUID id);
 	List<WorkoutOutputDTO> getAllWorkouts();
 	WorkoutOutputDTO updateWorkout(UUID id, WorkoutInputDTO workoutDetails);

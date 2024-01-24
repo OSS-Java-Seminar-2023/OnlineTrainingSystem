@@ -15,7 +15,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class WorkoutInputDTO {
+
 	private UUID contractId;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -28,13 +30,41 @@ public class WorkoutInputDTO {
 	private Integer pauseBetweenSetsInSeconds;
 	private Integer selfRating;
 	private Boolean isFinished;
-
-
 	private WorkoutStatus workoutStatus = WorkoutStatus.WAITING;
 
 	private List<WorkoutSession> workoutSessions;
 
+	public WorkoutInputDTO(Integer numberOfExercises, Integer warmingUpTimeInSeconds, Integer numberOfSets, Integer pauseBetweenSetsInSeconds, List<WorkoutSession> workoutSessions) {
+
+		this.numberOfExercises = numberOfExercises;
+		this.warmingUpTimeInSeconds = warmingUpTimeInSeconds;
+		this.numberOfSets = numberOfSets;
+		this.pauseBetweenSetsInSeconds = pauseBetweenSetsInSeconds;
+		this.workoutSessions = workoutSessions;
+	}
+
 	public WorkoutInputDTO(UUID contractId) {
 		this.contractId = contractId;
 	}
+
+	@Override
+	public String toString() {
+
+		StringBuilder output =  new StringBuilder("WorkoutInputDTO{" +
+				"contractId=" + contractId +
+				", dateOfWorkout=" + dateOfWorkout +
+				", ordinalNumberOfWorkout=" + ordinalNumberOfWorkout +
+				", numberOfExercises=" + numberOfExercises +
+				", warmingUpTimeInSeconds=" + warmingUpTimeInSeconds +
+				", numberOfSets=" + numberOfSets +
+				", pauseBetweenSetsInSeconds=" + pauseBetweenSetsInSeconds +
+				", selfRating=" + selfRating +
+				", isFinished=" + isFinished +
+				", workoutStatus=" + workoutStatus + "\n");
+
+		workoutSessions.forEach(output::append);
+
+		return output.toString();
+	}
+
 }
