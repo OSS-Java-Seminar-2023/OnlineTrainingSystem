@@ -5,10 +5,12 @@ import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.model.enums.WorkoutGoal;
+import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import com.training.OnlineTraining.model.enums.WorkoutType;
 import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutTemplateCreatorService;
 import lombok.AllArgsConstructor;
+import org.mapstruct.ap.shaded.freemarker.template.utility.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,7 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 		return WorkoutInputDTO.builder()
 				.numberOfExercises(workoutTemplate.getNumberOfExercises())
 				.warmingUpTimeInSeconds(300)
+				.workoutStatus(WorkoutStatus.WAITING)
 				.numberOfSets(getNumberOfSets(workoutTemplate.getWorkoutGoal()))
 				.pauseBetweenSetsInSeconds(getPauseBetweenSetsInSeconds(workoutTemplate.getWorkoutGoal()))
 				.workoutSessions(getWorkoutSessions(workoutTemplate))
