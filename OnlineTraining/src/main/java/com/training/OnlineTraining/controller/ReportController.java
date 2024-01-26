@@ -42,7 +42,6 @@ public class ReportController {
 
 		WorkoutOutputDTO workout = workoutService.getWorkoutById(id);
 
-		// Convert WorkoutOutputDTO object to PDF and allow download
 		response.setContentType("application/pdf");
 		response.setHeader("Content-Disposition", "attachment; filename=generated-pdf.pdf");
 
