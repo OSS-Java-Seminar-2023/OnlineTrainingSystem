@@ -14,7 +14,13 @@
 ## Developers👨‍💻
 * [Branimir Bilić](https://github.com/nebra00)
 * [Josip Čeprnić](https://github.com/Cepa95)
+  
+  [![text](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/josip-ceprnic/)
+  
 * [Luka Polić](https://github.com/PolicLL)
+  
+  [![text](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/luka-polic-a3a848231/)
+
 
 
 ## Goal of the Application⚽🥅
@@ -42,6 +48,9 @@ The primary objective of this application is to facilitate the connection betwee
 
 7. **Workout Plan Generation**
    - Clients can download their workout plans in PDF format or a similar format.
+     
+8. **Admin CRUD Operations**
+   - Admin has full control over user management, including creating, reading, updating, and deleting client, coach profiles, contracts, measurments...
 
 ## Registration of Clients and Coaches📲📝
 
@@ -73,6 +82,7 @@ The primary objective of this application is to facilitate the connection betwee
 
 - **Progress Tracking**
   - Clients can fill out forms to track their progress, and the software calculates and monitors their improvements.
+  - Clients can visualize their fitness journey through dynamic charts that illustrate their measurements, offering an engaging and visually appealing representation of their progress over time
 
 - **Workout Plan Delivery**
   - Clients have the ability to download their training programs in PDF format.
