@@ -6,34 +6,33 @@ import com.training.OnlineTraining.service.WorkoutService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.UUID;
+
 
 @Controller
-public class PdfController {
+@RequestMapping("/report")
+public class ReportController {
 
 	private final WorkoutService workoutService;
 
-	public PdfController(WorkoutService workoutService) {
+	public ReportController(WorkoutService workoutService) {
 		this.workoutService = workoutService;
 	}
 
-	@GetMapping("/show-pdf")
-	public String showPdf(Model model) {
+	@GetMapping("/show")
+	public String showPdf(@RequestParam UUID id, Model model) {
 
-		List<WorkoutOutputDTO> workoutOutputDTOList = workoutService.getAllWorkouts();
+		WorkoutOutputDTO workoutOutputDTO = workoutService.getWorkoutById(id);
 
-		model.addAttribute("workout", workoutOutputDTOList.get(0));
+		model.addAttribute("workout", workoutOutputDTO);
 
-		return "pdf/workout_pdf_template";
+		return "report/workout_pdf_template";
 	}
 
-	@PostMapping("/generate-pdf")
+	@PostMapping("/generate")
 	public void generatePdf(@ModelAttribute WorkoutOutputDTO workout, HttpServletResponse response) throws IOException {
 		// Convert WorkoutOutputDTO object to PDF and allow download
 		response.setContentType("application/pdf");
