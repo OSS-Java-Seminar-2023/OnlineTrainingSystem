@@ -14,4 +14,5 @@ public class WorkoutTemplate {
 	private WorkoutType workoutType;
 	private WorkoutGoal workoutGoal;
 	private int numberOfExercises;
+	private WorkoutType nextWorkout;
 }

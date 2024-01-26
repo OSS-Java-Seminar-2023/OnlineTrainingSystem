@@ -39,6 +39,7 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 				.numberOfSets(getNumberOfSets(workoutTemplate.getWorkoutGoal()))
 				.pauseBetweenSetsInSeconds(getPauseBetweenSetsInSeconds(workoutTemplate.getWorkoutGoal()))
 				.workoutSessions(getWorkoutSessions(workoutTemplate))
+				.nextWorkout(workoutTemplate.getNextWorkout())
 				.build();
 	}
 

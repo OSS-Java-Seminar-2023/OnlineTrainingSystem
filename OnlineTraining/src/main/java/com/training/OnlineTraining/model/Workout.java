@@ -2,6 +2,7 @@ package com.training.OnlineTraining.model;
 
 import com.training.OnlineTraining.model.additional.Duration;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
+import com.training.OnlineTraining.model.enums.WorkoutType;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -55,6 +56,10 @@ public class Workout {
     @Column(name = "workout_status")
     @Enumerated(EnumType.STRING)
     private WorkoutStatus workoutStatus = WorkoutStatus.WAITING;
+
+    @Column(name = "next_workout")
+    @Enumerated(EnumType.STRING)
+    private WorkoutType nextWorkout;
 
     public Duration getDuration() {
         Duration newDuration = new Duration();

@@ -3,6 +3,7 @@ package com.training.OnlineTraining.dto.output;
 import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.model.additional.Duration;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
+import com.training.OnlineTraining.model.enums.WorkoutType;
 import jakarta.persistence.Convert;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -32,6 +33,8 @@ public class WorkoutOutputDTO {
 	private Integer pauseBetweenSetsInSeconds;
 	private Integer selfRating;
 	private Boolean isFinished;
+
+	private WorkoutType nextWorkout;
 
 	@Enumerated(EnumType.STRING)
 	private WorkoutStatus workoutStatus = WorkoutStatus.WAITING;

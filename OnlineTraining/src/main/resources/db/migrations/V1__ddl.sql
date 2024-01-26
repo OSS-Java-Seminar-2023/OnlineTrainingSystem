@@ -59,7 +59,8 @@ CREATE TABLE Workout (
     ordinal_number_of_workout INTEGER NOT NULL,
     pause_between_sets_in_seconds INTEGER NOT NULL,
     self_rating INTEGER,
-    workout_status VARCHAR(50)
+    workout_status VARCHAR(50),
+    next_workout VARCHAR(50)
 );
 
 

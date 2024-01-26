@@ -43,6 +43,7 @@
         <th>Pause Between Sets (in seconds)</th>
         <th>Duration of the Workout</th>
         <th>Client's Self Rating</th>
+        <th>Next Workout</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -58,6 +59,7 @@
         <td th:text="${workout.pauseBetweenSetsInSeconds}"></td>
         <td th:text="${workout.getDuration}"></td>
         <td th:text="${workout.selfRating}"></td>
+        <td th:text="${workout.nextWorkout}"></td>
 
         <td> <a th:href="@{/workout/update/{id}(id=${workout.id})}" class="become-link">Update</a></td>
         <td>
