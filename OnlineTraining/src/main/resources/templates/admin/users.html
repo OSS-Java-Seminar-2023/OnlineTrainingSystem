@@ -11,6 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/select.css}">
     <link rel="stylesheet" th:href="@{/css/hand.css}">
     <link rel="stylesheet" th:href="@{/css/confirmation.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <script th:src="@{/js/filterUsers.js}"></script>
 </head>
 <body>
@@ -19,7 +20,9 @@
 <br>
 <br>
 <br>
-<br>
+<header>
+    <h1 class="header-1">List of Users</h1>
+</header>
 <br>
 
 <form th:action="@{/admins/users}" method="get" onsubmit="filterUsers(); return false;">

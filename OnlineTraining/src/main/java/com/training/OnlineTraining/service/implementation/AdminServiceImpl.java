@@ -1,9 +1,13 @@
 package com.training.OnlineTraining.service.implementation;
 
+import com.training.OnlineTraining.dto.ContractDto;
 import com.training.OnlineTraining.dto.UserDto;
+import com.training.OnlineTraining.mapper.ContractMapper;
 import com.training.OnlineTraining.mapper.UserAdminMapper;
 import com.training.OnlineTraining.mapper.UserMapper;
+import com.training.OnlineTraining.model.Contract;
 import com.training.OnlineTraining.model.User;
+import com.training.OnlineTraining.repository.ContractRepository;
 import com.training.OnlineTraining.repository.UserRepository;
 import com.training.OnlineTraining.service.AdminService;
 import com.training.OnlineTraining.specification.UserSpecifications;
@@ -24,6 +28,9 @@ public class AdminServiceImpl implements AdminService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final UserAdminMapper userAdminMapper;
+    private final ContractMapper contractMapper;
+    private final ContractRepository contractRepository;
+
     @Override
     public List<UserDto> getAllUsers() {
         return userRepository.findAll().stream()
@@ -65,5 +72,13 @@ public class AdminServiceImpl implements AdminService {
 
         return userMapper.convertToDto(user);
     }
+
+    @Override
+    public List<ContractDto> getAllContracts() {
+        List<Contract> contracts = contractRepository.findAll();
+        return contractMapper.mapToDtoList(contracts);
+    }
+
+
 
 }

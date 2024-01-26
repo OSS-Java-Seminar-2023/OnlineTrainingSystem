@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contracts</title>
+    <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
+    <link rel="stylesheet" th:href="@{/css/pagination.css}">
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
+    <link rel="stylesheet" th:href="@{/css/table.css}">
+    <link rel="stylesheet" th:href="@{/css/select.css}">
+    <link rel="stylesheet" th:href="@{/css/hand.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+</head>
+<body>
+
+<div th:insert="~{fragments/navigation :: navigation('/admins')}"></div>
+<br>
+<br>
+<br>
+<header>
+    <h1 class="header-1">List of Contracts</h1>
+</header>
+<br>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Coach ID</th>
+        <th>Coach Name</th>
+        <th>Coach email</th>
+        <th>Client ID</th>
+        <th>Client Name</th>
+        <th>Client email</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Monthly Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="contract : ${contracts}">
+        <tr>
+            <td th:text="${contract.id}"></td>
+            <td th:text="${contract.coach.id}"></td>
+            <td th:text="${contract.coach.user.firstName}"></td>
+            <td th:text="${contract.coach.user.email}"></td>
+            <td th:text="${contract.client.id}"></td>
+            <td th:text="${contract.client.user.firstName}"></td>
+            <td th:text="${contract.client.user.email}"></td>
+            <td th:text="${contract.startDate}"></td>
+            <td th:text="${contract.endDate}"></td>
+            <td th:text="${contract.monthlyPrice}"></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+</body>
+</html>

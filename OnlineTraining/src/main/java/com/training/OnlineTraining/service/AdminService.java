@@ -1,5 +1,6 @@
 package com.training.OnlineTraining.service;
 
+import com.training.OnlineTraining.dto.ContractDto;
 import com.training.OnlineTraining.dto.UserDto;
 
 import java.util.List;
@@ -11,5 +12,6 @@ public interface AdminService {
     void deleteUser(UUID userId);
     void updateUser(UUID userId, UserDto userDto);
     UserDto getUserById(UUID userId);
+    List<ContractDto> getAllContracts();
 
 }
