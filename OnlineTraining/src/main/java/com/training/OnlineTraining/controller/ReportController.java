@@ -1,9 +1,10 @@
 package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.dto.output.WorkoutOutputDTO;
-import com.training.OnlineTraining.service.ReportGenerator;
+import com.training.OnlineTraining.service.ReportService;
 import com.training.OnlineTraining.service.WorkoutService;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,15 @@ import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/report")
+@AllArgsConstructor
 public class ReportController {
 
 	private static final Logger logger = Logger.getLogger(ReportController.class.getName());
 
 	private final WorkoutService workoutService;
 
-	public ReportController(WorkoutService workoutService) {
-		this.workoutService = workoutService;
-	}
+	private final ReportService reportService;
+
 
 	@GetMapping("/show")
 	public String showPdf(@RequestParam UUID id, Model model) {
@@ -45,7 +46,7 @@ public class ReportController {
 		response.setContentType("application/pdf");
 		response.setHeader("Content-Disposition", "attachment; filename=generated-pdf.pdf");
 
-		ReportGenerator.generateReportFromHtml(workout, response.getOutputStream());
+		reportService.generateReportFromHtml(workout, response.getOutputStream());
 
 		logger.info("PDF generation completed for workout with ID: " + id);
 	}
