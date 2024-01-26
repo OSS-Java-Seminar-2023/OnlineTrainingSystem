@@ -29,6 +29,10 @@
     <a th:href="@{/workoutSession/create(workoutID=${workout.id})}">
         <button type="button" class="become-link">Create New Workout Session</button>
     </a>
+
+    <a th:href="@{/report/show(id=${workout.id})}">
+        <button type="button" class="become-link">See in PDF</button>
+    </a>
 </div>
 <br>
 <br>

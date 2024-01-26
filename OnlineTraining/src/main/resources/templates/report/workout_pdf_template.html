@@ -21,10 +21,9 @@
 </p>
 <h2>HELLO</h2>
 
-<form method="post" action="/generate-pdf">
-    <input type="hidden" name="htmlContent" th:value="${workout}" />
-    <button type="submit">Download PDF</button>
-</form>
+<a th:href="@{/report/generate(id=${workout.id})}">
+    <button type="button" class="become-link">See in PDF</button>
+</a>
 
 </body>
 </html>
