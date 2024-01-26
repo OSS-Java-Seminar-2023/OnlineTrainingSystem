@@ -42,6 +42,7 @@
         <th>Training Duration</th>
         <th>Client's Self Rating</th>
         <th>Client's Status</th>
+        <th>Next Workout</th>
         <th>Details</th>
         <th>Update</th>
         <th>Delete</th>
@@ -58,6 +59,7 @@
         <td th:text="${workout.getDuration()}"></td>
         <td th:text="${workout.selfRating}"></td>
         <td th:text="${workout.workoutStatus}"></td>
+        <td th:text="${workout.nextWorkout}"></td>
         <td>
             <a th:href="@{/workout/details/{id}(id=${workout.id})}" class="become-link">Details</a>
         </td>
