@@ -4,6 +4,7 @@ INSERT INTO Exercise (id, name, description, exercise_equipment, difficulty_leve
 ('22222222-2222-2222-2222-222222222222', 'Squats', 'Stand with a barbell on your shoulders and squat down and up.', 'Barbell', 'Intermediate', 'LEGS'),
 ('33333333-3333-3333-3333-333333333333', 'Deadlifts', 'Lift a weighted barbell from the ground to hip level.', 'Barbell', 'Advanced', 'LEGS'),
 ('44444444-4444-4444-4444-444444444444', 'Pull-ups', 'Lift your body weight by pulling up on a bar.', 'Pull_up_Bar', 'Intermediate' , 'PULL'),
+('44444444-4444-4444-4444-444444444445', 'Chin-ups', 'Lift your body weight by pulling up on a bar.', 'Pull_up_Bar', 'Intermediate' , 'PULL'),
 ('55555555-5555-5555-5555-555555555555', 'Dumbbell Shoulder Press', 'Press dumbbells upwards from shoulder level.', 'Dumbbells', 'Intermediate', 'PUSH'),
 ('66666666-6666-6666-6666-666666666666', 'Bent-over Rows', 'Bend over and lift a barbell towards your abdomen.', 'Weight_Plates', 'Intermediate', 'PUSH'),
 ('77777777-7777-7777-7777-777777777777', 'Lunges', 'Step forward and lower your hips until both knees are bent at a 90-degree angle.', 'None', 'Beginner', 'LEGS'),
@@ -19,4 +20,8 @@ INSERT INTO Exercise (id, name, description, exercise_equipment, difficulty_leve
 ('99998888-7777-6666-5555-444433332222', 'Reverse Lunges', 'Step backward and lower your hips until both knees are bent at a 90-degree angle.', 'None', 'Beginner', 'LEGS'),
 ('11113333-4444-2222-5555-666655557777', 'Decline Bench Press', 'Perform bench presses on a declined angle.', 'Decline_Bench', 'Intermediate', 'PUSH'),
 ('22224444-8888-7777-6666-555544443333', 'Calf Raises', 'Raise your heels using a platform to work your calf muscles.', 'Calf_Raise_Machine', 'Beginner', 'LEGS'),
-('33335555-2222-4444-6666-88889999aaaa', 'Russian Twists', 'Rotate your torso while holding a weight or without one.', 'None', 'Intermediate', 'CORE');
+('33335555-2222-4444-6666-88889999aaaa', 'Russian Twists', 'Rotate your torso while holding a weight or without one.', 'None', 'Intermediate', 'CORE'),
+('11111111-1111-1111-1111-111111111112', 'Plank Twists', 'From a plank position, rotate your hips and touch the ground on each side.', 'None', 'Intermediate', 'CORE'),
+('11111111-1111-1111-1111-111111111113', 'Leg Raises', 'Lift your legs upward while lying on your back to engage your lower abs.', 'None', 'Intermediate', 'CORE'),
+('11111111-1111-1111-1111-111111111114', 'Mountain Climbers', 'Alternate bringing your knees towards your chest in a running motion from a plank position.', 'None', 'Intermediate', 'CORE'),
+('11111111-1111-1111-1111-111111111115', 'Lat Pulldowns', 'Pull the cable attachment towards your upper chest while seated.', 'Cable_Machine', 'Intermediate', 'PULL');
