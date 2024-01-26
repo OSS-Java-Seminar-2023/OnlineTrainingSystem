@@ -1,29 +1,67 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF Document</title>
+    <link rel="shortcut icon" type="image/png" th:href="@{/favicon.png}"/>
+    <link rel="stylesheet" th:href="@{/css/navigation.css}">
+    <link rel="stylesheet" th:href="@{/css/table.css}">
+    <link rel="stylesheet" th:href="@{/css/select.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-<h1>PDF Document</h1>
-<p>
-    ID: <span th:text="${workout.id}"></span><br/>
-    Contract ID: <span th:text="${workout.contractId}"></span><br/>
-    Date of Workout: <span th:text="${workout.dateOfWorkout}"></span><br/>
-    Ordinal Number of Workout: <span th:text="${workout.ordinalNumberOfWorkout}"></span><br/>
-    Number of Exercises: <span th:text="${workout.numberOfExercises}"></span><br/>
-    Warming Up Time (Seconds): <span th:text="${workout.warmingUpTimeInSeconds}"></span><br/>
-    Number of Sets: <span th:text="${workout.numberOfSets}"></span><br/>
-    Pause Between Sets (Seconds): <span th:text="${workout.pauseBetweenSetsInSeconds}"></span><br/>
-    Self Rating: <span th:text="${workout.selfRating}"></span><br/>
-    Is Finished: <span th:text="${workout.isFinished}"></span><br/>
-    Workout Status: <span th:text="${workout.workoutStatus}"></span><br/>
-    <!-- Display other properties similarly -->
-</p>
-<h2>HELLO</h2>
-
+<div th:insert="~{fragments/navigation :: navigation('/clients/client-page')}"></div>
+<br>
+<br>
+<br>
+<br>
+<header>
+    <h1 class="header-1">Generate PDF</h1>
+</header>
+<br>
 <a th:href="@{/report/generate(id=${workout.id})}">
-    <button type="button" class="become-link">See in PDF</button>
+    <button type="button" class="become-link">Generate PDF</button>
 </a>
+<br>
+<br>
 
+<table>
+    <tr>
+        <th>Date of Workout</th>
+        <td><span th:text="${workout.dateOfWorkout}"></span></td>
+    </tr>
+    <tr>
+        <th>Ordinal Number of Workout</th>
+        <td><span th:text="${workout.ordinalNumberOfWorkout}"></span></td>
+    </tr>
+    <tr>
+        <th>Number of Exercises</th>
+        <td><span th:text="${workout.numberOfExercises}"></span></td>
+    </tr>
+    <tr>
+        <th>Warming Up Time (Seconds)</th>
+        <td><span th:text="${workout.warmingUpTimeInSeconds}"></span></td>
+    </tr>
+    <tr>
+        <th>Number of Sets</th>
+        <td><span th:text="${workout.numberOfSets}"></span></td>
+    </tr>
+    <tr>
+        <th>Pause Between Sets (Seconds)</th>
+        <td><span th:text="${workout.pauseBetweenSetsInSeconds}"></span></td>
+    </tr>
+    <tr>
+        <th>Self Rating</th>
+        <td><span th:text="${workout.selfRating}"></span></td>
+    </tr>
+    <tr>
+        <th>Workout Status</th>
+        <td><span th:text="${workout.workoutStatus}"></span></td>
+    </tr>
+</table>
 </body>
 </html>

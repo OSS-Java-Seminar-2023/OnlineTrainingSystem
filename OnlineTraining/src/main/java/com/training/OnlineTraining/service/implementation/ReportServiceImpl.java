@@ -4,6 +4,8 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.training.OnlineTraining.dto.output.WorkoutOutputDTO;
 import com.training.OnlineTraining.service.ReportService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -15,7 +17,8 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
 
-
+@AllArgsConstructor
+@Service
 public class ReportServiceImpl implements ReportService {
 
 	private static final TemplateEngine templateEngine = new SpringTemplateEngine();

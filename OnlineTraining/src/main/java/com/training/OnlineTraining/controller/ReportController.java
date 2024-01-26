@@ -5,6 +5,7 @@ import com.training.OnlineTraining.service.ReportService;
 import com.training.OnlineTraining.service.WorkoutService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class ReportController {
 
 
 	@GetMapping("/show")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT')")
 	public String showPdf(@RequestParam UUID id, Model model) {
 		logger.info("Request to show PDF for workout with ID: " + id);
 
@@ -37,6 +39,7 @@ public class ReportController {
 	}
 
 	@GetMapping("/generate")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT')")
 	public void generatePdf(@RequestParam UUID id, HttpServletResponse response) throws IOException {
 		logger.info("Request to generate PDF for workout with ID: " + id);
 

@@ -35,6 +35,8 @@
         <th>Pause Between Sets (in seconds)</th>
         <th class="color-th">Self Rating</th>
         <th class="color-th">Status</th>
+        <th>Next Workout</th>
+
         <th>Details</th>
         <th>Update</th>
     </tr>
@@ -49,6 +51,7 @@
         <td th:text="${workout.pauseBetweenSetsInSeconds + ' seconds'}"></td>
         <td th:text="${workout.selfRating}"></td>
         <td th:text="${workout.workoutStatus.displayName}"></td>
+        <td th:text="${workout.nextWorkout}"></td>
         <td>
             <a th:href="@{/workout/details/{id}(id=${workout.id})}" class="become-link">Details</a>
         </td>
