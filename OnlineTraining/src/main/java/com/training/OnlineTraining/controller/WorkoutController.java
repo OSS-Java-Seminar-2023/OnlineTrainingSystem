@@ -56,6 +56,8 @@ public class WorkoutController {
 	public String createWorkoutUsingTemplateForm(@ModelAttribute("workoutTemplate") WorkoutTemplate workoutTemplate, HttpSession session) {
 		logger.info("Displaying create workout using template form.");
 
+
+
 		UUID contractID = (UUID) session.getAttribute("contractID");
 		WorkoutInputDTO workoutInputDTO = workoutTemplateCreatorService.createWorkoutInputDTO(workoutTemplate);
 		workoutService.createWorkout(workoutInputDTO, contractID);
