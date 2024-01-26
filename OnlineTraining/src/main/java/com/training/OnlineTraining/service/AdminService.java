@@ -13,5 +13,8 @@ public interface AdminService {
     void updateUser(UUID userId, UserDto userDto);
     UserDto getUserById(UUID userId);
     List<ContractDto> getAllContracts();
+    void updateContract(UUID contractId, ContractDto updatedContractDto);
+    ContractDto getContractById(UUID contractId);
+    void deleteContract(UUID contractId);
 
 }

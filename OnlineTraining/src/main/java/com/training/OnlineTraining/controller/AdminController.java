@@ -73,4 +73,28 @@ public class AdminController {
         return "admin/contracts_page";
     }
 
+    @GetMapping("/contracts/update/{contractId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String getUpdateContractPage(@PathVariable UUID contractId, Model model) {
+        ContractDto contract = adminService.getContractById(contractId);
+        model.addAttribute("contract", contract);
+        model.addAttribute("coachId", contract.getCoach().getId());
+        model.addAttribute("clientId", contract.getClient().getId());
+        return "admin/update_contract";
+    }
+
+    @PostMapping("/contracts/update")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String updateContract(@ModelAttribute("contract") ContractDto contractDto) {
+        adminService.updateContract(contractDto.getId(), contractDto);
+        return "redirect:/admins/contracts";
+    }
+
+    @DeleteMapping("/contracts/delete/{contractId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteContract(@PathVariable UUID contractId) {
+        adminService.deleteContract(contractId);
+        return "redirect:/admins/contracts";
+    }
+
 }

@@ -13,6 +13,7 @@ import com.training.OnlineTraining.service.AdminService;
 import com.training.OnlineTraining.specification.UserSpecifications;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -79,6 +80,27 @@ public class AdminServiceImpl implements AdminService {
         return contractMapper.mapToDtoList(contracts);
     }
 
+    @Override
+    public void updateContract(UUID contractId, ContractDto updatedContractDto) {
+        Contract existingContract = contractRepository.findById(contractId)
+                .orElseThrow(() -> new EntityNotFoundException("Contract not found with id: " + contractId));
+
+        Contract updatedContract = contractMapper.mapDto(updatedContractDto);
+
+        contractRepository.save(updatedContract);
+    }
+
+    @Override
+    public ContractDto getContractById(UUID contractId) {
+        Contract contract = contractRepository.findById(contractId)
+                .orElseThrow(() -> new EntityNotFoundException("Contract not found with id: " + contractId));
+        return contractMapper.mapToDto(contract);
+    }
+
+    @Override
+    public void deleteContract(UUID contractId) {
+        contractRepository.deleteById(contractId);
+    }
 
 
 }

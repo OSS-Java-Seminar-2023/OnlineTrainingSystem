@@ -71,7 +71,7 @@
     </tbody>
 </table>
 
-<div class="pagination-container">
+<div th:if="${totalPages > 1}" class="pagination-container">
     <ol class="pagination-list">
         <li th:unless="${currentPage == 1}" class="pagination-item">
             <a th:href="@{/measurements/personal/{contractId}(page=1,contractId=${contractId})}" class="pagination-link">First</a>
