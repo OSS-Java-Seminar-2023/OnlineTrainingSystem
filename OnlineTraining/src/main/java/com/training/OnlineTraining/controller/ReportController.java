@@ -27,13 +27,20 @@ public class ReportController {
 
 		WorkoutOutputDTO workoutOutputDTO = workoutService.getWorkoutById(id);
 
+		System.out.println("Workout : " + workoutOutputDTO);
+
 		model.addAttribute("workout", workoutOutputDTO);
 
 		return "report/workout_pdf_template";
 	}
 
-	@PostMapping("/generate")
-	public void generatePdf(@ModelAttribute WorkoutOutputDTO workout, HttpServletResponse response) throws IOException {
+	@GetMapping("/generate")
+	public void generatePdf(@RequestParam UUID id, HttpServletResponse response) throws IOException {
+
+		WorkoutOutputDTO workout = workoutService.getWorkoutById(id);
+
+		System.out.println("Workout : " + workout);
+
 		// Convert WorkoutOutputDTO object to PDF and allow download
 		response.setContentType("application/pdf");
 		response.setHeader("Content-Disposition", "attachment; filename=generated-pdf.pdf");
