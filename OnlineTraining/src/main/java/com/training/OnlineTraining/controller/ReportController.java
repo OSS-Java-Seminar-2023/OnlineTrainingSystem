@@ -1,7 +1,7 @@
 package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.dto.output.WorkoutOutputDTO;
-import com.training.OnlineTraining.service.PdfGenerator;
+import com.training.OnlineTraining.service.ReportGenerator;
 import com.training.OnlineTraining.service.WorkoutService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.UUID;
-
+import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/report")
 public class ReportController {
+
+	private static final Logger logger = Logger.getLogger(ReportController.class.getName());
 
 	private final WorkoutService workoutService;
 
@@ -24,10 +26,9 @@ public class ReportController {
 
 	@GetMapping("/show")
 	public String showPdf(@RequestParam UUID id, Model model) {
+		logger.info("Request to show PDF for workout with ID: " + id);
 
 		WorkoutOutputDTO workoutOutputDTO = workoutService.getWorkoutById(id);
-
-		System.out.println("Workout : " + workoutOutputDTO);
 
 		model.addAttribute("workout", workoutOutputDTO);
 
@@ -36,16 +37,16 @@ public class ReportController {
 
 	@GetMapping("/generate")
 	public void generatePdf(@RequestParam UUID id, HttpServletResponse response) throws IOException {
+		logger.info("Request to generate PDF for workout with ID: " + id);
 
 		WorkoutOutputDTO workout = workoutService.getWorkoutById(id);
-
-		System.out.println("Workout : " + workout);
 
 		// Convert WorkoutOutputDTO object to PDF and allow download
 		response.setContentType("application/pdf");
 		response.setHeader("Content-Disposition", "attachment; filename=generated-pdf.pdf");
 
-		PdfGenerator.generatePdfFromHtml(workout, response.getOutputStream());
-	}
+		ReportGenerator.generateReportFromHtml(workout, response.getOutputStream());
 
+		logger.info("PDF generation completed for workout with ID: " + id);
+	}
 }
