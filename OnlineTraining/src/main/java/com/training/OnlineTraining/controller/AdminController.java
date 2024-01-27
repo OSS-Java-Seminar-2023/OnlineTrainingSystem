@@ -3,10 +3,15 @@ package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.dto.ContractDto;
 import com.training.OnlineTraining.dto.UserDto;
+import com.training.OnlineTraining.dto.output.WorkoutOutputDTO;
 import com.training.OnlineTraining.model.enums.Role;
 import com.training.OnlineTraining.service.AdminService;
+import com.training.OnlineTraining.service.WorkoutService;
 import io.micrometer.common.util.StringUtils;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
@@ -23,6 +28,7 @@ import java.util.UUID;
 public class AdminController {
 
     private final AdminService adminService;
+    private final WorkoutService workoutService;
 
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -67,9 +73,10 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/contracts")
-    public String getAllContracts(Model model){
+    public String getAllContracts(Model model, HttpSession session){
         List<ContractDto> contracts = adminService.getAllContracts();
         model.addAttribute("contracts", contracts);
+        session.removeAttribute("contractID");
         return "admin/contracts_page";
     }
 
@@ -96,5 +103,7 @@ public class AdminController {
         adminService.deleteContract(contractId);
         return "redirect:/admins/contracts";
     }
+
+
 
 }

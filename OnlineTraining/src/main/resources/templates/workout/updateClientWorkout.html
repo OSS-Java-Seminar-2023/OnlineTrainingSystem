@@ -48,10 +48,7 @@
                         th:text="${status.displayName}">
                 </option>
             </select>
-            <label for="nextWorkout">Next workout:</label>
-            <select th:field="*{nextWorkout}" id="nextWorkout">
-                <option th:each="nextWorkout : ${T(com.training.OnlineTraining.model.enums.WorkoutType).values()}" th:value="${nextWorkout}" th:text="${nextWorkout}"></option>
-            </select>
+            <input type="hidden" th:field="*{nextWorkout}" />
 
             <div>
                 <input class="button" type="submit" value="Update">

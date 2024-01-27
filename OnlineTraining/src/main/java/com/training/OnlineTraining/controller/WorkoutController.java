@@ -97,6 +97,7 @@ public class WorkoutController {
 		return clientId == null ? "workout/workoutList" : "workout/workoutClientList";
 	}
 
+
 	@GetMapping("/details/{id}")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT')")
 	public String showWorkoutDetails(@PathVariable UUID id, Model model, HttpSession session) {

@@ -28,9 +28,7 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Coach Name</th>
         <th>Coach email</th>
-        <th>Client Name</th>
         <th>Client email</th>
         <th>Start Date</th>
         <th>End Date</th>
@@ -38,15 +36,14 @@
         <th>Update</th>
         <th>Delete</th>
         <th>Measurements</th>
+        <th>Workouts</th>
     </tr>
     </thead>
     <tbody>
     <th:block th:each="contract : ${contracts}">
         <tr>
             <td th:text="${contract.id}"></td>
-            <td th:text="${contract.coach.user.firstName}"></td>
             <td th:text="${contract.coach.user.email}"></td>
-            <td th:text="${contract.client.user.firstName}"></td>
             <td th:text="${contract.client.user.email}"></td>
             <td th:text="${contract.startDate}"></td>
             <td th:text="${contract.endDate}"></td>
@@ -64,6 +61,11 @@
             </td>
             <td>
                 <a th:href="@{/measurements/personal/{id}(id=${contract.id})}" class="become-link">Measurements</a>
+            </td>
+            <td>
+                <a th:href="@{/workout(contractID=${contract.id})}" class="become-link">Workouts</a>
+
+
             </td>
         </tr>
     </th:block>
