@@ -10,7 +10,6 @@ import com.training.OnlineTraining.model.enums.WorkoutType;
 import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutTemplateCreatorService;
 import lombok.AllArgsConstructor;
-import org.mapstruct.ap.shaded.freemarker.template.utility.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -66,7 +65,7 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 	private List<WorkoutSession> getWorkoutSessions(WorkoutTemplate workoutTemplate) {
 		logger.info("Creating workout sessions for template: {}", workoutTemplate);
 
-		List<Exercise> listOfExercisesForWorkoutType = getExercisesForWorkoutType(workoutTemplate.getWorkoutType(), workoutTemplate.getNumberOfExercises());
+		var listOfExercisesForWorkoutType = getExercisesForWorkoutType(workoutTemplate.getWorkoutType(), workoutTemplate.getNumberOfExercises());
 
 		return listOfExercisesForWorkoutType.stream()
 				.map(exercise -> {
@@ -84,10 +83,10 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 	private List<Exercise> getExercisesForWorkoutType(WorkoutType workoutType, int numberOfExercises) {
 		logger.info("Getting {} exercises for workout type: {}", numberOfExercises, workoutType);
 
-		List<Exercise> listOfExercisesForWorkoutType = exerciseService.getAllExercisesForWorkoutType(workoutType);
+		var listOfExercisesForWorkoutType = exerciseService.getAllExercisesForWorkoutType(workoutType);
 		Collections.shuffle(listOfExercisesForWorkoutType);
 
-		List<Exercise> selectedExercises = listOfExercisesForWorkoutType.subList(0, numberOfExercises);
+		var selectedExercises = listOfExercisesForWorkoutType.subList(0, numberOfExercises);
 		logger.info("Selected exercises: {}", selectedExercises);
 
 		return selectedExercises;

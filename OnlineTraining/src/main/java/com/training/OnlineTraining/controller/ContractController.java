@@ -44,7 +44,7 @@ public class ContractController {
     @PostMapping("/{coachId}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     public String createContract(@PathVariable UUID coachId, @ModelAttribute ContractDto contractDto, Model model) {
-        Contract savedContract = contractService.createContract(contractDto);
+        var savedContract = contractService.createContract(contractDto);
         UUID contractId = savedContract.getId();
 
         return "redirect:/measurements/" + contractId;
@@ -57,7 +57,7 @@ public class ContractController {
 
         String clientName = (String) session.getAttribute("clientName");
 
-        List<Contract> contracts = contractService.getContractsByClientId(clientId);
+        var contracts = contractService.getContractsByClientId(clientId);
         model.addAttribute("contracts", contracts);
         model.addAttribute("clientName", clientName);
 

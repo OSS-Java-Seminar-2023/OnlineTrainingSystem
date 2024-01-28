@@ -27,14 +27,13 @@ public class ClientServiceImpl implements ClientService {
     private final UserService userService;
     private final ClientRepository clientRepository;
     private final UserRepository userRepository;
-    private final EntityManager entityManager;
 
 
     @Transactional
     @Override
     public Client registerClient(ClientDto clientDto, UUID userId) {
         Optional<User> optionalUser = Optional.ofNullable(userService.getUserById(userId));
-        Client client = new Client();
+        var client = new Client();
 
         optionalUser.ifPresentOrElse(
                 user -> {
@@ -94,14 +93,11 @@ public class ClientServiceImpl implements ClientService {
             throw new RuntimeException("Invalid client input");
         }
 
-        Client client = clientRepository.findById(clientId)
+        var client = clientRepository.findById(clientId)
                 .orElseThrow(() -> new EntityNotFoundException("Client not found with ID: " + clientId));
-
 
         ClientMapper.INSTANCE.updateClientFromDTO(updateClientDTO, client);
 
-
         clientRepository.save(client);
     }
-
 }

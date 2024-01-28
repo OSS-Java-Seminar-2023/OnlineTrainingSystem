@@ -23,7 +23,7 @@ public class ChartController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     @GetMapping("/{contractId}")
     public String getPersonalMeasurementsAsc(@PathVariable UUID contractId, Model model) {
-        List<Measurement> measurements = measurementService.getMeasurementsByContractIdSortedByDateAsc(contractId);
+        var measurements = measurementService.getMeasurementsByContractIdSortedByDateAsc(contractId);
 
         model.addAttribute("measurements", measurements);
 

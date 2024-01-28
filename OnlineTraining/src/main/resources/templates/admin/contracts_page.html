@@ -46,7 +46,7 @@
             <td th:text="${contract.coach.user.email}"></td>
             <td th:text="${contract.client.user.email}"></td>
             <td th:text="${contract.startDate}"></td>
-            <td th:text="${contract.endDate}"></td>
+            <td th:text="${contract.endDate}" th:class="${#dates.createNow().after(contract.endDate)} ? 'red-text' : ''"></td>
             <td th:text="${contract.monthlyPrice}"></td>
             <td>
                 <a th:href="@{/admins/contracts/update/{id}(id=${contract.id})}" class="become-link">Update</a>

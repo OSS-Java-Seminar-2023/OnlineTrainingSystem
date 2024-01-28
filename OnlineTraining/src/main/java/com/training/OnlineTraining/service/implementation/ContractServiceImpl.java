@@ -23,7 +23,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public Contract createContract(ContractDto contractDto) {
-        Contract contract = contractMapper.mapDto(contractDto);
+        var contract = contractMapper.mapDto(contractDto);
         return contractRepository.save(contract);
     }
 

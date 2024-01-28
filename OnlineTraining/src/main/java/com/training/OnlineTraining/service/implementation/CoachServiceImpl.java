@@ -15,7 +15,6 @@ import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.UserService;
 import com.training.OnlineTraining.specification.CoachSpecifications;
 import com.training.OnlineTraining.util.ValidationUtils;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -41,7 +40,6 @@ public class CoachServiceImpl implements CoachService {
     private final CoachMapper coachMapper;
     private final CoachUserMapper coachUserMapper;
     private final UserRepository userRepository;
-    private final EntityManager entityManager;
 
     private static final Logger logger = LoggerFactory.getLogger(ExerciseServiceImpl.class);
 
@@ -49,11 +47,11 @@ public class CoachServiceImpl implements CoachService {
     @Transactional
     @Override
     public Coach registerCoach(CoachDto coachDto, UUID userId) {
-        Optional<User> optionalUser = Optional.ofNullable(userService.getUserById(userId));
+        var optionalUser = Optional.ofNullable(userService.getUserById(userId));
 
         coachDto.setCoachUserDTO(coachUserMapper.toCoachUserDTO(optionalUser.get()));
 
-        Coach coachForSaving = coachMapper.coachDtoToCoach(coachDto);
+        var coachForSaving = coachMapper.coachDtoToCoach(coachDto);
 
         optionalUser.ifPresentOrElse(
                 user -> {
@@ -86,7 +84,7 @@ public class CoachServiceImpl implements CoachService {
         logger.info("Filter Params: {}", filterParams);
         Specification<Coach> spec = buildSpecification(filterParams);
 
-        List<Coach> filteredCoaches = coachRepository.findAll(spec);
+        var filteredCoaches = coachRepository.findAll(spec);
 
         return filteredCoaches.stream()
                 .map(coachMapper::coachToCoachDto)
@@ -151,6 +149,5 @@ public class CoachServiceImpl implements CoachService {
 
         coachRepository.save(coach);
     }
-
 
 }

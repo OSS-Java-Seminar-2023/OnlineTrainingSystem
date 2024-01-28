@@ -56,13 +56,16 @@
         <td th:text="${contract.monthlyPrice}"></td>
         <td th:text="${contract.client.medicalCondition}"></td>
         <td th:text="${contract.client.injuries}"></td>
-        <td>
-            <!-- Button to call the /workout endpoint with contract-id -->
+        <td th:if="${contract.endDate.after(#dates.createNow())}">
             <form th:action="@{/workout}" method="get">
                 <input type="hidden" th:name="contractID" th:value="${contract.id}" />
-                <button type="submit" class="become-link" >View Workouts</button>
+                <button type="submit" class="become-link">View Workouts</button>
             </form>
         </td>
+        <td th:unless="${contract.endDate.after(#dates.createNow())}">
+            Contract Ended
+        </td>
+
     </tr>
     </tbody>
 </table>

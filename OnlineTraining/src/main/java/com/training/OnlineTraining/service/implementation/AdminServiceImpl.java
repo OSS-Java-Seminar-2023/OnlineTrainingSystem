@@ -13,7 +13,6 @@ import com.training.OnlineTraining.service.AdminService;
 import com.training.OnlineTraining.specification.UserSpecifications;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -44,7 +43,7 @@ public class AdminServiceImpl implements AdminService {
         Specification<User> spec = UserSpecifications.filterByRole(role);
 
         Sort sort = Sort.by(Sort.Direction.ASC, "firstName");
-        List<User> filteredUsers = userRepository.findAll(spec, sort);
+        var filteredUsers = userRepository.findAll(spec, sort);
 
         return filteredUsers.stream()
                 .map(userMapper::convertToDto)
@@ -59,7 +58,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void updateUser(UUID userId, UserDto userDto) {
-        User user = userRepository.findById(userId)
+        var user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
 
         userAdminMapper.updateEntityFromDto(userDto, user);
@@ -68,7 +67,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public UserDto getUserById(UUID userId) {
-        User user = userRepository.findById(userId)
+        var user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
 
         return userMapper.convertToDto(user);
@@ -76,23 +75,23 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<ContractDto> getAllContracts() {
-        List<Contract> contracts = contractRepository.findAll();
+        var contracts = contractRepository.findAll();
         return contractMapper.mapToDtoList(contracts);
     }
 
     @Override
     public void updateContract(UUID contractId, ContractDto updatedContractDto) {
-        Contract existingContract = contractRepository.findById(contractId)
+        var existingContract = contractRepository.findById(contractId)
                 .orElseThrow(() -> new EntityNotFoundException("Contract not found with id: " + contractId));
 
-        Contract updatedContract = contractMapper.mapDto(updatedContractDto);
+        var updatedContract = contractMapper.mapDto(updatedContractDto);
 
         contractRepository.save(updatedContract);
     }
 
     @Override
     public ContractDto getContractById(UUID contractId) {
-        Contract contract = contractRepository.findById(contractId)
+        var contract = contractRepository.findById(contractId)
                 .orElseThrow(() -> new EntityNotFoundException("Contract not found with id: " + contractId));
         return contractMapper.mapToDto(contract);
     }

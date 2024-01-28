@@ -31,7 +31,7 @@ public class ReportController {
 	public String showPdf(@RequestParam UUID id, Model model) {
 		logger.info("Request to show PDF for workout with ID: " + id);
 
-		WorkoutOutputDTO workoutOutputDTO = workoutService.getWorkoutById(id);
+		var workoutOutputDTO = workoutService.getWorkoutById(id);
 
 		model.addAttribute("workout", workoutOutputDTO);
 

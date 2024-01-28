@@ -2,8 +2,7 @@ package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.dto.UpdateCoachDTO;
-import com.training.OnlineTraining.model.Coach;
-import com.training.OnlineTraining.model.Contract;
+
 import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.ContractService;
 import jakarta.servlet.http.HttpSession;
@@ -13,11 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -38,7 +35,7 @@ public class CoachController {
         UUID coachID = (UUID) session.getAttribute("coachId");
 
         String coachName = (String) session.getAttribute("coachName");
-        List<Contract> contractList = contractService.getAllContractsForCoach(coachID);
+        var contractList = contractService.getAllContractsForCoach(coachID);
 
         model.addAttribute("coachesListContracts", contractList);
         model.addAttribute("coachName", coachName);
@@ -75,7 +72,7 @@ public class CoachController {
     @GetMapping("/settings")
     public String getSettings(Model model, HttpSession session) {
         UUID coachId = (UUID) session.getAttribute("coachId");
-        Coach coach = coachService.getCoachById(coachId);
+        var coach = coachService.getCoachById(coachId);
         model.addAttribute("coach", coach);
         model.addAttribute("genderOptions", Arrays.asList("Male", "Female"));
 

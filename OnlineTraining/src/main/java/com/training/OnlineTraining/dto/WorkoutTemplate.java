@@ -15,4 +15,7 @@ public class WorkoutTemplate {
 	private WorkoutGoal workoutGoal;
 	private int numberOfExercises;
 	private WorkoutType nextWorkout;
+
+    public WorkoutTemplate(WorkoutType workoutType, WorkoutGoal workoutGoal, int i) {
+    }
 }

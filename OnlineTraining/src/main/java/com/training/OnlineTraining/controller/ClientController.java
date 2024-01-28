@@ -4,7 +4,6 @@ import com.training.OnlineTraining.dto.ClientDto;
 import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.dto.CoachFilterParams;
 import com.training.OnlineTraining.dto.UpdateClientDTO;
-import com.training.OnlineTraining.model.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import com.training.OnlineTraining.service.ClientService;
 import com.training.OnlineTraining.service.CoachService;
-import com.training.OnlineTraining.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -33,7 +31,7 @@ public class ClientController {
 
     private final ClientService clientService;
     private final CoachService coachService;
-    private final UserService userService;
+
 
     private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
 
@@ -42,7 +40,6 @@ public class ClientController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     public String getClientPage(Model model,
                                 @ModelAttribute CoachFilterParams filterParams,
-                                HttpSession session,
                                 @RequestParam(defaultValue = "1") int page,
                                 @RequestParam(defaultValue = "10") int size) {
 
@@ -88,7 +85,7 @@ public class ClientController {
     public String getSettings(Model model, HttpSession session) {
 
         UUID clientId = (UUID) session.getAttribute("clientId");
-        Client client = clientService.getClientsById(clientId);
+        var client = clientService.getClientsById(clientId);
         model.addAttribute("client", client);
         model.addAttribute("genderOptions", Arrays.asList("Male", "Female"));
 

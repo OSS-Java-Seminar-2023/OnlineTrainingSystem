@@ -24,8 +24,8 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendEmail(String toEmail, String body, String subject) throws MessagingException {
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+        var mimeMessage = javaMailSender.createMimeMessage();
+        var mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
         mimeMessageHelper.setFrom("onlinetrainingsystemteam@gmail.com");
         mimeMessageHelper.setTo(toEmail);

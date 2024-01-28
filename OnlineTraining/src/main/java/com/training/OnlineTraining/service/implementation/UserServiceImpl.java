@@ -10,14 +10,13 @@ import com.training.OnlineTraining.util.ValidationUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
+
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
 
     @Override
     public boolean areInputsInvalid(UserDto request) {
@@ -42,7 +41,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Duplicate email");
         }
 
-        User user = UserMapper.mapDtoToEntity(request);
+        var user = UserMapper.mapDtoToEntity(request);
 
         return userRepository.save(user);
     }

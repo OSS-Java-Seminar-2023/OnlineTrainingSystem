@@ -7,7 +7,6 @@ import com.training.OnlineTraining.repository.UserRepository;
 import com.training.OnlineTraining.service.ClientService;
 import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.LoginService;
-import com.training.OnlineTraining.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +19,6 @@ import java.util.UUID;
 
 @Service
 public class LoginServiceImpl implements LoginService {
-
-	@Autowired
-	private UserService userService;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -45,7 +41,7 @@ public class LoginServiceImpl implements LoginService {
 
 
 			if (role == Role.CLIENT) {
-				Client client = clientService.getClientByUserId(userID);
+				var client = clientService.getClientByUserId(userID);
 				session.setAttribute("clientId", client.getId());
 				session.setAttribute("clientName", firstName);
 				logger.info("Login successful. Redirecting to client page for user ID: {}", userID);
@@ -53,7 +49,7 @@ public class LoginServiceImpl implements LoginService {
 			}
 
 			if (role == Role.COACH) {
-				Coach coach = coachService.findByUserId(userID);
+				var coach = coachService.findByUserId(userID);
 				session.setAttribute("userId", userID);
 				session.setAttribute("coachId", coach.getId());
 				session.setAttribute("coachName", firstName);

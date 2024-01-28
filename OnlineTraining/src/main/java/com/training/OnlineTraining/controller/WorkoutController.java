@@ -26,7 +26,6 @@ public class WorkoutController {
 
 	private final WorkoutService workoutService;
 	private final ExerciseService exerciseService;
-	private final WorkoutSessionService workoutSessionService;
 	private final WorkoutTemplateCreatorService workoutTemplateCreatorService;
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutController.class);
 
@@ -59,8 +58,8 @@ public class WorkoutController {
 
 
 		UUID contractID = (UUID) session.getAttribute("contractID");
-		WorkoutInputDTO workoutInputDTO = workoutTemplateCreatorService.createWorkoutInputDTO(workoutTemplate);
-		workoutService.createWorkout(workoutInputDTO, contractID);
+		var workoutInputDTO = workoutTemplateCreatorService.createWorkoutInputDTO(workoutTemplate);
+		workoutService.createWorkoutTemplate(workoutInputDTO, contractID);
 
 		return "redirect:/workout";
 	}

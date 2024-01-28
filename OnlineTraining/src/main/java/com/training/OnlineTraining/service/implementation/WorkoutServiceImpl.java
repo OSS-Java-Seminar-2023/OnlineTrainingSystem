@@ -33,6 +33,27 @@ public class WorkoutServiceImpl implements WorkoutService {
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutServiceImpl.class);
 
 	@Override
+	public WorkoutOutputDTO createWorkoutTemplate(WorkoutInputDTO workoutInputDTO, UUID contractID) {
+		logger.info("Creating new workout.");
+
+		workoutInputDTO.setDateOfWorkout(null);
+		workoutInputDTO.setContractId(contractID);
+		workoutInputDTO.setOrdinalNumberOfWorkout(getOrdinalNumberOfNextWorkout(contractID));
+
+		var savedWorkout = workoutRepository.save(workoutMapper.toWorkout(workoutInputDTO));
+
+		if(savedWorkout.getWorkoutSessions() == null)
+			createEmptyWorkoutSessions(workoutInputDTO, savedWorkout);
+
+		else
+			updateCreatedWorkoutSessions(savedWorkout);
+
+		logger.info("New workout created.");
+
+		return workoutMapper.toWorkoutOutputDTO(savedWorkout);
+	}
+
+	@Override
 	public WorkoutOutputDTO createWorkout(WorkoutInputDTO workoutInputDTO, UUID contractID) {
 		logger.info("Creating new workout.");
 
@@ -40,13 +61,14 @@ public class WorkoutServiceImpl implements WorkoutService {
 		workoutInputDTO.setContractId(contractID);
 		workoutInputDTO.setOrdinalNumberOfWorkout(getOrdinalNumberOfNextWorkout(contractID));
 
-		Workout savedWorkout = workoutRepository.save(workoutMapper.toWorkout(workoutInputDTO));
+		var savedWorkout = workoutRepository.save(workoutMapper.toWorkout(workoutInputDTO));
 
-		if(savedWorkout.getWorkoutSessions() == null)
-			createEmptyWorkoutSessions(workoutInputDTO, savedWorkout);
-
-		else
-			updateCreatedWorkoutSessions(savedWorkout);
+		IntStream.range(0, workoutInputDTO.getNumberOfExercises())
+				.mapToObj(i -> {
+					WorkoutSessionInputDTO workoutSessionInputDTO = new WorkoutSessionInputDTO(savedWorkout);
+					return workoutSessionMapper.toWorkoutSession(workoutSessionInputDTO);
+				})
+				.forEach(workoutSessionRepository::save);
 
 		logger.info("New workout created.");
 
@@ -68,7 +90,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 	}
 
 	private int getOrdinalNumberOfNextWorkout(UUID contractID){
-		Workout lastWorkout = workoutRepository.findTopByContractIdOrderByOrdinalNumberOfWorkoutDesc(contractID);
+		var lastWorkout = workoutRepository.findTopByContractIdOrderByOrdinalNumberOfWorkoutDesc(contractID);
 		return (lastWorkout != null) ? lastWorkout.getOrdinalNumberOfWorkout() + 1 : 1;
 	}
 
@@ -103,9 +125,9 @@ public class WorkoutServiceImpl implements WorkoutService {
 	public WorkoutOutputDTO updateWorkout(UUID id, WorkoutInputDTO workoutDetails) {
 		logger.info("Updating workout with ID: {}", id);
 
-		Workout existingWorkout = requireWorkout(id);
+		var existingWorkout = requireWorkout(id);
 
-		Workout updatedWorkout = workoutMapper.toWorkout(workoutDetails);
+		var updatedWorkout = workoutMapper.toWorkout(workoutDetails);
 		updatedWorkout.setId(existingWorkout.getId()); // Ensure the ID is preserved
 
 		return workoutMapper.toWorkoutOutputDTO(workoutRepository.save(updatedWorkout));
@@ -134,10 +156,10 @@ public class WorkoutServiceImpl implements WorkoutService {
 	public void updateWorkout(UUID id, WorkoutInputDTO workoutInputDTO, UUID contractID) {
 		logger.info("Updating workout with ID: {}", id);
 
-		Workout existingWorkout = requireWorkout(id);
+		var existingWorkout = requireWorkout(id);
 
 		workoutInputDTO.setContractId(contractID);
-		Workout updatedWorkout = workoutMapper.toWorkout(workoutInputDTO);
+		var updatedWorkout = workoutMapper.toWorkout(workoutInputDTO);
 		updatedWorkout.setId(existingWorkout.getId()); // Ensure the ID is preserved
 
 		workoutRepository.save(updatedWorkout);

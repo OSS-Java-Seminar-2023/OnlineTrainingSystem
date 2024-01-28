@@ -5,7 +5,6 @@ import com.training.OnlineTraining.dto.output.ExerciseOutputDTO;
 import com.training.OnlineTraining.exceptions.ExerciseNotFoundException;
 import com.training.OnlineTraining.mapper.ExerciseMapper;
 import com.training.OnlineTraining.model.Exercise;
-import com.training.OnlineTraining.model.Workout;
 import com.training.OnlineTraining.model.enums.WorkoutType;
 import com.training.OnlineTraining.repository.ExerciseRepository;
 import com.training.OnlineTraining.service.ExerciseService;
@@ -17,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 

@@ -39,8 +39,8 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 	public WorkoutSessionOutputDTO createWorkoutSession(WorkoutSessionInputDTO workoutSessionInputDTO) {
 		logger.info("Creating new workout session.");
 
-		WorkoutSession workoutSession = workoutSessionMapper.toWorkoutSession(workoutSessionInputDTO);
-		WorkoutSession savedWorkoutSession = workoutSessionRepository.save(workoutSession);
+		var workoutSession = workoutSessionMapper.toWorkoutSession(workoutSessionInputDTO);
+		var savedWorkoutSession = workoutSessionRepository.save(workoutSession);
 
 		workoutService.incrementNumberOfExercises(workoutSessionInputDTO.getWorkoutId());
 
@@ -89,9 +89,9 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 	public WorkoutSessionOutputDTO updateWorkoutSession(UUID id, WorkoutSessionInputDTO workoutSessionDetails) {
 		logger.info("Updating workout session with ID: {}", id);
 
-		WorkoutSession existingWorkoutSession = requireWorkoutSession(id);
+		var existingWorkoutSession = requireWorkoutSession(id);
 
-		WorkoutSession updatedWorkoutSession = workoutSessionMapper.toWorkoutSession(workoutSessionDetails);
+		var updatedWorkoutSession = workoutSessionMapper.toWorkoutSession(workoutSessionDetails);
 		updatedWorkoutSession.setId(existingWorkoutSession.getId()); // Ensure the ID is preserved
 
 		return workoutSessionMapper.toWorkoutSessionOutputDTO(workoutSessionRepository.save(updatedWorkoutSession));
@@ -108,7 +108,7 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 	public void deleteWorkoutSession(UUID id) {
 		logger.info("Deleting workout session with ID: {}", id);
 
-		WorkoutSession workoutSession = workoutSessionMapper.toWorkoutSession(getWorkoutSessionById(id));
+		var workoutSession = workoutSessionMapper.toWorkoutSession(getWorkoutSessionById(id));
 
 		logger.info("Workout session {}", workoutSession);
 

@@ -89,6 +89,9 @@ select {
     transform: scale(1.1);
 }
 
+.red-text {
+            color: red;
+}
 
 
 

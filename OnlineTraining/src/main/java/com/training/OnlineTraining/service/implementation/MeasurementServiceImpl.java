@@ -4,9 +4,7 @@ import com.training.OnlineTraining.dto.MeasurementDTO;
 
 import com.training.OnlineTraining.exceptions.MeasurementNotFoundException;
 import com.training.OnlineTraining.mapper.MeasurementMapper;
-import com.training.OnlineTraining.model.Contract;
 import com.training.OnlineTraining.model.Measurement;
-import com.training.OnlineTraining.repository.ContractRepository;
 import com.training.OnlineTraining.repository.MeasurementRepository;
 import com.training.OnlineTraining.service.MeasurementService;
 import lombok.AllArgsConstructor;
@@ -24,12 +22,10 @@ public class MeasurementServiceImpl implements MeasurementService {
 
 	private final MeasurementRepository measurementRepository;
 	private final MeasurementMapper measurementMapper;
-	//private final ContractRepository contractRepository;
-
 
 	@Override
 	public Measurement createMeasurement(MeasurementDTO measurementDto) {
-		Measurement measurement = measurementMapper.toMeasurement(measurementDto);
+		var measurement = measurementMapper.toMeasurement(measurementDto);
 		return measurementRepository.save(measurement);
 	}
 
@@ -46,7 +42,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 
 	@Override
 	public MeasurementDTO getMeasurementById(UUID measurementId) {
-		Measurement measurement = measurementRepository.findById(measurementId)
+		var measurement = measurementRepository.findById(measurementId)
 				.orElseThrow(() -> new MeasurementNotFoundException(measurementId));
 		return measurementMapper.toMeasurementDTO(measurement);
 	}
@@ -62,10 +58,10 @@ public class MeasurementServiceImpl implements MeasurementService {
 	@Override
 	public MeasurementDTO updateMeasurement(UUID measurementId, MeasurementDTO measurementDto) {
 
-		Measurement existingMeasurement = measurementRepository.findById(measurementId)
+		var existingMeasurement = measurementRepository.findById(measurementId)
 				.orElseThrow(() -> new MeasurementNotFoundException(measurementId));
 
-		Measurement updatedMeasurement = measurementMapper.toMeasurement(measurementDto);
+		var updatedMeasurement = measurementMapper.toMeasurement(measurementDto);
 		updatedMeasurement.setId(existingMeasurement.getId());
 
 		return measurementMapper.toMeasurementDTO(measurementRepository.save(updatedMeasurement));

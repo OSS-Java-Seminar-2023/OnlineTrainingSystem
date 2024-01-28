@@ -2,32 +2,25 @@ package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.model.*;
-import com.training.OnlineTraining.service.ClientService;
-import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.MailService;
 import com.training.OnlineTraining.service.UserService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
-import org.hibernate.cfg.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 @Controller
 @AllArgsConstructor
 public class UserController {
 
     private final UserService userService;
-    private final ClientService clientService;
-    private final CoachService coachService;
     private final MailService mailService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
