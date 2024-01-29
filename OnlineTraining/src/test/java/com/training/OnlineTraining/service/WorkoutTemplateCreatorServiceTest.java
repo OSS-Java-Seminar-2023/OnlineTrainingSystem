@@ -6,6 +6,7 @@ import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.model.enums.WorkoutGoal;
 import com.training.OnlineTraining.model.enums.WorkoutType;
 import org.flywaydb.test.FlywayTestExecutionListener;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -30,10 +31,12 @@ public class WorkoutTemplateCreatorServiceTest {
 	@Test
 	public void test(){
 
-		WorkoutTemplate workoutTemplate = new WorkoutTemplate(WorkoutType.LEGS, WorkoutGoal.ENDURANCE, 3);
+		WorkoutTemplate workoutTemplate = new WorkoutTemplate(WorkoutType.LEGS, WorkoutGoal.ENDURANCE, 0, WorkoutType.CORE);
 		WorkoutInputDTO workout = workoutTemplateCreatorService.createWorkoutInputDTO(workoutTemplate);
 
 		System.out.println(workout);
+
+		Assertions.assertNotNull(workout);
 	}
 
 }

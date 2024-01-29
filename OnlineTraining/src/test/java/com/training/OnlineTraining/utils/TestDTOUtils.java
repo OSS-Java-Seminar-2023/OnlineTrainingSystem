@@ -7,6 +7,7 @@ import com.training.OnlineTraining.model.Client;
 import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.enums.Education;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
+import com.training.OnlineTraining.model.enums.WorkoutType;
 import com.training.OnlineTraining.util.PasswordUtils;
 import lombok.Data;
 import org.checkerframework.checker.units.qual.C;
@@ -31,6 +32,7 @@ public class TestDTOUtils {
 		workoutInputDTO.setPauseBetweenSetsInSeconds(getRandomNumber());
 		workoutInputDTO.setSelfRating(getRandomNumber());
 		workoutInputDTO.setWorkoutStatus(WorkoutStatus.WAITING);
+		workoutInputDTO.setNextWorkout(WorkoutType.PUSH);
 
 		return workoutInputDTO;
 	}

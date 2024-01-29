@@ -14,6 +14,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @ToString
+@AllArgsConstructor
 public class ExerciseInputDTO {
     private String name;
     private String description;
