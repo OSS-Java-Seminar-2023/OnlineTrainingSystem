@@ -4,7 +4,6 @@ import com.training.OnlineTraining.model.WorkoutSession;
 import com.training.OnlineTraining.model.additional.Duration;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import com.training.OnlineTraining.model.enums.WorkoutType;
-import jakarta.persistence.Convert;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;

@@ -2,7 +2,6 @@ package com.training.OnlineTraining.dto;
 
 import com.training.OnlineTraining.model.enums.Role;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.UUID;

@@ -32,9 +32,7 @@ public class ClientController {
     private final ClientService clientService;
     private final CoachService coachService;
 
-
     private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
-
 
     @GetMapping("/client-page")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
@@ -50,7 +48,7 @@ public class ClientController {
             logger.debug("Filtered coaches based on filter parameters.");
         } else {
             Pageable pageable = PageRequest.of(page - 1, size);
-            Page<CoachDto> coachesPage = coachService.coachesWithPagination(filterParams, pageable);
+            var coachesPage = coachService.coachesWithPagination(filterParams, pageable);
             filteredCoaches = coachesPage.getContent();
             model.addAttribute("currentPage", coachesPage.getNumber() + 1);
             model.addAttribute("totalPages", coachesPage.getTotalPages());
@@ -88,7 +86,6 @@ public class ClientController {
         var client = clientService.getClientsById(clientId);
         model.addAttribute("client", client);
         model.addAttribute("genderOptions", Arrays.asList("Male", "Female"));
-
 
         return "client/settings";
     }

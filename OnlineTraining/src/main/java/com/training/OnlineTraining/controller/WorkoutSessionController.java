@@ -49,8 +49,6 @@ public class WorkoutSessionController {
 		workoutSessionService.createWorkoutSession(workoutSessionInputDTO);
 
 
-		//return "redirect:/workout";
-
 		return "redirect:/workout/details/" + workoutSessionInputDTO.getWorkoutId();
 	}
 
@@ -84,7 +82,6 @@ public class WorkoutSessionController {
 		// Redirect to the appropriate page after deletion
 		return "redirect:/workout/details/" + workoutID;
 	}
-
 
 }
 

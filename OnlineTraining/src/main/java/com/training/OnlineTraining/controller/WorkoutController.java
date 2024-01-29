@@ -49,13 +49,10 @@ public class WorkoutController {
 		return "workout/workout-template-form.html";
 	}
 
-
 	@PostMapping("/create-template")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String createWorkoutUsingTemplateForm(@ModelAttribute("workoutTemplate") WorkoutTemplate workoutTemplate, HttpSession session) {
 		logger.info("Displaying create workout using template form.");
-
-
 
 		UUID contractID = (UUID) session.getAttribute("contractID");
 		var workoutInputDTO = workoutTemplateCreatorService.createWorkoutInputDTO(workoutTemplate);
@@ -102,7 +99,7 @@ public class WorkoutController {
 	public String showWorkoutDetails(@PathVariable UUID id, Model model, HttpSession session) {
 		logger.info("Displaying workout details for ID: {}", id);
 
-		WorkoutOutputDTO workout = workoutService.getWorkoutById(id);
+		var workout = workoutService.getWorkoutById(id);
 
 		model.addAttribute("workout", workout);
 		model.addAttribute("listExercises", exerciseService.getAllExercises());
@@ -120,7 +117,7 @@ public class WorkoutController {
 		List<WorkoutStatus> workoutStatuses = Arrays.asList(WorkoutStatus.values());
 		model.addAttribute("workoutStatuses", workoutStatuses);
 
-		WorkoutOutputDTO workout = workoutService.getWorkoutById(id);
+		var workout = workoutService.getWorkoutById(id);
 		model.addAttribute("workout", workout);
 
 		UUID clientId = (UUID) session.getAttribute("clientId");

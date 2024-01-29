@@ -1,15 +1,11 @@
 package com.training.OnlineTraining.mapper;
 
 import com.training.OnlineTraining.dto.CoachUserDTO;
-import com.training.OnlineTraining.dto.ContractDto;
-import com.training.OnlineTraining.model.Coach;
-import com.training.OnlineTraining.model.Contract;
 import com.training.OnlineTraining.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
-import org.springframework.stereotype.Component;
+
 
 @Mapper(componentModel = "spring")
 public interface CoachUserMapper {

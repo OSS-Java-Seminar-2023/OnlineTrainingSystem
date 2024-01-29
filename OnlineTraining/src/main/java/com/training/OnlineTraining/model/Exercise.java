@@ -1,6 +1,5 @@
 package com.training.OnlineTraining.model;
 
-import com.training.OnlineTraining.dto.input.ExerciseInputDTO;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.model.enums.ExerciseEquipment;
 import com.training.OnlineTraining.model.enums.WorkoutType;

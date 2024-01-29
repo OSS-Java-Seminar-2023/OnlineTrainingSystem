@@ -1,6 +1,5 @@
 package com.training.OnlineTraining.repository;
 
-import com.training.OnlineTraining.dto.MeasurementDTO;
 import com.training.OnlineTraining.model.Measurement;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

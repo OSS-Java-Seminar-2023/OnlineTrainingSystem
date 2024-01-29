@@ -1,6 +1,5 @@
 package com.training.OnlineTraining.mapper;
 
-import com.training.OnlineTraining.dto.ClientDto;
 import com.training.OnlineTraining.dto.UpdateClientDTO;
 import com.training.OnlineTraining.model.Client;
 import org.mapstruct.Mapper;

@@ -3,7 +3,6 @@ package com.training.OnlineTraining.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import com.training.OnlineTraining.model.enums.Education;

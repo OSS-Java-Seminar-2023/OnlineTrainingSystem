@@ -1,6 +1,5 @@
 package com.training.OnlineTraining.model;
 
-import com.training.OnlineTraining.dto.MeasurementDTO;
 import lombok.*;
 
 import jakarta.persistence.*;

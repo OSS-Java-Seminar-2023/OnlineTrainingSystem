@@ -1,6 +1,5 @@
 package com.training.OnlineTraining.controller;
 
-
 import com.training.OnlineTraining.dto.ContractDto;
 import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.model.enums.Role;
@@ -56,7 +55,7 @@ public class AdminController {
     @GetMapping("/users/update/{userId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String getUpdateUserPage(@PathVariable UUID userId, Model model) {
-        UserDto user = adminService.getUserById(userId);
+        var user = adminService.getUserById(userId);
         model.addAttribute("user", user);
         return "admin/update_user";
     }
@@ -100,7 +99,5 @@ public class AdminController {
         adminService.deleteContract(contractId);
         return "redirect:/admins/contracts";
     }
-
-
 
 }

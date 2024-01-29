@@ -47,7 +47,7 @@ public class ExerciseController {
     public String createExercise(@ModelAttribute ExerciseInputDTO exerciseInputDTO, Model model) {
         logger.info("Creating a new exercise.");
 
-        ExerciseOutputDTO createdExercise = exerciseService.createExercise(exerciseInputDTO);
+        var createdExercise = exerciseService.createExercise(exerciseInputDTO);
 
         return "redirect:/exercise";
     }
@@ -57,7 +57,7 @@ public class ExerciseController {
     public String showExerciseDetails(@PathVariable UUID id, Model model) {
         logger.info("Displaying exercise details for ID: {}", id);
 
-        ExerciseOutputDTO exercise = exerciseService.getExerciseById(id);
+        var exercise = exerciseService.getExerciseById(id);
 
         model.addAttribute("exercise", exercise);
         return "exercise/exerciseDetails";
@@ -84,14 +84,13 @@ public class ExerciseController {
     public String getUpdateFormForExercise(@PathVariable UUID id, Model model) {
         logger.info("Displaying update form for exercise ID: {}", id);
 
-        ExerciseOutputDTO tempExercise = exerciseService.getExerciseById(id);
+        var tempExercise = exerciseService.getExerciseById(id);
         List<ExerciseDifficultyLevel> difficultyLevels = Arrays.asList(ExerciseDifficultyLevel.values());
         List<ExerciseEquipment> exerciseEquipmentList = Arrays.asList(ExerciseEquipment.values());
 
         model.addAttribute("exerciseEquipmentList", exerciseEquipmentList);
         model.addAttribute("difficultyLevels", difficultyLevels);
         model.addAttribute("exerciseForUpdating", tempExercise);
-
 
         return "exercise/exerciseUpdateForm";
     }
@@ -116,7 +115,7 @@ public class ExerciseController {
     @GetMapping("/client-details/{id}")
     public String showClientExerciseDetails(@PathVariable UUID id, Model model) {
 
-        ExerciseOutputDTO exercise = exerciseService.getExerciseById(id);
+        var exercise = exerciseService.getExerciseById(id);
 
         model.addAttribute("exercise", exercise);
 

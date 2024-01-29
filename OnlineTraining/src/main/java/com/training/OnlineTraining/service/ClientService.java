@@ -16,7 +16,5 @@ public interface ClientService {
     Client getClientsById(UUID clientId);
     void updateClient(UUID clientId, UpdateClientDTO updateClientDTO);
     boolean areInputsInvalid(UpdateClientDTO request);
-
     int countClients();
-
 }

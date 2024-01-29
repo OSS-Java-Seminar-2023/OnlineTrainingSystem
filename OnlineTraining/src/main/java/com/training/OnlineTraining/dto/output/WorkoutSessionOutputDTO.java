@@ -1,8 +1,5 @@
 package com.training.OnlineTraining.dto.output;
 
-import com.training.OnlineTraining.model.Workout;
-import com.training.OnlineTraining.model.WorkoutSession;
-import com.training.OnlineTraining.model.additional.Duration;
 import lombok.Data;
 
 import java.math.BigDecimal;

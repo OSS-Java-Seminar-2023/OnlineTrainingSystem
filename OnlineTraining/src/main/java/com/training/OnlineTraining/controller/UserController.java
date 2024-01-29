@@ -30,6 +30,8 @@ public class UserController {
     public String getRegisterPage(Model model) {
 
         model.addAttribute("registerRequest", new UserDto());
+        logger.info("Displaying register page.");
+
         return "registration/register_page";
     }
 

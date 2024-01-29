@@ -43,7 +43,7 @@ public class ReportController {
 	public void generatePdf(@RequestParam UUID id, HttpServletResponse response) throws IOException {
 		logger.info("Request to generate PDF for workout with ID: " + id);
 
-		WorkoutOutputDTO workout = workoutService.getWorkoutById(id);
+		var workout = workoutService.getWorkoutById(id);
 
 		response.setContentType("application/pdf");
 		response.setHeader("Content-Disposition", "attachment; filename=generated-pdf.pdf");

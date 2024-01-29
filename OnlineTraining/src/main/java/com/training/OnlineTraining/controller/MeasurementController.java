@@ -65,7 +65,7 @@ public class MeasurementController {
 	@GetMapping("/personal/{contractId}/update/{measurementId}")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
 	public String showUpdateForm(@PathVariable UUID contractId, @PathVariable UUID measurementId, Model model) {
-		MeasurementDTO measurementDto = measurementService.getMeasurementById(measurementId);
+		var measurementDto = measurementService.getMeasurementById(measurementId);
 		model.addAttribute("contractId", contractId);
 		model.addAttribute("measurementId", measurementId);
 		model.addAttribute("measurementDto", measurementDto);

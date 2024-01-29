@@ -1,6 +1,5 @@
 package com.training.OnlineTraining.controller;
 
-import com.training.OnlineTraining.model.Measurement;
 import com.training.OnlineTraining.service.MeasurementService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
 import java.util.UUID;
 
 @Controller
