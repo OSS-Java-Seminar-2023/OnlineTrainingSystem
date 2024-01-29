@@ -36,7 +36,7 @@ public class Exercise {
 
     @Column(name = "workout_type")
     @Enumerated(EnumType.STRING)
-    private WorkoutType workoutType;
+    private WorkoutType workoutType = WorkoutType.PUSH;
 
     @Override
     public String toString() {
