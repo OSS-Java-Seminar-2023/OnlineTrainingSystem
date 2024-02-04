@@ -27,14 +27,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc
 public class ClientControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
-	private ClientService clientService; // Mock the ExerciseService
+	private ClientService clientService;
 
 	@InjectMocks
 	private ClientController clientController;
@@ -62,7 +62,8 @@ public class ClientControllerTest {
 	@WithMockUser(authorities = {"ADMIN", "CLIENT"})
 	void becomeClient() throws Exception {
 		UUID userId = UUID.randomUUID();
-		ClientDto clientDto = new ClientDto(); // Add necessary attributes for the client DTO
+		ClientDto clientDto = new ClientDto();
+
 		mockMvc.perform(post("/clients/register")
 						.param("userId", userId.toString())
 						.flashAttr("clientDto", clientDto))

@@ -24,13 +24,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc
 public class ChartControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
-	private MeasurementService measurementService; // Mock the ExerciseService
+	private MeasurementService measurementService;
 
 	@InjectMocks
 	private AdminController adminController;
@@ -39,7 +39,7 @@ public class ChartControllerTest {
 	@WithMockUser(authorities = {"ADMIN", "CLIENT"})
 	void getPersonalMeasurementsAsc() throws Exception {
 		UUID contractId = UUID.randomUUID();
-		List<Measurement> measurements = Arrays.asList(new Measurement(), new Measurement()); // Create sample measurements
+		List<Measurement> measurements = Arrays.asList(new Measurement(), new Measurement());
 
 		when(measurementService.getMeasurementsByContractIdSortedByDateAsc(contractId)).thenReturn(measurements);
 

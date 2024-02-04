@@ -144,7 +144,7 @@ class UserControllerTest {
 	@Test
 	@WithMockUser(authorities = {"ADMIN", "COACH", "CLIENT", "USER"})
 	void logout() throws Exception {
-		mockMvc.perform(get("/logout").with(user("user")))
+		mockMvc.perform(get("/logout"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("index"))
 				.andExpect(request().sessionAttributeDoesNotExist("SPRING_SECURITY_CONTEXT"));
