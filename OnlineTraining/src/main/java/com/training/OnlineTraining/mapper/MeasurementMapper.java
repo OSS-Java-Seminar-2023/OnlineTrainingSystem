@@ -3,9 +3,10 @@ package com.training.OnlineTraining.mapper;
 import com.training.OnlineTraining.dto.MeasurementDTO;
 import com.training.OnlineTraining.model.Measurement;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
-import org.mapstruct.Mapping;
+
 
 @Mapper(componentModel = "spring")
 @Component
@@ -24,4 +25,5 @@ public interface MeasurementMapper {
 	Measurement toMeasurement(MeasurementDTO measurementDTO);
 
 	MeasurementDTO toMeasurementDTO(Measurement measurement);
+
 }

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WorkoutTemplate {
+
 	private WorkoutType workoutType;
 	private WorkoutGoal workoutGoal;
 	private int numberOfExercises;

@@ -9,10 +9,12 @@ public enum WorkoutStatus {
 	public final String displayName;
 
 	WorkoutStatus(String displayName) {
+
 		this.displayName = displayName;
 	}
 
 	public String getDisplayName() {
+
 		return displayName;
 	}
 }

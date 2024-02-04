@@ -4,9 +4,12 @@ import lombok.Data;
 
 import java.util.UUID;
 
+
 @Data
 public class ClientDto {
-    private UUID id;
-    private String medicalCondition;
-    private String injuries;
+
+	private UUID id;
+	private String medicalCondition;
+	private String injuries;
+
 }

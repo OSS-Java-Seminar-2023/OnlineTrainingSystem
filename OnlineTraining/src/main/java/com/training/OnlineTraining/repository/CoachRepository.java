@@ -9,13 +9,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
+
+
 @Repository
 public interface CoachRepository extends JpaRepository<Coach, UUID>, JpaSpecificationExecutor<Coach> {
 
-    boolean existsByUser(User user);
+	boolean existsByUser(User user);
 
-    @Query("SELECT c.monthlyPrice FROM Coach c WHERE c.id = :coachId")
-    Double findMonthlyPriceById(@Param("coachId") UUID coachId);
+	@Query("SELECT c.monthlyPrice FROM Coach c WHERE c.id = :coachId")
+	Double findMonthlyPriceById(@Param("coachId") UUID coachId);
 
-    Coach findByUserId(UUID userId);
+	Coach findByUserId(UUID userId);
+
 }

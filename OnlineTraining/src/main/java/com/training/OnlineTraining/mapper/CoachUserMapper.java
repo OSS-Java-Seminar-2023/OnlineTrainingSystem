@@ -35,4 +35,5 @@ public interface CoachUserMapper {
 	@Mapping(source = "age", target = "age")
 	@Mapping(source = "id", target = "id")
 	User toUser(CoachUserDTO coachUserDTO);
+
 }

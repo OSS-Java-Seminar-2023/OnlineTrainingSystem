@@ -1,13 +1,13 @@
 package com.training.OnlineTraining.dto;
 
-import com.training.OnlineTraining.model.Contract;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.Min;
-
-
-import lombok.*;
-
 import java.sql.Date;
 import java.util.UUID;
+
 
 @AllArgsConstructor
 @Data

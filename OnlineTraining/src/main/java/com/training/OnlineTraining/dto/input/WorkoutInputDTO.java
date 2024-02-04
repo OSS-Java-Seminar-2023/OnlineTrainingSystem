@@ -10,11 +10,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Builder
 public class WorkoutInputDTO {
 
@@ -46,13 +46,14 @@ public class WorkoutInputDTO {
 	}
 
 	public WorkoutInputDTO(UUID contractId) {
+
 		this.contractId = contractId;
 	}
 
 	@Override
 	public String toString() {
 
-		StringBuilder output =  new StringBuilder("WorkoutInputDTO{" +
+		StringBuilder output = new StringBuilder("WorkoutInputDTO{" +
 				"contractId=" + contractId +
 				", dateOfWorkout=" + dateOfWorkout +
 				", ordinalNumberOfWorkout=" + ordinalNumberOfWorkout +
@@ -64,7 +65,7 @@ public class WorkoutInputDTO {
 				", isFinished=" + isFinished +
 				", workoutStatus=" + workoutStatus + "\n");
 
-		if(workoutSessions != null)
+		if (workoutSessions != null)
 			workoutSessions.forEach(output::append);
 
 		return output.toString();

@@ -4,8 +4,10 @@ import lombok.Data;
 
 import java.util.UUID;
 
+
 @Data
 public class CoachUserDTO {
+
 	private UUID id;
 	private String firstName;
 	private String lastName;
@@ -16,4 +18,5 @@ public class CoachUserDTO {
 	private String phoneNumber;
 	private String gender;
 	private Integer age;
+
 }

@@ -7,14 +7,17 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
+
 @Mapper(componentModel = "spring")
 @Component
 public interface ExerciseMapper {
-    ExerciseMapper INSTANCE = Mappers.getMapper(ExerciseMapper.class);
 
-    Exercise toExercise(ExerciseInputDTO exerciseInputDTO);
+	ExerciseMapper INSTANCE = Mappers.getMapper(ExerciseMapper.class);
 
-    ExerciseInputDTO toExerciseInputDTO(Exercise exercise);
+	Exercise toExercise(ExerciseInputDTO exerciseInputDTO);
 
-    ExerciseOutputDTO toExerciseOutputDTO(Exercise exercise);
+	ExerciseInputDTO toExerciseInputDTO(Exercise exercise);
+
+	ExerciseOutputDTO toExerciseOutputDTO(Exercise exercise);
+
 }

@@ -9,11 +9,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
+
+
 @Repository
 public interface WorkoutSessionRepository extends JpaRepository<WorkoutSession, UUID> {
+
 	List<WorkoutSession> findAllByWorkoutId(UUID workoutId);
 
 	@Modifying
 	@Query("DELETE FROM WorkoutSession ws WHERE ws.id = :workoutSessionId")
 	void deleteByCustomQuery(@Param("workoutSessionId") UUID workoutSessionId);
+
 }
