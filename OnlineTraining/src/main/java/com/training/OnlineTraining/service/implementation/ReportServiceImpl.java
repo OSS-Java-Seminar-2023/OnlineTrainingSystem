@@ -41,6 +41,7 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	private static String loadTemplate(String templateName) {
+
 		try (InputStream inputStream = com.training.OnlineTraining.service.ReportService.class.getResourceAsStream("/templates/" + templateName);
 		     InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
 
@@ -57,4 +58,5 @@ public class ReportServiceImpl implements ReportService {
 			throw new RuntimeException("Error loading Thymeleaf template", e);
 		}
 	}
+
 }

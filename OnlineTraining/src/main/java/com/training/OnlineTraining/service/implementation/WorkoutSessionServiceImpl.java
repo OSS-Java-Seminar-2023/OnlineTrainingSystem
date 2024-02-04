@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+
 @Service
 @AllArgsConstructor
 public class WorkoutSessionServiceImpl implements WorkoutSessionService {
@@ -31,12 +32,14 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 
 	@Autowired
 	public void setWorkoutService(WorkoutService workoutService) {
+
 		this.workoutService = workoutService;
 	}
 
 
 	@Override
 	public WorkoutSessionOutputDTO createWorkoutSession(WorkoutSessionInputDTO workoutSessionInputDTO) {
+
 		logger.info("Creating new workout session.");
 
 		var workoutSession = workoutSessionMapper.toWorkoutSession(workoutSessionInputDTO);
@@ -51,12 +54,14 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 
 	@Override
 	public WorkoutSessionOutputDTO getWorkoutSessionById(UUID id) {
+
 		logger.info("Getting workout session by ID: {}", id);
 
 		return workoutSessionMapper.toWorkoutSessionOutputDTO(requireWorkoutSession(id));
 	}
 
-	private WorkoutSession requireWorkoutSession(UUID id){
+	private WorkoutSession requireWorkoutSession(UUID id) {
+
 		return workoutSessionRepository
 				.findById(id)
 				.orElseThrow(() -> {
@@ -67,6 +72,7 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 
 	@Override
 	public List<WorkoutSessionOutputDTO> getAllWorkoutSessions() {
+
 		logger.info("Getting all workout sessions.");
 
 		return workoutSessionRepository
@@ -78,6 +84,7 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 
 	@Override
 	public List<WorkoutSessionOutputDTO> getAllByWorkoutId(UUID workoutID) {
+
 		return workoutSessionRepository
 				.findAllByWorkoutId(workoutID)
 				.stream()
@@ -87,6 +94,7 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 
 	@Override
 	public WorkoutSessionOutputDTO updateWorkoutSession(UUID id, WorkoutSessionInputDTO workoutSessionDetails) {
+
 		logger.info("Updating workout session with ID: {}", id);
 
 		var existingWorkoutSession = requireWorkoutSession(id);
@@ -99,13 +107,15 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 
 	@Override
 	public void updateWorkoutSessions(List<WorkoutSession> workoutSessionList) {
-		for(WorkoutSession workoutSession : workoutSessionList)
+
+		for (WorkoutSession workoutSession : workoutSessionList)
 			updateWorkoutSession(workoutSession.getId(), workoutSessionMapper.toWorkoutSessionInputDTO(workoutSession));
 	}
 
 	@Override
 	@Transactional
 	public void deleteWorkoutSession(UUID id) {
+
 		logger.info("Deleting workout session with ID: {}", id);
 
 		var workoutSession = workoutSessionMapper.toWorkoutSession(getWorkoutSessionById(id));
@@ -120,6 +130,7 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 
 	@Override
 	public void deleteAllWorkoutSessions() {
+
 		logger.info("Deleting all workout sessions.");
 
 		workoutSessionRepository.deleteAll();
@@ -127,6 +138,7 @@ public class WorkoutSessionServiceImpl implements WorkoutSessionService {
 
 	@Override
 	public Optional<WorkoutSessionOutputDTO> getExerciseById(UUID workoutSessionId) {
+
 		return workoutSessionRepository
 				.findById(workoutSessionId)
 				.map(workoutSessionMapper::toWorkoutSessionOutputDTO);

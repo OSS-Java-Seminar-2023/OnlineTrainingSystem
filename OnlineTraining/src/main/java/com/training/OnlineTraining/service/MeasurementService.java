@@ -10,13 +10,21 @@ import java.util.UUID;
 
 
 public interface MeasurementService {
+
 	Measurement createMeasurement(MeasurementDTO measurementDTO);
+
 	MeasurementDTO getMeasurementById(UUID measurementId);
+
 	MeasurementDTO updateMeasurement(UUID measurementId, MeasurementDTO measurementDto);
+
 	void deleteMeasurement(UUID measurementId);
+
 	public List<Measurement> getMeasurementsByContractIdSortedByDateAsc(UUID contractId);
+
 	public Page<Measurement> getMeasurementsByContractIdSortedByDatePageable(UUID contractId, PageRequest pageRequest);
+
 	List<Measurement> getAllMeasurements();
+
 	int countMeasurements();
 
 }

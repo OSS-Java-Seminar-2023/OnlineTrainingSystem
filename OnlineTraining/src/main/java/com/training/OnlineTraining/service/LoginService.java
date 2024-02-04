@@ -6,5 +6,7 @@ import org.springframework.ui.Model;
 
 
 public interface LoginService {
-	String processLogin(String email , HttpSession session, Model model, Role role);
+
+	String processLogin(String email, HttpSession session, Model model, Role role);
+
 }

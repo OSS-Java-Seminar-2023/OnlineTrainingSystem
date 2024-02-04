@@ -12,58 +12,67 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+	private final UserRepository userRepository;
 
-    @Override
-    public boolean areInputsInvalid(UserDto request) {
-        return  ValidationUtils.isStringNullOrEmpty(request.getFirstName()) ||
-                ValidationUtils.isStringNullOrEmpty(request.getLastName()) ||
-                ValidationUtils.isStringNullOrEmpty(request.getEmail()) ||
-                ValidationUtils.isStringNullOrEmpty(request.getStreet()) ||
-                ValidationUtils.isStringNullOrEmpty(request.getCity()) ||
-                ValidationUtils.isStringNullOrEmpty(request.getCountry()) ||
-                ValidationUtils.isStringNullOrEmpty(request.getPhoneNumber()) ||
-                ValidationUtils.isStringNullOrEmpty(request.getGender()) ||
-                ValidationUtils.isAgeInvalid(request.getAge()) ||
-                ValidationUtils.isStringNullOrEmpty(request.getPassword());
-    }
-    @Override
-    public User registerUser(UserDto request) {
-        if (areInputsInvalid(request)) {
-            throw new RuntimeException("Invalid user input");
-        }
+	@Override
+	public boolean areInputsInvalid(UserDto request) {
 
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("Duplicate email");
-        }
+		return ValidationUtils.isStringNullOrEmpty(request.getFirstName()) ||
+				ValidationUtils.isStringNullOrEmpty(request.getLastName()) ||
+				ValidationUtils.isStringNullOrEmpty(request.getEmail()) ||
+				ValidationUtils.isStringNullOrEmpty(request.getStreet()) ||
+				ValidationUtils.isStringNullOrEmpty(request.getCity()) ||
+				ValidationUtils.isStringNullOrEmpty(request.getCountry()) ||
+				ValidationUtils.isStringNullOrEmpty(request.getPhoneNumber()) ||
+				ValidationUtils.isStringNullOrEmpty(request.getGender()) ||
+				ValidationUtils.isAgeInvalid(request.getAge()) ||
+				ValidationUtils.isStringNullOrEmpty(request.getPassword());
+	}
 
-        var user = UserMapper.mapDtoToEntity(request);
+	@Override
+	public User registerUser(UserDto request) {
 
-        return userRepository.save(user);
-    }
-    @Override
-    public User authenticate(String email, String enteredPassword) {
-        return userRepository.findByEmail(email)
-                .map(user -> {
-                    if (PasswordUtils.verifyPassword(enteredPassword, user.getPassword())) {
-                        return user;
-                    } else {
-                        throw new RuntimeException("Wrong password");
-                    }
-                })
-                .orElseThrow(() -> new RuntimeException("Authentication failed"));
-    }
+		if (areInputsInvalid(request)) {
+			throw new RuntimeException("Invalid user input");
+		}
 
-    public int countUsers() {
-        return userRepository.countUsers();
-    }
+		if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+			throw new RuntimeException("Duplicate email");
+		}
 
-    @Override
-    public User getUserById(UUID userId) {
-        return userRepository.findById(userId).orElse(null);
-    }
+		var user = UserMapper.mapDtoToEntity(request);
+
+		return userRepository.save(user);
+	}
+
+	@Override
+	public User authenticate(String email, String enteredPassword) {
+
+		return userRepository.findByEmail(email)
+				.map(user -> {
+					if (PasswordUtils.verifyPassword(enteredPassword, user.getPassword())) {
+						return user;
+					} else {
+						throw new RuntimeException("Wrong password");
+					}
+				})
+				.orElseThrow(() -> new RuntimeException("Authentication failed"));
+	}
+
+	public int countUsers() {
+
+		return userRepository.countUsers();
+	}
+
+	@Override
+	public User getUserById(UUID userId) {
+
+		return userRepository.findById(userId).orElse(null);
+	}
+
 }

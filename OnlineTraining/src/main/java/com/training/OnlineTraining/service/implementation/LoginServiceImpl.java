@@ -1,7 +1,5 @@
 package com.training.OnlineTraining.service.implementation;
 
-import com.training.OnlineTraining.model.Client;
-import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.enums.Role;
 import com.training.OnlineTraining.repository.UserRepository;
 import com.training.OnlineTraining.service.ClientService;
@@ -32,6 +30,7 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public String processLogin(String email, HttpSession session, Model model, Role role) {
+
 		try {
 			logger.info("Attempting login for user : {}", email);
 
@@ -73,4 +72,5 @@ public class LoginServiceImpl implements LoginService {
 			return "/auth/login_page"; // Return the redirect URL for login failure
 		}
 	}
+
 }

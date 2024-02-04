@@ -5,7 +5,6 @@ import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.mapper.ContractMapper;
 import com.training.OnlineTraining.mapper.UserAdminMapper;
 import com.training.OnlineTraining.mapper.UserMapper;
-import com.training.OnlineTraining.model.Contract;
 import com.training.OnlineTraining.model.User;
 import com.training.OnlineTraining.repository.ContractRepository;
 import com.training.OnlineTraining.repository.UserRepository;
@@ -21,85 +20,95 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+
 @Service
 @AllArgsConstructor
 public class AdminServiceImpl implements AdminService {
 
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
-    private final UserAdminMapper userAdminMapper;
-    private final ContractMapper contractMapper;
-    private final ContractRepository contractRepository;
+	private final UserRepository userRepository;
+	private final UserMapper userMapper;
+	private final UserAdminMapper userAdminMapper;
+	private final ContractMapper contractMapper;
+	private final ContractRepository contractRepository;
 
-    @Override
-    public List<UserDto> getAllUsers() {
-        return userRepository.findAll().stream()
-                .map(userMapper::convertToDto)
-                .collect(Collectors.toList());
-    }
+	@Override
+	public List<UserDto> getAllUsers() {
 
-    @Override
-    public List<UserDto> filterUsersByRole(String role) {
-        Specification<User> spec = UserSpecifications.filterByRole(role);
+		return userRepository.findAll().stream()
+				.map(userMapper::convertToDto)
+				.collect(Collectors.toList());
+	}
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "firstName");
-        var filteredUsers = userRepository.findAll(spec, sort);
+	@Override
+	public List<UserDto> filterUsersByRole(String role) {
 
-        return filteredUsers.stream()
-                .map(userMapper::convertToDto)
-                .collect(Collectors.toList());
-    }
+		Specification<User> spec = UserSpecifications.filterByRole(role);
 
-    @Override
-    public void deleteUser(UUID userId) {
-        userRepository.deleteById(userId);
-    }
+		Sort sort = Sort.by(Sort.Direction.ASC, "firstName");
+		var filteredUsers = userRepository.findAll(spec, sort);
+
+		return filteredUsers.stream()
+				.map(userMapper::convertToDto)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public void deleteUser(UUID userId) {
+
+		userRepository.deleteById(userId);
+	}
 
 
-    @Override
-    public void updateUser(UUID userId, UserDto userDto) {
-        var user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
+	@Override
+	public void updateUser(UUID userId, UserDto userDto) {
 
-        userAdminMapper.updateEntityFromDto(userDto, user);
-        userRepository.save(user);
-    }
+		var user = userRepository.findById(userId)
+				.orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
 
-    @Override
-    public UserDto getUserById(UUID userId) {
-        var user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
+		userAdminMapper.updateEntityFromDto(userDto, user);
+		userRepository.save(user);
+	}
 
-        return userMapper.convertToDto(user);
-    }
+	@Override
+	public UserDto getUserById(UUID userId) {
 
-    @Override
-    public List<ContractDto> getAllContracts() {
-        var contracts = contractRepository.findAll();
-        return contractMapper.mapToDtoList(contracts);
-    }
+		var user = userRepository.findById(userId)
+				.orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
 
-    @Override
-    public void updateContract(UUID contractId, ContractDto updatedContractDto) {
-        var existingContract = contractRepository.findById(contractId)
-                .orElseThrow(() -> new EntityNotFoundException("Contract not found with id: " + contractId));
+		return userMapper.convertToDto(user);
+	}
 
-        var updatedContract = contractMapper.mapDto(updatedContractDto);
+	@Override
+	public List<ContractDto> getAllContracts() {
 
-        contractRepository.save(updatedContract);
-    }
+		var contracts = contractRepository.findAll();
+		return contractMapper.mapToDtoList(contracts);
+	}
 
-    @Override
-    public ContractDto getContractById(UUID contractId) {
-        var contract = contractRepository.findById(contractId)
-                .orElseThrow(() -> new EntityNotFoundException("Contract not found with id: " + contractId));
-        return contractMapper.mapToDto(contract);
-    }
+	@Override
+	public void updateContract(UUID contractId, ContractDto updatedContractDto) {
 
-    @Override
-    public void deleteContract(UUID contractId) {
-        contractRepository.deleteById(contractId);
-    }
+		var existingContract = contractRepository.findById(contractId)
+				.orElseThrow(() -> new EntityNotFoundException("Contract not found with id: " + contractId));
+
+		var updatedContract = contractMapper.mapDto(updatedContractDto);
+
+		contractRepository.save(updatedContract);
+	}
+
+	@Override
+	public ContractDto getContractById(UUID contractId) {
+
+		var contract = contractRepository.findById(contractId)
+				.orElseThrow(() -> new EntityNotFoundException("Contract not found with id: " + contractId));
+		return contractMapper.mapToDto(contract);
+	}
+
+	@Override
+	public void deleteContract(UUID contractId) {
+
+		contractRepository.deleteById(contractId);
+	}
 
 
 }

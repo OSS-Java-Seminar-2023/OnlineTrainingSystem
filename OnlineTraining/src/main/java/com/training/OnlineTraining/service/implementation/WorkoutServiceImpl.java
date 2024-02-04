@@ -20,6 +20,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+
 @Service
 @AllArgsConstructor
 public class WorkoutServiceImpl implements WorkoutService {
@@ -34,6 +35,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	@Override
 	public WorkoutOutputDTO createWorkoutTemplate(WorkoutInputDTO workoutInputDTO, UUID contractID) {
+
 		logger.info("Creating new workout.");
 
 		workoutInputDTO.setDateOfWorkout(null);
@@ -42,7 +44,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 		var savedWorkout = workoutRepository.save(workoutMapper.toWorkout(workoutInputDTO));
 
-		if(savedWorkout.getWorkoutSessions() == null)
+		if (savedWorkout.getWorkoutSessions() == null)
 			createEmptyWorkoutSessions(workoutInputDTO, savedWorkout);
 
 		else
@@ -55,6 +57,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	@Override
 	public WorkoutOutputDTO createWorkout(WorkoutInputDTO workoutInputDTO, UUID contractID) {
+
 		logger.info("Creating new workout.");
 
 		workoutInputDTO.setDateOfWorkout(null);
@@ -75,7 +78,8 @@ public class WorkoutServiceImpl implements WorkoutService {
 		return workoutMapper.toWorkoutOutputDTO(savedWorkout);
 	}
 
-	private void createEmptyWorkoutSessions(WorkoutInputDTO workoutInputDTO, Workout savedWorkout){
+	private void createEmptyWorkoutSessions(WorkoutInputDTO workoutInputDTO, Workout savedWorkout) {
+
 		IntStream.range(0, workoutInputDTO.getNumberOfExercises())
 				.mapToObj(i -> {
 					WorkoutSessionInputDTO workoutSessionInputDTO = new WorkoutSessionInputDTO(savedWorkout);
@@ -84,24 +88,28 @@ public class WorkoutServiceImpl implements WorkoutService {
 				.forEach(workoutSessionRepository::save);
 	}
 
-	private void updateCreatedWorkoutSessions(Workout savedWorkout){
+	private void updateCreatedWorkoutSessions(Workout savedWorkout) {
+
 		savedWorkout.getWorkoutSessions().forEach(workoutSession -> workoutSession.setWorkout(savedWorkout));
 		workoutSessionRepository.saveAll(savedWorkout.getWorkoutSessions());
 	}
 
-	private int getOrdinalNumberOfNextWorkout(UUID contractID){
+	private int getOrdinalNumberOfNextWorkout(UUID contractID) {
+
 		var lastWorkout = workoutRepository.findTopByContractIdOrderByOrdinalNumberOfWorkoutDesc(contractID);
 		return (lastWorkout != null) ? lastWorkout.getOrdinalNumberOfWorkout() + 1 : 1;
 	}
 
 	@Override
 	public WorkoutOutputDTO getWorkoutById(UUID id) {
+
 		logger.info("Getting workout by ID: {}", id);
 
 		return workoutMapper.toWorkoutOutputDTO(requireWorkout(id));
 	}
 
-	private Workout requireWorkout(UUID id){
+	private Workout requireWorkout(UUID id) {
+
 		return workoutRepository
 				.findById(id)
 				.orElseThrow(() -> {
@@ -112,6 +120,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	@Override
 	public List<WorkoutOutputDTO> getAllWorkouts() {
+
 		logger.info("Getting all workouts.");
 
 		return workoutRepository
@@ -123,6 +132,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	@Override
 	public WorkoutOutputDTO updateWorkout(UUID id, WorkoutInputDTO workoutDetails) {
+
 		logger.info("Updating workout with ID: {}", id);
 
 		var existingWorkout = requireWorkout(id);
@@ -135,11 +145,13 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	@Override
 	public WorkoutOutputDTO updateWorkout(Workout workout) {
+
 		return workoutMapper.toWorkoutOutputDTO(workoutRepository.save(workout));
 	}
 
 	@Override
 	public void incrementNumberOfExercises(UUID workoutID) {
+
 		WorkoutOutputDTO tempWorkout = getWorkoutById(workoutID);
 		tempWorkout.setNumberOfExercises(tempWorkout.getNumberOfExercises() + 1);
 		workoutRepository.save(workoutMapper.toWorkout(tempWorkout));
@@ -147,6 +159,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	@Override
 	public void decrementNumberOfExercises(UUID workoutID) {
+
 		WorkoutOutputDTO tempWorkout = getWorkoutById(workoutID);
 		tempWorkout.setNumberOfExercises(tempWorkout.getNumberOfExercises() - 1);
 		workoutRepository.save(workoutMapper.toWorkout(tempWorkout));
@@ -154,6 +167,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	@Override
 	public void updateWorkout(UUID id, WorkoutInputDTO workoutInputDTO, UUID contractID) {
+
 		logger.info("Updating workout with ID: {}", id);
 
 		var existingWorkout = requireWorkout(id);
@@ -167,6 +181,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	@Override
 	public void deleteWorkout(UUID id) {
+
 		logger.info("Deleting workout with ID: {}", id);
 
 		workoutRepository.deleteById(id);
@@ -174,6 +189,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	@Override
 	public void deleteAll() {
+
 		logger.info("Deleting all workouts.");
 
 		workoutRepository.deleteAll();
@@ -181,6 +197,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 	@Override
 	public List<WorkoutOutputDTO> getWorkoutsByContractID(UUID contractID) {
+
 		logger.info("Getting workouts by Contract ID: {}", contractID);
 
 		return workoutRepository
@@ -189,4 +206,5 @@ public class WorkoutServiceImpl implements WorkoutService {
 				.map(workoutMapper::toWorkoutOutputDTO)
 				.collect(Collectors.toList());
 	}
+
 }

@@ -19,97 +19,109 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+
 @Service
 @AllArgsConstructor
 public class ExerciseServiceImpl implements ExerciseService {
 
-    private final ExerciseRepository exerciseRepository;
-    private final ExerciseMapper exerciseMapper;
-    private static final Logger logger = LoggerFactory.getLogger(ExerciseServiceImpl.class);
+	private final ExerciseRepository exerciseRepository;
+	private final ExerciseMapper exerciseMapper;
+	private static final Logger logger = LoggerFactory.getLogger(ExerciseServiceImpl.class);
 
-    @Override
-    public ExerciseOutputDTO createExercise(ExerciseInputDTO exerciseInputDTO) {
-        logger.info("Creating new exercise.");
+	@Override
+	public ExerciseOutputDTO createExercise(ExerciseInputDTO exerciseInputDTO) {
 
-        Exercise exercise = exerciseMapper.toExercise(exerciseInputDTO);
-        Exercise savedExercise = exerciseRepository.save(exercise);
+		logger.info("Creating new exercise.");
 
-        logger.info("New exercise created.");
+		Exercise exercise = exerciseMapper.toExercise(exerciseInputDTO);
+		Exercise savedExercise = exerciseRepository.save(exercise);
 
-        return exerciseMapper.toExerciseOutputDTO(savedExercise);
-    }
+		logger.info("New exercise created.");
 
-    @Override
-    public ExerciseOutputDTO getExerciseById(UUID id) {
-        logger.info("Getting exercise by ID: {}", id);
+		return exerciseMapper.toExerciseOutputDTO(savedExercise);
+	}
 
-        return exerciseMapper.toExerciseOutputDTO(requireExercise(id));
-    }
+	@Override
+	public ExerciseOutputDTO getExerciseById(UUID id) {
 
-    private Exercise requireExercise(UUID id){
-        return exerciseRepository.findById(id)
-                .orElseThrow(() -> {
-                    logger.error("Exercise with ID {} not found.", id);
-	                return new ExerciseNotFoundException("Exercise with ID " + id + " not found");
-                });
-    }
+		logger.info("Getting exercise by ID: {}", id);
 
-    @Override
-    public Page<ExerciseOutputDTO> getAllExercisesPageable(Pageable pageable) {
-        logger.info("Getting all exercises (pageable).");
+		return exerciseMapper.toExerciseOutputDTO(requireExercise(id));
+	}
 
-        return exerciseRepository.findAll(pageable)
-                .map(exerciseMapper::toExerciseOutputDTO);
-    }
+	private Exercise requireExercise(UUID id) {
 
+		return exerciseRepository.findById(id)
+				.orElseThrow(() -> {
+					logger.error("Exercise with ID {} not found.", id);
+					return new ExerciseNotFoundException("Exercise with ID " + id + " not found");
+				});
+	}
 
-    @Override
-    public List<ExerciseOutputDTO> getAllExercises() {
-        logger.info("Getting all exercises.");
+	@Override
+	public Page<ExerciseOutputDTO> getAllExercisesPageable(Pageable pageable) {
 
-        return exerciseRepository
-                .findAll()
-                .stream()
-                .map(exerciseMapper::toExerciseOutputDTO)
-                .collect(Collectors.toList());
-    }
+		logger.info("Getting all exercises (pageable).");
 
-    @Override
-    public List<Exercise> getAllExercisesForWorkoutType(WorkoutType workoutType) {
-        return exerciseRepository.findAllByWorkoutType(workoutType);
-    }
-
-    @Override
-    public int countByWorkoutType(WorkoutType workoutType) {
-        return exerciseRepository.countByWorkoutType(workoutType);
-    }
+		return exerciseRepository.findAll(pageable)
+				.map(exerciseMapper::toExerciseOutputDTO);
+	}
 
 
-    @Override
-    public ExerciseOutputDTO updateExercise(UUID id, ExerciseInputDTO exerciseDetails) {
-        logger.info("Updating exercise with ID: {}", id);
+	@Override
+	public List<ExerciseOutputDTO> getAllExercises() {
 
-        Exercise existingExercise = requireExercise(id);
+		logger.info("Getting all exercises.");
 
-        Exercise updatedExercise = exerciseMapper.toExercise(exerciseDetails);
-        updatedExercise.setId(existingExercise.getId()); // Ensure the ID is preserved
+		return exerciseRepository
+				.findAll()
+				.stream()
+				.map(exerciseMapper::toExerciseOutputDTO)
+				.collect(Collectors.toList());
+	}
 
-        return exerciseMapper.toExerciseOutputDTO(exerciseRepository.save(updatedExercise));
+	@Override
+	public List<Exercise> getAllExercisesForWorkoutType(WorkoutType workoutType) {
 
-    }
+		return exerciseRepository.findAllByWorkoutType(workoutType);
+	}
 
-    @Override
-    public void deleteExercise(UUID id) {
-        logger.info("Deleting exercise with ID: {}", id);
+	@Override
+	public int countByWorkoutType(WorkoutType workoutType) {
 
-        Exercise existingExercise = requireExercise(id);
-        exerciseRepository.deleteById(existingExercise.getId());
-    }
+		return exerciseRepository.countByWorkoutType(workoutType);
+	}
 
-    @Override
-    public void deleteAll() {
-        logger.info("Deleting all exercises.");
 
-        this.exerciseRepository.deleteAll();
-    }
+	@Override
+	public ExerciseOutputDTO updateExercise(UUID id, ExerciseInputDTO exerciseDetails) {
+
+		logger.info("Updating exercise with ID: {}", id);
+
+		Exercise existingExercise = requireExercise(id);
+
+		Exercise updatedExercise = exerciseMapper.toExercise(exerciseDetails);
+		updatedExercise.setId(existingExercise.getId()); // Ensure the ID is preserved
+
+		return exerciseMapper.toExerciseOutputDTO(exerciseRepository.save(updatedExercise));
+
+	}
+
+	@Override
+	public void deleteExercise(UUID id) {
+
+		logger.info("Deleting exercise with ID: {}", id);
+
+		Exercise existingExercise = requireExercise(id);
+		exerciseRepository.deleteById(existingExercise.getId());
+	}
+
+	@Override
+	public void deleteAll() {
+
+		logger.info("Deleting all exercises.");
+
+		this.exerciseRepository.deleteAll();
+	}
+
 }
