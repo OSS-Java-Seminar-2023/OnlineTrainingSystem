@@ -13,12 +13,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class WorkoutOutputDTO {
+
 	private UUID id;
 	private UUID contractId;
 
@@ -41,18 +43,21 @@ public class WorkoutOutputDTO {
 	private List<WorkoutSession> workoutSessions;
 
 	public WorkoutOutputDTO(UUID contractId) {
+
 		this.contractId = contractId;
 	}
 
 	public Duration getDuration() {
+
 		Duration newDuration = new Duration();
 
 		newDuration.add(warmingUpTimeInSeconds);
 		newDuration.add((numberOfSets - 1) * pauseBetweenSetsInSeconds);
 
-		for(WorkoutSession workoutSession : workoutSessions)
+		for (WorkoutSession workoutSession : workoutSessions)
 			newDuration.add(workoutSession.getDuration().getDurationInSeconds() * numberOfSets);
 
 		return newDuration;
 	}
+
 }

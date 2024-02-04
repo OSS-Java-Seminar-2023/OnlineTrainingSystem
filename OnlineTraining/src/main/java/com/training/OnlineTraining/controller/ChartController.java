@@ -11,20 +11,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.UUID;
 
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/charts")
 public class ChartController {
 
-    private final MeasurementService measurementService;
+	private final MeasurementService measurementService;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    @GetMapping("/{contractId}")
-    public String getPersonalMeasurementsAsc(@PathVariable UUID contractId, Model model) {
-        var measurements = measurementService.getMeasurementsByContractIdSortedByDateAsc(contractId);
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
+	@GetMapping("/{contractId}")
+	public String getPersonalMeasurementsAsc(@PathVariable UUID contractId, Model model) {
 
-        model.addAttribute("measurements", measurements);
+		var measurements = measurementService.getMeasurementsByContractIdSortedByDateAsc(contractId);
 
-        return "client/chart";
-    }
+		model.addAttribute("measurements", measurements);
+
+		return "client/chart";
+	}
+
 }

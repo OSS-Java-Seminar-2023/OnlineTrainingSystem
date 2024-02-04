@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,45 +19,47 @@ import java.util.UUID;
 public class ContractController {
 
 
-    private ContractService contractService;
-    private CoachService coachService;
+	private ContractService contractService;
+	private CoachService coachService;
 
-    @GetMapping("/{coachId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    public String viewContract(@PathVariable UUID coachId, Model model, HttpSession session) {
+	@GetMapping("/{coachId}")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
+	public String viewContract(@PathVariable UUID coachId, Model model, HttpSession session) {
 
-        UUID clientId = (UUID) session.getAttribute("clientId");
-        Double monthlyPrice = coachService.getMonthlyPriceById(coachId);
+		UUID clientId = (UUID) session.getAttribute("clientId");
+		Double monthlyPrice = coachService.getMonthlyPriceById(coachId);
 
-        model.addAttribute("coachId", coachId);
-        model.addAttribute("clientId", clientId);
-        model.addAttribute("contract", new ContractDto());
-        model.addAttribute("monthlyPrice", monthlyPrice);
+		model.addAttribute("coachId", coachId);
+		model.addAttribute("clientId", clientId);
+		model.addAttribute("contract", new ContractDto());
+		model.addAttribute("monthlyPrice", monthlyPrice);
 
-        return "client/contract_page";
-    }
+		return "client/contract_page";
+	}
 
-    @PostMapping("/{coachId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    public String createContract(@PathVariable UUID coachId, @ModelAttribute ContractDto contractDto, Model model) {
-        var savedContract = contractService.createContract(contractDto);
-        UUID contractId = savedContract.getId();
+	@PostMapping("/{coachId}")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
+	public String createContract(@PathVariable UUID coachId, @ModelAttribute ContractDto contractDto, Model model) {
 
-        return "redirect:/measurements/" + contractId;
-    }
+		var savedContract = contractService.createContract(contractDto);
+		UUID contractId = savedContract.getId();
 
-    @GetMapping("/personal")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    public String getPersonalContracts(Model model, HttpSession session) {
-        UUID clientId = (UUID) session.getAttribute("clientId");
+		return "redirect:/measurements/" + contractId;
+	}
 
-        String clientName = (String) session.getAttribute("clientName");
+	@GetMapping("/personal")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
+	public String getPersonalContracts(Model model, HttpSession session) {
 
-        var contracts = contractService.getContractsByClientId(clientId);
-        model.addAttribute("contracts", contracts);
-        model.addAttribute("clientName", clientName);
+		UUID clientId = (UUID) session.getAttribute("clientId");
 
-        return "client/personal_contracts";
-    }
+		String clientName = (String) session.getAttribute("clientName");
+
+		var contracts = contractService.getContractsByClientId(clientId);
+		model.addAttribute("contracts", contracts);
+		model.addAttribute("clientName", clientName);
+
+		return "client/personal_contracts";
+	}
 
 }

@@ -11,9 +11,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+
 @Mapper(componentModel = "spring")
 @Component
 public interface WorkoutSessionMapper {
+
 	WorkoutSessionMapper INSTANCE = Mappers.getMapper(WorkoutSessionMapper.class);
 
 	@Mapping(source = "workoutId", target = "workout.id")
@@ -33,6 +35,7 @@ public interface WorkoutSessionMapper {
 	WorkoutSessionOutputDTO toWorkoutSessionOutputDTO(WorkoutSession workoutSession);
 
 	default Exercise mapExercise(UUID exerciseId) {
+
 		if (exerciseId != null) {
 			Exercise exercise = new Exercise();
 			exercise.setId(exerciseId);

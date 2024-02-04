@@ -1,13 +1,17 @@
 package com.training.OnlineTraining.model;
 
 import com.training.OnlineTraining.model.additional.Duration;
-import lombok.*;
-
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
 import static com.training.OnlineTraining.util.WorkoutConstants.DURATION_OF_ONE_REP_IN_SECONDS;
+
 
 @Entity
 @Data
@@ -17,45 +21,48 @@ import static com.training.OnlineTraining.util.WorkoutConstants.DURATION_OF_ONE_
 @AllArgsConstructor
 public class WorkoutSession {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private UUID id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "workout_id", referencedColumnName = "id", nullable = false)
-    private Workout workout;
+	@ManyToOne
+	@JoinColumn(name = "workout_id", referencedColumnName = "id", nullable = false)
+	private Workout workout;
 
-    @ManyToOne
-    @JoinColumn(name = "exercise_id", referencedColumnName = "id", nullable = true)
-    private Exercise exercise;
+	@ManyToOne
+	@JoinColumn(name = "exercise_id", referencedColumnName = "id", nullable = true)
+	private Exercise exercise;
 
-    @Column(name = "number_of_reps")
-    private Integer numberOfReps;
+	@Column(name = "number_of_reps")
+	private Integer numberOfReps;
 
-    @Column(name = "pause_after_exercise_in_seconds")
-    private Integer pauseAfterExerciseInSeconds;
+	@Column(name = "pause_after_exercise_in_seconds")
+	private Integer pauseAfterExerciseInSeconds;
 
-    @Column
-    private BigDecimal weight;
+	@Column
+	private BigDecimal weight;
 
-    public Duration getDuration() {
-        Duration newDuration = new Duration();
+	public Duration getDuration() {
 
-        newDuration.add(this.numberOfReps * DURATION_OF_ONE_REP_IN_SECONDS);
-        newDuration.add(pauseAfterExerciseInSeconds);
+		Duration newDuration = new Duration();
 
-        return newDuration;
-    }
+		newDuration.add(this.numberOfReps * DURATION_OF_ONE_REP_IN_SECONDS);
+		newDuration.add(pauseAfterExerciseInSeconds);
 
-    @Override
-    public String toString() {
-        return "WorkoutSession{" +
-                "id=" + id +
-                ", numberOfReps=" + numberOfReps +
-                ", exercise =" + exercise +
-                ", pauseAfterExerciseInSeconds=" + pauseAfterExerciseInSeconds +
-                ", weight=" + weight +
-                '}' + '\n';
-    }
+		return newDuration;
+	}
+
+	@Override
+	public String toString() {
+
+		return "WorkoutSession{" +
+				"id=" + id +
+				", numberOfReps=" + numberOfReps +
+				", exercise =" + exercise +
+				", pauseAfterExerciseInSeconds=" + pauseAfterExerciseInSeconds +
+				", weight=" + weight +
+				'}' + '\n';
+	}
+
 }

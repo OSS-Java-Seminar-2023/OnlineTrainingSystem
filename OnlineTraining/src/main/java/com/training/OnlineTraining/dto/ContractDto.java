@@ -6,18 +6,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.util.UUID;
 
-import java.sql.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContractDto {
-    private UUID id;
-    private Coach coach;
-    private Client client;
-    private Date startDate;
-    private Date endDate;
-    private Double monthlyPrice;
+
+	private UUID id;
+	private Coach coach;
+	private Client client;
+	private Date startDate;
+	private Date endDate;
+	private Double monthlyPrice;
+
 }
 

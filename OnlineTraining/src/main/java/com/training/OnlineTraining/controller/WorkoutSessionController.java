@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+
 @Controller
 @RequestMapping("/workoutSession")
 public class WorkoutSessionController {
@@ -24,6 +25,7 @@ public class WorkoutSessionController {
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutSessionController.class);
 
 	public WorkoutSessionController(WorkoutSessionService workoutSessionService, ExerciseService exerciseService) {
+
 		this.workoutSessionService = workoutSessionService;
 		this.exerciseService = exerciseService;
 	}
@@ -31,6 +33,7 @@ public class WorkoutSessionController {
 	@GetMapping("/create")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String showCreateWorkoutSessionForm(@RequestParam UUID workoutID, Model model) {
+
 		logger.info("Displaying create workout session form.");
 
 		var workoutSessionInputDTO = new WorkoutSessionInputDTO(workoutID);
@@ -44,6 +47,7 @@ public class WorkoutSessionController {
 	@PostMapping("/create")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String createWorkout(@ModelAttribute("workoutDTO") WorkoutSessionInputDTO workoutSessionInputDTO) {
+
 		logger.info("Creating a new workout session. {}", workoutSessionInputDTO);
 
 		workoutSessionService.createWorkoutSession(workoutSessionInputDTO);
@@ -73,6 +77,7 @@ public class WorkoutSessionController {
 			@PathVariable UUID workoutID,
 			@PathVariable UUID workoutSessionID
 	) {
+
 		logger.info("Deleting workout session with ID: {}", workoutSessionID);
 
 		workoutSessionService.deleteWorkoutSession(workoutSessionID);

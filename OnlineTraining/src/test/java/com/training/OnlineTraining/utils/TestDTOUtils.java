@@ -8,12 +8,8 @@ import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.enums.Education;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import com.training.OnlineTraining.model.enums.WorkoutType;
-import com.training.OnlineTraining.util.PasswordUtils;
-import lombok.Data;
-import org.checkerframework.checker.units.qual.C;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.Random;
 import java.util.UUID;
 

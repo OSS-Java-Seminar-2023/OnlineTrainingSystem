@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.UUID;
 
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/measurements")
@@ -25,6 +26,7 @@ public class MeasurementController {
 	@GetMapping("/{contractId}")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
 	public String showMeasurementForm(@PathVariable UUID contractId, Model model) {
+
 		model.addAttribute("contractId", contractId);
 		model.addAttribute("measurementDto", new MeasurementDTO());
 		return "client/measurement_form";
@@ -33,8 +35,9 @@ public class MeasurementController {
 	@PostMapping("/{contractId}")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
 	public String createMeasurement(@PathVariable UUID contractId,
-								   @Valid MeasurementDTO measurementDto,
-								   BindingResult bindingResult) {
+	                                @Valid MeasurementDTO measurementDto,
+	                                BindingResult bindingResult) {
+
 		if (bindingResult.hasErrors()) {
 			return "client/measurement_form";
 		}
@@ -47,9 +50,10 @@ public class MeasurementController {
 	@GetMapping("/personal/{contractId}")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
 	public String getPersonalMeasurements(@PathVariable UUID contractId, Model model,
-										  @RequestParam(defaultValue = "1") int page,
+	                                      @RequestParam(defaultValue = "1") int page,
 
-										  @RequestParam(defaultValue = "10") int size) {
+	                                      @RequestParam(defaultValue = "10") int size) {
+
 		PageRequest pageRequest = PageRequest.of(page - 1, size);
 
 		Page<Measurement> measurementPage = measurementService.getMeasurementsByContractIdSortedByDatePageable(contractId, pageRequest);
@@ -65,6 +69,7 @@ public class MeasurementController {
 	@GetMapping("/personal/{contractId}/update/{measurementId}")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
 	public String showUpdateForm(@PathVariable UUID contractId, @PathVariable UUID measurementId, Model model) {
+
 		var measurementDto = measurementService.getMeasurementById(measurementId);
 		model.addAttribute("contractId", contractId);
 		model.addAttribute("measurementId", measurementId);
@@ -75,9 +80,10 @@ public class MeasurementController {
 	@PutMapping("/personal/{contractId}/update/{measurementId}")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
 	public String updateMeasurement(@PathVariable UUID contractId,
-									@PathVariable UUID measurementId,
-								    @Valid MeasurementDTO measurementDto,
-									BindingResult bindingResult) {
+	                                @PathVariable UUID measurementId,
+	                                @Valid MeasurementDTO measurementDto,
+	                                BindingResult bindingResult) {
+
 		if (bindingResult.hasErrors()) {
 			return "client/update_measurement_form";
 		}
@@ -90,7 +96,8 @@ public class MeasurementController {
 	@DeleteMapping("/personal/{contractId}/delete/{measurementId}")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
 	public String deleteMeasurement(@PathVariable UUID contractId,
-									@PathVariable UUID measurementId) {
+	                                @PathVariable UUID measurementId) {
+
 		measurementService.deleteMeasurement(measurementId);
 		return "redirect:/measurements/personal/{contractId}";
 	}

@@ -8,12 +8,16 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.UUID;
+
+
 @Repository
 public interface ClientRepository extends JpaRepository<Client, UUID> {
-    boolean existsByUser(User user);
 
-    Optional<Client> findByUserId(UUID userId);
+	boolean existsByUser(User user);
 
-    @Query("SELECT COUNT(c) FROM Client c")
-    int countClients();
+	Optional<Client> findByUserId(UUID userId);
+
+	@Query("SELECT COUNT(c) FROM Client c")
+	int countClients();
+
 }

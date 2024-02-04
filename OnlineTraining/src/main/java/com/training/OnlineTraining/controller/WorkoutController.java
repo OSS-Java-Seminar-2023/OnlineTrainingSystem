@@ -6,7 +6,6 @@ import com.training.OnlineTraining.dto.output.WorkoutOutputDTO;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
 import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutService;
-import com.training.OnlineTraining.service.WorkoutSessionService;
 import com.training.OnlineTraining.service.WorkoutTemplateCreatorService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
 
 @Controller
 @RequestMapping("/workout")
@@ -32,6 +34,7 @@ public class WorkoutController {
 	@GetMapping("/create")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String showCreateWorkoutForm(Model model) {
+
 		logger.info("Displaying create workout form.");
 
 		model.addAttribute("workoutInputDTO", new WorkoutInputDTO());
@@ -42,6 +45,7 @@ public class WorkoutController {
 	@GetMapping("/create-template")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String showCreateWorkoutUsingTemplateForm(Model model) {
+
 		logger.info("Displaying create workout using template form.");
 
 		model.addAttribute("workoutTemplate", new WorkoutTemplate());
@@ -52,6 +56,7 @@ public class WorkoutController {
 	@PostMapping("/create-template")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String createWorkoutUsingTemplateForm(@ModelAttribute("workoutTemplate") WorkoutTemplate workoutTemplate, HttpSession session) {
+
 		logger.info("Displaying create workout using template form.");
 
 		UUID contractID = (UUID) session.getAttribute("contractID");
@@ -64,6 +69,7 @@ public class WorkoutController {
 	@PostMapping("/create")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String createWorkout(@ModelAttribute("workoutDTO") WorkoutInputDTO workoutInputDTO, HttpSession session) {
+
 		logger.info("Creating a new workout.");
 
 		UUID contractID = (UUID) session.getAttribute("contractID");
@@ -76,6 +82,7 @@ public class WorkoutController {
 	@GetMapping()
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT')")
 	public String getAllWorkoutsForContract(@RequestParam(value = "contractID", required = false) String passedContractID, HttpSession session, Model model) {
+
 		logger.info("Fetching all workouts for a contract.");
 
 		UUID contractID = (UUID) session.getAttribute("contractID");
@@ -97,6 +104,7 @@ public class WorkoutController {
 	@GetMapping("/details/{id}")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT')")
 	public String showWorkoutDetails(@PathVariable UUID id, Model model, HttpSession session) {
+
 		logger.info("Displaying workout details for ID: {}", id);
 
 		var workout = workoutService.getWorkoutById(id);
@@ -112,6 +120,7 @@ public class WorkoutController {
 	@GetMapping("/update/{id}")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT')")
 	public String showUpdateWorkoutForm(@PathVariable UUID id, Model model, HttpSession session) {
+
 		logger.info("Displaying update workout form for ID: {}", id);
 
 		List<WorkoutStatus> workoutStatuses = Arrays.asList(WorkoutStatus.values());
@@ -130,6 +139,7 @@ public class WorkoutController {
 	@PostMapping("/update/{id}")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH', 'CLIENT')")
 	public String updateWorkout(@PathVariable UUID id, @ModelAttribute("workout") WorkoutInputDTO workoutInputDTO, HttpSession session) {
+
 		logger.info("Updating workout for ID: {}", id);
 
 		UUID contractID = (UUID) session.getAttribute("contractID");
@@ -143,10 +153,12 @@ public class WorkoutController {
 	@PostMapping("/delete/{id}")
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
 	public String deleteWorkout(@PathVariable UUID id) {
+
 		logger.info("Deleting workout for ID: {}", id);
 
 		workoutService.deleteWorkout(id);
 
 		return "redirect:/workout";
 	}
+
 }

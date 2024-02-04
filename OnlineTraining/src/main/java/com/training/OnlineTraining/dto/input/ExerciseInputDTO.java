@@ -8,25 +8,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+
 @Data
 @NoArgsConstructor
 @ToString
 @AllArgsConstructor
 public class ExerciseInputDTO {
-    private String name;
-    private String description;
 
-    //@Convert(converter = ExerciseEquipmentConverter.class)
-    private ExerciseEquipment exerciseEquipment;
+	private String name;
+	private String description;
 
-    private ExerciseDifficultyLevel exerciseDifficultyLevel;
+	private ExerciseEquipment exerciseEquipment;
 
-    private WorkoutType workoutType;
+	private ExerciseDifficultyLevel exerciseDifficultyLevel;
 
-    public ExerciseInputDTO(String name, String description, ExerciseEquipment exerciseEquipment, ExerciseDifficultyLevel exerciseDifficultyLevel) {
-        this.name = name;
-        this.description = description;
-        this.exerciseEquipment = exerciseEquipment;
-        this.exerciseDifficultyLevel = exerciseDifficultyLevel;
-    }
+	private WorkoutType workoutType;
+
+	public ExerciseInputDTO(String name, String description, ExerciseEquipment exerciseEquipment, ExerciseDifficultyLevel exerciseDifficultyLevel) {
+
+		this.name = name;
+		this.description = description;
+		this.exerciseEquipment = exerciseEquipment;
+		this.exerciseDifficultyLevel = exerciseDifficultyLevel;
+	}
+
 }

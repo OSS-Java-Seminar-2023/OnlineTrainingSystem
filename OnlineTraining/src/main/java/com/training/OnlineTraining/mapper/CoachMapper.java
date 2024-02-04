@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
+
 @Mapper(componentModel = "spring", uses = CoachUserMapper.class)
 public interface CoachMapper {
 
@@ -36,4 +37,5 @@ public interface CoachMapper {
 	@Mapping(target = "user.gender", source = "updateCoachDTO.gender")
 	@Mapping(target = "user.age", source = "updateCoachDTO.age")
 	void updateCoachFromDTO(UpdateCoachDTO updateCoachDTO, @MappingTarget Coach coach);
+
 }

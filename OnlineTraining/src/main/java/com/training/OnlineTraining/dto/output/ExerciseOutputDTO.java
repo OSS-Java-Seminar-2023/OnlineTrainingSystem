@@ -10,16 +10,17 @@ import lombok.ToString;
 
 import java.util.UUID;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class ExerciseOutputDTO {
+
 	private UUID id;
 	private String name;
 	private String description;
 
-	//@Convert(converter = ExerciseEquipmentConverter.class)
 	private ExerciseEquipment exerciseEquipment;
 
 	private ExerciseDifficultyLevel exerciseDifficultyLevel;
@@ -27,9 +28,11 @@ public class ExerciseOutputDTO {
 	private WorkoutType workoutType;
 
 	public ExerciseOutputDTO(String name, String description, ExerciseEquipment exerciseEquipment, ExerciseDifficultyLevel exerciseDifficultyLevel) {
+
 		this.name = name;
 		this.description = description;
 		this.exerciseEquipment = exerciseEquipment;
 		this.exerciseDifficultyLevel = exerciseDifficultyLevel;
 	}
+
 }

@@ -5,8 +5,10 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+
 @Data
 public class WorkoutSessionOutputDTO {
+
 	private UUID id;
 	private UUID workoutId;
 	private UUID exerciseId;
@@ -15,6 +17,7 @@ public class WorkoutSessionOutputDTO {
 	private BigDecimal weight;
 
 	public static WorkoutSessionOutputDTO createEmptyWorkoutSessionDTO() {
+
 		WorkoutSessionOutputDTO emptyWorkoutSession = new WorkoutSessionOutputDTO();
 		emptyWorkoutSession.setWorkoutId(null);
 		emptyWorkoutSession.setExerciseId(null);

@@ -21,6 +21,7 @@ public enum ExerciseEquipment {
 	private final String displayName;
 
 	ExerciseEquipment(String displayName) {
+
 		this.displayName = displayName;
 	}
 

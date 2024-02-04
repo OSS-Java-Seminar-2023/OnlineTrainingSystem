@@ -19,112 +19,121 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+
 @Controller
 @RequestMapping("/exercise")
 @AllArgsConstructor
 public class ExerciseController {
 
-    private final ExerciseService exerciseService;
-    private static final Logger logger = LoggerFactory.getLogger(ExerciseController.class);
+	private final ExerciseService exerciseService;
+	private static final Logger logger = LoggerFactory.getLogger(ExerciseController.class);
 
-    @GetMapping("/create")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
-    public String showAddExerciseForm(Model model) {
-        logger.info("Displaying add exercise form.");
+	@GetMapping("/create")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
+	public String showAddExerciseForm(Model model) {
 
-        List<ExerciseDifficultyLevel> difficultyLevels = Arrays.asList(ExerciseDifficultyLevel.values());
-        List<ExerciseEquipment> exerciseEquipmentList = Arrays.asList(ExerciseEquipment.values());
+		logger.info("Displaying add exercise form.");
 
-        model.addAttribute("difficultyLevels", difficultyLevels);
-        model.addAttribute("exerciseEquipmentList", exerciseEquipmentList);
-        model.addAttribute("exercise", new ExerciseInputDTO());
+		List<ExerciseDifficultyLevel> difficultyLevels = Arrays.asList(ExerciseDifficultyLevel.values());
+		List<ExerciseEquipment> exerciseEquipmentList = Arrays.asList(ExerciseEquipment.values());
 
-        return "exercise/exerciseCreateForm";
-    }
+		model.addAttribute("difficultyLevels", difficultyLevels);
+		model.addAttribute("exerciseEquipmentList", exerciseEquipmentList);
+		model.addAttribute("exercise", new ExerciseInputDTO());
 
-    @PostMapping("/create")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
-    public String createExercise(@ModelAttribute ExerciseInputDTO exerciseInputDTO, Model model) {
-        logger.info("Creating a new exercise.");
+		return "exercise/exerciseCreateForm";
+	}
 
-        var createdExercise = exerciseService.createExercise(exerciseInputDTO);
+	@PostMapping("/create")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
+	public String createExercise(@ModelAttribute ExerciseInputDTO exerciseInputDTO, Model model) {
 
-        return "redirect:/exercise";
-    }
+		logger.info("Creating a new exercise.");
 
-    @GetMapping("/details/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
-    public String showExerciseDetails(@PathVariable UUID id, Model model) {
-        logger.info("Displaying exercise details for ID: {}", id);
+		var createdExercise = exerciseService.createExercise(exerciseInputDTO);
 
-        var exercise = exerciseService.getExerciseById(id);
+		return "redirect:/exercise";
+	}
 
-        model.addAttribute("exercise", exercise);
-        return "exercise/exerciseDetails";
-    }
+	@GetMapping("/details/{id}")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
+	public String showExerciseDetails(@PathVariable UUID id, Model model) {
 
-    @GetMapping()
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
-    public String getAllExercises(Model model,
-                                  @RequestParam(defaultValue = "1") int page,
-                                  @RequestParam(defaultValue = "10") int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size);
+		logger.info("Displaying exercise details for ID: {}", id);
 
-        Page<ExerciseOutputDTO> exercisePage = exerciseService.getAllExercisesPageable(pageRequest);
+		var exercise = exerciseService.getExerciseById(id);
 
-        model.addAttribute("exercises", exercisePage);
-        model.addAttribute("currentPage", exercisePage.getNumber() + 1);
-        model.addAttribute("totalPages", exercisePage.getTotalPages());
+		model.addAttribute("exercise", exercise);
+		return "exercise/exerciseDetails";
+	}
 
-        return "exercise/exerciseList";
-    }
+	@GetMapping()
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'COACH')")
+	public String getAllExercises(Model model,
+	                              @RequestParam(defaultValue = "1") int page,
+	                              @RequestParam(defaultValue = "10") int size) {
+
+		PageRequest pageRequest = PageRequest.of(page - 1, size);
+
+		Page<ExerciseOutputDTO> exercisePage = exerciseService.getAllExercisesPageable(pageRequest);
+
+		model.addAttribute("exercises", exercisePage);
+		model.addAttribute("currentPage", exercisePage.getNumber() + 1);
+		model.addAttribute("totalPages", exercisePage.getTotalPages());
+
+		return "exercise/exerciseList";
+	}
 
 
-    @GetMapping("/update/{id}")
-    public String getUpdateFormForExercise(@PathVariable UUID id, Model model) {
-        logger.info("Displaying update form for exercise ID: {}", id);
+	@GetMapping("/update/{id}")
+	public String getUpdateFormForExercise(@PathVariable UUID id, Model model) {
 
-        var tempExercise = exerciseService.getExerciseById(id);
-        List<ExerciseDifficultyLevel> difficultyLevels = Arrays.asList(ExerciseDifficultyLevel.values());
-        List<ExerciseEquipment> exerciseEquipmentList = Arrays.asList(ExerciseEquipment.values());
+		logger.info("Displaying update form for exercise ID: {}", id);
 
-        model.addAttribute("exerciseEquipmentList", exerciseEquipmentList);
-        model.addAttribute("difficultyLevels", difficultyLevels);
-        model.addAttribute("exerciseForUpdating", tempExercise);
+		var tempExercise = exerciseService.getExerciseById(id);
+		List<ExerciseDifficultyLevel> difficultyLevels = Arrays.asList(ExerciseDifficultyLevel.values());
+		List<ExerciseEquipment> exerciseEquipmentList = Arrays.asList(ExerciseEquipment.values());
 
-        return "exercise/exerciseUpdateForm";
-    }
+		model.addAttribute("exerciseEquipmentList", exerciseEquipmentList);
+		model.addAttribute("difficultyLevels", difficultyLevels);
+		model.addAttribute("exerciseForUpdating", tempExercise);
 
-    @PostMapping("/update/{id}")
-    public String updateExercise(@PathVariable String id, @ModelAttribute("exercise") ExerciseInputDTO exerciseInputDTO, Model model) {
-        logger.info("Updating exercise for ID: {}", id);
-        logger.info("ExerciseDTO: {}", exerciseInputDTO);
+		return "exercise/exerciseUpdateForm";
+	}
 
-        exerciseService.updateExercise(UUID.fromString(id), exerciseInputDTO);
+	@PostMapping("/update/{id}")
+	public String updateExercise(@PathVariable String id, @ModelAttribute("exercise") ExerciseInputDTO exerciseInputDTO, Model model) {
 
-        return "redirect:/exercise";
-    }
+		logger.info("Updating exercise for ID: {}", id);
+		logger.info("ExerciseDTO: {}", exerciseInputDTO);
 
-    @PostMapping("/delete/{id}")
-    public String deleteExercise(@PathVariable UUID id) {
-        logger.info("Deleting exercise for ID: {}", id);
-        exerciseService.deleteExercise(id);
-        return "redirect:/exercise";
-    }
+		exerciseService.updateExercise(UUID.fromString(id), exerciseInputDTO);
 
-    @GetMapping("/client-details/{id}")
-    public String showClientExerciseDetails(@PathVariable UUID id, Model model) {
+		return "redirect:/exercise";
+	}
 
-        var exercise = exerciseService.getExerciseById(id);
+	@PostMapping("/delete/{id}")
+	public String deleteExercise(@PathVariable UUID id) {
 
-        model.addAttribute("exercise", exercise);
+		logger.info("Deleting exercise for ID: {}", id);
+		exerciseService.deleteExercise(id);
+		return "redirect:/exercise";
+	}
 
-        return "client/client_exercise_details";
-    }
+	@GetMapping("/client-details/{id}")
+	public String showClientExerciseDetails(@PathVariable UUID id, Model model) {
 
-    @GetMapping("/progress")
-    public String showError(){
-         return "client/no_exercise_found";
-    }
+		var exercise = exerciseService.getExerciseById(id);
+
+		model.addAttribute("exercise", exercise);
+
+		return "client/client_exercise_details";
+	}
+
+	@GetMapping("/progress")
+	public String showError() {
+
+		return "client/no_exercise_found";
+	}
 
 }
