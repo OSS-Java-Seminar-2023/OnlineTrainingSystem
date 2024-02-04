@@ -35,9 +35,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class ClientServiceTest {
 
 	@Autowired
-	private ClientController clientController;
-
-	@Autowired
 	private ClientService clientService;
 
 	@Autowired

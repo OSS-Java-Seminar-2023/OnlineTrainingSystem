@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc
 public class CoachControllerTest {
 
 
@@ -35,7 +35,7 @@ public class CoachControllerTest {
 	private MockMvc mockMvc;
 
 	@MockBean
-	private CoachService coachService; // Mock the ExerciseService
+	private CoachService coachService;
 
 	@InjectMocks
 	private CoachController coachController;

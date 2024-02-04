@@ -39,20 +39,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc
 class ExerciseControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
-	private ExerciseService exerciseService; // Mock the ExerciseService
+	private ExerciseService exerciseService;
 
 	@InjectMocks
 	private ExerciseController exerciseController;
-
-	@Autowired
-	private ObjectMapper objectMapper;
 
 	@Test
 	@WithMockUser(authorities = {"ADMIN", "COACH"})
@@ -106,7 +103,7 @@ class ExerciseControllerTest {
 
 		when(exerciseService.getAllExercisesPageable(PageRequest.of(0, 10))).thenReturn(exercisePage);
 
-		mockMvc.perform(get("/exercise").with(user("user")))
+		mockMvc.perform(get("/exercise"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("exercise/exerciseList"))
 				.andExpect(model().attribute("currentPage", 1)) // Adjust index to start from 0
