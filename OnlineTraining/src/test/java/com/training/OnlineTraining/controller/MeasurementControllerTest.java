@@ -5,7 +5,6 @@ import com.training.OnlineTraining.model.Measurement;
 import com.training.OnlineTraining.service.MeasurementService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -36,9 +35,6 @@ class MeasurementControllerTest {
 	private MockMvc mockMvc;
 	@MockBean
 	private MeasurementService measurementService;
-
-	@InjectMocks
-	private MeasurementController measurementController;
 
 	@Test
 	@WithMockUser(authorities = {"ADMIN", "CLIENT"})

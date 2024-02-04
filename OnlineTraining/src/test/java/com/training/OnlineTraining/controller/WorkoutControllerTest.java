@@ -3,12 +3,9 @@ package com.training.OnlineTraining.controller;
 import com.training.OnlineTraining.dto.input.WorkoutInputDTO;
 import com.training.OnlineTraining.dto.output.WorkoutOutputDTO;
 import com.training.OnlineTraining.model.enums.WorkoutStatus;
-import com.training.OnlineTraining.service.ExerciseService;
 import com.training.OnlineTraining.service.WorkoutService;
-import com.training.OnlineTraining.service.WorkoutSessionService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -41,15 +38,6 @@ public class WorkoutControllerTest {
 
 	@MockBean
 	private WorkoutService workoutService;
-
-	@MockBean
-	private ExerciseService exerciseService;
-
-	@MockBean
-	private WorkoutSessionService workoutSessionService;
-
-	@InjectMocks
-	private WorkoutController workoutController;
 
 	@Test
 	@WithMockUser(authorities = {"ADMIN", "COACH"})

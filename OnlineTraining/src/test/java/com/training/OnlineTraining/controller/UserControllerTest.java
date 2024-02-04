@@ -2,13 +2,10 @@ package com.training.OnlineTraining.controller;
 
 import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.model.User;
-import com.training.OnlineTraining.service.ClientService;
-import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.MailService;
 import com.training.OnlineTraining.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,7 +21,6 @@ import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -41,16 +37,7 @@ class UserControllerTest {
 	private UserService userService;
 
 	@MockBean
-	private ClientService clientService;
-
-	@MockBean
-	private CoachService coachService;
-
-	@MockBean
 	private MailService mailService;
-
-	@InjectMocks
-	private UserController userController;
 
 	private final MockHttpSession session = new MockHttpSession();
 

@@ -2,9 +2,8 @@ package com.training.OnlineTraining.service;
 
 import com.training.OnlineTraining.OnlineTrainingApplication;
 import com.training.OnlineTraining.dto.MeasurementDTO;
-import com.training.OnlineTraining.model.*;
-import com.training.OnlineTraining.service.ContractService;
-import com.training.OnlineTraining.service.MeasurementService;
+import com.training.OnlineTraining.model.Contract;
+import com.training.OnlineTraining.model.Measurement;
 import com.training.OnlineTraining.utils.TestDTOUtils;
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,9 +15,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

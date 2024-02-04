@@ -6,7 +6,6 @@ import com.training.OnlineTraining.service.CoachService;
 import com.training.OnlineTraining.service.ContractService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -39,9 +38,6 @@ public class ContractControllerTest {
 
 	@MockBean
 	private CoachService coachService;
-
-	@InjectMocks
-	private ContractController contractController;
 
 	@Test
 	@WithMockUser(authorities = {"ADMIN", "CLIENT"})

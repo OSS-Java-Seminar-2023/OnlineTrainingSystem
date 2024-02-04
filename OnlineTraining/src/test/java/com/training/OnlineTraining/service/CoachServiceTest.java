@@ -1,16 +1,15 @@
 package com.training.OnlineTraining.service;
 
 import com.training.OnlineTraining.OnlineTrainingApplication;
-import com.training.OnlineTraining.controller.CoachController;
 import com.training.OnlineTraining.dto.CoachDto;
 import com.training.OnlineTraining.dto.UpdateCoachDTO;
 import com.training.OnlineTraining.dto.UserDto;
 import com.training.OnlineTraining.model.Coach;
 import com.training.OnlineTraining.model.User;
 import com.training.OnlineTraining.utils.TestDTOUtils;
-import org.junit.jupiter.api.Test;
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +19,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -33,9 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 		FlywayTestExecutionListener.class
 })
 public class CoachServiceTest {
-
-	@Autowired
-	private CoachController coachController;
 
 	@Autowired
 	private CoachService coachService;

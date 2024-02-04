@@ -1,6 +1,5 @@
 package com.training.OnlineTraining.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.training.OnlineTraining.dto.input.ExerciseInputDTO;
 import com.training.OnlineTraining.dto.output.ExerciseOutputDTO;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
@@ -9,7 +8,6 @@ import com.training.OnlineTraining.service.ExerciseService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -32,7 +30,6 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -48,8 +45,6 @@ class ExerciseControllerTest {
 	@MockBean
 	private ExerciseService exerciseService;
 
-	@InjectMocks
-	private ExerciseController exerciseController;
 
 	@Test
 	@WithMockUser(authorities = {"ADMIN", "COACH"})
