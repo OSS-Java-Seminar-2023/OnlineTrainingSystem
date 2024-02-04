@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 @AllArgsConstructor
 public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreatorService {
@@ -29,6 +30,7 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 
 	@Override
 	public WorkoutInputDTO createWorkoutInputDTO(WorkoutTemplate workoutTemplate) {
+
 		logger.info("Creating workout from template: {}", workoutTemplate);
 
 		return WorkoutInputDTO.builder()
@@ -43,6 +45,7 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 	}
 
 	private int getNumberOfSets(WorkoutGoal workoutGoal) {
+
 		int numberOfSets = switch (workoutGoal) {
 			case STRENGTH -> 4;
 			case ENDURANCE -> 8;
@@ -53,6 +56,7 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 	}
 
 	private int getPauseBetweenSetsInSeconds(WorkoutGoal workoutGoal) {
+
 		int pauseInSeconds = switch (workoutGoal) {
 			case STRENGTH -> 240;
 			case ENDURANCE -> 120;
@@ -63,6 +67,7 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 	}
 
 	private List<WorkoutSession> getWorkoutSessions(WorkoutTemplate workoutTemplate) {
+
 		logger.info("Creating workout sessions for template: {}", workoutTemplate);
 
 		var listOfExercisesForWorkoutType = getExercisesForWorkoutType(workoutTemplate.getWorkoutType(), workoutTemplate.getNumberOfExercises());
@@ -81,6 +86,7 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 	}
 
 	private List<Exercise> getExercisesForWorkoutType(WorkoutType workoutType, int numberOfExercises) {
+
 		logger.info("Getting {} exercises for workout type: {}", numberOfExercises, workoutType);
 
 		var listOfExercisesForWorkoutType = exerciseService.getAllExercisesForWorkoutType(workoutType);
@@ -93,6 +99,7 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 	}
 
 	private int getNumberOfReps(WorkoutGoal workoutGoal) {
+
 		int numberOfReps = switch (workoutGoal) {
 			case STRENGTH -> 5;
 			case ENDURANCE -> 20;
@@ -103,6 +110,7 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 	}
 
 	private int getRestAfterExerciseInSeconds(WorkoutGoal workoutGoal) {
+
 		int restInSeconds = switch (workoutGoal) {
 			case STRENGTH -> 120;
 			case ENDURANCE -> 20;
@@ -113,6 +121,7 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 	}
 
 	private BigDecimal getWeight(WorkoutGoal workoutGoal) {
+
 		BigDecimal weight = switch (workoutGoal) {
 			case STRENGTH -> BigDecimal.valueOf(100.00);
 			case ENDURANCE -> BigDecimal.valueOf(30.00);
@@ -121,4 +130,5 @@ public class WorkoutTemplateCreatorServiceImpl implements WorkoutTemplateCreator
 		logger.info("Calculated weight: {}", weight);
 		return weight;
 	}
+
 }

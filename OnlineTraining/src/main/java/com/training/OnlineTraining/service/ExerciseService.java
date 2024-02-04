@@ -10,16 +10,25 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.UUID;
 
+
 public interface ExerciseService {
-    ExerciseOutputDTO createExercise(ExerciseInputDTO exerciseInputDTO);
-    ExerciseOutputDTO getExerciseById(UUID id);
-    Page<ExerciseOutputDTO> getAllExercisesPageable(Pageable pageable);
-    ExerciseOutputDTO updateExercise(UUID id, ExerciseInputDTO exerciseDetails);
-    void deleteExercise(UUID id);
-    void deleteAll();
-    List<ExerciseOutputDTO> getAllExercises();
 
-    List<Exercise> getAllExercisesForWorkoutType(WorkoutType workoutType);
+	ExerciseOutputDTO createExercise(ExerciseInputDTO exerciseInputDTO);
 
-    int countByWorkoutType(WorkoutType workoutType);
+	ExerciseOutputDTO getExerciseById(UUID id);
+
+	Page<ExerciseOutputDTO> getAllExercisesPageable(Pageable pageable);
+
+	ExerciseOutputDTO updateExercise(UUID id, ExerciseInputDTO exerciseDetails);
+
+	void deleteExercise(UUID id);
+
+	void deleteAll();
+
+	List<ExerciseOutputDTO> getAllExercises();
+
+	List<Exercise> getAllExercisesForWorkoutType(WorkoutType workoutType);
+
+	int countByWorkoutType(WorkoutType workoutType);
+
 }
