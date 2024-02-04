@@ -5,7 +5,6 @@ import com.training.OnlineTraining.model.enums.Role;
 import com.training.OnlineTraining.service.AdminService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,9 +32,6 @@ public class AdminControllerTest {
 
 	@MockBean
 	private AdminService adminService;
-
-	@InjectMocks
-	private AdminController adminController;
 
 	@Test
 	@WithMockUser(authorities = {"ADMIN"})

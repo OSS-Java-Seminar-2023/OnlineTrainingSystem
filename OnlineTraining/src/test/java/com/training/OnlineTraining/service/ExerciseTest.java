@@ -1,14 +1,11 @@
 package com.training.OnlineTraining.service;
 
 import com.training.OnlineTraining.OnlineTrainingApplication;
-import com.training.OnlineTraining.controller.ExerciseController;
 import com.training.OnlineTraining.dto.input.ExerciseInputDTO;
 import com.training.OnlineTraining.dto.output.ExerciseOutputDTO;
-import com.training.OnlineTraining.model.Exercise;
 import com.training.OnlineTraining.model.enums.ExerciseDifficultyLevel;
 import com.training.OnlineTraining.model.enums.ExerciseEquipment;
 import com.training.OnlineTraining.model.enums.WorkoutType;
-import com.training.OnlineTraining.service.ExerciseService;
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +17,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,9 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 		FlywayTestExecutionListener.class
 })
 public class ExerciseTest {
-
-	@Autowired
-	private ExerciseController exerciseController;
 
 	@Autowired
 	private ExerciseService exerciseService;

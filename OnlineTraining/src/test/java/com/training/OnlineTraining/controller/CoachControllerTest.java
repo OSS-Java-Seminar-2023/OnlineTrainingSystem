@@ -7,7 +7,6 @@ import com.training.OnlineTraining.model.User;
 import com.training.OnlineTraining.service.CoachService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -30,15 +29,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class CoachControllerTest {
 
-
 	@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
 	private CoachService coachService;
-
-	@InjectMocks
-	private CoachController coachController;
 
 	@Test
 	@WithMockUser(authorities = {"ADMIN", "COACH"})
