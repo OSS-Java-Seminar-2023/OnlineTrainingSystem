@@ -1,8 +1,7 @@
 # OnlineTrainingSystem💪🏋️‍♀️
 
-![home](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/9dbf35cf-370d-4d46-916f-830bb709b18c)
-![login-page](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/c7d24cc9-6f8c-4120-8d8b-82d97d198851)
-
+![home](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/9751cf9e-292a-421f-ac9e-4ca3f3233ec2)
+![login-page](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/4b968272-17a6-4c30-b9d4-2399e2225c91)
 
 ## List of Contents📜
 * [Developers](#developers)
@@ -27,7 +26,6 @@
 * [Luka Polić](https://github.com/PolicLL)
   
   [![text](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/luka-polic-a3a848231/)
-
 
 
 ## Goal of the Application⚽🥅
@@ -59,12 +57,9 @@ The primary objective of this application is to facilitate the connection betwee
      
 8. **Admin CRUD Operations**
    - Admin has full control over user management, including creating, reading, updating, and deleting client, coach profiles, contracts, measurments...
-
-     
-
-![contract-list](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/08d100e0-4386-4492-9e5e-e16bf4aade97)
-
-![admin-exercises](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/43ddf960-7444-479e-a1eb-aaf5832e1457)
+    
+![contract-list](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/49037fc0-5894-43b0-bedb-d7c33c758ee4)
+![admin-exercises](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/98de5890-1342-400b-b5e8-ada30421c670)
 
 
 ## Registration of Clients and Coaches📲📝
@@ -84,10 +79,9 @@ The primary objective of this application is to facilitate the connection betwee
   - Specify the types of training offered and educational background.
   - Provide years of coaching experience and pricing details.
 
-![register](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/9793e2e5-35a1-4e56-8c85-916d79ef6eb3)
-![client-registration-form](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/d26b0ea3-e063-437b-b27d-af7aa89ce614)
-![coach-registration-form](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/6f0632bf-cf11-491b-b760-42ed87b76fa4)
-
+![register](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/b2fbe59a-dec8-4956-9ee0-d5066f6cdebf)
+![client-registration-form](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/73a1f4e0-503b-4d2b-afc2-0dee6dfed50d)
+![coach-registration-form](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/ab3bcc34-f5f8-4508-904c-17b3c3270150)
 
 
 ## Business Logic🎓💡
@@ -113,19 +107,19 @@ The primary objective of this application is to facilitate the connection betwee
 
 ## Some functionalities📊
 
-![client-page](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/09bd3fca-ed70-4ce7-af6e-ddf259fb5865)
-![measurements](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/9aa65ead-740a-4bb7-ba34-a7b0471a2f7e)
-![charts](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/33aae7e2-a115-4417-a01c-71916a3bcac8)
-![contracts](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/b0b49387-bcc4-4dd4-a5b1-4138383b3e7d)
-![client-workout-list](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/13d43e90-1c88-4cdc-919b-4ab0a77d6a1e)
-![client-workout-details](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/6fd9479e-2f5c-4b5c-9b9e-3a2756e7ddd0)
-![make-a-contract](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/4a406b00-c5c1-4f22-a64c-ddeaa6d74ceb)
+![client-page](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/a84f0da4-5498-48a8-b9fa-dfb51417700a)
+![measurements](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/f3e65a22-2fc6-419c-ad82-43656b92c08a)
+![charts](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/9573c78e-bb20-4d8d-b930-e28c69f3f254)
+![contracts](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/99fdd9bb-c7bf-4466-8103-406931eb3640)
+![client-workout-list](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/7f2a21df-72ac-440a-a53d-8e87c75f8c22)
+![client-workout-details](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/5f0d8eb4-790f-4fad-a515-921303489173)
 
 
-![coach-page](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/42b57039-50aa-48de-a92d-168cd7511dc5)
-![workout-details](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/31c4cf26-96eb-437e-b3d0-81b4b67cc0b8)
-![workout-details-exercises](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/47662e1a-82e0-4dbb-8fe9-5ffe37584ff7)
-![update-workout](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/4792b137-52c1-4879-bd27-176286b71ca5)
+![coach-page](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/19361914-263a-4824-a96e-6e053422422b)
+![workout-details](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/4ae23270-5f4b-4bf8-a309-b47419603223)
+![workout-details-exercises](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/39a2598e-2375-4743-83cb-09c2c44f5e05)
+![update-workout](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/38b59efa-2d8d-4d4f-b059-ca86eaf9d0a4)
+
 
 
 ## Database⛓🔑
