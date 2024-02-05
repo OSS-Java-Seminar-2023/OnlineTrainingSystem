@@ -1,5 +1,9 @@
 # OnlineTrainingSystem💪🏋️‍♀️
 
+![home](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/9dbf35cf-370d-4d46-916f-830bb709b18c)
+![login-page](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/c7d24cc9-6f8c-4120-8d8b-82d97d198851)
+
+
 ## List of Contents📜
 * [Developers](#developers)
 * [Goal of the Application](#goal-of-the-application)
@@ -8,11 +12,14 @@
   * [For Clients](#for-clients)
   * [For Coaches](#for-coaches)  
 * [Business Logic](#business-logic)
+* [Some functionalities](#some-functionalities)
 * [Database](#database)
 * [Technologies](#technologies)
 
+
 ## Developers👨‍💻
 * [Branimir Bilić](https://github.com/nebra00)
+  
 * [Josip Čeprnić](https://github.com/Cepa95)
   
   [![text](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/josip-ceprnic/)
@@ -39,6 +46,7 @@ The primary objective of this application is to facilitate the connection betwee
 
 4. **For Coaches**
    - Coaches can create customized workout plans for their clients.
+   - Coaches can streamline their workflow and enhance efficiency by utilizing templates to create workouts.
 
 5. **For Clients**
    - Clients can fill out forms designed to track their progress.
@@ -51,6 +59,13 @@ The primary objective of this application is to facilitate the connection betwee
      
 8. **Admin CRUD Operations**
    - Admin has full control over user management, including creating, reading, updating, and deleting client, coach profiles, contracts, measurments...
+
+     
+
+![contract-list](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/08d100e0-4386-4492-9e5e-e16bf4aade97)
+
+![admin-exercises](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/43ddf960-7444-479e-a1eb-aaf5832e1457)
+
 
 ## Registration of Clients and Coaches📲📝
 
@@ -69,6 +84,12 @@ The primary objective of this application is to facilitate the connection betwee
   - Specify the types of training offered and educational background.
   - Provide years of coaching experience and pricing details.
 
+![register](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/9793e2e5-35a1-4e56-8c85-916d79ef6eb3)
+![client-registration-form](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/d26b0ea3-e063-437b-b27d-af7aa89ce614)
+![coach-registration-form](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/6f0632bf-cf11-491b-b760-42ed87b76fa4)
+
+
+
 ## Business Logic🎓💡
 
 - **Account Creation and Welcome Email**
@@ -79,13 +100,33 @@ The primary objective of this application is to facilitate the connection betwee
 
 - **Coach-Client Interaction**
   - Coaches can create tailored training programs for clients.
+  - Coaches can streamline their workflow and enhance efficiency by utilizing templates to create workouts.
 
 - **Progress Tracking**
   - Clients can fill out forms to track their progress, and the software calculates and monitors their improvements.
-  - Clients can visualize their fitness journey through dynamic charts that illustrate their measurements, offering an engaging and visually appealing representation of their progress over time
+  - Clients can visualize their fitness journey through dynamic charts that illustrate their measurements, offering an engaging and visually appealing representation of their progress over time.
 
 - **Workout Plan Delivery**
   - Clients have the ability to download their training programs in PDF format.
+
+
+
+## Some functionalities📊
+
+![client-page](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/09bd3fca-ed70-4ce7-af6e-ddf259fb5865)
+![measurements](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/9aa65ead-740a-4bb7-ba34-a7b0471a2f7e)
+![charts](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/33aae7e2-a115-4417-a01c-71916a3bcac8)
+![contracts](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/b0b49387-bcc4-4dd4-a5b1-4138383b3e7d)
+![client-workout-list](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/13d43e90-1c88-4cdc-919b-4ab0a77d6a1e)
+![client-workout-details](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/6fd9479e-2f5c-4b5c-9b9e-3a2756e7ddd0)
+![make-a-contract](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/4a406b00-c5c1-4f22-a64c-ddeaa6d74ceb)
+
+
+![coach-page](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/42b57039-50aa-48de-a92d-168cd7511dc5)
+![workout-details](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/31c4cf26-96eb-437e-b3d0-81b4b67cc0b8)
+![workout-details-exercises](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/47662e1a-82e0-4dbb-8fe9-5ffe37584ff7)
+![update-workout](https://github.com/Cepa95/OnlineTrainingSystem/assets/124800316/4792b137-52c1-4879-bd27-176286b71ca5)
+
 
 ## Database⛓🔑
 ![database](https://github.com/OSS-Java-Seminar-2023/OnlineTrainingSystem/assets/124800316/3826f440-fc49-43d3-a68c-f4211f2fb792)
@@ -107,11 +148,6 @@ The primary objective of this application is to facilitate the connection betwee
   ![Flyway](https://img.shields.io/badge/flyway-flyway?color=red)
   ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-Thymeleaf?color=greem)
   </p>
-
-
-
-
-
 
   
 
