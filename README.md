@@ -17,7 +17,6 @@
 
 
 ## Developers👨‍💻
-* [Branimir Bilić](https://github.com/nebra00)
   
 * [Josip Čeprnić](https://github.com/Cepa95)
   
